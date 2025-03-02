@@ -5,3 +5,10 @@
 /.vs
 /iiwi.Common/obj
 /iiwi.Model/obj
+/iiwi.Application/obj
+/iiwi.Core/obj
+/iiwi.Database/obj
+/iiwi.Domain/obj
+/iiwi.Infrastructure/obj
+/iiwi.Scheduler/obj
+/iiwi.SearchEngine/obj
