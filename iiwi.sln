@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34408.163
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iiwi.Model", "iiwi.Model\iiwi.Model.csproj", "{AE174A6E-78D9-4E21-BB31-8C0EBC722AD7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iiwi.Common", "iiwi.Common\iiwi.Common.csproj", "{224FB6B5-97D9-4AFB-9EDD-83654D1AC0D7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE174A6E-78D9-4E21-BB31-8C0EBC722AD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE174A6E-78D9-4E21-BB31-8C0EBC722AD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE174A6E-78D9-4E21-BB31-8C0EBC722AD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE174A6E-78D9-4E21-BB31-8C0EBC722AD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{224FB6B5-97D9-4AFB-9EDD-83654D1AC0D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{224FB6B5-97D9-4AFB-9EDD-83654D1AC0D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{224FB6B5-97D9-4AFB-9EDD-83654D1AC0D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{224FB6B5-97D9-4AFB-9EDD-83654D1AC0D7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C5B187BF-40BE-42CF-AE77-759DDB03D249}
+	EndGlobalSection
+EndGlobal
