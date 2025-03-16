@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Identity\" />
     <Folder Include="Configuration\" />
-    <Folder Include="Settings\" />
     <Folder Include="Permission\" />
     <Folder Include="Search\" />
   </ItemGroup>
