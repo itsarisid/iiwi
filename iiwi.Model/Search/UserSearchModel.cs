@@ -1,4 +1,7 @@
-﻿namespace iiwi.Model.Search;
+﻿using iiwi.SearchEngine.Facets;
+using iiwi.SearchEngine.Models;
+
+namespace iiwi.Model.Search;
 
 public class CustomerSearchModel : IDocument
 {

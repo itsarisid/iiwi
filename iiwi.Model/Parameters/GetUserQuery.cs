@@ -1,5 +1,4 @@
-﻿
-namespace iiwi.Model.Parameters;
+﻿namespace iiwi.Model.Parameters;
 
 internal class GetUserQuery : UserQuery
 {

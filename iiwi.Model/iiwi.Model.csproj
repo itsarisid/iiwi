@@ -15,4 +15,8 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="9.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\iiwi.SearchEngine\iiwi.SearchEngine.csproj" />
+  </ItemGroup>
+
 </Project>
