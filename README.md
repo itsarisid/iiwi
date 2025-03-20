@@ -72,10 +72,9 @@ The state-of-the-art architecture of Smartstore - with `ASP.NET Core 8`, `Entity
 
 ### Visual Studio
 
-- Clone the repository using the command `git clone https://github.com/smartstore/Smartstore.git` and checkout the `main` branch.
+- Clone the repository using the command `git clone https://github.com/itsarisid/iiwi.git` and checkout the `main` branch.
 - Download Visual Studio 2022 (any edition) from https://www.visualstudio.com/downloads/
-- Open `Smartstore.sln` and wait for Visual Studio to restore all NuGet packages
-- Make sure `Smartstore.Web` is the startup project and run it
+- Open `iiwi.sln` and wait for Visual Studio to restore all NuGet packages
 
 ### Repository Structure
 
