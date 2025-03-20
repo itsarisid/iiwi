@@ -19,9 +19,9 @@ Reviews & Ratings: Transparent feedback system for counselors.
 Analytics Dashboard: Counselors track session history, earnings, and blog performance.
 .
 
-**Smartstore delivers a beautiful and configurable out-of-the-box**, built with a high level design approach, including components like `Sass`, `Tailwind` `Angular` and others. The included *Flex* theme is modern, clean and fully responsive.
+**iiwi delivers a beautiful and configurable out-of-the-box**, built with a high level design approach, including components like `Sass`, `Tailwind` `Angular` and others. The included *Flex* theme is modern, clean and fully responsive.
 
-The state-of-the-art architecture of Smartstore - with `ASP.NET Core 8`, `Entity Framework Core 8` and Domain Driven Design approach - makes it easy to extend, extremely flexible and basically fun to work with ;-)
+The state-of-the-art architecture of iiwi - with `ASP.NET Core 8`, `Entity Framework Core 8` and Domain Driven Design approach - makes it easy to extend, extremely flexible and basically fun to work with ;-)
 
 
 ## Technology & Design
@@ -85,6 +85,6 @@ The state-of-the-art architecture of Smartstore - with `ASP.NET Core 8`, `Entity
 
 ## License
 
-Smartstore Community Edition is released under the [MIT](https://github.com/itsarisid/iiwi?tab=MIT-1-ov-file#readme).
+iiwi is released under the [MIT](https://github.com/itsarisid/iiwi?tab=MIT-1-ov-file#readme).
 
 **Add a star to our repository** to stay up-to-date, get involved or just watch how we're doing. Learn about the latest developments, actively participate and don't miss out on new releases.
