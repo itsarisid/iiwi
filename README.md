@@ -1,110 +1,91 @@
-# iiwi
+<p align="center">
+	<a href="#" target="_blank" rel="noopener noreferrer">
+		<img src="https://cdn1.iconfinder.com/data/icons/cute-egg-emoji-in-different-expressions/200/EGG2-1024.png" alt="iiwi" width="120">
+	</a>
+</p>
 
-## Project Overview
-### iiwi is a mobile-first platform designed to bridge students and counselors through personalized counseling sessions and a collaborative blogging community. Students can discover verified counselors, book sessions, and engage with user-generated content, while counselors showcase their expertise via blogs and manage their professional profiles.
+<p align="center">
+    <b>A modular, scalable and ultra-fast open-source all-in-one platform built on ASP.NET Core 8.</b>
+</p>
+<br/>
 
-## Key Features:
+**iiwi** is a mobile-first platform designed to bridge students and counselors through personalized counseling sessions and a collaborative blogging community. Students can discover verified counselors, book sessions, and engage with user-generated content, while counselors showcase their expertise via blogs and manage their professional profiles..
 
 Role-Based Registration: Separate onboarding for students and counselors (with verification for counselors).
-
 Counselor Search & Booking: Filter by expertise, ratings, cost, and availability. Integrated calendar and payment processing.
-
 Interactive Blogs: Post, like, comment, and share stories. Counselors and students can create content on their profiles.
-
 In-App Communication: Secure chat/video calls for sessions.
-
 Reviews & Ratings: Transparent feedback system for counselors.
-
 Analytics Dashboard: Counselors track session history, earnings, and blog performance.
+.
 
-## Tech Stack
-Frontend: React Native (iOS/Android)
+**Smartstore delivers a beautiful and configurable out-of-the-box**, built with a high level design approach, including components like `Sass`, `Tailwind` `Angular` and others. The included *Flex* theme is modern, clean and fully responsive.
 
-Backend: Node.js + Express.js
+The state-of-the-art architecture of Smartstore - with `ASP.NET Core 8`, `Entity Framework Core 8` and Domain Driven Design approach - makes it easy to extend, extremely flexible and basically fun to work with ;-)
 
-Database: MongoDB (with Mongoose ORM)
 
-Authentication: JWT + OAuth 2.0
+## Technology & Design
 
-Real-Time Features: Socket.io (chat/notifications)
+* State-of-the-art architecture with `ASP.NET Core 8`, `Entity Framework Core 8` and domain-driven design
+* Cross-platform: run it on Windows, Linux, or Mac
+* Supports `Docker` out of the box for easy deployment
+* Composable, extensible and highly flexible due to modular design
+* Highly scalable with full page caching and web farm support 
+* Powerful theme engine allows you to create or customise themes & skins with minimal effort thanks to theme inheritance
+* Point&Click theme configuration
+* Liquid template engine: highly flexible templating for emails and campaigns with auto-completion and syntax highlighting
+* Html to PDF converter: creates PDF documents from regular HTML templates, radically simplifying the customisation of PDF output
+* Consistent and sophisticated use of modern components such as `Angular`, `Sass`, `Tailwind` & more in the front and back end.
+<p>&nbsp;</p>
 
-Payment Gateway: Stripe/PayPal Integration
+## Key Features
 
-Cloud Storage: AWS S3/Firebase (for media uploads)
+* Multi-language and full RTL (Right-to-Left) and Bidi(rectional) support
+* Reviews & Ratings
+* Media Manager: powerful and lightning fast media file explorer
+* Rule Builder: powerful rule system for visual business rule creation with dozens of predefined rules out-of-the-box
+* Search framework with faceted search support. Ultra-fast search results, even with millions of items!
+* Extremely scalable through output caching, REDIS & Microsoft Azure support
+* Tree-based permission management (ACL) with inheritance support
+* Sophisticated import/export framework (profiles, filters, mapping, projections, scheduling, deployment... basically everything!)
+* Modern, clean, SEO-optimized and fully responsive `Tailwind`-based theme
+* RESTful WebApi
+<p>&nbsp;</p>
 
-DevOps: Docker, GitHub Actions (CI/CD)
+## Getting Started
 
-## Repository Structure
-Copy
-├── client/                 # React Native frontend  
-│   ├── screens/           # UI components (student/counselor flows)  
-│   ├── utils/             # API handlers, auth logic  
-│   └── navigation/        # Stack and tab navigators  
-├── server/                # Node.js backend  
-│   ├── controllers/       # Business logic (users, blogs, sessions)  
-│   ├── models/            # MongoDB schemas  
-│   ├── routes/            # API endpoints  
-│   └── middleware/        # Auth, validation, error handling  
-├── docs/                  # Wireframes, ER diagrams, API documentation  
-├── .github/               # Workflows, issue templates  
-└── README.md              # Project setup guide  
-Getting Started
-Prerequisites:
+### System requirements
 
-Node.js v18+, MongoDB, Expo CLI (for mobile testing).
+#### Supported operating systems
 
-## Installation:
+* Windows 10 (or higher) / Windows Server 2012 R2 (or higher)
+* Ubuntu 14.04+
+* Debian 11+
+* Mac OS X 10.11+
 
-bash
-Copy
-git clone https://github.com/[your-username]/MentorshipHub.git  
-cd MentorshipHub/client && npm install  
-cd ../server && npm install  
-Environment Variables:
+#### Supported database systems
 
-Create .env files in client/ and server/ with:
+- Microsoft SQL Server 2008 Express (or higher)
+- MySQL 8.0+
+- PostgreSQL 11+
+- SQLite 3.31+
 
-Copy
-# Server .env  
-MONGODB_URI=your_mongo_uri  
-JWT_SECRET=your_jwt_secret  
-STRIPE_API_KEY=your_stripe_key  
-Run Locally:
+### Visual Studio
 
-bash
-Copy
-# Start backend  
-cd server && npm run dev  
-# Start frontend  
-cd client && npm start  
-Contributing
-We welcome contributions! Please read our CONTRIBUTING.md for guidelines.
+- Clone the repository using the command `git clone https://github.com/smartstore/Smartstore.git` and checkout the `main` branch.
+- Download Visual Studio 2022 (any edition) from https://www.visualstudio.com/downloads/
+- Open `Smartstore.sln` and wait for Visual Studio to restore all NuGet packages
+- Make sure `Smartstore.Web` is the startup project and run it
 
-Issues: Report bugs or feature requests via GitHub Issues.
+### Repository Structure
 
-Pull Requests: Fork the repo, create a branch, and submit a PR with clear descriptions.
+<p>&nbsp;</p>
 
-License
-This project is licensed under the MIT License. See LICENSE for details.
+## Try it online
 
-## Acknowledgments
-Inspired by platforms like BetterHelp and Medium.
 
-Built with ❤️ by Sajid.
+## License
 
-## Roadmap
-Add AI-driven counselor recommendations.
+Smartstore Community Edition is released under the [MIT](https://github.com/itsarisid/iiwi?tab=MIT-1-ov-file#readme).
 
-Implement push notifications via Firebase.
-
-Expand monetization (subscriptions, ads).
-
-## Screenshots:
-### Home Feed
-### Counselor Profile
-
-## Connect:
-For questions, contact itsarisid@gmail.com.
-
-🌟 Star this repo if you find it helpful!
-🚀 Let’s empower mentorship together!
+**Add a star to our repository** to stay up-to-date, get involved or just watch how we're doing. Learn about the latest developments, actively participate and don't miss out on new releases.
