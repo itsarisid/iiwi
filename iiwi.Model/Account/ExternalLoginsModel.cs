@@ -1,5 +1,5 @@
 ﻿
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNet.Identity;
 
 namespace iiwi.Model.Account;
 
