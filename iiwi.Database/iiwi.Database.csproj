@@ -16,4 +16,8 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\iiwi.Domain\iiwi.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
