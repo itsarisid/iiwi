@@ -1,10 +1,10 @@
-﻿using iiwi.Domain.Identity;
+﻿using DotNetCore.Domain;
+using iiwi.Domain.Identity;
 
 namespace iiwi.Domain;
 
-public abstract class BaseEntity
+public abstract class BaseEntity:Entity
 {
-    public int Id { get; set; }
     public DateTime CreationDate { get; set; }
     public Guid CreatedByUserId { get; set; }
     public DateTime UpdateDate { get; set; }

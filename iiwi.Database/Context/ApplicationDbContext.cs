@@ -1,4 +1,5 @@
-﻿using iiwi.Domain.Identity;
+﻿using iiwi.Common;
+using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,7 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
     {
         base.OnModelCreating(builder);
 
-        builder.HasDefaultSchema(Common.SchemaName);
+        builder.HasDefaultSchema(General.SchemaName);
 
         // Customize the ASP.NET Identity model and override the defaults if needed.
         // For example, you can rename the ASP.NET Identity table names and more.

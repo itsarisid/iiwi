@@ -21,7 +21,8 @@ public sealed class PermissionConfiguration : IEntityTypeConfiguration<Permissio
 
         builder.Property(entity => entity.CreationDate).ValueGeneratedOnAdd().IsRequired();
         builder.Property(entity => entity.CreatedByUserId).IsRequired();
-        builder.Property(entity => entity.UpdateDate).ValueGeneratedOnUpdate().IsRequired();
-        builder.Property(entity => entity.UpdateByUserId).IsRequired();
+
+        builder.Property(entity => entity.UpdateDate).ValueGeneratedOnUpdate();
+        builder.Property(entity => entity.UpdateByUserId);
     }
 }

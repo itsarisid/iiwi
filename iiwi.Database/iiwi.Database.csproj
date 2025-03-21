@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DotNetCore.Objects" Version="19.11.0" />
+    <PackageReference Include="DotNetCore.Repositories" Version="19.11.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.3" />
@@ -17,7 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\iiwi.Common\iiwi.Common.csproj" />
     <ProjectReference Include="..\iiwi.Domain\iiwi.Domain.csproj" />
+    <ProjectReference Include="..\iiwi.Model\iiwi.Model.csproj" />
   </ItemGroup>
 
 </Project>
