@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
+    <PackageReference Include="DotNetCore.EntityFrameworkCore" Version="19.11.0" />
     <PackageReference Include="DotNetCore.IoC" Version="19.11.0" />
     <PackageReference Include="DotNetCore.Mediator" Version="19.11.0" />
     <PackageReference Include="IGeekFan.AspNetCore.RapiDoc" Version="0.0.8" />
@@ -21,6 +22,11 @@
   <ItemGroup>
     <None Include="wwwroot\swagger-ui\swagger-dark.css" />
     <None Include="wwwroot\swagger-ui\swagger-dark.user.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\iiwi.Application\iiwi.Application.csproj" />
+    <ProjectReference Include="..\iiwi.Database\iiwi.Database.csproj" />
   </ItemGroup>
 
 </Project>

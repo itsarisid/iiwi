@@ -5,7 +5,7 @@ using System.Security.Claims;
 
 namespace iiwi.Application;
 
-internal class ClaimsPrincipalFactory(
+public class ClaimsPrincipalFactory(
         UserManager<ApplicationUser> userManager,
         RoleManager<IdentityRole> roleManager,
         IOptions<IdentityOptions> optionsAccessor) : UserClaimsPrincipalFactory<ApplicationUser, IdentityRole>(userManager, roleManager, optionsAccessor)
