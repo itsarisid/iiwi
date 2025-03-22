@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iiwi.SearchEngine", "iiwi.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iiwi.Library", "iiwi.Library\iiwi.Library.csproj", "{D9F3A935-771F-4C59-A46A-3C72B2408890}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iiwi.AppWire", "iiwi.AppWire\iiwi.AppWire.csproj", "{1DDD6CCB-F7BD-4EA6-90AD-742611899BE1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{D9F3A935-771F-4C59-A46A-3C72B2408890}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9F3A935-771F-4C59-A46A-3C72B2408890}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9F3A935-771F-4C59-A46A-3C72B2408890}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DDD6CCB-F7BD-4EA6-90AD-742611899BE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DDD6CCB-F7BD-4EA6-90AD-742611899BE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DDD6CCB-F7BD-4EA6-90AD-742611899BE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DDD6CCB-F7BD-4EA6-90AD-742611899BE1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
