@@ -23,4 +23,5 @@
 /iiwi.Infrastructure/bin/Debug/net8.0
 /iiwi.Library/bin/Debug/net8.0
 /iiwi.Scheduler/bin/Debug/net8.0
-/iiwi.AppWire
+/iiwi.AppWire/bin/Debug/net9.0
+/iiwi.AppWire/obj
