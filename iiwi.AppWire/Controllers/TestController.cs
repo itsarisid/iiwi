@@ -27,11 +27,12 @@ public class TestController(IServiceProvider serviceProvider) : BaseController
         var result = new
         {
             Auther = "iiwi",
+            Version = "1.0.0",
             Assembly = assembly,
             Environment = _hostingEnvironment.EnvironmentName,
             Environment.MachineName,
             Framework = RuntimeInformation.FrameworkDescription,
-            OS = $"{RuntimeInformation.OSDescription} ({RuntimeInformation.OSArchitecture})",
+            OS = $"{RuntimeInformation.OSDescription} - ({RuntimeInformation.OSArchitecture})",
         };
         return Ok(result);
     }
