@@ -23,7 +23,7 @@ public class iiwiDbContextFactory : IDesignTimeDbContextFactory<iiwiDbContext>
 
         var connectionString = configuration.GetConnectionString("DefaultConnection");
 
-        builder.UseSqlServer(connectionString, b => b.MigrationsAssembly("Architecture.Database"));
+        builder.UseSqlServer(connectionString, b => b.MigrationsAssembly("iiwi.Database"));
 
         //builder.UseSqlServer(connectionString);
 

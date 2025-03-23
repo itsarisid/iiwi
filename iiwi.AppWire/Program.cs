@@ -2,10 +2,11 @@ using Asp.Versioning;
 using DotNetCore.EntityFrameworkCore;
 using DotNetCore.IoC;
 using DotNetCore.Mediator;
+using DotNetCore.Services;
 using iiwi.AppWire.Configurations;
 using iiwi.Database;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+using static System.Net.Mime.MediaTypeNames;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,7 @@ builder.Services.AddResponseCompression();
 builder.Services.AddControllers();
 
 builder.Services.AddResponseCompression();
+builder.Services.AddJsonStringLocalizer();
 builder.Services.AddWebServices();
 builder.Services.AddContext<iiwiDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(iiwiDbContext))));
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(iiwiDbContext))));
@@ -30,15 +32,28 @@ builder.Services.AddApiVersioning(x =>
 
 builder.Services.AddSwaggerDocuments();
 
+builder.Services.AddResponseCaching(options =>
+{
+    options.MaximumBodySize = 1024;
+    options.UseCaseSensitivePaths = true;
+});
+builder.Services.AddCors();
+
 var app = builder.Build();
 
 app.UseStaticFiles();
 app.UseEnvironment();
-
+app.UseRouting();
+app.UseCors(options =>
+    options.AllowAnyOrigin()
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+);
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.UseRouting();
 app.MapControllers();
-
+//NOTE: UseCors must be called before UseResponseCaching
+app.UseResponseCaching();
 app.Run();

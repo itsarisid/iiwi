@@ -16,7 +16,7 @@ public sealed class PermissionConfiguration : IEntityTypeConfiguration<Permissio
         builder.Property(entity => entity.Name).HasMaxLength(250).IsRequired();
         builder.Property(entity => entity.IsActive).IsRequired();
 
-        builder.Property(entity => entity.IsDeleted);
+        builder.Property(entity => entity.IsDeleted).ValueGeneratedOnAddOrUpdate();
         builder.Property(entity => entity.DeletedDate);
         builder.Property(entity => entity.DeletedByUserId);
 
