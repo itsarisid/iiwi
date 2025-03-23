@@ -1,7 +1,5 @@
 
-namespace Architecture.Application.Authentication
+namespace iiwi.Application.Authentication;
+public record DownloadPersonalDataRequest
 {
-    public record DownloadPersonalDataRequest
-    {
-    }
 }

@@ -1,12 +1,11 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace Architecture.Application.Authentication
+namespace iiwi.Application.Authentication;
+
+public record DeletePersonalDataRequest
 {
-    public record DeletePersonalDataRequest
-    {
-        [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-    }
+    [Required]
+    [DataType(DataType.Password)]
+    public string Password { get; set; }
 }

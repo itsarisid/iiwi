@@ -1,4 +1,5 @@
 ﻿using DotNetCore.AspNetCore;
+using iiwi.Application.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

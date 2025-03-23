@@ -1,13 +1,13 @@
 // Ignore Spelling: Validator
 
+using FluentValidation;
 
-namespace Architecture.Application.Authentication
+namespace iiwi.Application.Authentication;
+
+public class DeletePersonalDataValidator : AbstractValidator<DeletePersonalDataRequest>
 {
-    public class DeletePersonalDataValidator : AbstractValidator<DeletePersonalDataRequest>
+    public DeletePersonalDataValidator()
     {
-        public DeletePersonalDataValidator()
-        {
-            RuleFor(request => request.Password).Password();
-        }
+        RuleFor(request => request.Password).Password();
     }
 }

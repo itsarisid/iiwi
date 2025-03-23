@@ -1,8 +1,9 @@
 
-namespace Architecture.Application.Authentication
+using iiwi.Application;
+
+namespace iiw.Application.Authentication;
+
+public record DownloadPersonalDataResponse:Response
 {
-    public record DownloadPersonalDataResponse:Response
-    {
-        public Dictionary<string, string> Data { get; set; }
-    }
+    public Dictionary<string, string> Data { get; set; }
 }
