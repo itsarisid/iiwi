@@ -1,4 +1,5 @@
-﻿using DotNetCore.Objects;
+﻿using DotNetCore.EntityFrameworkCore;
+using DotNetCore.Objects;
 using DotNetCore.Repositories;
 using iiwi.Domain;
 using iiwi.Model.Permission;
@@ -7,7 +8,7 @@ using System.Linq.Expressions;
 
 namespace iiwi.Database.Permissions;
 
-public class PermissionRepository(iiwiDbContext context) : Repository<Permission>(context), IPermissionRepository
+public class PermissionRepository(iiwiDbContext context) : EFRepository<Permission>(context), IPermissionRepository
 {
     public static Expression<Func<Permission, PermissionModel>> Model => user => new PermissionModel
     {

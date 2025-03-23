@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DotNetCore.EntityFrameworkCore" Version="19.11.0" />
     <PackageReference Include="DotNetCore.Objects" Version="19.11.0" />
     <PackageReference Include="DotNetCore.Repositories" Version="19.11.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.1" />
