@@ -23,3 +23,8 @@
 /iiwi.Infrastructure/bin/Debug/net8.0
 /iiwi.Library/bin/Debug/net8.0
 /iiwi.Scheduler/bin/Debug/net8.0
+/iiwi.AppWire/bin/Debug/net9.0
+/iiwi.AppWire/obj
+/iiwi.Application/bin/Debug/net9.0
+/iiwi.Common/bin/Debug/net9.0
+/iiwi.Domain/bin/Debug/net9.0

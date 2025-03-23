@@ -1,23 +1,25 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using iiwi.Common;
+using iiwi.Domain.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 namespace iiwi.Database;
 
-public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<IdentityUser>(options)
+public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser>(options)
 {
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
 
-        builder.HasDefaultSchema("iiwi");
+        builder.HasDefaultSchema(General.SchemaName);
 
         // Customize the ASP.NET Identity model and override the defaults if needed.
         // For example, you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
 
-        builder.Entity<IdentityUser>(entity =>
+        builder.Entity<ApplicationUser>(entity =>
         {
-            entity.ToTable(name: "AppUser");
+            entity.ToTable(name: "User");
         });
 
         builder.Entity<IdentityRole>(entity =>
@@ -26,19 +28,19 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
         });
         builder.Entity<IdentityUserRole<string>>(entity =>
         {
-            entity.ToTable("UserRoles");
+            entity.ToTable("Roles");
             //in case you changed the TKey type
             //  entity.HasKey(key => new { key.UserId, key.RoleId });
         });
 
         builder.Entity<IdentityUserClaim<string>>(entity =>
         {
-            entity.ToTable("UserClaims");
+            entity.ToTable("Claims");
         });
 
         builder.Entity<IdentityUserLogin<string>>(entity =>
         {
-            entity.ToTable("UserLogins");
+            entity.ToTable("Logins");
             //in case you changed the TKey type
             //  entity.HasKey(key => new { key.ProviderKey, key.LoginProvider });       
         });

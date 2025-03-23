@@ -1,9 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNetCore.Mediator" Version="19.11.0" />
+    <PackageReference Include="DotNetCore.Objects" Version="19.11.0" />
+    <PackageReference Include="DotNetCore.Results" Version="19.11.0" />
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+    <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework" Version="2.2.4" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="9.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\iiwi.Common\iiwi.Common.csproj" />
+    <ProjectReference Include="..\iiwi.Domain\iiwi.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="File\Get\" />
+    <Folder Include="File\Delete\" />
+  </ItemGroup>
 
 </Project>
