@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace iiwi.Database.Permissions;
 
-public class PermissionRepository(iiwiDbContext context) : Repository<Permission>(context), IPermissionRepository
+public class PermissionRepository(iiwiDbContext context) : EFRepository<Permission>(context), IPermissionRepository
 {
     public static Expression<Func<Permission, PermissionModel>> Model => user => new PermissionModel
     {
