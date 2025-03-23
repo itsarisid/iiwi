@@ -8,10 +8,8 @@ using System.Runtime.InteropServices;
 namespace iiwi.AppWire.Controllers;
 
 /// <summary>Test Controller</summary>
-[ApiController]
-[ApiVersion("1.0")]
+
 [Route("api/v{version:apiVersion}/[controller]")]
-[EnableRateLimiting("fixed")]
 public class TestController(IServiceProvider serviceProvider) : BaseController
 {
     private readonly IWebHostEnvironment _hostingEnvironment = serviceProvider.GetRequiredService<IWebHostEnvironment>();

@@ -5,8 +5,8 @@ using DotNetCore.Mediator;
 using DotNetCore.Services;
 using iiwi.AppWire.Configurations;
 using iiwi.Database;
+using iiwi.Model.Settings;
 using Microsoft.EntityFrameworkCore;
-using static System.Net.Mime.MediaTypeNames;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +38,10 @@ builder.Services.AddResponseCaching(options =>
     options.UseCaseSensitivePaths = true;
 });
 builder.Services.AddCors();
+
+builder.Services.AddOptions<SettingsOptions>()
+        .Bind(builder.Configuration.GetSection(SettingsOptions.ConfigurationSectionName))
+        .ValidateDataAnnotations();
 
 var app = builder.Build();
 
