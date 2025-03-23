@@ -25,4 +25,8 @@
     <ProjectReference Include="..\iiwi.Model\iiwi.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Permissions\" />
+  </ItemGroup>
+
 </Project>
