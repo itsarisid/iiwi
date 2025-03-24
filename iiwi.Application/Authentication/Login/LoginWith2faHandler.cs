@@ -1,5 +1,6 @@
 using DotNetCore.Mediator;
 using DotNetCore.Results;
+using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System.Net;
@@ -7,11 +8,11 @@ using System.Net;
 namespace iiwi.Application.Authentication;
 
 public class LoginWith2faHandler(
-    SignInManager<IdentityUser> signInManager,
+    SignInManager<ApplicationUser> signInManager,
     ILogger<LoginWith2faHandler> logger
     ) : IHandler<LoginWith2faRequest, Response>
 {
-    private readonly SignInManager<IdentityUser> _signInManager = signInManager;
+    private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
     private readonly ILogger<LoginWith2faHandler> _logger = logger;
 
     public async Task<Result<Response>> HandleAsync(LoginWith2faRequest request)

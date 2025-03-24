@@ -2,6 +2,7 @@ using DotNetCore.Mediator;
 using DotNetCore.Results;
 using iiwi.Application.Provider;
 using iiwi.Common;
+using iiwi.Domain.Identity;
 using iiwi.Infrastructure;
 using iiwi.Infrastructure.Email;
 using iiwi.Model.Settings;
@@ -13,11 +14,11 @@ using System.Text;
 namespace iiwi.Application.Authentication
 {
     public class SendVerificationEmailHandler(
-    UserManager<IdentityUser> userManager,
+    UserManager<ApplicationUser> userManager,
     IClaimsProvider claimsProvider,
     IMailService mailService) : IHandler<SendVerificationEmailRequest, Response>
     {
-        private readonly UserManager<IdentityUser> _userManager = userManager;
+        private readonly UserManager<ApplicationUser> _userManager = userManager;
         private readonly IClaimsProvider _claimsProvider = claimsProvider;
         private readonly IMailService _mailService = mailService;
 

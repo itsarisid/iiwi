@@ -1,5 +1,6 @@
 using DotNetCore.Mediator;
 using DotNetCore.Results;
+using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Net;
@@ -8,11 +9,11 @@ using System.Text;
 namespace iiwi.Application.Authentication
 {
     public class ConfirmEmailChangeHandler(
-    UserManager<IdentityUser> userManager,
-    SignInManager<IdentityUser> signInManager) : IHandler<ConfirmEmailChangeRequest, Response>
+    UserManager<ApplicationUser> userManager,
+    SignInManager<ApplicationUser> signInManager) : IHandler<ConfirmEmailChangeRequest, Response>
     {
-        private readonly UserManager<IdentityUser> _userManager = userManager;
-        private readonly SignInManager<IdentityUser> _signInManager = signInManager;
+        private readonly UserManager<ApplicationUser> _userManager = userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
 
         public async Task<Result<Response>> HandleAsync(ConfirmEmailChangeRequest request)
         {

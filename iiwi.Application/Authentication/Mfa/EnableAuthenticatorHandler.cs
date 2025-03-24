@@ -1,6 +1,7 @@
 using DotNetCore.Mediator;
 using DotNetCore.Results;
 using iiwi.Application.Provider;
+using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System.Net;
@@ -9,12 +10,12 @@ using System.Text.Encodings.Web;
 namespace iiwi.Application.Authentication
 {
     public class EnableAuthenticatorHandler(
-    UserManager<IdentityUser> userManager,
+    UserManager<ApplicationUser> userManager,
     UrlEncoder urlEncoder,
     IClaimsProvider claimsProvider,
     ILogger<EnableAuthenticatorHandler> logger) : IHandler<EnableAuthenticatorRequest, EnableAuthenticatorResponse>
     {
-        private readonly UserManager<IdentityUser> _userManager = userManager;
+        private readonly UserManager<ApplicationUser> _userManager = userManager;
         private readonly IClaimsProvider _claimsProvider = claimsProvider;
         private readonly UrlEncoder _urlEncoder = urlEncoder;
         private readonly ILogger<EnableAuthenticatorHandler> _logger = logger;

@@ -2,6 +2,7 @@ using DotNetCore.Mediator;
 using DotNetCore.Results;
 using iiwi.Application.Provider;
 using iiwi.Common;
+using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using System.Net;
 using System.Text;
@@ -10,11 +11,11 @@ using System.Text.Encodings.Web;
 namespace iiwi.Application.Authentication;
 
 internal class LoadKeyAndQrCodeUriHandler(
-UserManager<IdentityUser> userManager,
+UserManager<ApplicationUser> userManager,
 IClaimsProvider claimsProvider,
 UrlEncoder urlEncoder) : IHandler<LoadKeyAndQrCodeUriRequest, LoadKeyAndQrCodeUriResponse>
 {
-    private readonly UserManager<IdentityUser> _userManager = userManager;
+    private readonly UserManager<ApplicationUser> _userManager = userManager;
     private readonly IClaimsProvider _claimsProvider = claimsProvider;
     private readonly UrlEncoder _urlEncoder = urlEncoder;
 

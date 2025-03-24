@@ -1,5 +1,6 @@
 using DotNetCore.Mediator;
 using DotNetCore.Results;
+using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System.Net;
@@ -7,12 +8,12 @@ using System.Net;
 namespace iiwi.Application.Authentication
 {
     public class LoginHandler(
-        SignInManager<IdentityUser> signInManager,
-        ILogger<LoginHandler> logger
+        SignInManager<ApplicationUser> signInManager,
+        ILogger<ApplicationUser> logger
         ) : IHandler<LoginRequest, Response>
     {
-        private readonly SignInManager<IdentityUser> _signInManager = signInManager;
-        private readonly ILogger<LoginHandler> _logger = logger;
+        private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
+        private readonly ILogger<ApplicationUser> _logger = logger;
 
         public async Task<Result<Response>> HandleAsync(LoginRequest request)
         {

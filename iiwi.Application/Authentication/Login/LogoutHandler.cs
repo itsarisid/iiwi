@@ -1,15 +1,16 @@
 using DotNetCore.Mediator;
 using DotNetCore.Results;
+using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using System.Net;
 
 namespace iiwi.Application.Authentication;
 
 public class LogoutHandler(
-    SignInManager<IdentityUser> signInManager
+    SignInManager<ApplicationUser> signInManager
     ) : IHandler<LogoutRequest, Response>
 {
-    private readonly SignInManager<IdentityUser> _signInManager = signInManager;
+    private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
 
     public async Task<Result<Response>> HandleAsync(LogoutRequest request)
     {

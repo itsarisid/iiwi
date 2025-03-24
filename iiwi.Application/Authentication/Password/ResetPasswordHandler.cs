@@ -1,5 +1,6 @@
 using DotNetCore.Mediator;
 using DotNetCore.Results;
+using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Net;
@@ -8,9 +9,9 @@ using System.Text;
 namespace iiwi.Application.Authentication;
 
 public class ResetPasswordHandler(
-UserManager<IdentityUser> userManager) : IHandler<ResetPasswordRequest, Response>
+UserManager<ApplicationUser> userManager) : IHandler<ResetPasswordRequest, Response>
 {
-    private readonly UserManager<IdentityUser> _userManager = userManager;
+    private readonly UserManager<ApplicationUser> _userManager = userManager;
 
     public async Task<Result<Response>> HandleAsync(ResetPasswordRequest request)
     {

@@ -1,14 +1,15 @@
 using DotNetCore.Mediator;
 using DotNetCore.Results;
 using iiwi.Application.Provider;
+using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System.Net;
 
 namespace iiwi.Application.Authentication;
 public class DeletePersonalDataHandler(
-UserManager<IdentityUser> userManager,
-SignInManager<IdentityUser> signInManager,
+UserManager<ApplicationUser> userManager,
+SignInManager<ApplicationUser> signInManager,
 IClaimsProvider claimsProvider,
 ILogger<LoginHandler> logger) : IHandler<DeletePersonalDataRequest, Response>
 {

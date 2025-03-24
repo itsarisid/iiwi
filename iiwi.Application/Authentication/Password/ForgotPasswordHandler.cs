@@ -1,6 +1,7 @@
 using DotNetCore.Mediator;
 using DotNetCore.Results;
 using iiwi.Common;
+using iiwi.Domain.Identity;
 using iiwi.Infrastructure.Email;
 using iiwi.Model.Settings;
 using Microsoft.AspNetCore.Identity;
@@ -11,10 +12,10 @@ using System.Text;
 namespace iiwi.Application.Authentication;
 
 public class ForgotPasswordHandler(
-UserManager<IdentityUser> userManager,
+UserManager<ApplicationUser> userManager,
 IMailService mailService) : IHandler<ForgotPasswordRequest, Response>
 {
-    private readonly UserManager<IdentityUser> _userManager = userManager;
+    private readonly UserManager<ApplicationUser> _userManager = userManager;
     private readonly IMailService _mailService = mailService;
 
     public async Task<Result<Response>> HandleAsync(ForgotPasswordRequest request)

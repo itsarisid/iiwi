@@ -1,6 +1,7 @@
 using DotNetCore.Mediator;
 using DotNetCore.Results;
 using iiwi.Application.Provider;
+using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System.Net;
@@ -8,13 +9,13 @@ using System.Net;
 namespace iiwi.Application.Authentication;
 
 public class SetPasswordHandler(
-UserManager<IdentityUser> userManager,
-SignInManager<IdentityUser> signInManager,
+UserManager<ApplicationUser> userManager,
+SignInManager<ApplicationUser> signInManager,
 IClaimsProvider claimsProvider,
 ILogger<SetPasswordHandler> logger) : IHandler<SetPasswordRequest, Response>
 {
-    private readonly UserManager<IdentityUser> _userManager = userManager;
-    private readonly SignInManager<IdentityUser> _signInManager = signInManager;
+    private readonly UserManager<ApplicationUser> _userManager = userManager;
+    private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
     private readonly IClaimsProvider _claimsProvider = claimsProvider;
     private readonly ILogger<SetPasswordHandler> _logger = logger;
 

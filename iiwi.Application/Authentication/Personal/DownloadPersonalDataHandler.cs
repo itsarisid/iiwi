@@ -2,18 +2,19 @@ using DotNetCore.Mediator;
 using DotNetCore.Results;
 using iiw.Application.Authentication;
 using iiwi.Application.Provider;
+using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System.Net;
 namespace iiwi.Application.Authentication;
 public class DownloadPersonalDataHandler(
-UserManager<IdentityUser> userManager,
+UserManager<ApplicationUser> userManager,
 IClaimsProvider claimsProvider,
-ILogger<LoginHandler> loggere) : IHandler<DownloadPersonalDataRequest, Response>
+ILogger<DownloadPersonalDataHandler> loggere) : IHandler<DownloadPersonalDataRequest, Response>
 {
-    private readonly UserManager<IdentityUser> _userManager = userManager;
+    private readonly UserManager<ApplicationUser> _userManager = userManager;
     private readonly IClaimsProvider _claimsProvider = claimsProvider;
-    private readonly ILogger<LoginHandler> _logger = logger;
+    private readonly ILogger<DownloadPersonalDataHandler> _logger = logger;
 
     public async Task<Result<Response>> HandleAsync(DownloadPersonalDataRequest request)
     {

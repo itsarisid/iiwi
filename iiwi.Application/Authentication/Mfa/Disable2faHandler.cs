@@ -1,6 +1,7 @@
 using DotNetCore.Mediator;
 using DotNetCore.Results;
 using iiwi.Application.Provider;
+using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System.Net;
@@ -8,11 +9,11 @@ using System.Net;
 namespace iiwi.Application.Authentication
 {
     public class Disable2faHandler(
-    UserManager<IdentityUser> userManager,
+    UserManager<ApplicationUser> userManager,
     IClaimsProvider claimsProvider,
     ILogger<Disable2faHandler> logger) : IHandler<Disable2faRequest, Response>
     {
-        private readonly UserManager<IdentityUser> _userManager = userManager;
+        private readonly UserManager<ApplicationUser> _userManager = userManager;
         private readonly IClaimsProvider _claimsProvider = claimsProvider;
         private readonly ILogger<Disable2faHandler> _logger = logger;
 

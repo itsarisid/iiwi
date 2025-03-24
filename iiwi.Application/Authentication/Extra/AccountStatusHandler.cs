@@ -1,18 +1,19 @@
 using DotNetCore.Mediator;
 using DotNetCore.Results;
 using iiwi.Application.Provider;
+using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using System.Net;
 
 namespace iiwi.Application.Authentication;
 
 public class AccountStatusHandler(
-UserManager<IdentityUser> userManager,
-SignInManager<IdentityUser> signInManager,
+UserManager<ApplicationUser> userManager,
+SignInManager<ApplicationUser> signInManager,
 IClaimsProvider claimsProvider) : IHandler<AccountStatusRequest, AccountStatusResponse>
 {
-    private readonly UserManager<IdentityUser> _userManager = userManager;
-    private readonly SignInManager<IdentityUser> _signInManager = signInManager;
+    private readonly UserManager<ApplicationUser> _userManager = userManager;
+    private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
     private readonly IClaimsProvider _claimsProvider = claimsProvider;
 
     public async Task<Result<AccountStatusResponse>> HandleAsync(AccountStatusRequest request)

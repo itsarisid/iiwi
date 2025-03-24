@@ -1,6 +1,7 @@
 using DotNetCore.Mediator;
 using DotNetCore.Results;
 using iiwi.Application.Provider;
+using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Net;
@@ -9,9 +10,9 @@ using System.Text;
 namespace iiwi.Application.Authentication
 {
     public class ConfirmEmailHandler(
-    UserManager<IdentityUser> userManager) : IHandler<ConfirmEmailRequest, Response>
+    UserManager<ApplicationUser> userManager) : IHandler<ConfirmEmailRequest, Response>
     {
-        private readonly UserManager<IdentityUser> _userManager = userManager;
+        private readonly UserManager<ApplicationUser> _userManager = userManager;
 
         public async Task<Result<Response>> HandleAsync(ConfirmEmailRequest request)
         {

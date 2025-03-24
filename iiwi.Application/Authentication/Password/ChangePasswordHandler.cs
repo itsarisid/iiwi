@@ -1,19 +1,20 @@
 using DotNetCore.Mediator;
 using DotNetCore.Results;
 using iiwi.Application.Provider;
+using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System.Net;
 namespace iiwi.Application.Authentication;
 
 public class ChangePasswordHandler(
-UserManager<IdentityUser> userManager,
-SignInManager<IdentityUser> signInManager,
+UserManager<ApplicationUser> userManager,
+SignInManager<ApplicationUser> signInManager,
 IClaimsProvider claimsProvider,
 ILogger<ChangePasswordHandler> logger) : IHandler<ChangePasswordRequest, Response>
 {
-    private readonly UserManager<IdentityUser> _userManager = userManager;
-    private readonly SignInManager<IdentityUser> _signInManager = signInManager;
+    private readonly UserManager<ApplicationUser> _userManager = userManager;
+    private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
     private readonly IClaimsProvider _claimsProvider= claimsProvider;
     private readonly ILogger<ChangePasswordHandler> _logger = logger;
 

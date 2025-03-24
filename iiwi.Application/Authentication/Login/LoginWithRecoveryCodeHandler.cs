@@ -2,6 +2,7 @@
 using DotNetCore.Mediator;
 using DotNetCore.Results;
 using iiwi.Application.Provider;
+using iiwi.Domain.Identity;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
@@ -10,11 +11,11 @@ using System.Net;
 namespace iiwi.Application.Authentication
 {
     public class LoginWithRecoveryCodeHandler(
-        SignInManager<IdentityUser> signInManager,
+        SignInManager<ApplicationUser> signInManager,
          ILogger<LoginHandler> logger
         ) : IHandler<LoginWithRecoveryCodeRequest , Response>
     {
-        private readonly SignInManager<IdentityUser> _signInManager = signInManager;
+        private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
         private readonly ILogger<LoginHandler> _logger = logger;
 
         public async Task<Result<Response>> HandleAsync(LoginWithRecoveryCodeRequest request)

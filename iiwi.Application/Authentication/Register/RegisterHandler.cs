@@ -8,24 +8,25 @@ using DotNetCore.Mediator;
 using iiwi.Infrastructure.Email;
 using iiwi.Model.Settings;
 using System.Net;
+using iiwi.Domain.Identity;
 
 namespace iiwi.Application.Authentication;
 
 public class RegisterHandler(
-UserManager<IdentityUser> userManager,
-SignInManager<IdentityUser> signInManager,
+UserManager<ApplicationUser> userManager,
+SignInManager<ApplicationUser> signInManager,
 ILogger<RegisterHandler> logger,
 IMailService mailService) : IHandler<RegisterRequest, RegisterResponse>
 {
-    private readonly UserManager<IdentityUser> _userManager = userManager;
-    private readonly SignInManager<IdentityUser> _signInManager = signInManager;
+    private readonly UserManager<ApplicationUser> _userManager = userManager;
+    private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
     private readonly ILogger<RegisterHandler> _logger = logger;
     private readonly IMailService _mailService = mailService;
 
     public async Task<Result<RegisterResponse>> HandleAsync(RegisterRequest request)
     {
 
-        var user = new IdentityUser { UserName = request.Email, Email = request.Email };
+        var user = new ApplicationUser { UserName = request.Email, Email = request.Email };
         var result = await _userManager.CreateAsync(user, request.Password);
         if (result.Succeeded)
         {
