@@ -1,24 +1,21 @@
+using DotNetCore.Mediator;
+using DotNetCore.Results;
+using iiwi.Application.Provider;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Net;
 using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 
-namespace Architecture.Application.Authentication
+namespace iiwi.Application.Authentication
 {
     public class EnableAuthenticatorHandler(
     UserManager<IdentityUser> userManager,
     UrlEncoder urlEncoder,
     IClaimsProvider claimsProvider,
-    ILogger<EnableAuthenticatorHandler> logger,
-    IResultService resultService) : IHandler<EnableAuthenticatorRequest, EnableAuthenticatorResponse>
+    ILogger<EnableAuthenticatorHandler> logger) : IHandler<EnableAuthenticatorRequest, EnableAuthenticatorResponse>
     {
         private readonly UserManager<IdentityUser> _userManager = userManager;
         private readonly IClaimsProvider _claimsProvider = claimsProvider;
-        private readonly IResultService _resultService = resultService;
         private readonly UrlEncoder _urlEncoder = urlEncoder;
         private readonly ILogger<EnableAuthenticatorHandler> _logger = logger;
 
@@ -29,7 +26,10 @@ namespace Architecture.Application.Authentication
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
             if (user == null)
             {
-                return _resultService.Error<EnableAuthenticatorResponse>($"Unable to load user with ID '{_userManager.GetUserId(_claimsProvider.ClaimsPrinciple)}'.");
+                return new Result<EnableAuthenticatorResponse>(HttpStatusCode.BadRequest, new EnableAuthenticatorResponse
+                {
+                    Message = $"Unable to load user with ID '{_userManager.GetUserId(_claimsProvider.ClaimsPrinciple)}'."
+                });
             }
 
             // Strip spaces and hypens
@@ -40,7 +40,10 @@ namespace Architecture.Application.Authentication
 
             if (!is2faTokenValid)
             {
-                return _resultService.Error<EnableAuthenticatorResponse>("Verification code is invalid.");
+                return new Result<EnableAuthenticatorResponse>(HttpStatusCode.BadRequest, new EnableAuthenticatorResponse
+                {
+                    Message = "Verification code is invalid."
+                });
             }
 
             await _userManager.SetTwoFactorEnabledAsync(user, true);
@@ -62,7 +65,7 @@ namespace Architecture.Application.Authentication
             {
                 var recoveryCodes = await _userManager.GenerateNewTwoFactorRecoveryCodesAsync(user, 10);
                 //ShowRecoveryCodes";
-                return _resultService.Success(new EnableAuthenticatorResponse
+                return new Result<EnableAuthenticatorResponse>(HttpStatusCode.OK, new EnableAuthenticatorResponse
                 {
                     RecoveryCodes = recoveryCodes?.ToArray(),
                     AuthenticatorUri = GenerateQrCodeUri(email, unformattedKey),
@@ -71,7 +74,10 @@ namespace Architecture.Application.Authentication
             }
             else
             {
-                return _resultService.Error<EnableAuthenticatorResponse>("Verification code is invalid.");
+                return new Result<EnableAuthenticatorResponse>(HttpStatusCode.BadRequest, new EnableAuthenticatorResponse
+                {
+                    Message = "Verification code is invalid."
+                });
             }
         }
 

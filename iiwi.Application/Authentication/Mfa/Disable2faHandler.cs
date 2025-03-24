@@ -1,17 +1,19 @@
+using DotNetCore.Mediator;
+using DotNetCore.Results;
+using iiwi.Application.Provider;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
+using System.Net;
 
-namespace Architecture.Application.Authentication
+namespace iiwi.Application.Authentication
 {
     public class Disable2faHandler(
     UserManager<IdentityUser> userManager,
     IClaimsProvider claimsProvider,
-    ILogger<Disable2faHandler> logger,
-    IResultService resultService) : IHandler<Disable2faRequest, Response>
+    ILogger<Disable2faHandler> logger) : IHandler<Disable2faRequest, Response>
     {
         private readonly UserManager<IdentityUser> _userManager = userManager;
         private readonly IClaimsProvider _claimsProvider = claimsProvider;
-        private readonly IResultService _resultService = resultService;
         private readonly ILogger<Disable2faHandler> _logger = logger;
 
         public async Task<Result<Response>> HandleAsync(Disable2faRequest request)
@@ -19,7 +21,10 @@ namespace Architecture.Application.Authentication
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
             if (user == null)
             {
-                return _resultService.Error<Response>($"Unable to load user with ID '{_userManager.GetUserId(_claimsProvider.ClaimsPrinciple)}'.");
+                return new Result<Response>(HttpStatusCode.BadRequest, new Response
+                {
+                    Message = $"Unable to load user with ID '{_userManager.GetUserId(_claimsProvider.ClaimsPrinciple)}'."
+                });
             }
 
             var disable2faResult = await _userManager.SetTwoFactorEnabledAsync(user, false);
@@ -29,7 +34,7 @@ namespace Architecture.Application.Authentication
             }
 
             _logger.LogInformation("User with ID '{UserId}' has disabled 2fa.", _userManager.GetUserId(_claimsProvider.ClaimsPrinciple));
-            return _resultService.Success(new Response
+            return new Result<Response>(HttpStatusCode.OK, new Response
             {
                 Message = "2fa has been disabled. You can re enable 2fa when you setup an authenticator app and call TwoFactorAuthentication",
             });

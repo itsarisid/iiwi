@@ -1,13 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+namespace iiwi.Application.Authentication;
 
-namespace Architecture.Application.Authentication.Mfa
+public record GenerateRecoveryCodesResponse:Response
 {
-    public record GenerateRecoveryCodesResponse:Response
-    {
-        public string[] RecoveryCodes { get; set; }
-    }
+    public string[] RecoveryCodes { get; set; }
 }
