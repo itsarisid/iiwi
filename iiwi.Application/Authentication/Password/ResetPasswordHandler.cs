@@ -1,38 +1,44 @@
+using DotNetCore.Mediator;
+using DotNetCore.Results;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
+using System.Net;
 using System.Text;
 
-namespace Architecture.Application.Authentication
+namespace iiwi.Application.Authentication;
+
+public class ResetPasswordHandler(
+UserManager<IdentityUser> userManager) : IHandler<ResetPasswordRequest, Response>
 {
-    public class ResetPasswordHandler(
-    UserManager<IdentityUser> userManager,
-    IResultService resultService) : IHandler<ResetPasswordRequest, Response>
+    private readonly UserManager<IdentityUser> _userManager = userManager;
+
+    public async Task<Result<Response>> HandleAsync(ResetPasswordRequest request)
     {
-        private readonly UserManager<IdentityUser> _userManager = userManager;
-        private readonly IResultService _resultService = resultService;
+        request.Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(request.Code));
 
-        public async Task<Result<Response>> HandleAsync(ResetPasswordRequest request)
+        var user = await _userManager.FindByEmailAsync(request.Email);
+        if (user == null)
         {
-            request.Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(request.Code));
-
-            var user = await _userManager.FindByEmailAsync(request.Email);
-            if (user == null)
+            // Don't reveal that the user does not exist
+            return new Result<Response>(HttpStatusCode.BadRequest, new Response
             {
-                // Don't reveal that the user does not exist
-                return _resultService.Error<Response>($"Unable to load user with email '{request.Email}'.");
-            }
-
-            var result = await _userManager.ResetPasswordAsync(user, request.Code, request.Password);
-            if (result.Succeeded)
-            {
-                return _resultService.Success(new Response
-                {
-                    Message = "Your password has been reset"
-                });
-            }
-
-            return _resultService.Error<Response>("Error...");
-
+                Message = $"Unable to load user with email '{request.Email}'."
+            });
         }
+
+        var result = await _userManager.ResetPasswordAsync(user, request.Code, request.Password);
+        if (result.Succeeded)
+        {
+            return new Result<Response>(HttpStatusCode.OK, new Response
+            {
+                Message = "Your password has been reset"
+            });
+        }
+
+        return new Result<Response>(HttpStatusCode.InternalServerError, new Response
+        {
+            Message = "Error..."
+        });
+
     }
 }

@@ -1,12 +1,13 @@
 // Ignore Spelling: Validator
 
-namespace Architecture.Application.Authentication
+using FluentValidation;
+
+namespace iiwi.Application.Authentication;
+
+public class ForgotPasswordValidator : AbstractValidator<ForgotPasswordRequest>
 {
-    public class ForgotPasswordValidator : AbstractValidator<ForgotPasswordRequest>
+    public ForgotPasswordValidator()
     {
-        public ForgotPasswordValidator()
-        {
-            RuleFor(request => request.Email).Email();
-        }
+        RuleFor(request => request.Email).Email();
     }
 }

@@ -1,11 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Architecture.Application.Authentication
+namespace iiwi.Application.Authentication;
+
+public record ForgotPasswordRequest
 {
-    public record ForgotPasswordRequest
-    {
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; }
-    }
+    [Required]
+    [EmailAddress]
+    public string Email { get; set; }
 }

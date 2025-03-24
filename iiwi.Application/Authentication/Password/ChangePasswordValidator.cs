@@ -1,15 +1,14 @@
 // Ignore Spelling: Validator
+using FluentValidation;
 
+namespace iiwi.Application.Authentication;
 
-namespace Architecture.Application.Authentication
+public class ChangePasswordValidator : AbstractValidator<ChangePasswordRequest>
 {
-    public class ChangePasswordValidator : AbstractValidator<ChangePasswordRequest>
+    public ChangePasswordValidator()
     {
-        public ChangePasswordValidator()
-        {
-            RuleFor(request => request.OldPassword).Password();
-            RuleFor(request => request.NewPassword).Password();
-            RuleFor(request => request.ConfirmPassword).ConfirmPassword().Equal(x=>x.NewPassword);
-        }
+        RuleFor(request => request.OldPassword).Password();
+        RuleFor(request => request.NewPassword).Password();
+        RuleFor(request => request.ConfirmPassword).ConfirmPassword().Equal(x=>x.NewPassword);
     }
 }
