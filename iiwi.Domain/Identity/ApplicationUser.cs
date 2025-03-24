@@ -2,7 +2,7 @@
 
 namespace iiwi.Domain.Identity;
 
-public class ApplicationUser : IdentityUser
+public class ApplicationUser : IdentityUser<int>
 {
     [PersonalData]
     public string Gender { get; set; }
