@@ -1,18 +1,13 @@
 // Ignore Spelling: Validator
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using FluentValidation;
 
-namespace Architecture.Application.Authentication
+namespace iiwi.Application.Authentication;
+
+public class ChangeEmailValidator : AbstractValidator<ChangeEmailRequest>
 {
-    public class ChangeEmailValidator : AbstractValidator<ChangeEmailRequest>
+    public ChangeEmailValidator()
     {
-        public ChangeEmailValidator()
-        {
-            RuleFor(request => request.NewEmail).Email();
-        }
+        RuleFor(request => request.NewEmail).Email();
     }
 }

@@ -1,18 +1,11 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+namespace iiwi.Application.Authentication;
 
-namespace Architecture.Application.Authentication
+public class ConfirmEmailRequest
 {
-    public class ConfirmEmailRequest
-    {
-        [Required]
-        public string UserId { get; set; }
+    [Required]
+    public string UserId { get; set; }
 
-        [Required]
-        public string Code { get; set; }
-    }
+    [Required]
+    public string Code { get; set; }
 }

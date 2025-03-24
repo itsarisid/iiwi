@@ -1,14 +1,15 @@
 // Ignore Spelling: Validator
 
-namespace Architecture.Application.Authentication
+using FluentValidation;
+
+namespace iiwi.Application.Authentication;
+
+public class ConfirmEmailChangeValidator : AbstractValidator<ConfirmEmailChangeRequest>
 {
-    public class ConfirmEmailChangeValidator : AbstractValidator<ConfirmEmailChangeRequest>
+    public ConfirmEmailChangeValidator()
     {
-        public ConfirmEmailChangeValidator()
-        {
-            RuleFor(request => request.Email).Email();
-            RuleFor(request => request.UserId).NotEmpty();
-            RuleFor(request => request.Code).NotEmpty();
-        }
+        RuleFor(request => request.Email).Email();
+        RuleFor(request => request.UserId).NotEmpty();
+        RuleFor(request => request.Code).NotEmpty();
     }
 }

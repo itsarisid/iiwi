@@ -1,29 +1,35 @@
-using Architecture.Common;
-using Architecture.Infrastructure;
-using Architecture.Infrastructure.Email;
+using DotNetCore.Mediator;
+using DotNetCore.Results;
+using iiwi.Application.Provider;
+using iiwi.Common;
+using iiwi.Infrastructure;
+using iiwi.Infrastructure.Email;
+using iiwi.Model.Settings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
+using System.Net;
 using System.Text;
 
-namespace Architecture.Application.Authentication
+namespace iiwi.Application.Authentication
 {
     public class SendVerificationEmailHandler(
     UserManager<IdentityUser> userManager,
     IClaimsProvider claimsProvider,
-    IMailService mailService,
-    IResultService resultService) : IHandler<SendVerificationEmailRequest, Response>
+    IMailService mailService) : IHandler<SendVerificationEmailRequest, Response>
     {
         private readonly UserManager<IdentityUser> _userManager = userManager;
         private readonly IClaimsProvider _claimsProvider = claimsProvider;
         private readonly IMailService _mailService = mailService;
-        private readonly IResultService _resultService = resultService;
 
         public async Task<Result<Response>> HandleAsync(SendVerificationEmailRequest request)
         {
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
             if (user == null)
             {
-                return _resultService.Error<Response>($"Unable to load user with ID '{_userManager.GetUserId(_claimsProvider.ClaimsPrinciple)}'.");
+                return new Result<Response>(HttpStatusCode.BadRequest, new Response
+                {
+                    Message = $"Unable to load user with ID '{_userManager.GetUserId(_claimsProvider.ClaimsPrinciple)}'."
+                });
             }
 
 
@@ -45,7 +51,7 @@ namespace Architecture.Application.Authentication
                 TemplateName = Templates.VerificationEmail
             });
 
-            return _resultService.Success(new Response
+            return new Result<Response>(HttpStatusCode.OK, new Response
             {
                 Message = "Verification email sent. Please check your email."
             });

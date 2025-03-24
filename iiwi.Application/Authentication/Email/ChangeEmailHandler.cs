@@ -1,28 +1,32 @@
-using Architecture.Common;
-using Architecture.Infrastructure;
-using Architecture.Infrastructure.Email;
+using DotNetCore.Mediator;
+using DotNetCore.Results;
+using iiwi.Application.Provider;
+using iiwi.Common;
+using iiwi.Infrastructure.Email;
+using iiwi.Model.Settings;
 using Microsoft.AspNetCore.Identity;
-using System.Text.Encodings.Web;
+using System.Net;
 
-namespace Architecture.Application.Authentication
+namespace iiwi.Application.Authentication
 {
     public class ChangeEmailHandler(
     UserManager<IdentityUser> userManager,
     IClaimsProvider claimsProvider,
-    IMailService mailService,
-    IResultService resultService) : IHandler<ChangeEmailRequest, Response>
+    IMailService mailService) : IHandler<ChangeEmailRequest, Response>
     {
         private readonly UserManager<IdentityUser> _userManager = userManager;
         private readonly IClaimsProvider _claimsProvider = claimsProvider;
         private readonly IMailService _mailService = mailService;
-        private readonly IResultService _resultService = resultService;
 
         public async Task<Result<Response>> HandleAsync(ChangeEmailRequest request)
         {
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
             if (user == null)
             {
-                return _resultService.Error<Response>($"Unable to load user with ID '{_userManager.GetUserId(_claimsProvider.ClaimsPrinciple)}'.");
+                return new Result<Response>(HttpStatusCode.BadRequest, new Response
+                {
+                    Message = $"Unable to load user with ID '{_userManager.GetUserId(_claimsProvider.ClaimsPrinciple)}'."
+                });
             }
 
             var email = await _userManager.GetEmailAsync(user);
@@ -44,12 +48,15 @@ namespace Architecture.Application.Authentication
                     TemplateName = Templates.ChangeEmail
                 });
 
-                return _resultService.Success(new Response
+                return new Result<Response>(HttpStatusCode.OK, new Response
                 {
                     Message = "Confirmation link to change email sent. Please check your email."
                 });
             }
-            return _resultService.Error<Response>("Your email is unchanged.");
+            return new Result<Response>(HttpStatusCode.OK, new Response
+            {
+                Message = "Your email is unchanged."
+            });
         }
     }
 }
