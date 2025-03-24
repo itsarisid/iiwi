@@ -7,6 +7,7 @@ using iiwi.AppWire.Configurations;
 using iiwi.Database;
 using iiwi.Model.Settings;
 using Microsoft.EntityFrameworkCore;
+using static System.Net.Mime.MediaTypeNames;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,13 @@ builder.Services.AddWebServices();
 builder.Services.AddContext<iiwiDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(iiwiDbContext))));
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(iiwiDbContext))));
 builder.Services.AddIdentity();
+//builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("TwoFactorEnabled",
+        x => x.RequireClaim("amr", "mfa")
+    );
+});
 builder.Services.AddClassesMatchingInterfaces(nameof(iiwi));
 builder.Services.AddMediator(nameof(iiwi));
 builder.Services.AddApiVersioning(x =>
@@ -48,6 +56,8 @@ var app = builder.Build();
 app.UseStaticFiles();
 app.UseEnvironment();
 app.UseRouting();
+
+//NOTE: UseCors must be called before UseResponseCaching
 app.UseCors(options =>
     options.AllowAnyOrigin()
     .AllowAnyHeader()
@@ -55,9 +65,9 @@ app.UseCors(options =>
 );
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseRouting();
 app.MapControllers();
-//NOTE: UseCors must be called before UseResponseCaching
 app.UseResponseCaching();
 app.Run();

@@ -1,4 +1,5 @@
 ﻿using DotNetCore.AspNetCore;
+using iiwi.Application;
 using iiwi.Application.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,17 +18,23 @@ public class AuthController : BaseController
     [AllowAnonymous]
     public IActionResult Register(RegisterRequest request) => Mediator.HandleAsync<RegisterRequest, RegisterResponse>(request).ApiResult();
 
-    /// <summary>Logins this instance.</summary>
-    /// <param name="request"></param>
-    /// <returns>
-    ///   <br />
-    /// </returns>
-    /// <remarks>Sample request:
-    ///   POST /Login
-    ///   {
-    ///       "email": "user@example.com",
-    ///       "password": "password"
-    ///   }</remarks>
+    /// <summary>
+    /// Authentications the specified request.
+    /// </summary>
+    /// <param name="request">The request.</param>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     POST /Auth
+    ///     {
+    ///        "login": "sajid",
+    ///        "password": "khan"
+    ///     }
+    ///
+    /// </remarks>
+    /// <returns>Authorized user</returns>
+    /// <response code="201">Authorized user</response>
+    /// <response code="400">If the user is null</response>
     [HttpPost("login")]
     [AllowAnonymous]
     public IActionResult Login(LoginRequest request) => Mediator.HandleAsync<LoginRequest, Response>(request).ApiResult();
