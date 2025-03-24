@@ -12,7 +12,7 @@ using iiwi.Database;
 namespace iiwi.Database.Migrations.Identity
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250324135904_Identity")]
+    [Migration("20250324183407_Identity")]
     partial class Identity
     {
         /// <inheritdoc />
@@ -76,10 +76,10 @@ namespace iiwi.Database.Migrations.Identity
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
-                    b.Property<string>("ProviderKey")
+                    b.Property<string>("LoginProvider")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("LoginProvider")
+                    b.Property<string>("ProviderKey")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
@@ -88,7 +88,7 @@ namespace iiwi.Database.Migrations.Identity
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("ProviderKey", "LoginProvider");
+                    b.HasKey("LoginProvider", "ProviderKey");
 
                     b.HasIndex("UserId");
 
@@ -248,6 +248,105 @@ namespace iiwi.Database.Migrations.Identity
                     b.ToTable("User", "Identity");
                 });
 
+            modelBuilder.Entity("iiwi.Domain.Permission", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CodeName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UpdateByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("DeletedByUserId");
+
+                    b.HasIndex("UpdateByUserId");
+
+                    b.ToTable("Permission", "Identity");
+                });
+
+            modelBuilder.Entity("iiwi.Domain.RolePermission", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int?>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<long?>("PermissionsId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UpdateByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("DeletedByUserId");
+
+                    b.HasIndex("PermissionsId");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("UpdateByUserId");
+
+                    b.ToTable("RolePermission", "Identity");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("iiwi.Domain.Identity.ApplicationRole", null)
@@ -297,6 +396,70 @@ namespace iiwi.Database.Migrations.Identity
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("iiwi.Domain.Permission", b =>
+                {
+                    b.HasOne("iiwi.Domain.Identity.ApplicationUser", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId");
+
+                    b.HasOne("iiwi.Domain.Identity.ApplicationUser", "DeletedByUser")
+                        .WithMany()
+                        .HasForeignKey("DeletedByUserId");
+
+                    b.HasOne("iiwi.Domain.Identity.ApplicationUser", "UpdateByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdateByUserId");
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("DeletedByUser");
+
+                    b.Navigation("UpdateByUser");
+                });
+
+            modelBuilder.Entity("iiwi.Domain.RolePermission", b =>
+                {
+                    b.HasOne("iiwi.Domain.Identity.ApplicationUser", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId");
+
+                    b.HasOne("iiwi.Domain.Identity.ApplicationUser", "DeletedByUser")
+                        .WithMany()
+                        .HasForeignKey("DeletedByUserId");
+
+                    b.HasOne("iiwi.Domain.Permission", "Permissions")
+                        .WithMany("RolePermissions")
+                        .HasForeignKey("PermissionsId");
+
+                    b.HasOne("iiwi.Domain.Identity.ApplicationRole", "Role")
+                        .WithMany("RolePermissions")
+                        .HasForeignKey("RoleId");
+
+                    b.HasOne("iiwi.Domain.Identity.ApplicationUser", "UpdateByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdateByUserId");
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("DeletedByUser");
+
+                    b.Navigation("Permissions");
+
+                    b.Navigation("Role");
+
+                    b.Navigation("UpdateByUser");
+                });
+
+            modelBuilder.Entity("iiwi.Domain.Identity.ApplicationRole", b =>
+                {
+                    b.Navigation("RolePermissions");
+                });
+
+            modelBuilder.Entity("iiwi.Domain.Permission", b =>
+                {
+                    b.Navigation("RolePermissions");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,5 @@
 ﻿using iiwi.Common;
+using iiwi.Domain;
 using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -30,7 +31,7 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
         {
             entity.ToTable("Roles");
             //in case you changed the TKey type
-             entity.HasKey(key => new { key.UserId, key.RoleId });
+            //entity.HasKey(key => new { key.UserId, key.RoleId });
         });
 
         builder.Entity<IdentityUserClaim<int>>(entity =>
@@ -42,7 +43,7 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
         {
             entity.ToTable("Logins");
             //in case you changed the TKey type
-              entity.HasKey(key => new { key.ProviderKey, key.LoginProvider });       
+            //entity.HasKey(key => new { key.ProviderKey, key.LoginProvider });       
         });
 
         builder.Entity<IdentityRoleClaim<int>>(entity =>
@@ -55,7 +56,23 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
         {
             entity.ToTable("UserTokens");
             //in case you changed the TKey type
-             entity.HasKey(key => new { key.UserId, key.LoginProvider, key.Name });
+            //entity.HasKey(key => new { key.UserId, key.LoginProvider, key.Name });
+
+        });
+
+        builder.Entity<Permission>(entity =>
+        {
+            entity.ToTable("Permission");
+            //in case you changed the TKey type
+            entity.HasKey(key => new { key.Id });
+
+        });
+
+        builder.Entity<RolePermission>(entity =>
+        {
+            entity.ToTable("RolePermission");
+            //in case you changed the TKey type
+            entity.HasKey(key => new { key.Id });
 
         });
     }

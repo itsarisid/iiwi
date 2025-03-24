@@ -15,9 +15,9 @@ public static class iiwiContextSeed
             CodeName= "admin",
             IsActive = true,
             IsDeleted = false,
-            CreatedByUserId = new Guid("00000000-0000-0000-0000-000000000000"),
+            //CreatedByUserId = new Guid("00000000-0000-0000-0000-000000000000"),
             CreationDate = new DateTime(2025, 3, 23),
-            UpdateByUserId = new Guid("00000000-0000-0000-0000-000000000000"),
+            //UpdateByUserId = new Guid("00000000-0000-0000-0000-000000000000"),
             UpdateDate = new DateTime(2025, 3, 23),
         }));
     }

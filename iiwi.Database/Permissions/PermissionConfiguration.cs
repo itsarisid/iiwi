@@ -18,12 +18,12 @@ public sealed class PermissionConfiguration : IEntityTypeConfiguration<Permissio
 
         builder.Property(entity => entity.IsDeleted).ValueGeneratedOnAddOrUpdate();
         builder.Property(entity => entity.DeletedDate);
-        builder.Property(entity => entity.DeletedByUserId);
+        //builder.Property(entity => entity.DeletedByUserId);
 
         builder.Property(entity => entity.CreationDate).ValueGeneratedOnAdd().IsRequired();
-        builder.Property(entity => entity.CreatedByUserId).IsRequired();
+        //builder.Property(entity => entity.CreatedByUserId).IsRequired();
 
         builder.Property(entity => entity.UpdateDate).ValueGeneratedOnUpdate();
-        builder.Property(entity => entity.UpdateByUserId);
+        //builder.Property(entity => entity.UpdateByUserId);
     }
 }
