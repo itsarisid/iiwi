@@ -1,26 +1,21 @@
-using Microsoft.AspNetCore.Http;
+using DotNetCore.Mediator;
+using DotNetCore.Results;
+using iiwi.Application.Provider;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 
-namespace Architecture.Application.Authentication
+namespace iiwi.Application.Authentication
 {
     public class LinkLoginHandler(
     UserManager<IdentityUser> userManager,
     SignInManager<IdentityUser> signInManager,
     IClaimsProvider claimsProvider,
-    ILogger<LinkLoginHandler> logger,
-    IResultService resultService) : IHandler<LinkLoginRequest, Response>
+    ILogger<LinkLoginHandler> logger) : IHandler<LinkLoginRequest, Response>
     {
         private readonly UserManager<IdentityUser> _userManager = userManager;
         private readonly SignInManager<IdentityUser> _signInManager = signInManager;
         private readonly IClaimsProvider _claimsProvider = claimsProvider;
-        private readonly IResultService _resultService = resultService;
         private readonly ILogger<LinkLoginHandler> _logger = logger;
 
         public async Task<Result<Response>> HandleAsync(LinkLoginRequest request)
@@ -28,7 +23,10 @@ namespace Architecture.Application.Authentication
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
             if (user == null)
             {
-                return _resultService.Error<Response>($"Unable to load user with ID '{_userManager.GetUserId(_claimsProvider.ClaimsPrinciple)}'.");
+                return new Result<Response>(HttpStatusCode.BadRequest, new Response
+                {
+                    Message = $"Unable to load user with ID '{_userManager.GetUserId(_claimsProvider.ClaimsPrinciple)}'."
+                });
             }
 
             // Clear the existing external cookie to ensure a clean login process
@@ -45,7 +43,7 @@ namespace Architecture.Application.Authentication
             //await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             //StatusMessage = "The external login was added.";
-            return _resultService.Success(new Response
+            return new Result<Response>(HttpStatusCode.OK, new Response
             {
                 Message = "Method not implemented",
             });

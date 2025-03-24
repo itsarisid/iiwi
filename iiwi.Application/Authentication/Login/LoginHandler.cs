@@ -1,22 +1,17 @@
+using DotNetCore.Mediator;
+using DotNetCore.Results;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 
-namespace Architecture.Application.Authentication
+namespace iiwi.Application.Authentication
 {
     public class LoginHandler(
         SignInManager<IdentityUser> signInManager,
-        IResultService resultService,
         ILogger<LoginHandler> logger
         ) : IHandler<LoginRequest, Response>
     {
         private readonly SignInManager<IdentityUser> _signInManager = signInManager;
-        private readonly IResultService _resultService = resultService;
         private readonly ILogger<LoginHandler> _logger = logger;
 
         public async Task<Result<Response>> HandleAsync(LoginRequest request)
@@ -27,15 +22,15 @@ namespace Architecture.Application.Authentication
             if (result.Succeeded)
             {
                 _logger.LogInformation("User logged in.");
-                return _resultService.Success<Response>(new RegisterResponse
+                return new Result<Response>(HttpStatusCode.OK, new Response
                 {
-                    Message = "User logged in.",
+                    Message = "User logged in."
                 });
             }
             if (result.RequiresTwoFactor)
             {
                 _logger.LogInformation("Login with 2fa");
-                return _resultService.Success<Response>(new RegisterResponse
+                return new Result<Response>(HttpStatusCode.OK, new RegisterResponse
                 {
                     Message = "Login with 2fa",
                 });
@@ -43,14 +38,17 @@ namespace Architecture.Application.Authentication
             if (result.IsLockedOut)
             {
                 _logger.LogWarning("User account locked out.");
-                return _resultService.Success<Response>(new RegisterResponse
+                return new Result<Response>(HttpStatusCode.OK, new RegisterResponse
                 {
                     Message = "User account locked out.",
                 });
             }
             else
             {
-                return _resultService.Error<Response>("Invalid login attempt.");
+                return new Result<Response>(HttpStatusCode.BadRequest, new RegisterResponse
+                {
+                    Message = "Invalid login attempt."
+                });
             }
         }
     }

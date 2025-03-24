@@ -1,12 +1,13 @@
 // Ignore Spelling: Validator
 
-namespace Architecture.Application.Authentication
+using FluentValidation;
+
+namespace iiwi.Application.Authentication;
+
+public class LoginWithRecoveryCodeValidator : AbstractValidator<LoginWithRecoveryCodeRequest>
 {
-    public class LoginWithRecoveryCodeValidator : AbstractValidator<LoginWithRecoveryCodeRequest>
+    public LoginWithRecoveryCodeValidator()
     {
-        public LoginWithRecoveryCodeValidator()
-        {
-            RuleFor(request => request.RecoveryCode).NotEmpty();
-        }
+        RuleFor(request => request.RecoveryCode).NotEmpty();
     }
 }

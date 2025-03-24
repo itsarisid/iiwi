@@ -1,13 +1,12 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace Architecture.Application.Authentication
+namespace iiwi.Application.Authentication;
+
+public record LoginWithRecoveryCodeRequest
 {
-    public record LoginWithRecoveryCodeRequest
-    {
-        [Required]
-        [DataType(DataType.Text)]
-        [Display(Name = "Recovery Code")]
-        public string RecoveryCode { get; set; }
-    }
+    [Required]
+    [DataType(DataType.Text)]
+    [Display(Name = "Recovery Code")]
+    public string RecoveryCode { get; set; }
 }

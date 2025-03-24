@@ -1,42 +1,43 @@
-using Microsoft.AspNetCore.Authentication;
+using DotNetCore.Mediator;
+using DotNetCore.Results;
+using iiwi.Application.Provider;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.WebUtilities;
-using System.Text;
+using System.Net;
 
-namespace Architecture.Application.Authentication
+namespace iiwi.Application.Authentication;
+
+public class ExternalLoginsHandler(
+UserManager<IdentityUser> userManager,
+SignInManager<IdentityUser> signInManager,
+IClaimsProvider claimsProvider) : IHandler<ExternalLoginsRequest, ExternalLoginsResponse>
 {
-    public class ExternalLoginsHandler(
-    UserManager<IdentityUser> userManager,
-    SignInManager<IdentityUser> signInManager,
-    IClaimsProvider claimsProvider,
-    IResultService resultService) : IHandler<ExternalLoginsRequest, ExternalLoginsResponse>
+    private readonly UserManager<IdentityUser> _userManager = userManager;
+    private readonly SignInManager<IdentityUser> _signInManager = signInManager;
+    private readonly IClaimsProvider _claimsProvider = claimsProvider;
+
+    public async Task<Result<ExternalLoginsResponse>> HandleAsync(ExternalLoginsRequest request)
     {
-        private readonly UserManager<IdentityUser> _userManager = userManager;
-        private readonly IResultService _resultService = resultService;
-        private readonly SignInManager<IdentityUser> _signInManager = signInManager;
-        private readonly IClaimsProvider _claimsProvider = claimsProvider;
-
-        public async Task<Result<ExternalLoginsResponse>> HandleAsync(ExternalLoginsRequest request)
+        var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
+        if (user == null)
         {
-            var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
-            if (user == null)
+            return new Result<ExternalLoginsResponse>(HttpStatusCode.BadRequest, new ExternalLoginsResponse
             {
-                return _resultService.Error<ExternalLoginsResponse>($"Unable to load user with ID '{_userManager.GetUserId(_claimsProvider.ClaimsPrinciple)}'.");
-            }
-
-            var currentLogins = await _userManager.GetLoginsAsync(user);
-
-            var otherLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync())
-            .Where(auth => currentLogins.All(ul => auth.Name != ul.LoginProvider))
-            .ToList();
-
-            return _resultService.Success(new ExternalLoginsResponse
-            {
-                CurrentLogins = currentLogins,
-                OtherLogins = otherLogins,
-                ShowRemoveButton = user.PasswordHash != null || currentLogins.Count > 1
+                Message = $"Unable to load user with ID '{_userManager.GetUserId(_claimsProvider.ClaimsPrinciple)}'."
             });
         }
+
+        var currentLogins = await _userManager.GetLoginsAsync(user);
+
+        var otherLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync())
+        .Where(auth => currentLogins.All(ul => auth.Name != ul.LoginProvider))
+        .ToList();
+
+        return new Result<ExternalLoginsResponse>(HttpStatusCode.OK, new ExternalLoginsResponse
+        {
+            CurrentLogins = currentLogins,
+            OtherLogins = otherLogins,
+            ShowRemoveButton = user.PasswordHash != null || currentLogins.Count > 1
+        });
     }
 }
 

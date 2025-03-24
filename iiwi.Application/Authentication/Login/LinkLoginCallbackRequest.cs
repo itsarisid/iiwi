@@ -1,13 +1,5 @@
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+namespace iiwi.Application.Authentication;
 
-namespace Architecture.Application.Authentication
+public record LinkLoginCallbackRequest
 {
-    public record LinkLoginCallbackRequest
-    {
-    }
 }
