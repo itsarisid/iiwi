@@ -7,8 +7,8 @@ namespace iiwi.Application;
 
 public class ClaimsPrincipalFactory(
         UserManager<ApplicationUser> userManager,
-        RoleManager<IdentityRole> roleManager,
-        IOptions<IdentityOptions> optionsAccessor) : UserClaimsPrincipalFactory<ApplicationUser, IdentityRole>(userManager, roleManager, optionsAccessor)
+        RoleManager<ApplicationRole> roleManager,
+        IOptions<IdentityOptions> optionsAccessor) : UserClaimsPrincipalFactory<ApplicationUser, ApplicationRole>(userManager, roleManager, optionsAccessor)
 {
     public async override Task<ClaimsPrincipal> CreateAsync(ApplicationUser user)
     {

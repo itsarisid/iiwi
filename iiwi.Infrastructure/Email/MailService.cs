@@ -52,7 +52,7 @@ public class MailService(IOptions<MailSettings> mailSettings) : IMailService
         //FIXME: Dynamic template path.
         string solutiondir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         string projectName = Assembly.GetExecutingAssembly().FullName.Split(',')[0];
-        var path = $"{solutiondir}\\source\\{projectName}\\Templates\\{model.TemplateName}";
+        var path = $"{solutiondir}\\iiwi\\{projectName}\\Templates\\{model.TemplateName}";
         var doc = new HtmlDocument();
         doc.Load(path);
 

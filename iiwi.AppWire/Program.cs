@@ -1,17 +1,19 @@
 using Asp.Versioning;
 using DotNetCore.EntityFrameworkCore;
 using DotNetCore.IoC;
+using DotNetCore.Logging;
 using DotNetCore.Mediator;
 using DotNetCore.Services;
 using iiwi.AppWire.Configurations;
 using iiwi.Database;
 using iiwi.Model.Settings;
 using Microsoft.EntityFrameworkCore;
-using static System.Net.Mime.MediaTypeNames;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Host.UseSerilog();
+//builder.Services.AddLogging();
 builder.Services.AddResponseCompression();
 
 builder.Services.AddControllers();
