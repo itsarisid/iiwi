@@ -11,12 +11,12 @@ public class DeletePersonalDataHandler(
 UserManager<ApplicationUser> userManager,
 SignInManager<ApplicationUser> signInManager,
 IClaimsProvider claimsProvider,
-ILogger<LoginHandler> logger) : IHandler<DeletePersonalDataRequest, Response>
+ILogger<DeletePersonalDataHandler> logger) : IHandler<DeletePersonalDataRequest, Response>
 {
-    private readonly UserManager<IdentityUser> _userManager = userManager;
-    private readonly SignInManager<IdentityUser> _signInManager = signInManager;
+    private readonly UserManager<ApplicationUser> _userManager = userManager;
+    private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
     private readonly IClaimsProvider _claimsProvider = claimsProvider;
-    private readonly ILogger<LoginHandler> _logger = logger;
+    private readonly ILogger<DeletePersonalDataHandler> _logger = logger;
 
     public async Task<Result<Response>> HandleAsync(DeletePersonalDataRequest request)
     {

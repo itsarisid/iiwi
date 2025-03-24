@@ -1,6 +1,7 @@
 ﻿using DotNetCore.Mediator;
 using DotNetCore.Objects;
 using DotNetCore.Results;
+using System.Net;
 
 namespace iiwi.Application.File;
 
@@ -10,6 +11,6 @@ public sealed record GetFileHandler : IHandler<GetFileRequest, BinaryFile>
     {
         var file = await BinaryFile.ReadAsync("Files", request.Id);
 
-        return Result<BinaryFile>.Success(file);
+        return new Result<BinaryFile>(HttpStatusCode.OK, file);
     }
 }

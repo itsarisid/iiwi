@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System.Net;
 namespace iiwi.Application.Authentication;
+
 public class DownloadPersonalDataHandler(
 UserManager<ApplicationUser> userManager,
-IClaimsProvider claimsProvider,
-ILogger<DownloadPersonalDataHandler> loggere) : IHandler<DownloadPersonalDataRequest, Response>
+ILogger<DownloadPersonalDataHandler> logger,
+IClaimsProvider claimsProvider
+) : IHandler<DownloadPersonalDataRequest, Response>
 {
     private readonly UserManager<ApplicationUser> _userManager = userManager;
     private readonly IClaimsProvider _claimsProvider = claimsProvider;

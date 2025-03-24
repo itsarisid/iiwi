@@ -1,6 +1,5 @@
 using DotNetCore.Mediator;
 using DotNetCore.Results;
-using iiwi.Application.Provider;
 using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
