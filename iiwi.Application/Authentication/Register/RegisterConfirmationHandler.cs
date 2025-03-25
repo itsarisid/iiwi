@@ -11,12 +11,9 @@ using System.Text;
 
 namespace iiwi.Application.Authentication;
 internal class RegisterConfirmationHandler(
-UserManager<ApplicationUser> userManager,
-IMailService mailService) : IHandler<RegisterConfirmationRequest, Response>
+UserManager<ApplicationUser> _userManager,
+IMailService _mailService) : IHandler<RegisterConfirmationRequest, Response>
 {
-    private readonly UserManager<ApplicationUser> _userManager = userManager;
-    private readonly IMailService _mailService = mailService;
-
     public async Task<Result<Response>> HandleAsync(RegisterConfirmationRequest request)
     {
         var user = await _userManager.FindByEmailAsync(request.Email);

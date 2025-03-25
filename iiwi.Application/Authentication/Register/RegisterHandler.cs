@@ -13,16 +13,11 @@ using iiwi.Domain.Identity;
 namespace iiwi.Application.Authentication;
 
 public class RegisterHandler(
-UserManager<ApplicationUser> userManager,
-SignInManager<ApplicationUser> signInManager,
-ILogger<RegisterHandler> logger,
-IMailService mailService) : IHandler<RegisterRequest, RegisterResponse>
+UserManager<ApplicationUser> _userManager,
+SignInManager<ApplicationUser> _signInManager,
+ILogger<RegisterHandler> _logger,
+IMailService _mailService) : IHandler<RegisterRequest, RegisterResponse>
 {
-    private readonly UserManager<ApplicationUser> _userManager = userManager;
-    private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
-    private readonly ILogger<RegisterHandler> _logger = logger;
-    private readonly IMailService _mailService = mailService;
-
     public async Task<Result<RegisterResponse>> HandleAsync(RegisterRequest request)
     {
 
