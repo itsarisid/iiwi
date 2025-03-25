@@ -8,16 +8,11 @@ using System.Net;
 
 namespace iiwi.Application.Authentication;
 public class DeletePersonalDataHandler(
-UserManager<ApplicationUser> userManager,
-SignInManager<ApplicationUser> signInManager,
-IClaimsProvider claimsProvider,
-ILogger<DeletePersonalDataHandler> logger) : IHandler<DeletePersonalDataRequest, Response>
+UserManager<ApplicationUser> _userManager,
+SignInManager<ApplicationUser> _signInManager,
+IClaimsProvider _claimsProvider,
+ILogger<DeletePersonalDataHandler> _logger) : IHandler<DeletePersonalDataRequest, Response>
 {
-    private readonly UserManager<ApplicationUser> _userManager = userManager;
-    private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
-    private readonly IClaimsProvider _claimsProvider = claimsProvider;
-    private readonly ILogger<DeletePersonalDataHandler> _logger = logger;
-
     public async Task<Result<Response>> HandleAsync(DeletePersonalDataRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

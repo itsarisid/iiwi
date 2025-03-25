@@ -9,15 +9,11 @@ using System.Net;
 namespace iiwi.Application.Authentication;
 
 public class DownloadPersonalDataHandler(
-UserManager<ApplicationUser> userManager,
-ILogger<DownloadPersonalDataHandler> logger,
-IClaimsProvider claimsProvider
+UserManager<ApplicationUser> _userManager,
+ILogger<DownloadPersonalDataHandler> _logger,
+IClaimsProvider _claimsProvider
 ) : IHandler<DownloadPersonalDataRequest, Response>
 {
-    private readonly UserManager<ApplicationUser> _userManager = userManager;
-    private readonly IClaimsProvider _claimsProvider = claimsProvider;
-    private readonly ILogger<DownloadPersonalDataHandler> _logger = logger;
-
     public async Task<Result<Response>> HandleAsync(DownloadPersonalDataRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
