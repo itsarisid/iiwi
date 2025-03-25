@@ -8,14 +8,10 @@ using System.Net;
 namespace iiwi.Application.Authentication;
 
 public class AccountStatusHandler(
-UserManager<ApplicationUser> userManager,
-SignInManager<ApplicationUser> signInManager,
-IClaimsProvider claimsProvider) : IHandler<AccountStatusRequest, AccountStatusResponse>
+UserManager<ApplicationUser> _userManager,
+SignInManager<ApplicationUser> _signInManager,
+IClaimsProvider _claimsProvider) : IHandler<AccountStatusRequest, AccountStatusResponse>
 {
-    private readonly UserManager<ApplicationUser> _userManager = userManager;
-    private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
-    private readonly IClaimsProvider _claimsProvider = claimsProvider;
-
     public async Task<Result<AccountStatusResponse>> HandleAsync(AccountStatusRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
