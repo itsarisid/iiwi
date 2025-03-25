@@ -1,5 +1,6 @@
 ﻿using DotNetCore.AspNetCore;
 using iiwi.Application;
+using iiwi.Application.Account;
 using iiwi.Application.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
@@ -45,4 +46,12 @@ public class AccountController : BaseController
     /// </returns>
     [HttpPost("send-verification-email")]
     public IActionResult SendVerificationEmail() => Mediator.HandleAsync<SendVerificationEmailRequest, Response>(new SendVerificationEmailRequest()).ApiResult();
+
+    /// <summary>Update Profiles.</summary>
+    /// <param name="request"></param>
+    /// <returns>
+    ///   <br />
+    /// </returns>
+    [HttpPost("update-profile")]
+    public IActionResult UpdateProfile(UpdateProfileRequest request) => Mediator.HandleAsync<UpdateProfileRequest, Response>(request).ApiResult();
 }

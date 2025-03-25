@@ -21,19 +21,15 @@ public class TestController(IServiceProvider serviceProvider) : BaseController
     [HttpGet()]
     [AllowAnonymous]
     [DisableRateLimiting]
-    public IActionResult Test()
+    public IActionResult Test() => Ok(new
     {
-        var assembly = Assembly.GetExecutingAssembly().FullName;
-        var result = new
-        {
-            Auther = "iiwi",
-            Version = "1.0.0",
-            Assembly = assembly,
-            Environment = _hostingEnvironment.EnvironmentName,
-            Environment.MachineName,
-            Framework = RuntimeInformation.FrameworkDescription,
-            OS = $"{RuntimeInformation.OSDescription} - ({RuntimeInformation.OSArchitecture})",
-        };
-        return Ok(result);
-    }
+        Auther = "Sajid Khan",
+        Version = "1.0.0",
+        Assembly = Assembly.GetExecutingAssembly().FullName,
+        Environment = _hostingEnvironment.EnvironmentName,
+        Environment.MachineName,
+        Framework = RuntimeInformation.FrameworkDescription,
+        OS = $"{RuntimeInformation.OSDescription} - ({RuntimeInformation.OSArchitecture})",
+    });
+
 }
