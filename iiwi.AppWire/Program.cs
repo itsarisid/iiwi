@@ -8,11 +8,16 @@ using iiwi.AppWire.Configurations;
 using iiwi.Database;
 using iiwi.Model.Settings;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Host.UseSerilog();
+//builder.Host.UseSerilog();
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration)
+    );
+
 //builder.Services.AddLogging();
 builder.Services.AddResponseCompression();
 
