@@ -9,10 +9,8 @@ using System.Text;
 namespace iiwi.Application.Authentication;
 
 public class ResetPasswordHandler(
-UserManager<ApplicationUser> userManager) : IHandler<ResetPasswordRequest, Response>
+UserManager<ApplicationUser> _userManager) : IHandler<ResetPasswordRequest, Response>
 {
-    private readonly UserManager<ApplicationUser> _userManager = userManager;
-
     public async Task<Result<Response>> HandleAsync(ResetPasswordRequest request)
     {
         request.Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(request.Code));

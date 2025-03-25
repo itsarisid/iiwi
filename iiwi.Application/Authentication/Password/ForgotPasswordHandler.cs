@@ -12,11 +12,9 @@ using System.Text;
 namespace iiwi.Application.Authentication;
 
 public class ForgotPasswordHandler(
-UserManager<ApplicationUser> userManager,
-IMailService mailService) : IHandler<ForgotPasswordRequest, Response>
+UserManager<ApplicationUser> _userManager,
+IMailService _mailService) : IHandler<ForgotPasswordRequest, Response>
 {
-    private readonly UserManager<ApplicationUser> _userManager = userManager;
-    private readonly IMailService _mailService = mailService;
 
     public async Task<Result<Response>> HandleAsync(ForgotPasswordRequest request)
     {

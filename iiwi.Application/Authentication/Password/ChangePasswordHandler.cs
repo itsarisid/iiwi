@@ -8,16 +8,11 @@ using System.Net;
 namespace iiwi.Application.Authentication;
 
 public class ChangePasswordHandler(
-UserManager<ApplicationUser> userManager,
-SignInManager<ApplicationUser> signInManager,
-IClaimsProvider claimsProvider,
-ILogger<ChangePasswordHandler> logger) : IHandler<ChangePasswordRequest, Response>
+UserManager<ApplicationUser> _userManager,
+SignInManager<ApplicationUser> _signInManager,
+IClaimsProvider _claimsProvider,
+ILogger<ChangePasswordHandler> _logger) : IHandler<ChangePasswordRequest, Response>
 {
-    private readonly UserManager<ApplicationUser> _userManager = userManager;
-    private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
-    private readonly IClaimsProvider _claimsProvider= claimsProvider;
-    private readonly ILogger<ChangePasswordHandler> _logger = logger;
-
     public async Task<Result<Response>> HandleAsync(ChangePasswordRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

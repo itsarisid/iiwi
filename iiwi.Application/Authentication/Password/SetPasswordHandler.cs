@@ -9,16 +9,11 @@ using System.Net;
 namespace iiwi.Application.Authentication;
 
 public class SetPasswordHandler(
-UserManager<ApplicationUser> userManager,
-SignInManager<ApplicationUser> signInManager,
-IClaimsProvider claimsProvider,
-ILogger<SetPasswordHandler> logger) : IHandler<SetPasswordRequest, Response>
+UserManager<ApplicationUser> _userManager,
+SignInManager<ApplicationUser> _signInManager,
+IClaimsProvider _claimsProvider,
+ILogger<SetPasswordHandler> _logger) : IHandler<SetPasswordRequest, Response>
 {
-    private readonly UserManager<ApplicationUser> _userManager = userManager;
-    private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
-    private readonly IClaimsProvider _claimsProvider = claimsProvider;
-    private readonly ILogger<SetPasswordHandler> _logger = logger;
-
     public async Task<Result<Response>> HandleAsync(SetPasswordRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
