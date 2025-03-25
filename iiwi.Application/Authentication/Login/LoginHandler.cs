@@ -8,13 +8,10 @@ using System.Net;
 namespace iiwi.Application.Authentication
 {
     public class LoginHandler(
-        SignInManager<ApplicationUser> signInManager,
-        ILogger<ApplicationUser> logger
+        SignInManager<ApplicationUser> _signInManager,
+        ILogger<ApplicationUser> _logger
         ) : IHandler<LoginRequest, Response>
-    {
-        private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
-        private readonly ILogger<ApplicationUser> _logger = logger;
-
+    {        
         public async Task<Result<Response>> HandleAsync(LoginRequest request)
         {
             // This doesn't count login failures towards account lockout

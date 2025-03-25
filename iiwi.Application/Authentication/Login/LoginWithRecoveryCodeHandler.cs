@@ -11,13 +11,10 @@ using System.Net;
 namespace iiwi.Application.Authentication
 {
     public class LoginWithRecoveryCodeHandler(
-        SignInManager<ApplicationUser> signInManager,
-         ILogger<LoginHandler> logger
-        ) : IHandler<LoginWithRecoveryCodeRequest , Response>
+        SignInManager<ApplicationUser> _signInManager,
+         ILogger<LoginHandler> _logger
+        ) : IHandler<LoginWithRecoveryCodeRequest, Response>
     {
-        private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
-        private readonly ILogger<LoginHandler> _logger = logger;
-
         public async Task<Result<Response>> HandleAsync(LoginWithRecoveryCodeRequest request)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync() ?? throw new InvalidOperationException($"Unable to load two-factor authentication user.");

@@ -9,16 +9,11 @@ using System.Net;
 namespace iiwi.Application.Authentication
 {
     public class LinkLoginHandler(
-    UserManager<ApplicationUser> userManager,
-    SignInManager<ApplicationUser> signInManager,
-    IClaimsProvider claimsProvider,
-    ILogger<LinkLoginHandler> logger) : IHandler<LinkLoginRequest, Response>
+    UserManager<ApplicationUser> _userManager,
+    SignInManager<ApplicationUser> _signInManager,
+    IClaimsProvider _claimsProvider,
+    ILogger<LinkLoginHandler> _logger) : IHandler<LinkLoginRequest, Response>
     {
-        private readonly UserManager<ApplicationUser> _userManager = userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
-        private readonly IClaimsProvider _claimsProvider = claimsProvider;
-        private readonly ILogger<LinkLoginHandler> _logger = logger;
-
         public async Task<Result<Response>> HandleAsync(LinkLoginRequest request)
         {
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

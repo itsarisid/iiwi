@@ -8,14 +8,10 @@ using System.Net;
 namespace iiwi.Application.Authentication;
 
 public class ExternalLoginsHandler(
-UserManager<ApplicationUser> userManager,
-SignInManager<ApplicationUser> signInManager,
-IClaimsProvider claimsProvider) : IHandler<ExternalLoginsRequest, ExternalLoginsResponse>
+UserManager<ApplicationUser> _userManager,
+SignInManager<ApplicationUser> _signInManager,
+IClaimsProvider _claimsProvider) : IHandler<ExternalLoginsRequest, ExternalLoginsResponse>
 {
-    private readonly UserManager<ApplicationUser> _userManager = userManager;
-    private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
-    private readonly IClaimsProvider _claimsProvider = claimsProvider;
-
     public async Task<Result<ExternalLoginsResponse>> HandleAsync(ExternalLoginsRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

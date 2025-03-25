@@ -8,13 +8,10 @@ using System.Net;
 namespace iiwi.Application.Authentication;
 
 public class LoginWith2faHandler(
-    SignInManager<ApplicationUser> signInManager,
-    ILogger<LoginWith2faHandler> logger
+    SignInManager<ApplicationUser> _signInManager,
+    ILogger<LoginWith2faHandler> _logger
     ) : IHandler<LoginWith2faRequest, Response>
-{
-    private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
-    private readonly ILogger<LoginWith2faHandler> _logger = logger;
-
+{    
     public async Task<Result<Response>> HandleAsync(LoginWith2faRequest request)
     {
         var user = await _signInManager.GetTwoFactorAuthenticationUserAsync() ??
