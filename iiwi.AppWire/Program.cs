@@ -52,6 +52,7 @@ builder.Services.AddCors();
 builder.Services.AddOptions<SettingsOptions>()
         .Bind(builder.Configuration.GetSection(SettingsOptions.ConfigurationSectionName))
         .ValidateDataAnnotations();
+builder.AddApplicationSettings();
 
 var app = builder.Build();
 
