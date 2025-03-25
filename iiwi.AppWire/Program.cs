@@ -22,10 +22,10 @@ builder.Host.UseSerilog((context, configuration) =>
     );
 
 // Register the serilog UI services
-builder.Services.AddSerilogUi(options => options
-  .UseSqlServer(opts => opts
-    .WithConnectionString(builder.Configuration.GetConnectionString(nameof(iiwiDbContext)))
-    .WithTable("Logs")));
+//builder.Services.AddSerilogUi(options => options
+//  .UseSqlServer(opts => opts
+//    .WithConnectionString(builder.Configuration.GetConnectionString(nameof(iiwiDbContext)))
+//    .WithTable("Logs")));
 
 //builder.Services.AddLogging();
 builder.Services.AddResponseCompression();
@@ -81,7 +81,7 @@ app.UseCors(options =>
     .AllowAnyMethod()
 );
 app.UseHttpsRedirection();
-app.UseSerilogUi();
+//app.UseSerilogUi();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseRouting();
