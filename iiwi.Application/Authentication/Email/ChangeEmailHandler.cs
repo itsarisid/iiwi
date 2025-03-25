@@ -11,14 +11,10 @@ using System.Net;
 namespace iiwi.Application.Authentication
 {
     public class ChangeEmailHandler(
-    UserManager<ApplicationUser> userManager,
-    IClaimsProvider claimsProvider,
-    IMailService mailService) : IHandler<ChangeEmailRequest, Response>
+    UserManager<ApplicationUser> _userManager,
+    IClaimsProvider _claimsProvider,
+    IMailService _mailService) : IHandler<ChangeEmailRequest, Response>
     {
-        private readonly UserManager<ApplicationUser> _userManager = userManager;
-        private readonly IClaimsProvider _claimsProvider = claimsProvider;
-        private readonly IMailService _mailService = mailService;
-
         public async Task<Result<Response>> HandleAsync(ChangeEmailRequest request)
         {
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

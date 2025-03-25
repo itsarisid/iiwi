@@ -9,10 +9,8 @@ using System.Text;
 namespace iiwi.Application.Authentication
 {
     public class ConfirmEmailHandler(
-    UserManager<ApplicationUser> userManager) : IHandler<ConfirmEmailRequest, Response>
+    UserManager<ApplicationUser> _userManager) : IHandler<ConfirmEmailRequest, Response>
     {
-        private readonly UserManager<ApplicationUser> _userManager = userManager;
-
         public async Task<Result<Response>> HandleAsync(ConfirmEmailRequest request)
         {
             var user = await _userManager.FindByIdAsync(request.UserId);

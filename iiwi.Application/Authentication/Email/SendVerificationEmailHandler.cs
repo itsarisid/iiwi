@@ -14,14 +14,10 @@ using System.Text;
 namespace iiwi.Application.Authentication
 {
     public class SendVerificationEmailHandler(
-    UserManager<ApplicationUser> userManager,
-    IClaimsProvider claimsProvider,
-    IMailService mailService) : IHandler<SendVerificationEmailRequest, Response>
+    UserManager<ApplicationUser> _userManager,
+    IClaimsProvider _claimsProvider,
+    IMailService _mailService) : IHandler<SendVerificationEmailRequest, Response>
     {
-        private readonly UserManager<ApplicationUser> _userManager = userManager;
-        private readonly IClaimsProvider _claimsProvider = claimsProvider;
-        private readonly IMailService _mailService = mailService;
-
         public async Task<Result<Response>> HandleAsync(SendVerificationEmailRequest request)
         {
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

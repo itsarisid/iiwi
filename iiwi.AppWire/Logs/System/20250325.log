@@ -1,0 +1,1759 @@
+[09:25:14] [DEBUG] [Microsoft.EntityFrameworkCore.Infrastructure] An 'IServiceProvider' was created for internal use by Entity Framework.
+
+[09:25:16] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'Permission.CreatedByUserId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[09:25:16] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'Permission.DeletedByUserId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[09:25:16] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'Permission.UpdateByUserId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[09:25:16] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'RolePermission.CreatedByUserId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[09:25:16] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'RolePermission.DeletedByUserId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[09:25:16] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'RolePermission.PermissionsId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[09:25:16] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'RolePermission.RoleId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[09:25:16] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'RolePermission.UpdateByUserId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[09:25:17] [DEBUG] [Microsoft.EntityFrameworkCore.Infrastructure] Entity Framework Core 9.0.3 initialized 'iiwiDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:9.0.3' with options: MaxPoolSize=1024 EngineType=SqlServer 
+
+[09:25:17] [INFORMATION] [Microsoft.EntityFrameworkCore.Migrations] No migrations were found in assembly 'iiwi.Database'. A migration needs to be added before the database can be updated.
+
+[09:25:17] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Creating DbConnection.
+
+[09:25:19] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Created DbConnection. (2347ms).
+
+[09:25:19] [DEBUG] [Microsoft.EntityFrameworkCore.Migrations] Migrating using database 'iiwi' on server 'NCCTCC'.
+
+[09:25:19] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Opening connection to database 'iiwi' on server 'NCCTCC'.
+
+[09:25:28] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] An error occurred using the connection to database 'iiwi' on server 'NCCTCC'.
+
+[09:25:28] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Creating DbConnection.
+
+[09:25:28] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Created DbConnection. (0ms).
+
+[09:25:28] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Opening connection to database 'master' on server 'NCCTCC'.
+
+[09:25:28] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Opened connection to database 'master' on server 'NCCTCC'.
+
+[09:25:28] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteNonQuery'.
+
+[09:25:28] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteNonQuery' (3ms).
+
+[09:25:28] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteNonQuery' (6ms).
+
+[09:25:28] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+CREATE DATABASE [iiwi];
+
+[09:25:42] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (13,694ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+CREATE DATABASE [iiwi];
+
+[09:25:42] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteNonQuery'.
+
+[09:25:42] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteNonQuery' (0ms).
+
+[09:25:42] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteNonQuery' (0ms).
+
+[09:25:42] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+IF SERVERPROPERTY('EngineEdition') <> 5
+BEGIN
+    ALTER DATABASE [iiwi] SET READ_COMMITTED_SNAPSHOT ON;
+END;
+
+[09:25:47] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (4,809ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+IF SERVERPROPERTY('EngineEdition') <> 5
+BEGIN
+    ALTER DATABASE [iiwi] SET READ_COMMITTED_SNAPSHOT ON;
+END;
+
+[09:25:47] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Closing connection to database 'master' on server 'NCCTCC'.
+
+[09:25:47] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Closed connection to database 'master' on server 'NCCTCC' (3ms).
+
+[09:25:47] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Disposing connection to database 'master' on server 'NCCTCC'.
+
+[09:25:47] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Disposed connection to database '' on server '' (0ms).
+
+[09:25:47] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Opening connection to database 'iiwi' on server 'NCCTCC'.
+
+[09:25:47] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Opened connection to database 'iiwi' on server 'NCCTCC'.
+
+[09:25:47] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteNonQuery'.
+
+[09:25:47] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteNonQuery' (0ms).
+
+[09:25:47] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteNonQuery' (0ms).
+
+[09:25:47] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+
+[09:25:48] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (169ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+
+[09:25:48] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Closing connection to database 'iiwi' on server 'NCCTCC'.
+
+[09:25:48] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Closed connection to database 'iiwi' on server 'NCCTCC' (0ms).
+
+[09:25:48] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Opening connection to database 'iiwi' on server 'NCCTCC'.
+
+[09:25:48] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Opened connection to database 'iiwi' on server 'NCCTCC'.
+
+[09:25:48] [INFORMATION] [Microsoft.EntityFrameworkCore.Migrations] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+
+[09:25:48] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteScalar'.
+
+[09:25:48] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteScalar' (0ms).
+
+[09:25:48] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteScalar' (0ms).
+
+[09:25:48] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+
+[09:25:49] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1,256ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+
+[09:25:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Beginning transaction with isolation level 'Unspecified'.
+
+[09:25:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Began transaction with isolation level 'ReadCommitted'.
+
+[09:25:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteNonQuery'.
+
+[09:25:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteNonQuery' (0ms).
+
+[09:25:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteNonQuery' (0ms).
+
+[09:25:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+
+[09:25:49] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (457ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+
+[09:25:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Committing transaction.
+
+[09:25:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Committed transaction.
+
+[09:25:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Disposing transaction.
+
+[09:25:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Beginning transaction with isolation level 'Unspecified'.
+
+[09:25:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Began transaction with isolation level 'ReadCommitted'.
+
+[09:25:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteNonQuery'.
+
+[09:25:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteNonQuery' (0ms).
+
+[09:25:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteNonQuery' (0ms).
+
+[09:25:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+
+[09:25:49] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+
+[09:25:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteScalar'.
+
+[09:25:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteScalar' (0ms).
+
+[09:25:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteScalar' (0ms).
+
+[09:25:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+
+[09:25:49] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+
+[09:25:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteReader'.
+
+[09:25:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteReader' (0ms).
+
+[09:25:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteReader' (0ms).
+
+[09:25:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+
+[09:25:50] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (859ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+
+[09:25:50] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Closing data reader to 'iiwi' on server 'NCCTCC'.
+
+[09:25:50] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] A data reader for 'iiwi' on server 'NCCTCC' is being disposed after spending 2ms reading results.
+
+[09:25:50] [INFORMATION] [Microsoft.EntityFrameworkCore.Migrations] No migrations were applied. The database is already up to date.
+
+[09:25:50] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Committing transaction.
+
+[09:25:50] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Committed transaction.
+
+[09:25:50] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteScalar'.
+
+[09:25:50] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteScalar' (0ms).
+
+[09:25:50] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteScalar' (0ms).
+
+[09:25:50] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+
+[09:25:51] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (308ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+
+[09:25:51] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Disposing transaction.
+
+[09:25:51] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Closing connection to database 'iiwi' on server 'NCCTCC'.
+
+[09:25:51] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Closed connection to database 'iiwi' on server 'NCCTCC' (1ms).
+
+[10:16:23] [DEBUG] [Microsoft.EntityFrameworkCore.Infrastructure] An 'IServiceProvider' was created for internal use by Entity Framework.
+
+[10:16:27] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'Permission.CreatedByUserId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[10:16:27] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'Permission.DeletedByUserId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[10:16:27] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'Permission.UpdateByUserId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[10:16:27] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'RolePermission.CreatedByUserId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[10:16:27] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'RolePermission.DeletedByUserId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[10:16:27] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'RolePermission.PermissionsId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[10:16:27] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'RolePermission.RoleId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[10:16:27] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'RolePermission.UpdateByUserId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[10:16:27] [DEBUG] [Microsoft.EntityFrameworkCore.Infrastructure] Entity Framework Core 9.0.3 initialized 'iiwiDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:9.0.3' with options: MaxPoolSize=1024 EngineType=SqlServer 
+
+[10:16:27] [INFORMATION] [Microsoft.EntityFrameworkCore.Migrations] No migrations were found in assembly 'iiwi.Database'. A migration needs to be added before the database can be updated.
+
+[10:16:27] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Creating DbConnection.
+
+[10:16:28] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Created DbConnection. (1248ms).
+
+[10:16:28] [DEBUG] [Microsoft.EntityFrameworkCore.Migrations] Migrating using database 'iiwi' on server 'NCCTCC'.
+
+[10:16:29] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Opening connection to database 'iiwi' on server 'NCCTCC'.
+
+[10:16:43] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Opened connection to database 'iiwi' on server 'NCCTCC'.
+
+[10:16:43] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteNonQuery'.
+
+[10:16:43] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteNonQuery' (213ms).
+
+[10:16:43] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteNonQuery' (217ms).
+
+[10:16:43] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+
+[10:16:44] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (558ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+
+[10:16:44] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Closing connection to database 'iiwi' on server 'NCCTCC'.
+
+[10:16:44] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Closed connection to database 'iiwi' on server 'NCCTCC' (43ms).
+
+[10:16:44] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Opening connection to database 'iiwi' on server 'NCCTCC'.
+
+[10:16:44] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Opened connection to database 'iiwi' on server 'NCCTCC'.
+
+[10:16:44] [INFORMATION] [Microsoft.EntityFrameworkCore.Migrations] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+
+[10:16:44] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteScalar'.
+
+[10:16:44] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteScalar' (0ms).
+
+[10:16:44] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteScalar' (0ms).
+
+[10:16:44] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+
+[10:16:47] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (2,930ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+
+[10:16:48] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Beginning transaction with isolation level 'Unspecified'.
+
+[10:16:48] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Began transaction with isolation level 'ReadCommitted'.
+
+[10:16:48] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteNonQuery'.
+
+[10:16:48] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteNonQuery' (0ms).
+
+[10:16:48] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteNonQuery' (1ms).
+
+[10:16:48] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+
+[10:16:49] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1,196ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+
+[10:16:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Committing transaction.
+
+[10:16:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Committed transaction.
+
+[10:16:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Disposing transaction.
+
+[10:16:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Beginning transaction with isolation level 'Unspecified'.
+
+[10:16:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Began transaction with isolation level 'ReadCommitted'.
+
+[10:16:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteNonQuery'.
+
+[10:16:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteNonQuery' (0ms).
+
+[10:16:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteNonQuery' (0ms).
+
+[10:16:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+
+[10:16:49] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+
+[10:16:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteScalar'.
+
+[10:16:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteScalar' (0ms).
+
+[10:16:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteScalar' (0ms).
+
+[10:16:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+
+[10:16:49] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+
+[10:16:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteReader'.
+
+[10:16:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteReader' (0ms).
+
+[10:16:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteReader' (0ms).
+
+[10:16:49] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+
+[10:16:57] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (8,032ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+
+[10:16:57] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Closing data reader to 'iiwi' on server 'NCCTCC'.
+
+[10:16:57] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] A data reader for 'iiwi' on server 'NCCTCC' is being disposed after spending 1ms reading results.
+
+[10:16:57] [INFORMATION] [Microsoft.EntityFrameworkCore.Migrations] No migrations were applied. The database is already up to date.
+
+[10:16:57] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Committing transaction.
+
+[10:16:57] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Committed transaction.
+
+[10:16:57] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteScalar'.
+
+[10:16:57] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteScalar' (0ms).
+
+[10:16:57] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteScalar' (0ms).
+
+[10:16:57] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+
+[10:16:57] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (509ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+
+[10:16:57] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Disposing transaction.
+
+[10:16:57] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Closing connection to database 'iiwi' on server 'NCCTCC'.
+
+[10:16:57] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Closed connection to database 'iiwi' on server 'NCCTCC' (0ms).
+
+[10:18:13] [DEBUG] [Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderFactory] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+
+[10:18:23] [DEBUG] [Microsoft.Extensions.Hosting.Internal.Host] Hosting starting
+
+[10:18:25] [INFORMATION] [Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager] User profile is available. Using 'C:\Users\moinc\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+
+[10:18:28] [DEBUG] [Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository] Reading data from file 'C:\Users\moinc\AppData\Local\ASP.NET\DataProtection-Keys\key-0618078b-0e80-40f9-917e-35e31bafe4e0.xml'.
+
+[10:18:35] [DEBUG] [Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository] Reading data from file 'C:\Users\moinc\AppData\Local\ASP.NET\DataProtection-Keys\key-0ac5bee5-bd65-49a9-bec8-f3f0b3dc8dd6.xml'.
+
+[10:18:36] [DEBUG] [Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository] Reading data from file 'C:\Users\moinc\AppData\Local\ASP.NET\DataProtection-Keys\key-acccf804-39ac-46c8-901b-205e300d9010.xml'.
+
+[10:18:36] [DEBUG] [Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository] Reading data from file 'C:\Users\moinc\AppData\Local\ASP.NET\DataProtection-Keys\key-cb4c1d5b-d370-4ad9-82c7-c48fa55e50b3.xml'.
+
+[10:18:37] [DEBUG] [Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager] Found key {0618078b-0e80-40f9-917e-35e31bafe4e0}.
+
+[10:18:39] [DEBUG] [Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager] Found key {0ac5bee5-bd65-49a9-bec8-f3f0b3dc8dd6}.
+
+[10:18:39] [DEBUG] [Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager] Found key {acccf804-39ac-46c8-901b-205e300d9010}.
+
+[10:18:39] [DEBUG] [Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager] Found key {cb4c1d5b-d370-4ad9-82c7-c48fa55e50b3}.
+
+[10:18:39] [DEBUG] [Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver] Considering key {cb4c1d5b-d370-4ad9-82c7-c48fa55e50b3} with expiration date 2025-04-28 06:08:57Z as default key.
+
+[10:18:39] [DEBUG] [Microsoft.AspNetCore.DataProtection.TypeForwardingActivator] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+
+[10:18:39] [DEBUG] [Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor] Decrypting secret element using Windows DPAPI.
+
+[10:18:39] [DEBUG] [Microsoft.AspNetCore.DataProtection.TypeForwardingActivator] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+
+[10:18:39] [DEBUG] [Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngCbcAuthenticatedEncryptorFactory] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+
+[10:18:39] [DEBUG] [Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngCbcAuthenticatedEncryptorFactory] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+
+[10:18:39] [DEBUG] [Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider] Using key {cb4c1d5b-d370-4ad9-82c7-c48fa55e50b3} as the default key.
+
+[10:18:39] [DEBUG] [Microsoft.AspNetCore.DataProtection.Internal.DataProtectionHostedService] Key ring with default key {cb4c1d5b-d370-4ad9-82c7-c48fa55e50b3} was loaded during application startup.
+
+[10:18:40] [DEBUG] [Microsoft.AspNetCore.Watch.BrowserRefresh.BlazorWasmHotReloadMiddleware] Middleware loaded
+
+[10:18:40] [DEBUG] [Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserScriptMiddleware] Middleware loaded. Script /_framework/aspnetcore-browser-refresh.js (16509 B).
+
+[10:18:40] [DEBUG] [Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserScriptMiddleware] Middleware loaded. Script /_framework/blazor-hotreload.js (799 B).
+
+[10:18:46] [DEBUG] [Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware] Middleware configuration started with options: {AllowedHosts = *, AllowEmptyHosts = True, IncludeFailureMessage = True}
+
+[10:18:47] [DEBUG] [Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware] Wildcard detected, all requests with hosts will be allowed.
+
+[10:18:50] [DEBUG] [Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware] Middleware loaded: DOTNET_MODIFIABLE_ASSEMBLIES=debug, __ASPNETCORE_BROWSER_TOOLS=true
+
+[10:18:59] [INFORMATION] [Microsoft.Hosting.Lifetime] Now listening on: https://localhost:7122
+
+[10:18:59] [INFORMATION] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5093
+
+[10:18:59] [DEBUG] [Microsoft.AspNetCore.Hosting.Diagnostics] Loaded hosting startup assembly iiwi.AppWire
+
+[10:18:59] [DEBUG] [Microsoft.AspNetCore.Hosting.Diagnostics] Loaded hosting startup assembly Microsoft.WebTools.ApiEndpointDiscovery
+
+[10:18:59] [DEBUG] [Microsoft.AspNetCore.Hosting.Diagnostics] Loaded hosting startup assembly Microsoft.AspNetCore.Watch.BrowserRefresh
+
+[10:18:59] [DEBUG] [Microsoft.AspNetCore.Hosting.Diagnostics] Loaded hosting startup assembly Microsoft.WebTools.BrowserLink.Net
+
+[10:18:59] [DEBUG] [Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionGroupCollectionProvider] Executing API description provider 'EndpointMetadataApiDescriptionProvider' from assembly Microsoft.AspNetCore.Mvc.ApiExplorer v9.0.0.0.
+
+[10:18:59] [DEBUG] [Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionGroupCollectionProvider] Executing API description provider 'DefaultApiDescriptionProvider' from assembly Microsoft.AspNetCore.Mvc.ApiExplorer v9.0.0.0.
+
+[10:19:01] [INFORMATION] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down.
+
+[10:19:01] [INFORMATION] [Microsoft.Hosting.Lifetime] Hosting environment: Development
+
+[10:19:01] [INFORMATION] [Microsoft.Hosting.Lifetime] Content root path: C:\Users\moinc\source\repos\iiwi\iiwi.AppWire
+
+[10:19:01] [DEBUG] [Microsoft.Extensions.Hosting.Internal.Host] Hosting started
+
+[10:19:24] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO1" accepted.
+
+[10:19:24] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO1" started.
+
+[10:19:24] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO2" accepted.
+
+[10:19:24] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO2" started.
+
+[10:19:25] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware] Failed to authenticate HTTPS connection.
+System.Security.Authentication.AuthenticationException: Cannot determine the frame size or a corrupted frame was received.
+   at System.Net.Security.SslStream.GetFrameSize(ReadOnlySpan`1 buffer)
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+
+[10:19:25] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO1" stopped.
+
+[10:19:25] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBDLFGNVO1" sending FIN because: "The Socket transport's send loop completed gracefully."
+
+[10:19:27] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO3" accepted.
+
+[10:19:27] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO3" started.
+
+[10:19:27] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware] Failed to authenticate HTTPS connection.
+System.Security.Authentication.AuthenticationException: Cannot determine the frame size or a corrupted frame was received.
+   at System.Net.Security.SslStream.GetFrameSize(ReadOnlySpan`1 buffer)
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+
+[10:19:27] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO2" stopped.
+
+[10:19:27] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBDLFGNVO2" sending FIN because: "The Socket transport's send loop completed gracefully."
+
+[10:19:27] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware] Failed to authenticate HTTPS connection.
+System.Security.Authentication.AuthenticationException: Cannot determine the frame size or a corrupted frame was received.
+   at System.Net.Security.SslStream.GetFrameSize(ReadOnlySpan`1 buffer)
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+
+[10:19:27] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO3" stopped.
+
+[10:19:27] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBDLFGNVO3" sending FIN because: "The Socket transport's send loop completed gracefully."
+
+[10:19:27] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO4" accepted.
+
+[10:19:27] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO4" started.
+
+[10:19:27] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware] Failed to authenticate HTTPS connection.
+System.Security.Authentication.AuthenticationException: Cannot determine the frame size or a corrupted frame was received.
+   at System.Net.Security.SslStream.GetFrameSize(ReadOnlySpan`1 buffer)
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+
+[10:19:27] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO4" stopped.
+
+[10:19:27] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBDLFGNVO4" sending FIN because: "The Socket transport's send loop completed gracefully."
+
+[10:19:32] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO5" accepted.
+
+[10:19:32] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO5" started.
+
+[10:19:32] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware] Failed to authenticate HTTPS connection.
+System.Security.Authentication.AuthenticationException: Cannot determine the frame size or a corrupted frame was received.
+   at System.Net.Security.SslStream.GetFrameSize(ReadOnlySpan`1 buffer)
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+
+[10:19:32] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO5" stopped.
+
+[10:19:32] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBDLFGNVO5" sending FIN because: "The Socket transport's send loop completed gracefully."
+
+[10:19:32] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO6" accepted.
+
+[10:19:32] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO6" started.
+
+[10:19:41] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBDLFGNVO6" received FIN.
+
+[10:19:41] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware] Failed to authenticate HTTPS connection.
+System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+
+[10:19:41] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO6" stopped.
+
+[10:19:41] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBDLFGNVO6" sending FIN because: "The Socket transport's send loop completed gracefully."
+
+[10:20:02] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO7" accepted.
+
+[10:20:02] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO7" started.
+
+[10:20:02] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO8" accepted.
+
+[10:20:02] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO8" started.
+
+[10:20:02] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware] Failed to authenticate HTTPS connection.
+System.Security.Authentication.AuthenticationException: Cannot determine the frame size or a corrupted frame was received.
+   at System.Net.Security.SslStream.GetFrameSize(ReadOnlySpan`1 buffer)
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+
+[10:20:02] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO7" stopped.
+
+[10:20:02] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBDLFGNVO7" sending FIN because: "The Socket transport's send loop completed gracefully."
+
+[10:20:11] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBDLFGNVO8" received FIN.
+
+[10:20:11] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware] Failed to authenticate HTTPS connection.
+System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+
+[10:20:11] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO8" stopped.
+
+[10:20:11] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBDLFGNVO8" sending FIN because: "The Socket transport's send loop completed gracefully."
+
+[10:21:02] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO9" accepted.
+
+[10:21:02] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO9" started.
+
+[10:21:02] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVOA" accepted.
+
+[10:21:02] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVOA" started.
+
+[10:21:02] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware] Failed to authenticate HTTPS connection.
+System.Security.Authentication.AuthenticationException: Cannot determine the frame size or a corrupted frame was received.
+   at System.Net.Security.SslStream.GetFrameSize(ReadOnlySpan`1 buffer)
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+
+[10:21:02] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVO9" stopped.
+
+[10:21:02] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBDLFGNVO9" sending FIN because: "The Socket transport's send loop completed gracefully."
+
+[10:21:11] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBDLFGNVOA" received FIN.
+
+[10:21:11] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware] Failed to authenticate HTTPS connection.
+System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+
+[10:21:11] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBDLFGNVOA" stopped.
+
+[10:21:11] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBDLFGNVOA" sending FIN because: "The Socket transport's send loop completed gracefully."
+
+[10:37:48] [DEBUG] [Microsoft.EntityFrameworkCore.Infrastructure] An 'IServiceProvider' was created for internal use by Entity Framework.
+
+[10:37:57] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'Permission.CreatedByUserId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[10:37:57] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'Permission.DeletedByUserId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[10:37:57] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'Permission.UpdateByUserId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[10:37:57] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'RolePermission.CreatedByUserId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[10:37:57] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'RolePermission.DeletedByUserId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[10:37:57] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'RolePermission.PermissionsId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[10:37:57] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'RolePermission.RoleId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[10:37:57] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'RolePermission.UpdateByUserId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[10:37:57] [DEBUG] [Microsoft.EntityFrameworkCore.Infrastructure] Entity Framework Core 9.0.3 initialized 'iiwiDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:9.0.3' with options: MaxPoolSize=1024 EngineType=SqlServer 
+
+[10:37:57] [INFORMATION] [Microsoft.EntityFrameworkCore.Migrations] No migrations were found in assembly 'iiwi.Database'. A migration needs to be added before the database can be updated.
+
+[10:37:57] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Creating DbConnection.
+
+[10:38:00] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Created DbConnection. (2407ms).
+
+[10:38:00] [DEBUG] [Microsoft.EntityFrameworkCore.Migrations] Migrating using database 'iiwi' on server 'NCCTCC'.
+
+[10:38:01] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Opening connection to database 'iiwi' on server 'NCCTCC'.
+
+[10:38:12] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Opened connection to database 'iiwi' on server 'NCCTCC'.
+
+[10:38:12] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteNonQuery'.
+
+[10:38:12] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteNonQuery' (20ms).
+
+[10:38:12] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteNonQuery' (23ms).
+
+[10:38:12] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+
+[10:38:12] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (305ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+
+[10:38:12] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Closing connection to database 'iiwi' on server 'NCCTCC'.
+
+[10:38:12] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Closed connection to database 'iiwi' on server 'NCCTCC' (3ms).
+
+[10:38:12] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Opening connection to database 'iiwi' on server 'NCCTCC'.
+
+[10:38:12] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Opened connection to database 'iiwi' on server 'NCCTCC'.
+
+[10:38:12] [INFORMATION] [Microsoft.EntityFrameworkCore.Migrations] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+
+[10:38:12] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteScalar'.
+
+[10:38:12] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteScalar' (0ms).
+
+[10:38:12] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteScalar' (0ms).
+
+[10:38:12] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+
+[10:38:13] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1,024ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+
+[10:38:13] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Beginning transaction with isolation level 'Unspecified'.
+
+[10:38:13] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Began transaction with isolation level 'ReadCommitted'.
+
+[10:38:13] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteNonQuery'.
+
+[10:38:13] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteNonQuery' (0ms).
+
+[10:38:13] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteNonQuery' (0ms).
+
+[10:38:13] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+
+[10:38:14] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (664ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Committing transaction.
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Committed transaction.
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Disposing transaction.
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Beginning transaction with isolation level 'Unspecified'.
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Began transaction with isolation level 'ReadCommitted'.
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteNonQuery'.
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteNonQuery' (0ms).
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteNonQuery' (0ms).
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+
+[10:38:14] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteScalar'.
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteScalar' (0ms).
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteScalar' (0ms).
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+
+[10:38:14] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteReader'.
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteReader' (0ms).
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteReader' (0ms).
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+
+[10:38:14] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (396ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Closing data reader to 'iiwi' on server 'NCCTCC'.
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] A data reader for 'iiwi' on server 'NCCTCC' is being disposed after spending 3ms reading results.
+
+[10:38:14] [INFORMATION] [Microsoft.EntityFrameworkCore.Migrations] No migrations were applied. The database is already up to date.
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Committing transaction.
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Committed transaction.
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteScalar'.
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteScalar' (0ms).
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteScalar' (0ms).
+
+[10:38:14] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+
+[10:38:15] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (141ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+
+[10:38:15] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Transaction] Disposing transaction.
+
+[10:38:15] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Closing connection to database 'iiwi' on server 'NCCTCC'.
+
+[10:38:15] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Closed connection to database 'iiwi' on server 'NCCTCC' (0ms).
+
+[10:38:19] [DEBUG] [Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderFactory] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+
+[10:38:22] [DEBUG] [Microsoft.Extensions.Hosting.Internal.Host] Hosting starting
+
+[10:38:24] [INFORMATION] [Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager] User profile is available. Using 'C:\Users\moinc\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+
+[10:38:24] [DEBUG] [Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository] Reading data from file 'C:\Users\moinc\AppData\Local\ASP.NET\DataProtection-Keys\key-0618078b-0e80-40f9-917e-35e31bafe4e0.xml'.
+
+[10:38:24] [DEBUG] [Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository] Reading data from file 'C:\Users\moinc\AppData\Local\ASP.NET\DataProtection-Keys\key-0ac5bee5-bd65-49a9-bec8-f3f0b3dc8dd6.xml'.
+
+[10:38:24] [DEBUG] [Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository] Reading data from file 'C:\Users\moinc\AppData\Local\ASP.NET\DataProtection-Keys\key-acccf804-39ac-46c8-901b-205e300d9010.xml'.
+
+[10:38:24] [DEBUG] [Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository] Reading data from file 'C:\Users\moinc\AppData\Local\ASP.NET\DataProtection-Keys\key-cb4c1d5b-d370-4ad9-82c7-c48fa55e50b3.xml'.
+
+[10:38:24] [DEBUG] [Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager] Found key {0618078b-0e80-40f9-917e-35e31bafe4e0}.
+
+[10:38:25] [DEBUG] [Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager] Found key {0ac5bee5-bd65-49a9-bec8-f3f0b3dc8dd6}.
+
+[10:38:25] [DEBUG] [Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager] Found key {acccf804-39ac-46c8-901b-205e300d9010}.
+
+[10:38:25] [DEBUG] [Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager] Found key {cb4c1d5b-d370-4ad9-82c7-c48fa55e50b3}.
+
+[10:38:25] [DEBUG] [Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver] Considering key {cb4c1d5b-d370-4ad9-82c7-c48fa55e50b3} with expiration date 2025-04-28 06:08:57Z as default key.
+
+[10:38:25] [DEBUG] [Microsoft.AspNetCore.DataProtection.TypeForwardingActivator] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+
+[10:38:25] [DEBUG] [Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor] Decrypting secret element using Windows DPAPI.
+
+[10:38:25] [DEBUG] [Microsoft.AspNetCore.DataProtection.TypeForwardingActivator] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+
+[10:38:25] [DEBUG] [Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngCbcAuthenticatedEncryptorFactory] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+
+[10:38:25] [DEBUG] [Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngCbcAuthenticatedEncryptorFactory] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+
+[10:38:25] [DEBUG] [Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider] Using key {cb4c1d5b-d370-4ad9-82c7-c48fa55e50b3} as the default key.
+
+[10:38:25] [DEBUG] [Microsoft.AspNetCore.DataProtection.Internal.DataProtectionHostedService] Key ring with default key {cb4c1d5b-d370-4ad9-82c7-c48fa55e50b3} was loaded during application startup.
+
+[10:38:25] [DEBUG] [Microsoft.AspNetCore.Watch.BrowserRefresh.BlazorWasmHotReloadMiddleware] Middleware loaded
+
+[10:38:25] [DEBUG] [Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserScriptMiddleware] Middleware loaded. Script /_framework/aspnetcore-browser-refresh.js (16509 B).
+
+[10:38:25] [DEBUG] [Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserScriptMiddleware] Middleware loaded. Script /_framework/blazor-hotreload.js (799 B).
+
+[10:38:25] [DEBUG] [Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware] Middleware configuration started with options: {AllowedHosts = *, AllowEmptyHosts = True, IncludeFailureMessage = True}
+
+[10:38:25] [DEBUG] [Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware] Wildcard detected, all requests with hosts will be allowed.
+
+[10:38:25] [DEBUG] [Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware] Middleware loaded: DOTNET_MODIFIABLE_ASSEMBLIES=debug, __ASPNETCORE_BROWSER_TOOLS=true
+
+[10:38:26] [INFORMATION] [Microsoft.Hosting.Lifetime] Now listening on: https://localhost:7122
+
+[10:38:26] [INFORMATION] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5093
+
+[10:38:26] [DEBUG] [Microsoft.AspNetCore.Hosting.Diagnostics] Loaded hosting startup assembly iiwi.AppWire
+
+[10:38:26] [DEBUG] [Microsoft.AspNetCore.Hosting.Diagnostics] Loaded hosting startup assembly Microsoft.WebTools.ApiEndpointDiscovery
+
+[10:38:26] [DEBUG] [Microsoft.AspNetCore.Hosting.Diagnostics] Loaded hosting startup assembly Microsoft.AspNetCore.Watch.BrowserRefresh
+
+[10:38:26] [DEBUG] [Microsoft.AspNetCore.Hosting.Diagnostics] Loaded hosting startup assembly Microsoft.WebTools.BrowserLink.Net
+
+[10:38:26] [DEBUG] [Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionGroupCollectionProvider] Executing API description provider 'EndpointMetadataApiDescriptionProvider' from assembly Microsoft.AspNetCore.Mvc.ApiExplorer v9.0.0.0.
+
+[10:38:26] [DEBUG] [Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionGroupCollectionProvider] Executing API description provider 'DefaultApiDescriptionProvider' from assembly Microsoft.AspNetCore.Mvc.ApiExplorer v9.0.0.0.
+
+[10:38:26] [INFORMATION] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down.
+
+[10:38:26] [INFORMATION] [Microsoft.Hosting.Lifetime] Hosting environment: Development
+
+[10:38:26] [INFORMATION] [Microsoft.Hosting.Lifetime] Content root path: C:\Users\moinc\source\repos\iiwi\iiwi.AppWire
+
+[10:38:26] [DEBUG] [Microsoft.Extensions.Hosting.Internal.Host] Hosting started
+
+[10:38:31] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCPQ" accepted.
+
+[10:38:31] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCPR" accepted.
+
+[10:38:31] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCPQ" started.
+
+[10:38:31] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCPR" started.
+
+[10:38:31] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware] Failed to authenticate HTTPS connection.
+System.Security.Authentication.AuthenticationException: Cannot determine the frame size or a corrupted frame was received.
+   at System.Net.Security.SslStream.GetFrameSize(ReadOnlySpan`1 buffer)
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+
+[10:38:31] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCPQ" stopped.
+
+[10:38:31] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBE055NCPQ" sending FIN because: "The Socket transport's send loop completed gracefully."
+
+[10:38:32] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCPS" accepted.
+
+[10:38:32] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCPS" started.
+
+[10:38:32] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware] Failed to authenticate HTTPS connection.
+System.Security.Authentication.AuthenticationException: Cannot determine the frame size or a corrupted frame was received.
+   at System.Net.Security.SslStream.GetFrameSize(ReadOnlySpan`1 buffer)
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+
+[10:38:32] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCPR" stopped.
+
+[10:38:32] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBE055NCPR" sending FIN because: "The Socket transport's send loop completed gracefully."
+
+[10:38:32] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware] Failed to authenticate HTTPS connection.
+System.Security.Authentication.AuthenticationException: Cannot determine the frame size or a corrupted frame was received.
+   at System.Net.Security.SslStream.GetFrameSize(ReadOnlySpan`1 buffer)
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+
+[10:38:32] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCPS" stopped.
+
+[10:38:32] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBE055NCPS" sending FIN because: "The Socket transport's send loop completed gracefully."
+
+[10:38:32] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCPT" accepted.
+
+[10:38:32] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCPT" started.
+
+[10:38:32] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware] Failed to authenticate HTTPS connection.
+System.Security.Authentication.AuthenticationException: Cannot determine the frame size or a corrupted frame was received.
+   at System.Net.Security.SslStream.GetFrameSize(ReadOnlySpan`1 buffer)
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+
+[10:38:32] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCPT" stopped.
+
+[10:38:32] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBE055NCPT" sending FIN because: "The Socket transport's send loop completed gracefully."
+
+[10:38:37] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCPU" accepted.
+
+[10:38:37] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCPU" started.
+
+[10:38:37] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCPV" accepted.
+
+[10:38:37] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCPV" started.
+
+[10:38:37] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware] Failed to authenticate HTTPS connection.
+System.Security.Authentication.AuthenticationException: Cannot determine the frame size or a corrupted frame was received.
+   at System.Net.Security.SslStream.GetFrameSize(ReadOnlySpan`1 buffer)
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+
+[10:38:37] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCPU" stopped.
+
+[10:38:37] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBE055NCPU" sending FIN because: "The Socket transport's send loop completed gracefully."
+
+[10:38:47] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware] Authentication of the HTTPS connection timed out.
+
+[10:38:47] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCPV" stopped.
+
+[10:38:47] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBE055NCPV" sending FIN because: "The Socket transport's send loop completed gracefully."
+
+[10:42:45] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCQ0" accepted.
+
+[10:42:45] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCQ0" started.
+
+[10:42:45] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCQ1" accepted.
+
+[10:42:46] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCQ1" started.
+
+[10:42:46] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBE055NCQ1" received FIN.
+
+[10:42:46] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware] Connection 0HNBBE055NCQ1 established using the following protocol: "Tls13"
+
+[10:42:46] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware] Connection 0HNBBE055NCQ0 established using the following protocol: "Tls13"
+
+[10:42:46] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Http2] Connection id "0HNBBE055NCQ1" is closed. The last processed stream ID was 0.
+
+[10:42:46] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBE055NCQ1" sending FIN because: "The Socket transport's send loop completed gracefully."
+
+[10:42:46] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Http2] The connection queue processing loop for 0HNBBE055NCQ1 completed.
+
+[10:42:46] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCQ1" stopped.
+
+[10:42:47] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/ - null null
+
+[10:42:51] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path / does not match a supported file type
+
+[10:42:51] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path  does not match the path filter
+
+[10:42:51] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/ - 301 0 null 3932.2714ms
+
+[10:42:51] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/index.html - null null
+
+[10:42:51] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /index.html does not match an existing file
+
+[10:42:51] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path  does not match the path filter
+
+[10:42:51] [DEBUG] [Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware] Response markup is scheduled to include Browser Link script injection.
+
+[10:42:51] [DEBUG] [Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware] Response markup is scheduled to include browser refresh script injection.
+
+[10:42:51] [DEBUG] [Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware] Response markup was updated to include Browser Link script injection.
+
+[10:42:51] [DEBUG] [Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware] Response markup was updated to include browser refresh script injection.
+
+[10:42:51] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/index.html - 200 null text/html;charset=utf-8 220.7431ms
+
+[10:42:51] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/_vs/browserLink - null null
+
+[10:42:51] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/rapidoc-min.js - null null
+
+[10:42:51] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /rapidoc-min.js does not match an existing file
+
+[10:42:51] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path  does not match the path filter
+
+[10:42:51] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/_framework/aspnetcore-browser-refresh.js - null null
+
+[10:42:51] [DEBUG] [Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserScriptMiddleware] Script injected: /_framework/aspnetcore-browser-refresh.js
+
+[10:42:51] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/_framework/aspnetcore-browser-refresh.js - 200 16509 application/javascript; charset=utf-8 5.0449ms
+
+[10:42:51] [INFORMATION] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] Sending file. Request path: '/rapidoc-min.js'. Physical path: 'N/A'
+
+[10:42:51] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/rapidoc-min.js - 200 662202 text/javascript 235.8728ms
+
+[10:42:52] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/swagger/v1/swagger.json - null null
+
+[10:42:52] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /swagger/v1/swagger.json does not match an existing file
+
+[10:42:52] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 283.0258ms
+
+[10:42:53] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/_vs/browserLink - 200 null text/javascript; charset=UTF-8 2390.6529ms
+
+[10:42:55] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/favicon.ico - null null
+
+[10:42:55] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /favicon.ico does not match an existing file
+
+[10:42:55] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path  does not match the path filter
+
+[10:42:55] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /favicon.ico does not match an existing file
+
+[10:42:55] [DEBUG] [Microsoft.AspNetCore.Routing.Matching.DfaMatcher] No candidates found for the request path '/favicon.ico'
+
+[10:42:55] [DEBUG] [Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware] Request did not match any endpoints
+
+[10:42:56] [DEBUG] [Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler] AuthenticationScheme: Identity.Application was not authenticated.
+
+[10:42:56] [DEBUG] [Microsoft.AspNetCore.Routing.Matching.DfaMatcher] No candidates found for the request path '/favicon.ico'
+
+[10:42:56] [DEBUG] [Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware] Request did not match any endpoints
+
+[10:42:56] [INFORMATION] [Microsoft.AspNetCore.ResponseCaching.ResponseCachingMiddleware] No cached response available for this request.
+
+[10:42:56] [DEBUG] [Microsoft.AspNetCore.ResponseCaching.ResponseCachingMiddleware] Response is not cacheable because it does not contain the 'public' cache directive.
+
+[10:42:56] [INFORMATION] [Microsoft.AspNetCore.ResponseCaching.ResponseCachingMiddleware] The response could not be cached for this request.
+
+[10:42:56] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/favicon.ico - 404 0 null 1124.777ms
+
+[10:42:56] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7122/favicon.ico, Response status code: 404
+
+[10:43:14] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/_framework/aspnetcore-browser-refresh.js - null null
+
+[10:43:14] [DEBUG] [Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserScriptMiddleware] Script injected: /_framework/aspnetcore-browser-refresh.js
+
+[10:43:14] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/_framework/aspnetcore-browser-refresh.js - 200 16509 application/javascript; charset=utf-8 0.4159ms
+
+[10:43:14] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/swagger/v1/swagger.json - null null
+
+[10:43:14] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /swagger/v1/swagger.json does not match an existing file
+
+[10:43:14] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 6.545ms
+
+[10:43:26] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/swegger/index.html - null null
+
+[10:43:26] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /swegger/index.html does not match an existing file
+
+[10:43:26] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path  does not match the path filter
+
+[10:43:26] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /swegger/index.html does not match an existing file
+
+[10:43:26] [DEBUG] [Microsoft.AspNetCore.Routing.Matching.DfaMatcher] No candidates found for the request path '/swegger/index.html'
+
+[10:43:26] [DEBUG] [Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware] Request did not match any endpoints
+
+[10:43:26] [DEBUG] [Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler] AuthenticationScheme: Identity.Application was not authenticated.
+
+[10:43:26] [DEBUG] [Microsoft.AspNetCore.Routing.Matching.DfaMatcher] No candidates found for the request path '/swegger/index.html'
+
+[10:43:26] [DEBUG] [Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware] Request did not match any endpoints
+
+[10:43:26] [INFORMATION] [Microsoft.AspNetCore.ResponseCaching.ResponseCachingMiddleware] No cached response available for this request.
+
+[10:43:26] [DEBUG] [Microsoft.AspNetCore.ResponseCaching.ResponseCachingMiddleware] Response is not cacheable because it does not contain the 'public' cache directive.
+
+[10:43:26] [INFORMATION] [Microsoft.AspNetCore.ResponseCaching.ResponseCachingMiddleware] The response could not be cached for this request.
+
+[10:43:26] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/swegger/index.html - 404 0 null 59.5099ms
+
+[10:43:26] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7122/swegger/index.html, Response status code: 404
+
+[10:43:39] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/api/v/Test - null null
+
+[10:43:39] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /api/v/Test does not match a supported file type
+
+[10:43:39] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path  does not match the path filter
+
+[10:43:39] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /api/v/Test does not match a supported file type
+
+[10:43:39] [DEBUG] [Microsoft.AspNetCore.Routing.Matching.DfaMatcher] 1 candidate(s) found for the request path '/api/v/Test'
+
+[10:43:39] [DEBUG] [Microsoft.AspNetCore.Routing.Matching.DfaMatcher] Endpoint 'iiwi.AppWire.Controllers.TestController.Test (iiwi.AppWire)' with route pattern 'api/v{version:apiVersion}/Test' was rejected by complex segment 'v{version:}' for the request path '/api/v/Test'
+
+[10:43:39] [DEBUG] [Microsoft.AspNetCore.Routing.Matching.DfaMatcher] Endpoint 'iiwi.AppWire.Controllers.TestController.Test (iiwi.AppWire)' with route pattern 'api/v{version:apiVersion}/Test' was rejected by constraint 'version':'Asp.Versioning.Routing.ApiVersionRouteConstraint' with value 'null' for the request path '/api/v/Test'
+
+[10:43:39] [DEBUG] [Microsoft.AspNetCore.Routing.Matching.DfaMatcher] Endpoint 'iiwi.AppWire.Controllers.TestController.Test (iiwi.AppWire)' with route pattern 'api/v{version:apiVersion}/Test' is not valid for the request path '/api/v/Test'
+
+[10:43:39] [DEBUG] [Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware] Request did not match any endpoints
+
+[10:43:39] [DEBUG] [Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler] AuthenticationScheme: Identity.Application was not authenticated.
+
+[10:43:39] [DEBUG] [Microsoft.AspNetCore.Routing.Matching.DfaMatcher] 1 candidate(s) found for the request path '/api/v/Test'
+
+[10:43:39] [DEBUG] [Microsoft.AspNetCore.Routing.Matching.DfaMatcher] Endpoint 'iiwi.AppWire.Controllers.TestController.Test (iiwi.AppWire)' with route pattern 'api/v{version:apiVersion}/Test' was rejected by complex segment 'v{version:}' for the request path '/api/v/Test'
+
+[10:43:39] [DEBUG] [Microsoft.AspNetCore.Routing.Matching.DfaMatcher] Endpoint 'iiwi.AppWire.Controllers.TestController.Test (iiwi.AppWire)' with route pattern 'api/v{version:apiVersion}/Test' was rejected by constraint 'version':'Asp.Versioning.Routing.ApiVersionRouteConstraint' with value 'null' for the request path '/api/v/Test'
+
+[10:43:39] [DEBUG] [Microsoft.AspNetCore.Routing.Matching.DfaMatcher] Endpoint 'iiwi.AppWire.Controllers.TestController.Test (iiwi.AppWire)' with route pattern 'api/v{version:apiVersion}/Test' is not valid for the request path '/api/v/Test'
+
+[10:43:39] [DEBUG] [Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware] Request did not match any endpoints
+
+[10:43:39] [INFORMATION] [Microsoft.AspNetCore.ResponseCaching.ResponseCachingMiddleware] No cached response available for this request.
+
+[10:43:39] [DEBUG] [Microsoft.AspNetCore.ResponseCaching.ResponseCachingMiddleware] Response is not cacheable because it does not contain the 'public' cache directive.
+
+[10:43:39] [INFORMATION] [Microsoft.AspNetCore.ResponseCaching.ResponseCachingMiddleware] The response could not be cached for this request.
+
+[10:43:39] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/api/v/Test - 404 0 null 72.3068ms
+
+[10:43:39] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7122/api/v/Test, Response status code: 404
+
+[10:43:45] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/api/v1.0/Test - null null
+
+[10:43:45] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /api/v1.0/Test does not match a supported file type
+
+[10:43:45] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path  does not match the path filter
+
+[10:43:45] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /api/v1.0/Test does not match a supported file type
+
+[10:43:45] [DEBUG] [Microsoft.AspNetCore.Routing.Matching.DfaMatcher] 1 candidate(s) found for the request path '/api/v1.0/Test'
+
+[10:43:45] [DEBUG] [Microsoft.AspNetCore.Routing.Matching.DfaMatcher] Endpoint 'iiwi.AppWire.Controllers.TestController.Test (iiwi.AppWire)' with route pattern 'api/v{version:apiVersion}/Test' is valid for the request path '/api/v1.0/Test'
+
+[10:43:45] [DEBUG] [Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware] Request matched endpoint 'iiwi.AppWire.Controllers.TestController.Test (iiwi.AppWire)'
+
+[10:43:45] [DEBUG] [Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler] AuthenticationScheme: Identity.Application was not authenticated.
+
+[10:43:45] [DEBUG] [Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware] Endpoint 'iiwi.AppWire.Controllers.TestController.Test (iiwi.AppWire)' already set, skipping route matching.
+
+[10:43:45] [INFORMATION] [Microsoft.AspNetCore.ResponseCaching.ResponseCachingMiddleware] No cached response available for this request.
+
+[10:43:45] [INFORMATION] [Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'iiwi.AppWire.Controllers.TestController.Test (iiwi.AppWire)'
+
+[10:43:45] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "Test", controller = "Test"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Test() on controller iiwi.AppWire.Controllers.TestController (iiwi.AppWire).
+
+[10:43:45] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Execution plan of authorization filters (in the following order): ["None"]
+
+[10:43:45] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Execution plan of resource filters (in the following order): ["None"]
+
+[10:43:45] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+
+[10:43:45] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Execution plan of exception filters (in the following order): ["None"]
+
+[10:43:45] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000)"]
+
+[10:43:45] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing controller factory for controller iiwi.AppWire.Controllers.TestController (iiwi.AppWire)
+
+[10:43:45] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed controller factory for controller iiwi.AppWire.Controllers.TestController (iiwi.AppWire)
+
+[10:43:45] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing action method iiwi.AppWire.Controllers.TestController.Test (iiwi.AppWire) - Validation state: "Valid"
+
+[10:43:45] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action method iiwi.AppWire.Controllers.TestController.Test (iiwi.AppWire), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 2.0706ms.
+
+[10:43:45] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter"]
+
+[10:43:45] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector] No information found on request to perform content negotiation.
+
+[10:43:45] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector] Attempting to select an output formatter without using a content type as no explicit content types were specified for the response.
+
+[10:43:45] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector] Attempting to select the first formatter in the output formatters list which can write the result.
+
+[10:43:45] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter' and content type 'application/json' to write the response.
+
+[10:43:45] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`7[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+
+[10:43:45] [DEBUG] [Microsoft.AspNetCore.ResponseCaching.ResponseCachingMiddleware] Response is not cacheable because it does not contain the 'public' cache directive.
+
+[10:43:45] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action iiwi.AppWire.Controllers.TestController.Test (iiwi.AppWire) in 285.9598ms
+
+[10:43:45] [INFORMATION] [Microsoft.AspNetCore.Routing.EndpointMiddleware] Executed endpoint 'iiwi.AppWire.Controllers.TestController.Test (iiwi.AppWire)'
+
+[10:43:45] [INFORMATION] [Microsoft.AspNetCore.ResponseCaching.ResponseCachingMiddleware] The response could not be cached for this request.
+
+[10:43:45] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/api/v1.0/Test - 200 null application/json; charset=utf-8 386.8184ms
+
+[10:44:05] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/swagger/v1/swagger.json - null null
+
+[10:44:05] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /swagger/v1/swagger.json does not match an existing file
+
+[10:44:05] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 32.2877ms
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/swagger/index.html - null null
+
+[10:44:15] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /swagger/index.html does not match an existing file
+
+[10:44:15] [DEBUG] [Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware] Response markup is scheduled to include Browser Link script injection.
+
+[10:44:15] [DEBUG] [Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware] Response markup is scheduled to include browser refresh script injection.
+
+[10:44:15] [DEBUG] [Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware] Response markup was updated to include Browser Link script injection.
+
+[10:44:15] [DEBUG] [Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware] Response markup was updated to include browser refresh script injection.
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/swagger/index.html - 200 null text/html;charset=utf-8 175.8138ms
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/swagger/index.css - null null
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/swagger/swagger-ui.css - null null
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/swagger-ui/swagger-dark.css - null null
+
+[10:44:15] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /swagger/index.css does not match an existing file
+
+[10:44:15] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /swagger/swagger-ui.css does not match an existing file
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] Sending file. Request path: '/index.css'. Physical path: 'N/A'
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/swagger/index.css - 200 202 text/css 106.7752ms
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/swagger/swagger-ui-bundle.js - null null
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/swagger/index.js - null null
+
+[10:44:15] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /swagger/swagger-ui-bundle.js does not match an existing file
+
+[10:44:15] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /swagger/index.js does not match an existing file
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/_framework/aspnetcore-browser-refresh.js - null null
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/swagger/swagger-ui-standalone-preset.js - null null
+
+[10:44:15] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /swagger/swagger-ui-standalone-preset.js does not match an existing file
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/_vs/browserLink - null null
+
+[10:44:15] [DEBUG] [Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserScriptMiddleware] Script injected: /_framework/aspnetcore-browser-refresh.js
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/_framework/aspnetcore-browser-refresh.js - 200 16509 application/javascript; charset=utf-8 34.1495ms
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/_vs/browserLink - 200 null text/javascript; charset=UTF-8 63.2745ms
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/swagger/index.js - 200 null application/javascript;charset=utf-8 83.9695ms
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/swagger/swagger-ui.css - 200 154948 text/css 216.3945ms
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/swagger/swagger-ui-standalone-preset.js - 200 229223 text/javascript 111.822ms
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] Sending file. Request path: '/swagger-ui/swagger-dark.css'. Physical path: 'C:\Users\moinc\source\repos\iiwi\iiwi.AppWire\wwwroot\swagger-ui\swagger-dark.css'
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/swagger-ui/swagger-dark.css - 200 51971 text/css 452.0136ms
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/swagger/swagger-ui-bundle.js - 200 1466324 text/javascript 379.3461ms
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/swagger/v1/swagger.json - null null
+
+[10:44:15] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /swagger/v1/swagger.json does not match an existing file
+
+[10:44:15] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 4.1806ms
+
+[10:44:16] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/swagger/favicon-32x32.png - null null
+
+[10:44:16] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /swagger/favicon-32x32.png does not match an existing file
+
+[10:44:16] [INFORMATION] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+
+[10:44:16] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/swagger/favicon-32x32.png - 200 628 image/png 0.4305ms
+
+[10:44:19] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/swagger/v1/swagger.json - null null
+
+[10:44:19] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /swagger/v1/swagger.json does not match an existing file
+
+[10:44:19] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 38.2444ms
+
+[10:44:41] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCQ2" accepted.
+
+[10:44:41] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCQ2" started.
+
+[10:44:41] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware] Connection 0HNBBE055NCQ2 established using the following protocol: "Tls13"
+
+[10:44:41] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/2 GET https://localhost:7122/swagger/v1/swagger.json - null null
+
+[10:44:41] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /swagger/v1/swagger.json does not match an existing file
+
+[10:44:41] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/2 GET https://localhost:7122/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 3.6589ms
+
+[10:45:02] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBE055NCQ2" received FIN.
+
+[10:45:02] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Http2] Connection id "0HNBBE055NCQ2" is closed. The last processed stream ID was 1.
+
+[10:45:02] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBE055NCQ2" sending FIN because: "The Socket transport's send loop completed gracefully."
+
+[10:45:02] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Http2] The connection queue processing loop for 0HNBBE055NCQ2 completed.
+
+[10:45:02] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCQ2" stopped.
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCQ3" accepted.
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCQ3" started.
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBE055NCQ3" received FIN.
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCQ4" accepted.
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCQ4" started.
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware] Failed to authenticate HTTPS connection.
+System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCQ3" stopped.
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBE055NCQ3" sending FIN because: "The Socket transport's send loop completed gracefully."
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware] Connection 0HNBBE055NCQ4 established using the following protocol: "Tls13"
+
+[10:46:13] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET https://localhost:7122/api/v1.0/Test - null null
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /api/v1.0/Test does not match a supported file type
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path  does not match the path filter
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] The request path /api/v1.0/Test does not match a supported file type
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Routing.Matching.DfaMatcher] 1 candidate(s) found for the request path '/api/v1.0/Test'
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Routing.Matching.DfaMatcher] Endpoint 'iiwi.AppWire.Controllers.TestController.Test (iiwi.AppWire)' with route pattern 'api/v{version:apiVersion}/Test' is valid for the request path '/api/v1.0/Test'
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware] Request matched endpoint 'iiwi.AppWire.Controllers.TestController.Test (iiwi.AppWire)'
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler] AuthenticationScheme: Identity.Application was not authenticated.
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware] Endpoint 'iiwi.AppWire.Controllers.TestController.Test (iiwi.AppWire)' already set, skipping route matching.
+
+[10:46:13] [INFORMATION] [Microsoft.AspNetCore.ResponseCaching.ResponseCachingMiddleware] No cached response available for this request.
+
+[10:46:13] [INFORMATION] [Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'iiwi.AppWire.Controllers.TestController.Test (iiwi.AppWire)'
+
+[10:46:13] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "Test", controller = "Test"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Test() on controller iiwi.AppWire.Controllers.TestController (iiwi.AppWire).
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Execution plan of authorization filters (in the following order): ["None"]
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Execution plan of resource filters (in the following order): ["None"]
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Execution plan of exception filters (in the following order): ["None"]
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000)"]
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing controller factory for controller iiwi.AppWire.Controllers.TestController (iiwi.AppWire)
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed controller factory for controller iiwi.AppWire.Controllers.TestController (iiwi.AppWire)
+
+[10:46:13] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing action method iiwi.AppWire.Controllers.TestController.Test (iiwi.AppWire) - Validation state: "Valid"
+
+[10:46:13] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action method iiwi.AppWire.Controllers.TestController.Test (iiwi.AppWire), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 0.0429ms.
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter"]
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector] No information found on request to perform content negotiation.
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector] Attempting to select an output formatter without using a content type as no explicit content types were specified for the response.
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector] Attempting to select the first formatter in the output formatters list which can write the result.
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter' and content type 'application/json' to write the response.
+
+[10:46:13] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`7[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.ResponseCaching.ResponseCachingMiddleware] Response is not cacheable because it does not contain the 'public' cache directive.
+
+[10:46:13] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action iiwi.AppWire.Controllers.TestController.Test (iiwi.AppWire) in 240.661ms
+
+[10:46:13] [INFORMATION] [Microsoft.AspNetCore.Routing.EndpointMiddleware] Executed endpoint 'iiwi.AppWire.Controllers.TestController.Test (iiwi.AppWire)'
+
+[10:46:13] [INFORMATION] [Microsoft.AspNetCore.ResponseCaching.ResponseCachingMiddleware] The response could not be cached for this request.
+
+[10:46:13] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCQ4" completed keep alive response.
+
+[10:46:13] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/1.1 GET https://localhost:7122/api/v1.0/Test - 200 null application/json; charset=utf-8 243.3628ms
+
+[10:46:40] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBE055NCQ0" received FIN.
+
+[10:46:40] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Http2] Connection id "0HNBBE055NCQ0" is closed. The last processed stream ID was 49.
+
+[10:46:40] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets] Connection id "0HNBBE055NCQ0" sending FIN because: "The Socket transport's send loop completed gracefully."
+
+[10:46:40] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Http2] The connection queue processing loop for 0HNBBE055NCQ0 completed.
+
+[10:46:40] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel.Connections] Connection id "0HNBBE055NCQ0" stopped.
+
+[10:48:09] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 POST https://localhost:7122/api/v1.0/Auth/register - application/json 118
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] POST requests are not supported
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] POST requests are not supported
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] POST requests are not supported
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.Routing.Matching.DfaMatcher] 1 candidate(s) found for the request path '/api/v1.0/Auth/register'
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.Routing.Matching.DfaMatcher] Endpoint 'iiwi.AppWire.Controllers.AuthController.Register (iiwi.AppWire)' with route pattern 'api/v{version:apiVersion}/Auth/register' is valid for the request path '/api/v1.0/Auth/register'
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware] Request matched endpoint 'iiwi.AppWire.Controllers.AuthController.Register (iiwi.AppWire)'
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler] AuthenticationScheme: Identity.Application was not authenticated.
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware] Endpoint 'iiwi.AppWire.Controllers.AuthController.Register (iiwi.AppWire)' already set, skipping route matching.
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.ResponseCaching.ResponseCachingMiddleware] The request cannot be served from cache because it uses the HTTP method: POST.
+
+[10:48:09] [INFORMATION] [Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'iiwi.AppWire.Controllers.AuthController.Register (iiwi.AppWire)'
+
+[10:48:09] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Register(iiwi.Application.Authentication.RegisterRequest) on controller iiwi.AppWire.Controllers.AuthController (iiwi.AppWire).
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Execution plan of authorization filters (in the following order): ["None"]
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Execution plan of resource filters (in the following order): ["None"]
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Execution plan of exception filters (in the following order): ["None"]
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000)"]
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing controller factory for controller iiwi.AppWire.Controllers.AuthController (iiwi.AppWire)
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed controller factory for controller iiwi.AppWire.Controllers.AuthController (iiwi.AppWire)
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder] Attempting to bind parameter 'request' of type 'iiwi.Application.Authentication.RegisterRequest' ...
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinder] Attempting to bind parameter 'request' of type 'iiwi.Application.Authentication.RegisterRequest' using the name '' in request data ...
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinder] Selected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter' for content type 'application/json'.
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel] Connection id "0HNBBE055NCQ4", Request id "0HNBBE055NCQ4:00000002": started reading request body.
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.Server.Kestrel] Connection id "0HNBBE055NCQ4", Request id "0HNBBE055NCQ4:00000002": done reading request body.
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter] JSON input formatter succeeded, deserializing to type 'iiwi.Application.Authentication.RegisterRequest'
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinder] Done attempting to bind parameter 'request' of type 'iiwi.Application.Authentication.RegisterRequest'.
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder] Done attempting to bind parameter 'request' of type 'iiwi.Application.Authentication.RegisterRequest'.
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder] Attempting to validate the bound parameter 'request' of type 'iiwi.Application.Authentication.RegisterRequest' ...
+
+[10:48:09] [DEBUG] [Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder] Done attempting to validate the bound parameter 'request' of type 'iiwi.Application.Authentication.RegisterRequest'.
+
+[10:48:09] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing action method iiwi.AppWire.Controllers.AuthController.Register (iiwi.AppWire) - Validation state: "Valid"
+
+[10:48:10] [DEBUG] [Microsoft.EntityFrameworkCore.Model] The index {'UserId'} was not created on entity type 'IdentityUserRole<int>' as the properties are already covered by the index {'UserId', 'RoleId'}.
+
+[10:48:10] [DEBUG] [Microsoft.EntityFrameworkCore.Model] The index {'UserId'} was not created on entity type 'IdentityUserToken<int>' as the properties are already covered by the index {'UserId', 'LoginProvider', 'Name'}.
+
+[10:48:10] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'Permission.CreatedByUserId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[10:48:10] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'Permission.DeletedByUserId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[10:48:10] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'Permission.UpdateByUserId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[10:48:10] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'RolePermission.CreatedByUserId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[10:48:10] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'RolePermission.DeletedByUserId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[10:48:10] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'RolePermission.PermissionsId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[10:48:10] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'RolePermission.RoleId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[10:48:10] [DEBUG] [Microsoft.EntityFrameworkCore.Model.Validation] The property 'RolePermission.UpdateByUserId' was created in shadow state because there are no eligible CLR members with a matching name.
+
+[10:48:10] [DEBUG] [Microsoft.EntityFrameworkCore.Infrastructure] Entity Framework Core 9.0.3 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:9.0.3' with options: EngineType=SqlServer 
+
+[10:48:10] [DEBUG] [Microsoft.EntityFrameworkCore.Query] Compiling query expression: 
+'DbSet<ApplicationUser>()
+    .FirstOrDefault(u => u.NormalizedUserName == __normalizedUserName_0)'
+
+[10:48:11] [DEBUG] [Microsoft.EntityFrameworkCore.Query] Generated query execution expression: 
+'queryContext => ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync<ApplicationUser>(
+    asyncEnumerable: SingleQueryingEnumerable.Create<ApplicationUser>(
+        relationalQueryContext: (RelationalQueryContext)queryContext, 
+        relationalCommandResolver: parameters => [LIFTABLE Constant: RelationalCommandCache.QueryExpression(
+            Projection Mapping:
+                EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: ApplicationUser.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: ApplicationUser.AccessFailedCount (int) Required, 1], [Property: ApplicationUser.Address (string), 2], [Property: ApplicationUser.ConcurrencyStamp (string) Concurrency, 3], [Property: ApplicationUser.DOB (DateTime) Required, 4], [Property: ApplicationUser.DisplayName (string), 5], [Property: ApplicationUser.Email (string) MaxLength(256), 6], [Property: ApplicationUser.EmailConfirmed (bool) Required, 7], [Property: ApplicationUser.FirstName (string), 8], [Property: ApplicationUser.Gender (string), 9], [Property: ApplicationUser.LastLogin (DateTime) Required, 10], [Property: ApplicationUser.LastName (string), 11], [Property: ApplicationUser.LockoutEnabled (bool) Required, 12], [Property: ApplicationUser.LockoutEnd (DateTimeOffset?), 13], [Property: ApplicationUser.NormalizedEmail (string) Index MaxLength(256), 14], [Property: ApplicationUser.NormalizedUserName (string) Index MaxLength(256), 15], [Property: ApplicationUser.PasswordHash (string), 16], [Property: ApplicationUser.PhoneNumber (string), 17], [Property: ApplicationUser.PhoneNumberConfirmed (bool) Required, 18], [Property: ApplicationUser.SecurityStamp (string), 19], [Property: ApplicationUser.TwoFactorEnabled (bool) Required, 20], [Property: ApplicationUser.UserName (string) MaxLength(256), 21] }
+            SELECT TOP(1) u.Id, u.AccessFailedCount, u.Address, u.ConcurrencyStamp, u.DOB, u.DisplayName, u.Email, u.EmailConfirmed, u.FirstName, u.Gender, u.LastLogin, u.LastName, u.LockoutEnabled, u.LockoutEnd, u.NormalizedEmail, u.NormalizedUserName, u.PasswordHash, u.PhoneNumber, u.PhoneNumberConfirmed, u.SecurityStamp, u.TwoFactorEnabled, u.UserName
+            FROM Identity.User AS u
+            WHERE u.NormalizedUserName == @__normalizedUserName_0) | Resolver: c => new RelationalCommandCache(
+            c.Dependencies.MemoryCache, 
+            c.RelationalDependencies.QuerySqlGeneratorFactory, 
+            c.RelationalDependencies.RelationalParameterBasedSqlProcessorFactory, 
+            Projection Mapping:
+                EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: ApplicationUser.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: ApplicationUser.AccessFailedCount (int) Required, 1], [Property: ApplicationUser.Address (string), 2], [Property: ApplicationUser.ConcurrencyStamp (string) Concurrency, 3], [Property: ApplicationUser.DOB (DateTime) Required, 4], [Property: ApplicationUser.DisplayName (string), 5], [Property: ApplicationUser.Email (string) MaxLength(256), 6], [Property: ApplicationUser.EmailConfirmed (bool) Required, 7], [Property: ApplicationUser.FirstName (string), 8], [Property: ApplicationUser.Gender (string), 9], [Property: ApplicationUser.LastLogin (DateTime) Required, 10], [Property: ApplicationUser.LastName (string), 11], [Property: ApplicationUser.LockoutEnabled (bool) Required, 12], [Property: ApplicationUser.LockoutEnd (DateTimeOffset?), 13], [Property: ApplicationUser.NormalizedEmail (string) Index MaxLength(256), 14], [Property: ApplicationUser.NormalizedUserName (string) Index MaxLength(256), 15], [Property: ApplicationUser.PasswordHash (string), 16], [Property: ApplicationUser.PhoneNumber (string), 17], [Property: ApplicationUser.PhoneNumberConfirmed (bool) Required, 18], [Property: ApplicationUser.SecurityStamp (string), 19], [Property: ApplicationUser.TwoFactorEnabled (bool) Required, 20], [Property: ApplicationUser.UserName (string) MaxLength(256), 21] }
+            SELECT TOP(1) u.Id, u.AccessFailedCount, u.Address, u.ConcurrencyStamp, u.DOB, u.DisplayName, u.Email, u.EmailConfirmed, u.FirstName, u.Gender, u.LastLogin, u.LastName, u.LockoutEnabled, u.LockoutEnd, u.NormalizedEmail, u.NormalizedUserName, u.PasswordHash, u.PhoneNumber, u.PhoneNumberConfirmed, u.SecurityStamp, u.TwoFactorEnabled, u.UserName
+            FROM Identity.User AS u
+            WHERE u.NormalizedUserName == @__normalizedUserName_0, 
+            False, 
+            new HashSet<string>(
+                new string[]{ }, 
+                StringComparer.Ordinal
+            )
+        )].GetRelationalCommandTemplate(parameters), 
+        readerColumns: null, 
+        shaper: (queryContext, dataReader, resultContext, resultCoordinator) => 
+        {
+            ApplicationUser entity;
+            entity = 
+            {
+                MaterializationContext materializationContext1;
+                IEntityType entityType1;
+                ApplicationUser instance1;
+                InternalEntityEntry entry1;
+                bool hasNullKey1;
+                materializationContext1 = new MaterializationContext(
+                    [LIFTABLE Constant: ValueBuffer | Resolver: _ => (object)ValueBuffer.Empty], 
+                    queryContext.Context
+                );
+                instance1 = default(ApplicationUser);
+                entry1 = queryContext.TryGetEntry(
+                    key: [LIFTABLE Constant: Key: ApplicationUser.Id PK | Resolver: c => c.Dependencies.Model.FindEntityType("iiwi.Domain.Identity.ApplicationUser").FindPrimaryKey()], 
+                    keyValues: new object[]{ (object)dataReader.GetInt32(0) }, 
+                    throwOnNullKey: True, 
+                    hasNullKey: hasNullKey1);
+                !(hasNullKey1) ? entry1 != default(InternalEntityEntry) ? 
+                {
+                    entityType1 = entry1.EntityType;
+                    return instance1 = (ApplicationUser)entry1.Entity;
+                } : 
+                {
+                    ISnapshot shadowSnapshot1;
+                    shadowSnapshot1 = [LIFTABLE Constant: Snapshot | Resolver: _ => Snapshot.Empty];
+                    entityType1 = [LIFTABLE Constant: EntityType: ApplicationUser | Resolver: namelessParameter{0} => namelessParameter{0}.Dependencies.Model.FindEntityType("iiwi.Domain.Identity.ApplicationUser")];
+                    instance1 = switch (entityType1)
+                    {
+                        case [LIFTABLE Constant: EntityType: ApplicationUser | Resolver: namelessParameter{1} => namelessParameter{1}.Dependencies.Model.FindEntityType("iiwi.Domain.Identity.ApplicationUser")]: 
+                            {
+                                return 
+                                {
+                                    ApplicationUser instance;
+                                    instance = new ApplicationUser();
+                                    instance.<Id>k__BackingField = dataReader.GetInt32(0);
+                                    instance.<AccessFailedCount>k__BackingField = dataReader.GetInt32(1);
+                                    instance.<Address>k__BackingField = dataReader.IsDBNull(2) ? default(string) : dataReader.GetString(2);
+                                    instance.<ConcurrencyStamp>k__BackingField = dataReader.IsDBNull(3) ? default(string) : dataReader.GetString(3);
+                                    instance.<DOB>k__BackingField = dataReader.GetDateTime(4);
+                                    instance.<DisplayName>k__BackingField = dataReader.IsDBNull(5) ? default(string) : dataReader.GetString(5);
+                                    instance.<Email>k__BackingField = dataReader.IsDBNull(6) ? default(string) : dataReader.GetString(6);
+                                    instance.<EmailConfirmed>k__BackingField = dataReader.GetBoolean(7);
+                                    instance.<FirstName>k__BackingField = dataReader.IsDBNull(8) ? default(string) : dataReader.GetString(8);
+                                    instance.<Gender>k__BackingField = dataReader.IsDBNull(9) ? default(string) : dataReader.GetString(9);
+                                    instance.<LastLogin>k__BackingField = dataReader.GetDateTime(10);
+                                    instance.<LastName>k__BackingField = dataReader.IsDBNull(11) ? default(string) : dataReader.GetString(11);
+                                    instance.<LockoutEnabled>k__BackingField = dataReader.GetBoolean(12);
+                                    instance.<LockoutEnd>k__BackingField = dataReader.IsDBNull(13) ? default(DateTimeOffset?) : (DateTimeOffset?)dataReader.GetFieldValue<DateTimeOffset>(13);
+                                    instance.<NormalizedEmail>k__BackingField = dataReader.IsDBNull(14) ? default(string) : dataReader.GetString(14);
+                                    instance.<NormalizedUserName>k__BackingField = dataReader.IsDBNull(15) ? default(string) : dataReader.GetString(15);
+                                    instance.<PasswordHash>k__BackingField = dataReader.IsDBNull(16) ? default(string) : dataReader.GetString(16);
+                                    instance.<PhoneNumber>k__BackingField = dataReader.IsDBNull(17) ? default(string) : dataReader.GetString(17);
+                                    instance.<PhoneNumberConfirmed>k__BackingField = dataReader.GetBoolean(18);
+                                    instance.<SecurityStamp>k__BackingField = dataReader.IsDBNull(19) ? default(string) : dataReader.GetString(19);
+                                    instance.<TwoFactorEnabled>k__BackingField = dataReader.GetBoolean(20);
+                                    instance.<UserName>k__BackingField = dataReader.IsDBNull(21) ? default(string) : dataReader.GetString(21);
+                                    (instance is IInjectableService) ? ((IInjectableService)instance).Injected(
+                                        context: materializationContext1.Context, 
+                                        entity: instance, 
+                                        queryTrackingBehavior: TrackAll, 
+                                        structuralType: [LIFTABLE Constant: EntityType: ApplicationUser | Resolver: namelessParameter{2} => namelessParameter{2}.Dependencies.Model.FindEntityType("iiwi.Domain.Identity.ApplicationUser")]) : default(void);
+                                    return instance;
+                                }}
+                        default: 
+                            default(ApplicationUser)
+                    }
+                    ;
+                    entry1 = entityType1 == default(IEntityType) ? default(InternalEntityEntry) : queryContext.StartTracking(
+                        entityType: entityType1, 
+                        entity: instance1, 
+                        snapshot: shadowSnapshot1);
+                    return instance1;
+                } : default(void);
+                return instance1;
+            };
+            return entity;
+        }, 
+        contextType: iiwi.Database.ApplicationDbContext, 
+        standAloneStateManager: False, 
+        detailedErrorsEnabled: False, 
+        threadSafetyChecksEnabled: True), 
+    cancellationToken: queryContext.CancellationToken)'
+
+[10:48:11] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Creating DbConnection.
+
+[10:48:11] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Created DbConnection. (0ms).
+
+[10:48:11] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Opening connection to database 'iiwi' on server 'NCCTCC'.
+
+[10:48:11] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Opened connection to database 'iiwi' on server 'NCCTCC'.
+
+[10:48:11] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteReader'.
+
+[10:48:11] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteReader' (0ms).
+
+[10:48:11] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteReader' (2ms).
+
+[10:48:11] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[Address], [u].[ConcurrencyStamp], [u].[DOB], [u].[DisplayName], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[Gender], [u].[LastLogin], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+FROM [Identity].[User] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0
+
+[10:48:11] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (453ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[Address], [u].[ConcurrencyStamp], [u].[DOB], [u].[DisplayName], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[Gender], [u].[LastLogin], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+FROM [Identity].[User] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0
+
+[10:48:11] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Closing data reader to 'iiwi' on server 'NCCTCC'.
+
+[10:48:11] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] A data reader for 'iiwi' on server 'NCCTCC' is being disposed after spending 35ms reading results.
+
+[10:48:11] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Closing connection to database 'iiwi' on server 'NCCTCC'.
+
+[10:48:11] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Closed connection to database 'iiwi' on server 'NCCTCC' (0ms).
+
+[10:48:11] [DEBUG] [Microsoft.EntityFrameworkCore.ChangeTracking] 'ApplicationDbContext' generated a temporary value for the property 'ApplicationUser.Id'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+
+[10:48:11] [DEBUG] [Microsoft.EntityFrameworkCore.ChangeTracking] Context 'ApplicationDbContext' started tracking 'ApplicationUser' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+
+[10:48:11] [DEBUG] [Microsoft.EntityFrameworkCore.Update] SaveChanges starting for 'ApplicationDbContext'.
+
+[10:48:11] [DEBUG] [Microsoft.EntityFrameworkCore.ChangeTracking] DetectChanges starting for 'ApplicationDbContext'.
+
+[10:48:11] [DEBUG] [Microsoft.EntityFrameworkCore.ChangeTracking] DetectChanges completed for 'ApplicationDbContext'.
+
+[10:48:11] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Opening connection to database 'iiwi' on server 'NCCTCC'.
+
+[10:48:11] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Opened connection to database 'iiwi' on server 'NCCTCC'.
+
+[10:48:11] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Creating DbCommand for 'ExecuteReader'.
+
+[10:48:11] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Created DbCommand for 'ExecuteReader' (0ms).
+
+[10:48:11] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Initialized DbCommand for 'ExecuteReader' (0ms).
+
+[10:48:11] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Executing DbCommand [Parameters=[@p0='?' (DbType = Int32), @p1='?' (Size = 4000), @p2='?' (Size = 4000), @p3='?' (DbType = DateTime2), @p4='?' (Size = 4000), @p5='?' (Size = 256), @p6='?' (DbType = Boolean), @p7='?' (Size = 4000), @p8='?' (Size = 4000), @p9='?' (DbType = DateTime2), @p10='?' (Size = 4000), @p11='?' (DbType = Boolean), @p12='?' (DbType = DateTimeOffset), @p13='?' (Size = 256), @p14='?' (Size = 256), @p15='?' (Size = 4000), @p16='?' (Size = 4000), @p17='?' (DbType = Boolean), @p18='?' (Size = 4000), @p19='?' (DbType = Boolean), @p20='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Identity].[User] ([AccessFailedCount], [Address], [ConcurrencyStamp], [DOB], [DisplayName], [Email], [EmailConfirmed], [FirstName], [Gender], [LastLogin], [LastName], [LockoutEnabled], [LockoutEnd], [NormalizedEmail], [NormalizedUserName], [PasswordHash], [PhoneNumber], [PhoneNumberConfirmed], [SecurityStamp], [TwoFactorEnabled], [UserName])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19, @p20);
+
+[10:48:12] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (229ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (Size = 4000), @p2='?' (Size = 4000), @p3='?' (DbType = DateTime2), @p4='?' (Size = 4000), @p5='?' (Size = 256), @p6='?' (DbType = Boolean), @p7='?' (Size = 4000), @p8='?' (Size = 4000), @p9='?' (DbType = DateTime2), @p10='?' (Size = 4000), @p11='?' (DbType = Boolean), @p12='?' (DbType = DateTimeOffset), @p13='?' (Size = 256), @p14='?' (Size = 256), @p15='?' (Size = 4000), @p16='?' (Size = 4000), @p17='?' (DbType = Boolean), @p18='?' (Size = 4000), @p19='?' (DbType = Boolean), @p20='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Identity].[User] ([AccessFailedCount], [Address], [ConcurrencyStamp], [DOB], [DisplayName], [Email], [EmailConfirmed], [FirstName], [Gender], [LastLogin], [LastName], [LockoutEnabled], [LockoutEnd], [NormalizedEmail], [NormalizedUserName], [PasswordHash], [PhoneNumber], [PhoneNumberConfirmed], [SecurityStamp], [TwoFactorEnabled], [UserName])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19, @p20);
+
+[10:48:12] [DEBUG] [Microsoft.EntityFrameworkCore.ChangeTracking] The foreign key property 'ApplicationUser.Id' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see property values.
+
+[10:48:12] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] Closing data reader to 'iiwi' on server 'NCCTCC'.
+
+[10:48:12] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Command] A data reader for 'iiwi' on server 'NCCTCC' is being disposed after spending 11ms reading results.
+
+[10:48:12] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Closing connection to database 'iiwi' on server 'NCCTCC'.
+
+[10:48:12] [DEBUG] [Microsoft.EntityFrameworkCore.Database.Connection] Closed connection to database 'iiwi' on server 'NCCTCC' (0ms).
+
+[10:48:12] [DEBUG] [Microsoft.EntityFrameworkCore.ChangeTracking] An entity of type 'ApplicationUser' tracked by 'ApplicationDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+
+[10:48:12] [DEBUG] [Microsoft.EntityFrameworkCore.Update] SaveChanges completed for 'ApplicationDbContext' with 1 entities written to the database.
+
+[10:48:12] [INFORMATION] [iiwi.Application.Authentication.RegisterHandler] User created a new account with password.
+
