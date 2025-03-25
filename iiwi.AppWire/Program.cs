@@ -9,6 +9,9 @@ using iiwi.Database;
 using iiwi.Model.Settings;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using Serilog.Ui.Core.Extensions;
+using Serilog.Ui.MsSqlServerProvider.Extensions;
+using Serilog.Ui.Web.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +20,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration)
     );
+
+// Register the serilog UI services
+builder.Services.AddSerilogUi(options => options
+  .UseSqlServer(opts => opts
+    .WithConnectionString(builder.Configuration.GetConnectionString(nameof(iiwiDbContext)))
+    .WithTable("Logs")));
 
 //builder.Services.AddLogging();
 builder.Services.AddResponseCompression();
@@ -72,7 +81,7 @@ app.UseCors(options =>
     .AllowAnyMethod()
 );
 app.UseHttpsRedirection();
-
+app.UseSerilogUi();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseRouting();
