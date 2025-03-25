@@ -9,14 +9,10 @@ using System.Net;
 namespace iiwi.Application.Authentication
 {
     public class Disable2faHandler(
-    UserManager<ApplicationUser> userManager,
-    IClaimsProvider claimsProvider,
-    ILogger<Disable2faHandler> logger) : IHandler<Disable2faRequest, Response>
+    UserManager<ApplicationUser> _userManager,
+    IClaimsProvider _claimsProvider,
+    ILogger<Disable2faHandler> _logger) : IHandler<Disable2faRequest, Response>
     {
-        private readonly UserManager<ApplicationUser> _userManager = userManager;
-        private readonly IClaimsProvider _claimsProvider = claimsProvider;
-        private readonly ILogger<Disable2faHandler> _logger = logger;
-
         public async Task<Result<Response>> HandleAsync(Disable2faRequest request)
         {
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

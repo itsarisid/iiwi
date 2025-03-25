@@ -9,16 +9,10 @@ using System.Net;
 namespace iiwi.Application.Authentication
 {
     public class GenerateRecoveryCodesHandler(
-    UserManager<ApplicationUser> userManager,
-    SignInManager<ApplicationUser> signInManager,
-    IClaimsProvider claimsProvider,
-    ILogger<GenerateRecoveryCodesHandler> logger) : IHandler<GenerateRecoveryCodesRequest, GenerateRecoveryCodesResponse>
+    UserManager<ApplicationUser> _userManager,
+    IClaimsProvider _claimsProvider,
+    ILogger<GenerateRecoveryCodesHandler> _logger) : IHandler<GenerateRecoveryCodesRequest, GenerateRecoveryCodesResponse>
     {
-        private readonly UserManager<ApplicationUser> _userManager = userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
-        private readonly IClaimsProvider _claimsProvider = claimsProvider;
-        private readonly ILogger<GenerateRecoveryCodesHandler> _logger = logger;
-
         public async Task<Result<GenerateRecoveryCodesResponse>> HandleAsync(GenerateRecoveryCodesRequest request)
         {
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

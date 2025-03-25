@@ -11,14 +11,10 @@ using System.Text.Encodings.Web;
 namespace iiwi.Application.Authentication;
 
 internal class LoadKeyAndQrCodeUriHandler(
-UserManager<ApplicationUser> userManager,
-IClaimsProvider claimsProvider,
-UrlEncoder urlEncoder) : IHandler<LoadKeyAndQrCodeUriRequest, LoadKeyAndQrCodeUriResponse>
+UserManager<ApplicationUser> _userManager,
+IClaimsProvider _claimsProvider,
+UrlEncoder _urlEncoder) : IHandler<LoadKeyAndQrCodeUriRequest, LoadKeyAndQrCodeUriResponse>
 {
-    private readonly UserManager<ApplicationUser> _userManager = userManager;
-    private readonly IClaimsProvider _claimsProvider = claimsProvider;
-    private readonly UrlEncoder _urlEncoder = urlEncoder;
-
     public async Task<Result<LoadKeyAndQrCodeUriResponse>> HandleAsync(LoadKeyAndQrCodeUriRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

@@ -1,6 +1,7 @@
 using DotNetCore.Mediator;
 using DotNetCore.Results;
 using iiwi.Application.Provider;
+using iiwi.Common;
 using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
@@ -10,18 +11,11 @@ using System.Text.Encodings.Web;
 namespace iiwi.Application.Authentication
 {
     public class EnableAuthenticatorHandler(
-    UserManager<ApplicationUser> userManager,
-    UrlEncoder urlEncoder,
-    IClaimsProvider claimsProvider,
-    ILogger<EnableAuthenticatorHandler> logger) : IHandler<EnableAuthenticatorRequest, EnableAuthenticatorResponse>
+    UserManager<ApplicationUser> _userManager,
+    UrlEncoder _urlEncoder,
+    IClaimsProvider _claimsProvider,
+    ILogger<EnableAuthenticatorHandler> _logger) : IHandler<EnableAuthenticatorRequest, EnableAuthenticatorResponse>
     {
-        private readonly UserManager<ApplicationUser> _userManager = userManager;
-        private readonly IClaimsProvider _claimsProvider = claimsProvider;
-        private readonly UrlEncoder _urlEncoder = urlEncoder;
-        private readonly ILogger<EnableAuthenticatorHandler> _logger = logger;
-
-        private const string AuthenticatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
-
         public async Task<Result<EnableAuthenticatorResponse>> HandleAsync(EnableAuthenticatorRequest request)
         {
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
@@ -85,7 +79,7 @@ namespace iiwi.Application.Authentication
         private string GenerateQrCodeUri(string email, string unformattedKey)
         {
             return string.Format(
-            AuthenticatorUriFormat,
+            General.AuthenticatorUriFormat,
                 _urlEncoder.Encode("IdentityStandaloneMfa"),
                 _urlEncoder.Encode(email ?? ""),
                 unformattedKey);
