@@ -7,7 +7,10 @@ using DotNetCore.Services;
 using iiwi.AppWire.Configurations;
 using iiwi.Database;
 using iiwi.Model.Settings;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Ui.Core.Extensions;
 using Serilog.Ui.MsSqlServerProvider.Extensions;
@@ -38,13 +41,26 @@ builder.Services.AddWebServices();
 builder.Services.AddContext<iiwiDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(iiwiDbContext))));
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(iiwiDbContext))));
 builder.Services.AddIdentity();
+
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
+        options => builder.Configuration.Bind("JwtSettings", options))
+    .AddJwtBearer(options =>
+    {
+        options.Authority = "http://localhost:5093";
+        options.Audience = "iiwi";
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            NameClaimType = "name"
+        };
+    })
+    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
+        options => builder.Configuration.Bind("CookieSettings", options));
+
 builder.Services.AddAuthorization();
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("TwoFactorEnabled",
-        x => x.RequireClaim("amr", "mfa")
-    );
-});
+builder.Services.AddAuthorizationBuilder().AddPolicy("TwoFactorEnabled", x => x.RequireClaim("amr", "mfa"));
+
 builder.Services.AddClassesMatchingInterfaces(nameof(iiwi));
 builder.Services.AddMediator(nameof(iiwi));
 builder.Services.AddApiVersioning(x =>

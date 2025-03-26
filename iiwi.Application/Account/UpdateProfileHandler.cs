@@ -1,6 +1,5 @@
 ﻿using DotNetCore.Mediator;
 using DotNetCore.Results;
-using iiwi.Application.Authentication;
 using iiwi.Application.Provider;
 using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -39,7 +38,7 @@ public class UpdateProfileHandler(
         //StatusMessage = "The external login was added.";
         return new Result<Response>(HttpStatusCode.OK, new Response
         {
-            Message = "The external login was added.",
+            Message = "Profile updated successfully.",
         });
     }
 }
