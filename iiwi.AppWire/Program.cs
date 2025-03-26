@@ -51,21 +51,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 builder.Services.AddIdentity();
 builder.Services.AddAuth();
 
-builder.Services.AddAuthorization(options =>
-{
-    var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder(
-        JwtBearerDefaults.AuthenticationScheme);
-    defaultAuthorizationPolicyBuilder =
-        defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
-
-    options.AddPolicy("TwoFactorEnabled",
-        x => x.RequireClaim("amr", "mfa")
-    );
-    //options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
-});
-
-//builder.Services.AddAuthentication().AddIdentityServerJwt();
-
 builder.Services.AddClassesMatchingInterfaces(nameof(iiwi));
 builder.Services.AddMediator(nameof(iiwi));
 builder.Services.AddApiVersioning(x =>
