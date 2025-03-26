@@ -28,7 +28,7 @@ public static class AuthConfig
     {
         options.Authority = "https://localhost:7122";
         options.Audience = "https://localhost:7122";
-        options.ClaimsIssuer = "https://localhost:7122";
+        //options.ClaimsIssuer = "https://localhost:7122";
         //options.IncludeErrorDetails = true;
         options.RequireHttpsMetadata = false;
         options.TokenValidationParameters = new TokenValidationParameters
@@ -36,7 +36,7 @@ public static class AuthConfig
             ValidateIssuer = false,
             ValidateAudience = false,
             ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
+            //ValidateIssuerSigningKey = true,
             ValidIssuer = "https://localhost:7122",
             ValidAudience = "https://localhost:7122",
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ACDt1vR3lXToPQ1g3MyN"))
@@ -45,15 +45,13 @@ public static class AuthConfig
 
     services.AddAuthorization(options =>
     {
-        var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder(
-            JwtBearerDefaults.AuthenticationScheme);
-        defaultAuthorizationPolicyBuilder =
-            defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
+        var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme);
+        defaultAuthorizationPolicyBuilder =defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
 
         options.AddPolicy("TwoFactorEnabled",
             x => x.RequireClaim("amr", "mfa")
         );
-        //options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
+        options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
     });
 
         //builder.Services.AddAuthentication().AddIdentityServerJwt();
