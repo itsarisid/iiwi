@@ -6,10 +6,13 @@ using DotNetCore.Mediator;
 using DotNetCore.Services;
 using iiwi.AppWire.Configurations;
 using iiwi.Database;
+using iiwi.Domain.Identity;
 using iiwi.Model.Settings;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -18,6 +21,7 @@ using Serilog.Ui.Core.Extensions;
 using Serilog.Ui.MsSqlServerProvider.Extensions;
 using Serilog.Ui.Web.Extensions;
 using Serilog.Ui.Web.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,32 +53,38 @@ builder.Services.AddIdentity();
 builder.Services.AddAuthentication()
     //.AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
     //    options => builder.Configuration.Bind("JwtSettings", options))
-    
+
     //.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
     //    options => builder.Configuration.Bind("CookieSettings", options));
-    //.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, config =>
-    //{
-    //    config.Cookie.Name = "iiwi.Cookie";
-    //    config.LoginPath = new PathString("/auth/login");
-    //    config.AccessDeniedPath = new PathString("/auth/denied");
-    //    config.ExpireTimeSpan = TimeSpan.FromDays(7);
-    //    config.SlidingExpiration = true;
-    //    builder.Configuration.Bind("CookieSettings", config);
-    //})
-    .AddJwtBearer(options =>
+    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, config =>
     {
-        options.Authority = "http://localhost:5093";
-        options.Audience = "iiwi";
-        options.ClaimsIssuer = "Harmony";
+        config.Cookie.Name = "iiwi.Cookie";
+        config.LoginPath = new PathString("/auth/login");
+        config.AccessDeniedPath = new PathString("/auth/denied");
+        config.ExpireTimeSpan = TimeSpan.FromDays(7);
+        config.SlidingExpiration = true;
+    })
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+    {
+        options.Authority = "https://localhost:7122";
+        options.Audience = "https://localhost:7122";
+        options.ClaimsIssuer = "https://localhost:7122";
         //options.IncludeErrorDetails = true;
+        options.RequireHttpsMetadata = false;
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            NameClaimType = "Subject",
-            RoleClaimType = "Role"
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = "https://localhost:7122",
+            ValidAudience = "https://localhost:7122",
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ACDt1vR3lXToPQ1g3MyN"))
         };
     });
 
-builder.Services.AddAuthorizationBuilder().AddPolicy("TwoFactorEnabled", x => x.RequireClaim("amr", "mfa"));
+
+//builder.Services.AddAuthorizationBuilder().AddPolicy("TwoFactorEnabled", x => x.RequireClaim("amr", "mfa"));
 //builder.Services.AddAuthorization();
 
 builder.Services.AddAuthorization(options =>
@@ -83,7 +93,11 @@ builder.Services.AddAuthorization(options =>
         JwtBearerDefaults.AuthenticationScheme);
     defaultAuthorizationPolicyBuilder =
         defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
-    options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
+
+    options.AddPolicy("TwoFactorEnabled",
+        x => x.RequireClaim("amr", "mfa")
+    );
+    //options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
 });
 
 //builder.Services.AddAuthentication().AddIdentityServerJwt();
