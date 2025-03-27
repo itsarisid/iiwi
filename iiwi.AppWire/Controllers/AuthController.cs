@@ -38,6 +38,14 @@ public class AuthController : BaseController
     [HttpPost("login")]
     [AllowAnonymous]
     public IActionResult Login(LoginRequest request) => Mediator.HandleAsync<LoginRequest, Response>(request).ApiResult();
+    
+    [HttpGet("login")]
+    [AllowAnonymous]
+    public IActionResult Login(string ReturnUrl) => Ok(ReturnUrl);
+
+    [HttpGet("denied")]
+    [AllowAnonymous]
+    public IActionResult Denied() => Unauthorized("Unauthorized");
 
     /// <summary>Log out this instance.</summary>
     /// <returns>

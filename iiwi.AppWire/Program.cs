@@ -49,7 +49,7 @@ builder.Services.AddContext<iiwiDbContext>(options => options.UseSqlServer(build
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(iiwiDbContext))));
 
 builder.Services.AddIdentity();
-builder.Services.AddAuth();
+builder.Services.AddAppAuth();
 
 builder.Services.AddClassesMatchingInterfaces(nameof(iiwi));
 builder.Services.AddMediator(nameof(iiwi));
