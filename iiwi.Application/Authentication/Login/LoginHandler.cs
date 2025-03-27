@@ -16,9 +16,9 @@ namespace iiwi.Application.Authentication
         SignInManager<ApplicationUser> _signInManager,
         UserManager<ApplicationUser> _userManager,
         ILogger<ApplicationUser> _logger
-        ) : IHandler<LoginRequest, Response>
+        ) : IHandler<LoginRequest, LoginResponse>
     {
-        public async Task<Result<Response>> HandleAsync(LoginRequest request)
+        public async Task<Result<LoginResponse>> HandleAsync(LoginRequest request)
         {
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, set lockoutOnFailure: true
@@ -30,12 +30,12 @@ namespace iiwi.Application.Authentication
                 //{
                 //    Message = "User logged in."
                 //});
-                return GenerateTokenAsync(request);
+                return await GenerateTokenAsync(request);
             }
             if (result.RequiresTwoFactor)
             {
                 _logger.LogInformation("Login with 2fa");
-                return new Result<Response>(HttpStatusCode.OK, new RegisterResponse
+                return new Result<LoginResponse>(HttpStatusCode.OK, new LoginResponse
                 {
                     Message = "Login with 2fa",
                 });
@@ -43,14 +43,14 @@ namespace iiwi.Application.Authentication
             if (result.IsLockedOut)
             {
                 _logger.LogWarning("User account locked out.");
-                return new Result<Response>(HttpStatusCode.OK, new RegisterResponse
+                return new Result<LoginResponse>(HttpStatusCode.OK, new LoginResponse
                 {
                     Message = "User account locked out.",
                 });
             }
             else
             {
-                return new Result<Response>(HttpStatusCode.BadRequest, new RegisterResponse
+                return new Result<LoginResponse>(HttpStatusCode.BadRequest, new LoginResponse
                 {
                     Message = "Invalid login attempt."
                 });
@@ -58,12 +58,12 @@ namespace iiwi.Application.Authentication
         }
 
 
-        private async Task<Result<RegisterResponse>> GenerateTokenAsync(LoginRequest request)
+        private async Task<Result<LoginResponse>> GenerateTokenAsync(LoginRequest request)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
             if (user == null)
             {
-                return new Result<RegisterResponse>(HttpStatusCode.BadRequest, new RegisterResponse
+                return new Result<LoginResponse>(HttpStatusCode.BadRequest, new LoginResponse
                 {
                     Message = "Invalid login attempt."
                 });
@@ -105,7 +105,7 @@ namespace iiwi.Application.Authentication
             //    Token = token
             //});
 
-            return new Result<RegisterResponse>(HttpStatusCode.OK, new RegisterResponse
+            return new Result<LoginResponse>(HttpStatusCode.OK, new LoginResponse
             {
                 Message = "JWT Token",
                 FullName = "Sajid Khan",
