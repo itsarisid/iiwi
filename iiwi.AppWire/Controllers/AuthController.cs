@@ -33,11 +33,11 @@ public class AuthController : BaseController
     ///
     /// </remarks>
     /// <returns>Authorized user</returns>
-    /// <response code="201">Authorized user</response>
-    /// <response code="400">If the user is null</response>
+    /// <response code="201">Authorized user</LoginResponse>
+    /// <response code="400">If the user is null</LoginResponse>
     [HttpPost("login")]
     [AllowAnonymous]
-    public IActionResult Login(LoginRequest request) => Mediator.HandleAsync<LoginRequest, Response>(request).ApiResult();
+    public IActionResult Login(LoginRequest request) => Mediator.HandleAsync<LoginRequest, LoginResponse>(request).ApiResult();
     
     [HttpGet("login")]
     [AllowAnonymous]
