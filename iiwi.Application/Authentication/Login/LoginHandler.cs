@@ -3,8 +3,8 @@ using DotNetCore.Results;
 using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using DotNetCore.Security;
 using System.Text;
 using System.Net;
 using System.Security.Claims;
@@ -26,11 +26,10 @@ namespace iiwi.Application.Authentication
             if (result.Succeeded)
             {
                 _logger.LogInformation("User logged in.");
-                //return new Result<Response>(HttpStatusCode.OK, new Response
-                //{
-                //    Message = "User logged in."
-                //});
-                return await GenerateTokenAsync(request);
+                return new Result<LoginResponse>(HttpStatusCode.OK, new LoginResponse
+                {
+                    Message = "User logged in."
+                });
             }
             if (result.RequiresTwoFactor)
             {
@@ -55,76 +54,6 @@ namespace iiwi.Application.Authentication
                     Message = "Invalid login attempt."
                 });
             }
-        }
-
-
-        private async Task<Result<LoginResponse>> GenerateTokenAsync(LoginRequest request)
-        {
-            var user = await _userManager.FindByEmailAsync(request.Email);
-            if (user == null)
-            {
-                return new Result<LoginResponse>(HttpStatusCode.BadRequest, new LoginResponse
-                {
-                    Message = "Invalid login attempt."
-                });
-            }
-
-            var userRoles = await _userManager.GetRolesAsync(user);
-
-            var authClaims = new List<Claim>
-                {
-                    new(ClaimTypes.Name, user.UserName),
-                    new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                };
-
-            foreach (var userRole in userRoles)
-            {
-                authClaims.Add(new Claim(ClaimTypes.Role, userRole));
-            }
-
-            //var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ACDt1vR3lXToPQ1g3MyN"));
-            //var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-
-            //var tokenDescriptor = new SecurityTokenDescriptor
-            //{
-            //    Subject = ,
-            //    Expires = DateTime.UtcNow.AddMinutes(5),
-            //    Issuer = "Harmony",
-            //    Audience = "Harmony",
-            //    SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512Signature)
-            //};
-
-            //var token = GetToken(authClaims);
-            //var token = _jwtService.Encode(claims);
-
-            //return new Result<Response>(HttpStatusCode.BadRequest, new RegisterResponse
-            //{
-            //    Message = "Invalid login attempt.",
-            //    FullName = "Sajid Khan",
-            //    Token = token
-            //});
-
-            return new Result<LoginResponse>(HttpStatusCode.OK, new LoginResponse
-            {
-                Message = "JWT Token",
-                FullName = "Sajid Khan",
-                Token = GetToken(authClaims)
-            });
-        }
-        private JwtSecurityToken GetToken(List<Claim> authClaims)
-        {
-            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("JWTAuthenticationHIGHsecuredPasswordVVVp1OH7Xzyr"));
-
-            var token = new JwtSecurityToken(
-                issuer: "iiwi",
-                audience: "iiwi",
-                expires: DateTime.Now.AddHours(3),
-                claims: authClaims,
-                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-                );
-
-            return token;
         }
     }
 }

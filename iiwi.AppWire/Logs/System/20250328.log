@@ -1,0 +1,406 @@
+[14:10:29] [INFORMATION] [Microsoft.EntityFrameworkCore.Migrations] No migrations were found in assembly 'iiwi.Database'. A migration needs to be added before the database can be updated.
+
+[14:10:29] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (28ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+
+[14:10:29] [INFORMATION] [Microsoft.EntityFrameworkCore.Migrations] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+
+[14:10:29] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (44ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+
+[14:10:30] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+
+[14:10:30] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+
+[14:10:30] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+
+[14:10:30] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (44ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+
+[14:10:30] [INFORMATION] [Microsoft.EntityFrameworkCore.Migrations] No migrations were applied. The database is already up to date.
+
+[14:10:30] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+
+[14:10:35] [INFORMATION] [Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager] User profile is available. Using 'C:\Users\Sajid Khan\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+
+[14:10:35] [INFORMATION] [Microsoft.Hosting.Lifetime] Now listening on: https://localhost:7122
+
+[14:10:35] [INFORMATION] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5093
+
+[14:10:35] [INFORMATION] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down.
+
+[14:10:35] [INFORMATION] [Microsoft.Hosting.Lifetime] Hosting environment: Development
+
+[14:10:35] [INFORMATION] [Microsoft.Hosting.Lifetime] Content root path: C:\Users\Sajid Khan\source\repos\itsarisid\iiwi\iiwi.AppWire
+
+[14:12:13] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 POST https://localhost:7122/api/v1.0/Account/update-profile - application/json 244
+
+[14:12:15] [INFORMATION] [Microsoft.AspNetCore.Authorization.DefaultAuthorizationService] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+
+[14:12:15] [INFORMATION] [Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler] AuthenticationScheme: Bearer was challenged.
+
+[14:12:16] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/1.1 POST https://localhost:7122/api/v1.0/Account/update-profile - 401 0 null 2312.5581ms
+
+[14:12:57] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 POST https://localhost:7122/api/v1.0/Auth/login - application/json 102
+
+[14:12:58] [INFORMATION] [Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'iiwi.AppWire.Controllers.AuthController.Login (iiwi.AppWire)'
+
+[14:12:58] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login(iiwi.Application.Authentication.LoginRequest) on controller iiwi.AppWire.Controllers.AuthController (iiwi.AppWire).
+
+[14:12:59] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing action method iiwi.AppWire.Controllers.AuthController.Login (iiwi.AppWire) - Validation state: "Valid"
+
+[14:13:06] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1,128ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[Address], [u].[ConcurrencyStamp], [u].[DOB], [u].[DisplayName], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[Gender], [u].[LastLogin], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+FROM [Identity].[User] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0
+
+[14:13:09] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (519ms) [Parameters=[@__user_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[ClaimType], [c].[ClaimValue], [c].[UserId]
+FROM [Identity].[Claims] AS [c]
+WHERE [c].[UserId] = @__user_Id_0
+
+[14:13:09] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (123ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [r0].[Name]
+FROM [Identity].[Roles] AS [r]
+INNER JOIN [Identity].[Role] AS [r0] ON [r].[RoleId] = [r0].[Id]
+WHERE [r].[UserId] = @__userId_0
+
+[14:13:10] [INFORMATION] [Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler] AuthenticationScheme: Identity.Application signed in.
+
+[14:13:10] [INFORMATION] [iiwi.Domain.Identity.ApplicationUser] User logged in.
+
+[14:13:10] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (107ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[AccessFailedCount], [u].[Address], [u].[ConcurrencyStamp], [u].[DOB], [u].[DisplayName], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[Gender], [u].[LastLogin], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+FROM [Identity].[User] AS [u]
+WHERE [u].[NormalizedEmail] = @__normalizedEmail_0
+
+[14:13:10] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (17ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [r0].[Name]
+FROM [Identity].[Roles] AS [r]
+INNER JOIN [Identity].[Role] AS [r0] ON [r].[RoleId] = [r0].[Id]
+WHERE [r].[UserId] = @__userId_0
+
+[14:13:10] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action method iiwi.AppWire.Controllers.AuthController.Login (iiwi.AppWire), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 10553.3228ms.
+
+[14:13:10] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor] Executing ObjectResult, writing value of type 'iiwi.Application.Authentication.LoginResponse'.
+
+[14:13:10] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action iiwi.AppWire.Controllers.AuthController.Login (iiwi.AppWire) in 12081.7885ms
+
+[14:13:10] [INFORMATION] [Microsoft.AspNetCore.Routing.EndpointMiddleware] Executed endpoint 'iiwi.AppWire.Controllers.AuthController.Login (iiwi.AppWire)'
+
+[14:13:10] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/1.1 POST https://localhost:7122/api/v1.0/Auth/login - 200 null application/json; charset=utf-8 13214.9019ms
+
+[14:35:23] [INFORMATION] [Microsoft.EntityFrameworkCore.Migrations] No migrations were found in assembly 'iiwi.Database'. A migration needs to be added before the database can be updated.
+
+[14:35:25] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (67ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+
+[14:35:25] [INFORMATION] [Microsoft.EntityFrameworkCore.Migrations] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+
+[14:35:25] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (88ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+
+[14:35:26] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (28ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+
+[14:35:26] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+
+[14:35:26] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+
+[14:35:26] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+
+[14:35:26] [INFORMATION] [Microsoft.EntityFrameworkCore.Migrations] No migrations were applied. The database is already up to date.
+
+[14:35:26] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (18ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+
+[14:35:28] [INFORMATION] [Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager] User profile is available. Using 'C:\Users\Sajid Khan\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+
+[14:35:29] [INFORMATION] [Microsoft.Hosting.Lifetime] Now listening on: https://localhost:7122
+
+[14:35:29] [INFORMATION] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5093
+
+[14:35:29] [INFORMATION] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down.
+
+[14:35:29] [INFORMATION] [Microsoft.Hosting.Lifetime] Hosting environment: Development
+
+[14:35:29] [INFORMATION] [Microsoft.Hosting.Lifetime] Content root path: C:\Users\Sajid Khan\source\repos\itsarisid\iiwi\iiwi.AppWire
+
+[14:35:42] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 POST https://localhost:7122/api/v1.0/Auth/login - application/json 102
+
+[14:35:42] [INFORMATION] [Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'iiwi.AppWire.Controllers.AuthController.Login (iiwi.AppWire)'
+
+[14:35:42] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login(iiwi.Application.Authentication.LoginRequest) on controller iiwi.AppWire.Controllers.AuthController (iiwi.AppWire).
+
+[14:35:43] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing action method iiwi.AppWire.Controllers.AuthController.Login (iiwi.AppWire) - Validation state: "Valid"
+
+[14:35:43] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (81ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[Address], [u].[ConcurrencyStamp], [u].[DOB], [u].[DisplayName], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[Gender], [u].[LastLogin], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+FROM [Identity].[User] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0
+
+[14:35:44] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (10ms) [Parameters=[@__user_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[ClaimType], [c].[ClaimValue], [c].[UserId]
+FROM [Identity].[Claims] AS [c]
+WHERE [c].[UserId] = @__user_Id_0
+
+[14:35:44] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (14ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [r0].[Name]
+FROM [Identity].[Roles] AS [r]
+INNER JOIN [Identity].[Role] AS [r0] ON [r].[RoleId] = [r0].[Id]
+WHERE [r].[UserId] = @__userId_0
+
+[14:35:44] [INFORMATION] [Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler] AuthenticationScheme: Identity.Application signed in.
+
+[14:35:44] [INFORMATION] [iiwi.Domain.Identity.ApplicationUser] User logged in.
+
+[14:35:44] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (10ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[AccessFailedCount], [u].[Address], [u].[ConcurrencyStamp], [u].[DOB], [u].[DisplayName], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[Gender], [u].[LastLogin], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+FROM [Identity].[User] AS [u]
+WHERE [u].[NormalizedEmail] = @__normalizedEmail_0
+
+[14:35:44] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (8ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [r0].[Name]
+FROM [Identity].[Roles] AS [r]
+INNER JOIN [Identity].[Role] AS [r0] ON [r].[RoleId] = [r0].[Id]
+WHERE [r].[UserId] = @__userId_0
+
+[14:35:44] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action method iiwi.AppWire.Controllers.AuthController.Login (iiwi.AppWire), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 1173.2447ms.
+
+[14:35:44] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor] Executing ObjectResult, writing value of type 'iiwi.Application.Authentication.LoginResponse'.
+
+[14:35:44] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action iiwi.AppWire.Controllers.AuthController.Login (iiwi.AppWire) in 1537.6537ms
+
+[14:35:44] [INFORMATION] [Microsoft.AspNetCore.Routing.EndpointMiddleware] Executed endpoint 'iiwi.AppWire.Controllers.AuthController.Login (iiwi.AppWire)'
+
+[14:35:44] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/1.1 POST https://localhost:7122/api/v1.0/Auth/login - 200 null application/json; charset=utf-8 1844.8179ms
+
+[14:37:50] [INFORMATION] [Microsoft.EntityFrameworkCore.Migrations] No migrations were found in assembly 'iiwi.Database'. A migration needs to be added before the database can be updated.
+
+[14:37:50] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (48ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+
+[14:37:50] [INFORMATION] [Microsoft.EntityFrameworkCore.Migrations] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+
+[14:37:50] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (34ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+
+[14:37:51] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+
+[14:37:51] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+
+[14:37:51] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+
+[14:37:51] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+
+[14:37:51] [INFORMATION] [Microsoft.EntityFrameworkCore.Migrations] No migrations were applied. The database is already up to date.
+
+[14:37:51] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+
+[14:37:52] [INFORMATION] [Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager] User profile is available. Using 'C:\Users\Sajid Khan\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+
+[14:37:52] [INFORMATION] [Microsoft.Hosting.Lifetime] Now listening on: https://localhost:7122
+
+[14:37:52] [INFORMATION] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5093
+
+[14:37:52] [INFORMATION] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down.
+
+[14:37:52] [INFORMATION] [Microsoft.Hosting.Lifetime] Hosting environment: Development
+
+[14:37:52] [INFORMATION] [Microsoft.Hosting.Lifetime] Content root path: C:\Users\Sajid Khan\source\repos\itsarisid\iiwi\iiwi.AppWire
+
+[14:38:58] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 POST https://localhost:7122/api/v1.0/Auth/login - application/json 102
+
+[14:38:58] [INFORMATION] [Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'iiwi.AppWire.Controllers.AuthController.Login (iiwi.AppWire)'
+
+[14:38:58] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login(iiwi.Application.Authentication.LoginRequest) on controller iiwi.AppWire.Controllers.AuthController (iiwi.AppWire).
+
+[14:38:58] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing action method iiwi.AppWire.Controllers.AuthController.Login (iiwi.AppWire) - Validation state: "Valid"
+
+[14:39:00] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (153ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[Address], [u].[ConcurrencyStamp], [u].[DOB], [u].[DisplayName], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[Gender], [u].[LastLogin], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+FROM [Identity].[User] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0
+
+[14:39:01] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (14ms) [Parameters=[@__user_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[ClaimType], [c].[ClaimValue], [c].[UserId]
+FROM [Identity].[Claims] AS [c]
+WHERE [c].[UserId] = @__user_Id_0
+
+[14:39:01] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (10ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [r0].[Name]
+FROM [Identity].[Roles] AS [r]
+INNER JOIN [Identity].[Role] AS [r0] ON [r].[RoleId] = [r0].[Id]
+WHERE [r].[UserId] = @__userId_0
+
+[14:39:01] [INFORMATION] [Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler] AuthenticationScheme: Identity.Application signed in.
+
+[14:39:01] [INFORMATION] [iiwi.Domain.Identity.ApplicationUser] User logged in.
+
+[14:39:01] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action method iiwi.AppWire.Controllers.AuthController.Login (iiwi.AppWire), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 3077.2902ms.
+
+[14:39:01] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor] Executing ObjectResult, writing value of type 'iiwi.Application.Authentication.LoginResponse'.
+
+[14:39:02] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action iiwi.AppWire.Controllers.AuthController.Login (iiwi.AppWire) in 3677.9921ms
+
+[14:39:02] [INFORMATION] [Microsoft.AspNetCore.Routing.EndpointMiddleware] Executed endpoint 'iiwi.AppWire.Controllers.AuthController.Login (iiwi.AppWire)'
+
+[14:39:02] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/1.1 POST https://localhost:7122/api/v1.0/Auth/login - 200 null application/json; charset=utf-8 4087.5587ms
+
+[14:41:06] [INFORMATION] [Microsoft.EntityFrameworkCore.Migrations] No migrations were found in assembly 'iiwi.Database'. A migration needs to be added before the database can be updated.
+
+[14:41:06] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+
+[14:41:06] [INFORMATION] [Microsoft.EntityFrameworkCore.Migrations] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+
+[14:41:06] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (46ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+
+[14:41:07] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+
+[14:41:07] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+
+[14:41:07] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+
+[14:41:07] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+
+[14:41:07] [INFORMATION] [Microsoft.EntityFrameworkCore.Migrations] No migrations were applied. The database is already up to date.
+
+[14:41:07] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+
+[14:41:08] [INFORMATION] [Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager] User profile is available. Using 'C:\Users\Sajid Khan\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+
+[14:41:08] [INFORMATION] [Microsoft.Hosting.Lifetime] Now listening on: https://localhost:7122
+
+[14:41:08] [INFORMATION] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5093
+
+[14:41:08] [INFORMATION] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down.
+
+[14:41:08] [INFORMATION] [Microsoft.Hosting.Lifetime] Hosting environment: Development
+
+[14:41:08] [INFORMATION] [Microsoft.Hosting.Lifetime] Content root path: C:\Users\Sajid Khan\source\repos\itsarisid\iiwi\iiwi.AppWire
+
+[14:44:53] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 POST https://localhost:7122/api/v1.0/Auth/login - application/json 102
+
+[14:44:53] [INFORMATION] [Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'iiwi.AppWire.Controllers.AuthController.Login (iiwi.AppWire)'
+
+[14:44:53] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login(iiwi.Application.Authentication.LoginRequest) on controller iiwi.AppWire.Controllers.AuthController (iiwi.AppWire).
+
+[14:44:54] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing action method iiwi.AppWire.Controllers.AuthController.Login (iiwi.AppWire) - Validation state: "Valid"
+
+[14:44:54] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (65ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[Address], [u].[ConcurrencyStamp], [u].[DOB], [u].[DisplayName], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[Gender], [u].[LastLogin], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+FROM [Identity].[User] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0
+
+[14:44:55] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (10ms) [Parameters=[@__user_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[ClaimType], [c].[ClaimValue], [c].[UserId]
+FROM [Identity].[Claims] AS [c]
+WHERE [c].[UserId] = @__user_Id_0
+
+[14:44:55] [INFORMATION] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (7ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [r0].[Name]
+FROM [Identity].[Roles] AS [r]
+INNER JOIN [Identity].[Role] AS [r0] ON [r].[RoleId] = [r0].[Id]
+WHERE [r].[UserId] = @__userId_0
+
+[14:44:55] [INFORMATION] [Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler] AuthenticationScheme: Identity.Application signed in.
+
+[14:44:55] [INFORMATION] [iiwi.Domain.Identity.ApplicationUser] User logged in.
+
+[14:44:55] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action method iiwi.AppWire.Controllers.AuthController.Login (iiwi.AppWire), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 1001.0939ms.
+
+[14:44:55] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor] Executing ObjectResult, writing value of type 'iiwi.Application.Authentication.LoginResponse'.
+
+[14:44:55] [INFORMATION] [Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action iiwi.AppWire.Controllers.AuthController.Login (iiwi.AppWire) in 1205.3257ms
+
+[14:44:55] [INFORMATION] [Microsoft.AspNetCore.Routing.EndpointMiddleware] Executed endpoint 'iiwi.AppWire.Controllers.AuthController.Login (iiwi.AppWire)'
+
+[14:44:55] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/1.1 POST https://localhost:7122/api/v1.0/Auth/login - 200 null application/json; charset=utf-8 1342.3081ms
+
+[14:45:04] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 POST https://localhost:7122/api/v1.0/Account/update-profile - application/json 244
+
+[14:45:04] [ERROR] [Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: No authentication handler is registered for the scheme 'Bearer'. The registered schemes are: Identity.Application, Identity.External, Identity.TwoFactorRememberMe, Identity.TwoFactorUserId. Did you forget to call AddAuthentication().Add[SomeAuthHandler]("Bearer",...)?
+   at Microsoft.AspNetCore.Authentication.AuthenticationService.AuthenticateAsync(HttpContext context, String scheme)
+   at Microsoft.AspNetCore.Authorization.Policy.PolicyEvaluator.AuthenticateAsync(AuthorizationPolicy policy, HttpContext context)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at IGeekFan.AspNetCore.RapiDoc.RapiDocMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+
+[14:45:04] [INFORMATION] [Microsoft.AspNetCore.Hosting.Diagnostics] Request finished HTTP/1.1 POST https://localhost:7122/api/v1.0/Account/update-profile - 500 null text/plain; charset=utf-8 37.8994ms
+

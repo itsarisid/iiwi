@@ -45,27 +45,27 @@ public static class AuthConfig
         //});
 
         // Adding Authentication
-        services.AddAuthentication(options =>
-        {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-        })
+        //services.AddAuthentication(options =>
+        //{
+        //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        //    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        //});
 
         // Adding Jwt Bearer
-        .AddJwtBearer(options =>
-        {
-            options.SaveToken = true;
-            options.RequireHttpsMetadata = false;
-            options.TokenValidationParameters = new TokenValidationParameters()
-            {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidAudience = "https://localhost:5093",
-                ValidIssuer = "https://localhost:5093",
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("JWTAuthenticationHIGHsecuredPasswordVVVp1OH7Xzyr"))
-            };
-        });
+        //.AddJwtBearer(options =>
+        //{
+        //    options.SaveToken = true;
+        //    options.RequireHttpsMetadata = false;
+        //    options.TokenValidationParameters = new TokenValidationParameters()
+        //    {
+        //        ValidateIssuer = true,
+        //        ValidateAudience = true,
+        //        ValidAudience = "https://localhost:7122",
+        //        ValidIssuer = "https://localhost:7122",
+        //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("JWTAuthenticationHIGHsecuredPasswordVVVp1OH7Xzyr"))
+        //    };
+        //});
 
 
         services.AddAuthorization(options =>
