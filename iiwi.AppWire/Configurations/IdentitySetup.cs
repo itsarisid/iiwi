@@ -5,6 +5,7 @@ using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace iiwi.AppWire.Configurations;
 
@@ -18,17 +19,19 @@ public static class IdentitySetup
     /// </returns>
     public static IServiceCollection AddIdentity(this IServiceCollection services)
     {
-        services.AddIdentity<ApplicationUser, ApplicationRole>(options => options.SignIn.RequireConfirmedAccount = false)
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+        //services.AddIdentity<ApplicationUser, ApplicationRole>(options => options.SignIn.RequireConfirmedAccount = false)
+        //        .AddEntityFrameworkStores<ApplicationDbContext>()
+        //        .AddDefaultTokenProviders();
 
-        services.AddAuthentication(options =>
-        {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        });
+        services.AddIdentityApiEndpoints<ApplicationUser>().AddEntityFrameworkStores<ApplicationDbContext>();
 
-        services.Configure<IdentityOptions>(options =>
+        //services.AddAuthentication(options =>
+        //{
+        //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        //});
+
+        services.AddIdentityApiEndpoints<IdentityOptions>(options =>
         {
             // Password settings.
             options.Password.RequireDigit = true;
@@ -44,13 +47,12 @@ public static class IdentitySetup
             options.Lockout.AllowedForNewUsers = true;
 
             // User settings.
-            options.User.AllowedUserNameCharacters =
-            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+            options.User.AllowedUserNameCharacters ="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
             options.User.RequireUniqueEmail = false;
         });
 
-        services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ClaimsPrincipalFactory>();
-        services.AddScoped<IClaimsProvider, HttpContextClaimsProvider>();
+        //services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ClaimsPrincipalFactory>();
+        //services.AddScoped<IClaimsProvider, HttpContextClaimsProvider>();
 
         services.ConfigureApplicationCookie(options =>
         {

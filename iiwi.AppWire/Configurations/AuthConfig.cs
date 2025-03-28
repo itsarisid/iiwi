@@ -114,8 +114,8 @@ public static class AuthConfig
         //    o.ExpireTimeSpan = TimeSpan.FromMinutes(5);
         //});
 
-        //services.AddAuthorizationBuilder().AddPolicy("TwoFactorEnabled", x => x.RequireClaim("amr", "mfa"));
-        //services.AddAuthorization();
+        services.AddAuthorizationBuilder().AddPolicy("TwoFactorEnabled", x => x.RequireClaim("amr", "mfa"));
+        services.AddAuthorization();
         return services;
     }
 }
