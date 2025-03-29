@@ -2,14 +2,13 @@
 using iiwi.Application;
 using iiwi.Application.Account;
 using iiwi.Application.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace iiwi.AppWire.Controllers;
 
 [Route("api/v{version:apiVersion}/[controller]")]
-[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Authorize]
 public class AccountController : BaseController
 {
     /// <summary>Changes the password.</summary>
