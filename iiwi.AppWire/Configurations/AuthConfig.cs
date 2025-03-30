@@ -10,7 +10,12 @@ public static class AuthConfig
 {
     public static IServiceCollection AddAppAuth(this IServiceCollection services)
     {
-        //services.AddAuthentication()
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
         ////.AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
         ////    options => builder.Configuration.Bind("JwtSettings", options))
 
@@ -25,24 +30,24 @@ public static class AuthConfig
         //    config.ExpireTimeSpan = TimeSpan.FromDays(7);
         //    config.SlidingExpiration = true;
         //})
-        //.AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
-        //{
-        //    options.Authority = "https://localhost:7122";
-        //    options.Audience = "https://localhost:7122";
-        //    //options.ClaimsIssuer = "https://localhost:7122";
-        //    //options.IncludeErrorDetails = true;
-        //    options.RequireHttpsMetadata = false;
-        //    options.TokenValidationParameters = new TokenValidationParameters
-        //    {
-        //        ValidateIssuer = false,
-        //        ValidateAudience = false,
-        //        ValidateLifetime = true,
-        //        //ValidateIssuerSigningKey = true,
-        //        ValidIssuer = "https://localhost:7122",
-        //        ValidAudience = "https://localhost:7122",
-        //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ACDt1vR3lXToPQ1g3MyN"))
-        //    };
-        //});
+        .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+        {
+            options.Authority = "https://localhost:7122";
+            options.Audience = "https://localhost:7122";
+            //options.ClaimsIssuer = "https://localhost:7122";
+            //options.IncludeErrorDetails = true;
+            options.RequireHttpsMetadata = false;
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateLifetime = true,
+                //ValidateIssuerSigningKey = true,
+                ValidIssuer = "https://localhost:7122",
+                ValidAudience = "https://localhost:7122",
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ACDt1vR3lXToPQ1g3MyN"))
+            };
+        });
 
         // Adding Authentication
         //services.AddAuthentication(options =>
@@ -68,16 +73,16 @@ public static class AuthConfig
         //});
 
 
-        services.AddAuthorization(options =>
-    {
-        var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme);
-        defaultAuthorizationPolicyBuilder = defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
+    //    services.AddAuthorization(options =>
+    //{
+    //    var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme);
+    //    defaultAuthorizationPolicyBuilder = defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
 
-        options.AddPolicy("TwoFactorEnabled",
-            x => x.RequireClaim("amr", "mfa")
-        );
-        options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
-    });
+    //    options.AddPolicy("TwoFactorEnabled",
+    //        x => x.RequireClaim("amr", "mfa")
+    //    );
+    //    options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
+    //});
 
         //builder.Services.AddAuthentication().AddIdentityServerJwt();
 
@@ -114,8 +119,8 @@ public static class AuthConfig
         //    o.ExpireTimeSpan = TimeSpan.FromMinutes(5);
         //});
 
-        services.AddAuthorizationBuilder().AddPolicy("TwoFactorEnabled", x => x.RequireClaim("amr", "mfa"));
-        services.AddAuthorization();
+        //services.AddAuthorizationBuilder().AddPolicy("TwoFactorEnabled", x => x.RequireClaim("amr", "mfa"));
+        //services.AddAuthorization();
         return services;
     }
 }

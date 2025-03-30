@@ -5,5 +5,5 @@ namespace iiwi.Application.Authentication;
 public record LoginResponse : Response
 {
     public string FullName { get; set; }
-    public JwtSecurityToken Token { get; set; }
+    public string Token { get; set; }
 }

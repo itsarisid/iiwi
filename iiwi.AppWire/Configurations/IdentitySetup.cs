@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace iiwi.AppWire.Configurations;
 
@@ -23,7 +24,45 @@ public static class IdentitySetup
         //        .AddEntityFrameworkStores<ApplicationDbContext>()
         //        .AddDefaultTokenProviders();
 
-        services.AddIdentityApiEndpoints<ApplicationUser>().AddEntityFrameworkStores<ApplicationDbContext>();
+        services.AddIdentityApiEndpoints<ApplicationUser>(options =>
+            {
+                // Password settings.
+                options.Password = new PasswordOptions
+                {
+                    RequireDigit = true,
+                    RequireLowercase = true,
+                    RequireNonAlphanumeric = true,
+                    RequireUppercase = true,
+                    RequiredLength = 8,
+                    RequiredUniqueChars = 1
+                };
+
+                // Lockout settings.
+                options.Lockout = new LockoutOptions
+                {
+                    DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5),
+                    MaxFailedAccessAttempts = 5,
+                    AllowedForNewUsers = true
+                };
+
+                // Sign in settings
+                options.SignIn = new SignInOptions
+                {
+                    RequireConfirmedAccount = false,
+                    RequireConfirmedEmail = false
+                };
+
+                // User settings.
+                options.User = new UserOptions
+                {
+                    AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.@1234567890!#$%&'*+-/=?^_`{|}~",
+                    RequireUniqueEmail = true
+                };
+            })
+            .AddRoles<ApplicationRole>()
+            .AddClaimsPrincipalFactory<UserClaimsPrincipalFactory<ApplicationUser, ApplicationRole>>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
 
         //services.AddAuthentication(options =>
         //{
@@ -31,28 +70,8 @@ public static class IdentitySetup
         //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         //});
 
-        services.AddIdentityApiEndpoints<IdentityOptions>(options =>
-        {
-            // Password settings.
-            options.Password.RequireDigit = true;
-            options.Password.RequireLowercase = true;
-            options.Password.RequireNonAlphanumeric = true;
-            options.Password.RequireUppercase = true;
-            options.Password.RequiredLength = 6;
-            options.Password.RequiredUniqueChars = 1;
-
-            // Lockout settings.
-            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-            options.Lockout.MaxFailedAccessAttempts = 5;
-            options.Lockout.AllowedForNewUsers = true;
-
-            // User settings.
-            options.User.AllowedUserNameCharacters ="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-            options.User.RequireUniqueEmail = false;
-        });
-
-        //services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ClaimsPrincipalFactory>();
-        //services.AddScoped<IClaimsProvider, HttpContextClaimsProvider>();
+        services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ClaimsPrincipalFactory>();
+        services.AddScoped<IClaimsProvider, HttpContextClaimsProvider>();
 
         services.ConfigureApplicationCookie(options =>
         {

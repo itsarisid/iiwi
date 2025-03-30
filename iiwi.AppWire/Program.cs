@@ -97,8 +97,8 @@ app.UseCors(options =>
 app.UseHttpsRedirection();
 //app.UseSerilogUi();
 app.UseAuthentication();
-app.UseAuthorization();
 app.UseRouting();
+app.UseAuthorization();
 app.MapIdentityApi<ApplicationUser>();
 app.MapControllers();
 app.UseResponseCaching();
