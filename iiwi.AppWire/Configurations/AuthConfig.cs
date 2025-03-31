@@ -34,8 +34,8 @@ public static class AuthConfig
         {
             options.Authority = "https://localhost:7122";
             options.Audience = "https://localhost:7122";
-            //options.ClaimsIssuer = "https://localhost:7122";
-            //options.IncludeErrorDetails = true;
+            options.ClaimsIssuer = "https://localhost:7122";
+            options.IncludeErrorDetails = true;
             options.RequireHttpsMetadata = false;
             options.TokenValidationParameters = new TokenValidationParameters
             {
