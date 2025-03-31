@@ -28,7 +28,7 @@ public class LoginHandler(
             _logger.LogInformation("User logged in.");
             return new Result<LoginResponse>(HttpStatusCode.OK, new LoginResponse
             {
-                Token = CreateToken(),
+                Token = CreateToken,
                 FullName = "Sajid Khan",
                 Message = "User logged in."
             });
@@ -59,28 +59,31 @@ public class LoginHandler(
     }
 
 
-    private string CreateToken()
+    private string CreateToken
     {
+        get
+        {
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("JWTAuthenticationHIGHsecuredPasswordVVVp1OH7Xzyr"));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("JWTAuthenticationHIGHsecuredPasswordVVVp1OH7Xzyr"));
 
-        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        var claims = new List<Claim>
+            var claims = new List<Claim>
     {
         new(JwtRegisteredClaimNames.Name, "khanalex301@gmail.com")
 
     };
 
-        var jwtSecurityToken = new JwtSecurityToken(
-            expires: DateTime.Now.AddMinutes(30),
-            claims: claims,
-            signingCredentials: credentials,
-            issuer: "iiwi",
-            audience: "iiwi");
+            var jwtSecurityToken = new JwtSecurityToken(
+                expires: DateTime.Now.AddMinutes(30),
+                claims: claims,
+                signingCredentials: credentials,
+                issuer: "iiwi",
+                audience: "iiwi");
 
-        var jwt = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
+            var jwt = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
 
-        return jwt;
+            return jwt;
+        }
     }
 }
