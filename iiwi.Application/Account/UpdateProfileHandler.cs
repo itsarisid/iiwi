@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System.Net;
 
+/// <summary>
+///       Namespace Name - iiwi.Application.Account.
+/// </summary>
 namespace iiwi.Application.Account;
 
 public class UpdateProfileHandler(
@@ -13,6 +16,12 @@ public class UpdateProfileHandler(
     IClaimsProvider _claimsProvider,
     ILogger<UpdateProfileHandler> _logger) : IHandler<UpdateProfileRequest, Response>
 {
+
+    /// <summary>
+    ///  Function Name :  HandleAsync.
+    /// </summary>
+    /// <param name="request">This request's Datatype is : iiwi.Application.Account.UpdateProfileRequest.</param>
+    /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Response>>.</returns>
     public async Task<Result<Response>> HandleAsync(UpdateProfileRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
@@ -35,7 +44,6 @@ public class UpdateProfileHandler(
 
         _logger.LogInformation("User updated their profile successfully.");
 
-        //StatusMessage = "The external login was added.";
         return new Result<Response>(HttpStatusCode.OK, new Response
         {
             Message = "Profile updated successfully.",
