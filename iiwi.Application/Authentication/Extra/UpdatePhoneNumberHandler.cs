@@ -5,6 +5,9 @@ using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using System.Net;
 
+/// <summary>
+///       Namespace Name - iiwi.Application.Authentication.
+/// </summary>
 namespace iiwi.Application.Authentication;
 
 public class UpdatePhoneNumberHandler(
@@ -12,6 +15,12 @@ UserManager<ApplicationUser> _userManager,
 SignInManager<ApplicationUser> _signInManager,
 IClaimsProvider _claimsProvider) : IHandler<UpdatePhoneNumberRequest, Response>
 {
+
+    /// <summary>
+    ///  Function Name :  HandleAsync.
+    /// </summary>
+    /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.UpdatePhoneNumberRequest.</param>
+    /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Response>>.</returns>
     public async Task<Result<Response>> HandleAsync(UpdatePhoneNumberRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
