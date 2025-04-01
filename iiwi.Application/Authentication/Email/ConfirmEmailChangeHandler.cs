@@ -6,12 +6,21 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Net;
 using System.Text;
 
+/// <summary>
+///       Namespace Name - iiwi.Application.Authentication.
+/// </summary>
 namespace iiwi.Application.Authentication;
 
 public class ConfirmEmailChangeHandler(
 UserManager<ApplicationUser> _userManager,
 SignInManager<ApplicationUser> _signInManager) : IHandler<ConfirmEmailChangeRequest, Response>
 {
+
+    /// <summary>
+    ///  Function Name :  HandleAsync.
+    /// </summary>
+    /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.ConfirmEmailChangeRequest.</param>
+    /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Response>>.</returns>
     public async Task<Result<Response>> HandleAsync(ConfirmEmailChangeRequest request)
     {
         var user = await _userManager.FindByIdAsync(request.UserId);
@@ -33,8 +42,6 @@ SignInManager<ApplicationUser> _signInManager) : IHandler<ConfirmEmailChangeRequ
             });
         }
 
-        // In our UI email and user name are one and the same, so when we update the email
-        // we need to update the user name.
         var setUserNameResult = await _userManager.SetUserNameAsync(user, request.Email);
         if (!setUserNameResult.Succeeded)
         {

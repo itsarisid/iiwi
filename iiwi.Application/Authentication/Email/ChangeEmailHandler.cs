@@ -8,6 +8,9 @@ using iiwi.Model.Settings;
 using Microsoft.AspNetCore.Identity;
 using System.Net;
 
+/// <summary>
+///       Namespace Name - iiwi.Application.Authentication.
+/// </summary>
 namespace iiwi.Application.Authentication;
 
 public class ChangeEmailHandler(
@@ -15,6 +18,12 @@ UserManager<ApplicationUser> _userManager,
 IClaimsProvider _claimsProvider,
 IMailService _mailService) : IHandler<ChangeEmailRequest, Response>
 {
+
+    /// <summary>
+    ///  Function Name :  HandleAsync.
+    /// </summary>
+    /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.ChangeEmailRequest.</param>
+    /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Response>>.</returns>
     public async Task<Result<Response>> HandleAsync(ChangeEmailRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
@@ -31,7 +40,6 @@ IMailService _mailService) : IHandler<ChangeEmailRequest, Response>
         {
             var userId = await _userManager.GetUserIdAsync(user);
             var code = await _userManager.GenerateChangeEmailTokenAsync(user, request.NewEmail);
-            //var callbackUrl = new { userId, email = request.NewEmail, code };
 
             await _mailService.SendEmailWithTemplateAsync(new EmailSettings
             {

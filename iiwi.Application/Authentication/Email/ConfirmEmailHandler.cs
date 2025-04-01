@@ -6,11 +6,20 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Net;
 using System.Text;
 
+/// <summary>
+///       Namespace Name - iiwi.Application.Authentication.
+/// </summary>
 namespace iiwi.Application.Authentication;
 
 public class ConfirmEmailHandler(
 UserManager<ApplicationUser> _userManager) : IHandler<ConfirmEmailRequest, Response>
 {
+
+    /// <summary>
+    ///  Function Name :  HandleAsync.
+    /// </summary>
+    /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.ConfirmEmailRequest.</param>
+    /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Response>>.</returns>
     public async Task<Result<Response>> HandleAsync(ConfirmEmailRequest request)
     {
         var user = await _userManager.FindByIdAsync(request.UserId);

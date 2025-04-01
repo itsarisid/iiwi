@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Net;
 using System.Text;
 
+/// <summary>
+///       Namespace Name - iiwi.Application.Authentication.
+/// </summary>
 namespace iiwi.Application.Authentication;
 
 public class SendVerificationEmailHandler(
@@ -17,6 +20,12 @@ UserManager<ApplicationUser> _userManager,
 IClaimsProvider _claimsProvider,
 IMailService _mailService) : IHandler<SendVerificationEmailRequest, Response>
 {
+
+    /// <summary>
+    ///  Function Name :  HandleAsync.
+    /// </summary>
+    /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.SendVerificationEmailRequest.</param>
+    /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Response>>.</returns>
     public async Task<Result<Response>> HandleAsync(SendVerificationEmailRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
@@ -33,7 +42,6 @@ IMailService _mailService) : IHandler<SendVerificationEmailRequest, Response>
         var email = await _userManager.GetEmailAsync(user);
         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-        //var callbackUrl = new { area = "Identity", userId = userId, code = code },
 
         await _mailService.SendEmailWithTemplateAsync(new EmailSettings
         {
