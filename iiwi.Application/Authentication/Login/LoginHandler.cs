@@ -10,6 +10,9 @@ using System.Net;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 
+/// <summary>
+///       Namespace Name - iiwi.Application.Authentication.
+/// </summary>
 namespace iiwi.Application.Authentication;
 
 public class LoginHandler(
@@ -18,10 +21,14 @@ public class LoginHandler(
     ILogger<ApplicationUser> _logger
     ) : IHandler<LoginRequest, LoginResponse>
 {
+
+    /// <summary>
+    ///  Function Name :  HandleAsync.
+    /// </summary>
+    /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.LoginRequest.</param>
+    /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Authentication.LoginResponse>>.</returns>
     public async Task<Result<LoginResponse>> HandleAsync(LoginRequest request)
     {
-        // This doesn't count login failures towards account lockout
-        // To enable password failures to trigger account lockout, set lockoutOnFailure: true
         var result = await _signInManager.PasswordSignInAsync(request.Email, request.Password, request.RememberMe, lockoutOnFailure: false);
         if (result.Succeeded)
         {
@@ -59,6 +66,10 @@ public class LoginHandler(
     }
 
 
+
+    /// <summary>
+    ///      Property Name - CreateToken.
+    ///  </summary>
     private string CreateToken
     {
         get

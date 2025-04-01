@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System.Net;
 
+/// <summary>
+///       Namespace Name - iiwi.Application.Authentication.
+/// </summary>
 namespace iiwi.Application.Authentication
 {
     public class LinkLoginHandler(
@@ -14,6 +17,12 @@ namespace iiwi.Application.Authentication
     IClaimsProvider _claimsProvider,
     ILogger<LinkLoginHandler> _logger) : IHandler<LinkLoginRequest, Response>
     {
+
+        /// <summary>
+        ///  Function Name :  HandleAsync.
+        /// </summary>
+        /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.LinkLoginRequest.</param>
+        /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Response>>.</returns>
         public async Task<Result<Response>> HandleAsync(LinkLoginRequest request)
         {
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
@@ -25,20 +34,10 @@ namespace iiwi.Application.Authentication
                 });
             }
 
-            // Clear the existing external cookie to ensure a clean login process
-            //await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-            // Request a redirect to the external login provider to link a login for the current user
-            //var redirectUrl = Url.Page("./ExternalLogins", pageHandler: "LinkLoginCallback");
-            //var properties = _signInManager.ConfigureExternalAuthenticationProperties(request.Provider, redirectUrl, _userManager.GetUserId(_claimsProvider.ClaimsPrinciple));
-            //return Ok(new ChallengeResult(request.Provider, properties));
 
-            // Clear the existing external cookie to ensure a clean login process
 
-            //FIXME: Need to find out how to call this method
-            //await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-            //StatusMessage = "The external login was added.";
             return new Result<Response>(HttpStatusCode.OK, new Response
             {
                 Message = "Method not implemented",

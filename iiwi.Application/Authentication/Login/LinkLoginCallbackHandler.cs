@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System.Net;
 
+/// <summary>
+///       Namespace Name - iiwi.Application.Authentication.
+/// </summary>
 namespace iiwi.Application.Authentication
 {
     public class LinkLoginCallbackHandler(
@@ -14,6 +17,12 @@ namespace iiwi.Application.Authentication
     IClaimsProvider _claimsProvider,
     ILogger<LinkLoginCallbackHandler> _logger) : IHandler<LinkLoginCallbackRequest, Response>
     {
+
+        /// <summary>
+        ///  Function Name :  HandleAsync.
+        /// </summary>
+        /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.LinkLoginCallbackRequest.</param>
+        /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Response>>.</returns>
         public async Task<Result<Response>> HandleAsync(LinkLoginCallbackRequest request)
         {
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
@@ -35,12 +44,8 @@ namespace iiwi.Application.Authentication
                 });
             }
 
-            // Clear the existing external cookie to ensure a clean login process
 
-            //FIXME: Need to find out how to call this method
-            //await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-            //StatusMessage = "The external login was added.";
             return new Result<Response>(HttpStatusCode.OK, new Response
             {
                 Message = "The external login was added.",

@@ -1,4 +1,3 @@
-
 using DotNetCore.Mediator;
 using DotNetCore.Results;
 using iiwi.Application.Provider;
@@ -8,6 +7,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System.Net;
 
+/// <summary>
+///       Namespace Name - iiwi.Application.Authentication.
+/// </summary>
 namespace iiwi.Application.Authentication
 {
     public class LoginWithRecoveryCodeHandler(
@@ -15,6 +17,12 @@ namespace iiwi.Application.Authentication
          ILogger<LoginHandler> _logger
         ) : IHandler<LoginWithRecoveryCodeRequest, Response>
     {
+
+        /// <summary>
+        ///  Function Name :  HandleAsync.
+        /// </summary>
+        /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.LoginWithRecoveryCodeRequest.</param>
+        /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Response>>.</returns>
         public async Task<Result<Response>> HandleAsync(LoginWithRecoveryCodeRequest request)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync() ?? throw new InvalidOperationException($"Unable to load two-factor authentication user.");
