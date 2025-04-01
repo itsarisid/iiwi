@@ -9,11 +9,20 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Net;
 using System.Text;
 
+/// <summary>
+///       Namespace Name - iiwi.Application.Authentication.
+/// </summary>
 namespace iiwi.Application.Authentication;
 internal class RegisterConfirmationHandler(
 UserManager<ApplicationUser> _userManager,
 IMailService _mailService) : IHandler<RegisterConfirmationRequest, Response>
 {
+
+    /// <summary>
+    ///  Function Name :  HandleAsync.
+    /// </summary>
+    /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.RegisterConfirmationRequest.</param>
+    /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Response>>.</returns>
     public async Task<Result<Response>> HandleAsync(RegisterConfirmationRequest request)
     {
         var user = await _userManager.FindByEmailAsync(request.Email);

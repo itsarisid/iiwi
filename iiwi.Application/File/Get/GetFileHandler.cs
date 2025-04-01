@@ -3,6 +3,9 @@ using DotNetCore.Objects;
 using DotNetCore.Results;
 using System.Net;
 
+/// <summary>
+///       Namespace Name - iiwi.Application.File.
+/// </summary>
 namespace iiwi.Application.File;
 
 public sealed record GetFileHandler : IHandler<GetFileRequest, BinaryFile>

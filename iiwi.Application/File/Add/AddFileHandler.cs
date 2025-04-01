@@ -4,6 +4,9 @@ using DotNetCore.Results;
 using iiwi.Common;
 using System.Net;
 
+/// <summary>
+///       Namespace Name - iiwi.Application.File.
+/// </summary>
 namespace iiwi.Application.File;
 
 public sealed record AddFileHandler : IHandler<AddFileRequest, IEnumerable<BinaryFile>>

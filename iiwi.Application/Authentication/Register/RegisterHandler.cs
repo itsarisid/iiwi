@@ -10,6 +10,9 @@ using iiwi.Model.Settings;
 using System.Net;
 using iiwi.Domain.Identity;
 
+/// <summary>
+///       Namespace Name - iiwi.Application.Authentication.
+/// </summary>
 namespace iiwi.Application.Authentication;
 
 public class RegisterHandler(
@@ -18,6 +21,12 @@ SignInManager<ApplicationUser> _signInManager,
 ILogger<RegisterHandler> _logger,
 IMailService _mailService) : IHandler<RegisterRequest, RegisterResponse>
 {
+
+    /// <summary>
+    ///  Function Name :  HandleAsync.
+    /// </summary>
+    /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.RegisterRequest.</param>
+    /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Authentication.RegisterResponse>>.</returns>
     public async Task<Result<RegisterResponse>> HandleAsync(RegisterRequest request)
     {
 
@@ -30,7 +39,6 @@ IMailService _mailService) : IHandler<RegisterRequest, RegisterResponse>
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
 
-            //var callbackUrl = new { area = "Identity", userId = user.Id, code };
 
             await _mailService.SendEmailWithTemplateAsync(new EmailSettings
             {
