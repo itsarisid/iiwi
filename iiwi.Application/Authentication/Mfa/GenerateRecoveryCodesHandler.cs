@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System.Net;
 
+/// <summary>
+///       Namespace Name - iiwi.Application.Authentication.
+/// </summary>
 namespace iiwi.Application.Authentication
 {
     public class GenerateRecoveryCodesHandler(
@@ -13,6 +16,12 @@ namespace iiwi.Application.Authentication
     IClaimsProvider _claimsProvider,
     ILogger<GenerateRecoveryCodesHandler> _logger) : IHandler<GenerateRecoveryCodesRequest, GenerateRecoveryCodesResponse>
     {
+
+        /// <summary>
+        ///  Function Name :  HandleAsync.
+        /// </summary>
+        /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.GenerateRecoveryCodesRequest.</param>
+        /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Authentication.GenerateRecoveryCodesResponse>>.</returns>
         public async Task<Result<GenerateRecoveryCodesResponse>> HandleAsync(GenerateRecoveryCodesRequest request)
         {
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
@@ -36,10 +45,9 @@ namespace iiwi.Application.Authentication
 
             _logger.LogInformation("User with ID '{UserId}' has generated new 2FA recovery codes.", userId);
 
-            //Note: Show Recovery Codes
             return new Result<GenerateRecoveryCodesResponse>(HttpStatusCode.OK, new GenerateRecoveryCodesResponse
             {
-                RecoveryCodes= RecoveryCodes,
+                RecoveryCodes = RecoveryCodes,
                 Message = "You have generated new recovery codes.",
             });
         }

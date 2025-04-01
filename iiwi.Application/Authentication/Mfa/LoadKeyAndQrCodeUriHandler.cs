@@ -8,6 +8,9 @@ using System.Net;
 using System.Text;
 using System.Text.Encodings.Web;
 
+/// <summary>
+///       Namespace Name - iiwi.Application.Authentication.
+/// </summary>
 namespace iiwi.Application.Authentication;
 
 internal class LoadKeyAndQrCodeUriHandler(
@@ -15,6 +18,12 @@ UserManager<ApplicationUser> _userManager,
 IClaimsProvider _claimsProvider,
 UrlEncoder _urlEncoder) : IHandler<LoadKeyAndQrCodeUriRequest, LoadKeyAndQrCodeUriResponse>
 {
+
+    /// <summary>
+    ///  Function Name :  HandleAsync.
+    /// </summary>
+    /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.LoadKeyAndQrCodeUriRequest.</param>
+    /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Authentication.LoadKeyAndQrCodeUriResponse>>.</returns>
     public async Task<Result<LoadKeyAndQrCodeUriResponse>> HandleAsync(LoadKeyAndQrCodeUriRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
@@ -42,6 +51,12 @@ UrlEncoder _urlEncoder) : IHandler<LoadKeyAndQrCodeUriRequest, LoadKeyAndQrCodeU
         });
     }
 
+
+    /// <summary>
+    ///  Function Name :  FormatKey.
+    /// </summary>
+    /// <param name="unformattedKey">This unformattedKey's Datatype is : string.</param>
+    /// <returns>string.</returns>
     private static string FormatKey(string unformattedKey)
     {
         var result = new StringBuilder();
@@ -59,6 +74,13 @@ UrlEncoder _urlEncoder) : IHandler<LoadKeyAndQrCodeUriRequest, LoadKeyAndQrCodeU
         return result.ToString().ToLowerInvariant();
     }
 
+
+    /// <summary>
+    ///  Function Name :  GenerateQrCodeUri.
+    /// </summary>
+    /// <param name="email">This email's Datatype is : string.</param>
+    /// <param name="unformattedKey">This unformattedKey's Datatype is : string.</param>
+    /// <returns>string.</returns>
     private string GenerateQrCodeUri(string email, string unformattedKey)
     {
         return string.Format(

@@ -8,6 +8,9 @@ using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Text.Encodings.Web;
 
+/// <summary>
+///       Namespace Name - iiwi.Application.Authentication.
+/// </summary>
 namespace iiwi.Application.Authentication
 {
     public class EnableAuthenticatorHandler(
@@ -16,6 +19,12 @@ namespace iiwi.Application.Authentication
     IClaimsProvider _claimsProvider,
     ILogger<EnableAuthenticatorHandler> _logger) : IHandler<EnableAuthenticatorRequest, EnableAuthenticatorResponse>
     {
+
+        /// <summary>
+        ///  Function Name :  HandleAsync.
+        /// </summary>
+        /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.EnableAuthenticatorRequest.</param>
+        /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Authentication.EnableAuthenticatorResponse>>.</returns>
         public async Task<Result<EnableAuthenticatorResponse>> HandleAsync(EnableAuthenticatorRequest request)
         {
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
@@ -27,7 +36,6 @@ namespace iiwi.Application.Authentication
                 });
             }
 
-            // Strip spaces and hypens
             var verificationCode = request.Code.Replace(" ", string.Empty).Replace("-", string.Empty);
 
             var is2faTokenValid = await _userManager.VerifyTwoFactorTokenAsync(
@@ -45,7 +53,6 @@ namespace iiwi.Application.Authentication
             var userId = await _userManager.GetUserIdAsync(user);
             _logger.LogInformation("User with ID '{UserId}' has enabled 2FA with an authenticator app.", userId);
 
-            //StatusMessage = "Your authenticator app has been verified.";
 
             var unformattedKey = await _userManager.GetAuthenticatorKeyAsync(user);
             if (string.IsNullOrEmpty(unformattedKey))
@@ -59,7 +66,6 @@ namespace iiwi.Application.Authentication
             if (await _userManager.CountRecoveryCodesAsync(user) == 0)
             {
                 var recoveryCodes = await _userManager.GenerateNewTwoFactorRecoveryCodesAsync(user, 10);
-                //ShowRecoveryCodes";
                 return new Result<EnableAuthenticatorResponse>(HttpStatusCode.OK, new EnableAuthenticatorResponse
                 {
                     RecoveryCodes = recoveryCodes?.ToArray(),
@@ -76,6 +82,13 @@ namespace iiwi.Application.Authentication
             }
         }
 
+
+        /// <summary>
+        ///  Function Name :  GenerateQrCodeUri.
+        /// </summary>
+        /// <param name="email">This email's Datatype is : string.</param>
+        /// <param name="unformattedKey">This unformattedKey's Datatype is : string.</param>
+        /// <returns>string.</returns>
         private string GenerateQrCodeUri(string email, string unformattedKey)
         {
             return string.Format(
