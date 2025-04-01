@@ -6,11 +6,20 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Net;
 using System.Text;
 
+/// <summary>
+///       Namespace Name - iiwi.Application.Authentication.
+/// </summary>
 namespace iiwi.Application.Authentication;
 
 public class ResetPasswordHandler(
 UserManager<ApplicationUser> _userManager) : IHandler<ResetPasswordRequest, Response>
 {
+
+    /// <summary>
+    ///  Function Name :  HandleAsync.
+    /// </summary>
+    /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.ResetPasswordRequest.</param>
+    /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Response>>.</returns>
     public async Task<Result<Response>> HandleAsync(ResetPasswordRequest request)
     {
         request.Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(request.Code));
@@ -18,7 +27,6 @@ UserManager<ApplicationUser> _userManager) : IHandler<ResetPasswordRequest, Resp
         var user = await _userManager.FindByEmailAsync(request.Email);
         if (user == null)
         {
-            // Don't reveal that the user does not exist
             return new Result<Response>(HttpStatusCode.BadRequest, new Response
             {
                 Message = $"Unable to load user with email '{request.Email}'."
