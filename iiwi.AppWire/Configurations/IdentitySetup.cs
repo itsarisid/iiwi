@@ -73,18 +73,18 @@ public static class IdentitySetup
         services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ClaimsPrincipalFactory>();
         services.AddScoped<IClaimsProvider, HttpContextClaimsProvider>();
 
-        services.ConfigureApplicationCookie(options =>
-        {
-            // Cookie settings
-            options.Cookie.Name = "iiwi.Cookie";
-            options.Cookie.HttpOnly = true;
-            options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+        //services.ConfigureApplicationCookie(options =>
+        //{
+        //    // Cookie settings
+        //    options.Cookie.Name = "iiwi.Cookie";
+        //    options.Cookie.HttpOnly = true;
+        //    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
 
-            options.LoginPath = new PathString("/api/v1.0/auth/login");
-            options.LogoutPath = new PathString("/api/v1.0/auth/logout");
-            options.AccessDeniedPath = new PathString("/api/v1.0/auth/denied");
-            options.SlidingExpiration = true;
-        });
+        //    options.LoginPath = new PathString("/api/v1.0/auth/login");
+        //    options.LogoutPath = new PathString("/api/v1.0/auth/logout");
+        //    options.AccessDeniedPath = new PathString("/api/v1.0/auth/denied");
+        //    options.SlidingExpiration = true;
+        //});
 
         return services;
     }

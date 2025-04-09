@@ -1,0 +1,6 @@
+@iiwi.NetLine_HostAddress = http://localhost:5026
+
+GET {{iiwi.NetLine_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
