@@ -40,6 +40,18 @@ builder.Services.AddSwaggerGen(opt =>
         }
     });
 });
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    // Cookie settings
+    options.Cookie.Name = "iiwi.Cookie";
+    options.Cookie.HttpOnly = true;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
+    //options.LoginPath = new PathString("/api/v1.0/auth/login");
+    //options.LogoutPath = new PathString("/api/v1.0/auth/logout");
+    //options.AccessDeniedPath = new PathString("/api/v1.0/auth/denied");
+    //options.SlidingExpiration = true;
+});
 
 builder.Services.AddContext<iiwiDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(iiwiDbContext))));
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(iiwiDbContext))));
@@ -57,7 +69,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-//app.MapGroup("/identity").MapIdentityApi<ApplicationUser>();
+app.MapGroup("/identity").MapIdentityApi<ApplicationUser>();
 
 app.UseAuthorization();
 
