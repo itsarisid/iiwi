@@ -4,6 +4,8 @@ using DotNetCore.IoC;
 using DotNetCore.Logging;
 using DotNetCore.Mediator;
 using DotNetCore.Services;
+using iiwi.Application.Provider;
+using iiwi.Application;
 using iiwi.AppWire.Configurations;
 using iiwi.Database;
 using iiwi.Domain.Identity;
@@ -23,6 +25,7 @@ using Serilog.Ui.MsSqlServerProvider.Extensions;
 using Serilog.Ui.Web.Extensions;
 using Serilog.Ui.Web.Models;
 using System.Text;
+using static System.Net.WebRequestMethods;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -83,10 +86,42 @@ builder.Services.AddSwaggerGen(opt =>
 //builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddContext<iiwiDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(iiwiDbContext))));
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(iiwiDbContext))));
-//builder.Services.AddIdentityApiEndpoints<ApplicationUser>().AddEntityFrameworkStores<ApplicationDbContext>();
-//builder.Services.AddAuthorization();
+ //builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options => options.SignIn.RequireConfirmedAccount = false)
+ //               .AddEntityFrameworkStores<ApplicationDbContext>()
+ //               .AddDefaultTokenProviders();
+builder.Services.AddIdentityApiEndpoints<ApplicationUser>().AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddIdentity();
+builder.Services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ClaimsPrincipalFactory>();
+builder.Services.AddScoped<IClaimsProvider, HttpContextClaimsProvider>();
+
+
+builder.Services.AddAuthentication()
+.AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, jwtOptions =>
+{
+    jwtOptions.MetadataAddress = "AA";
+    // Optional if the MetadataAddress is specified
+    jwtOptions.Authority = "https://localhost:7122";
+    jwtOptions.Audience = "https://localhost:7122";
+    jwtOptions.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateIssuerSigningKey = true,
+        ValidAudiences = ["https://localhost:7122"],
+        ValidIssuers = ["https://localhost:7122"]
+    };
+
+    jwtOptions.MapInboundClaims = false;
+});
+
+var requireAuthPolicy = new AuthorizationPolicyBuilder()
+    .RequireAuthenticatedUser()
+    .Build();
+
+builder.Services.AddAuthorizationBuilder()
+    .SetDefaultPolicy(requireAuthPolicy);
+
+//builder.Services.AddIdentity();
 //builder.Services.AddAppAuth();
 
 //builder.Services.AddAntiforgery(options =>
@@ -147,7 +182,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseRouting();
 app.UseAuthorization();
-app.MapGroup("/identity").MapIdentityApi<ApplicationUser>();
+//app.MapGroup("/identity").MapIdentityApi<ApplicationUser>();
 app.MapControllers()
     .WithOpenApi();
 app.UseResponseCaching();
