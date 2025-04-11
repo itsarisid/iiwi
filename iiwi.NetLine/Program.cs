@@ -1,6 +1,8 @@
 using DotNetCore.EntityFrameworkCore;
 using iiwi.Database;
 using iiwi.Domain.Identity;
+using iiwi.NetLine.Config;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -51,7 +53,22 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddContext<iiwiDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(iiwiDbContext))));
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(iiwiDbContext))));
-builder.Services.AddIdentityApiEndpoints<ApplicationUser>().AddEntityFrameworkStores<ApplicationDbContext>();
+//builder.Services.AddIdentityApiEndpoints<ApplicationUser>().AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentityApiEndpoints<ApplicationUser>(options =>
+{
+    options.SignIn.RequireConfirmedEmail = false;
+    options.User.RequireUniqueEmail = true;
+    options.Password.RequiredLength = 8;
+    options.Password.RequireDigit = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromHours(2);
+})
+ .AddRoles<ApplicationRole>()
+ .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
@@ -62,10 +79,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+else
+{
+// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
 
 app.UseHttpsRedirection();
 
-app.MapGroup("/identity").MapIdentityApi<ApplicationUser>();
+app.MapGroup("/auth").MapMyIdentityApi<ApplicationUser>();
+
 
 app.UseAuthorization();
 

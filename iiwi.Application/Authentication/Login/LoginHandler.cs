@@ -4,11 +4,11 @@ using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using DotNetCore.Security;
 using System.Text;
 using System.Net;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNet.Identity;
 
 /// <summary>
 ///       Namespace Name - iiwi.Application.Authentication.
@@ -17,7 +17,6 @@ namespace iiwi.Application.Authentication;
 
 public class LoginHandler(
     SignInManager<ApplicationUser> _signInManager,
-    UserManager<ApplicationUser> _userManager,
     ILogger<ApplicationUser> _logger
     ) : IHandler<LoginRequest, LoginResponse>
 {
@@ -25,7 +24,7 @@ public class LoginHandler(
     /// <summary>
     ///  Function Name :  HandleAsync.
     /// </summary>
-    /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.LoginRequest.</param>
+    /// <param name="request">This request's Data type is : iiwi.Application.Authentication.LoginRequest.</param>
     /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Authentication.LoginResponse>>.</returns>
     public async Task<Result<LoginResponse>> HandleAsync(LoginRequest request)
     {
