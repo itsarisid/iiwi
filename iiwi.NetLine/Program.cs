@@ -46,11 +46,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.Name = "iiwi.Cookie";
     options.Cookie.HttpOnly = true;
     options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-
-    //options.LoginPath = new PathString("/api/v1.0/auth/login");
-    //options.LogoutPath = new PathString("/api/v1.0/auth/logout");
-    //options.AccessDeniedPath = new PathString("/api/v1.0/auth/denied");
-    //options.SlidingExpiration = true;
+    options.SlidingExpiration = true;       
 });
 
 builder.Services.AddContext<iiwiDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(iiwiDbContext))));
