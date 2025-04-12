@@ -31,5 +31,4 @@ public class TestController(IServiceProvider serviceProvider) : BaseController
         Framework = RuntimeInformation.FrameworkDescription,
         OS = $"{RuntimeInformation.OSDescription} - ({RuntimeInformation.OSArchitecture})",
     });
-
 }

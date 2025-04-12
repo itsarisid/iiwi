@@ -7,11 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Carter" Version="9.0.0" />
+    <PackageReference Include="DotNetCore.Mediator" Version="19.13.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\iiwi.Application\iiwi.Application.csproj" />
     <ProjectReference Include="..\iiwi.Database\iiwi.Database.csproj" />
   </ItemGroup>
 

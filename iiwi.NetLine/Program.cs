@@ -1,4 +1,8 @@
+using Carter;
 using DotNetCore.EntityFrameworkCore;
+using DotNetCore.Mediator;
+using iiwi.Application.Provider;
+using iiwi.Application;
 using iiwi.Database;
 using iiwi.Domain.Identity;
 using iiwi.NetLine.Config;
@@ -6,6 +10,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using iiwi.Infrastructure.Email;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,7 +58,6 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddContext<iiwiDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(iiwiDbContext))));
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(iiwiDbContext))));
-//builder.Services.AddIdentityApiEndpoints<ApplicationUser>().AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddIdentityApiEndpoints<ApplicationUser>(options =>
 {
     options.SignIn.RequireConfirmedEmail = false;
@@ -69,7 +73,14 @@ builder.Services.AddIdentityApiEndpoints<ApplicationUser>(options =>
  .AddRoles<ApplicationRole>()
  .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ClaimsPrincipalFactory>();
+builder.Services.AddScoped<IClaimsProvider, HttpContextClaimsProvider>();
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+builder.Services.AddScoped<IMailService, MailService>();
+
 builder.Services.AddAuthorization();
+builder.Services.AddMediator(nameof(iiwi));
+builder.Services.AddCarter();
 
 var app = builder.Build();
 
@@ -84,14 +95,10 @@ else
 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
 app.UseHttpsRedirection();
-
 app.MapGroup("/auth").MapMyIdentityApi<ApplicationUser>();
-
-
 app.UseAuthorization();
-
 app.MapControllers();
+app.MapCarter();
 
 app.Run();
