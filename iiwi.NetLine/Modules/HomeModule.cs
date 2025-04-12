@@ -1,5 +1,6 @@
 ﻿using Carter.OpenApi;
 using DotNetCore.Mediator;
+using DotNetCore.Results;
 using iiwi.Application;
 
 namespace iiwi.NetLine.Modules;
@@ -7,17 +8,17 @@ namespace iiwi.NetLine.Modules;
 public class HomeModule : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
-    {
-        //protected IMediator Mediator => HttpContext.RequestServices.GetRequiredService<IMediator>();
-        app.MapPost("/home", Task (IMediator mediator, UpdateProfileRequest request, HttpResponse response) => 
+    {   app.MapPost("/home",  Task<Result<Response>>
+        (IMediator mediator, UpdateProfileRequest request, Result<Response> response) => 
         {
-            var res = mediator.HandleAsync<UpdateProfileRequest, Response>(request);
-            //res.StatusCode = 409;
-            //return Results.Text("There's no place like 127.0.0.1");
-            return res;
+            var res =   mediator.HandleAsync<UpdateProfileRequest, Response>(request).ApiResult();
+
+
+            return TypedResults.Ok<Response>(res);
         })
         .WithTags("Home")
         .WithName("Index")
+        .RequireAuthorization()
         .IncludeInOpenApi();
     }
 }
