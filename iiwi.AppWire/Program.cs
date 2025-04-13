@@ -8,21 +8,9 @@ using iiwi.AppWire.Configurations;
 using iiwi.Database;
 using iiwi.Domain.Identity;
 using iiwi.Model.Settings;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 using Serilog;
-using Serilog.Ui.Core.Extensions;
 using Serilog.Ui.MsSqlServerProvider.Extensions;
-using Serilog.Ui.Web.Extensions;
-using Serilog.Ui.Web.Models;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,56 +34,19 @@ builder.Services.AddControllers();
 builder.Services.AddResponseCompression();
 builder.Services.AddJsonStringLocalizer();
 builder.Services.AddWebServices();
-//builder.Services.AddContext<iiwiDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(iiwiDbContext))));
-//builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(iiwiDbContext))));
-
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(opt =>
-{
-    opt.SwaggerDoc("v1", new OpenApiInfo { Title = "MyAPI", Version = "v1" });
-    opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        In = ParameterLocation.Header,
-        Description = "Please enter token",
-        Name = "Authorization",
-        Type = SecuritySchemeType.Http,
-        BearerFormat = "JWT",
-        Scheme = "bearer"
-    });
-
-    opt.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type=ReferenceType.SecurityScheme,
-                    Id="Bearer"
-                }
-            },
-            new string[]{}
-        }
-    });
-});
-//builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddContext<iiwiDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(iiwiDbContext))));
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(iiwiDbContext))));
-//builder.Services.AddIdentityApiEndpoints<ApplicationUser>().AddEntityFrameworkStores<ApplicationDbContext>();
-//builder.Services.AddAuthorization();
 
 builder.Services.AddIdentity();
-//builder.Services.AddAppAuth();
+builder.Services.AddAppAuth();
 
-//builder.Services.AddAntiforgery(options =>
-//{
-//    // Set Cookie properties using CookieBuilder properties†.
-//    options.FormFieldName = "AntiforgeryFieldname";
-//    options.HeaderName = "X-CSRF-TOKEN-HEADERNAME";
-//    options.SuppressXFrameOptionsHeader = false;
-//});
+builder.Services.AddAntiforgery(options =>
+{
+    // Set Cookie properties using CookieBuilder properties†.
+    options.FormFieldName = "AntiforgeryFieldname";
+    options.HeaderName = "X-CSRF-TOKEN-HEADERNAME";
+    options.SuppressXFrameOptionsHeader = false;
+});
 
 builder.Services.AddClassesMatchingInterfaces(nameof(iiwi));
 builder.Services.AddMediator(nameof(iiwi));
@@ -106,8 +57,7 @@ builder.Services.AddApiVersioning(x =>
     x.ReportApiVersions = true;
 });
 
-//builder.Services.AddSwaggerDocuments();
-
+builder.Services.AddSwaggerDocuments();
 
 builder.Services.AddResponseCaching(options =>
 {
@@ -123,15 +73,6 @@ builder.AddApplicationSettings();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-else
-{
-    app.UseHsts();
-}
 app.UseStaticFiles();
 app.UseEnvironment();
 app.UseRouting();
@@ -145,10 +86,9 @@ app.UseCors(options =>
 app.UseHttpsRedirection();
 //app.UseSerilogUi();
 app.UseAuthentication();
-app.UseRouting();
 app.UseAuthorization();
-app.MapGroup("/identity").MapIdentityApi<ApplicationUser>();
-app.MapControllers()
-    .WithOpenApi();
+app.UseRouting();
+app.MapIdentityApi<ApplicationUser>();
+app.MapControllers();
 app.UseResponseCaching();
 app.Run();

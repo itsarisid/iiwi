@@ -20,10 +20,6 @@ public static class IdentitySetup
     /// </returns>
     public static IServiceCollection AddIdentity(this IServiceCollection services)
     {
-        //services.AddIdentity<ApplicationUser, ApplicationRole>(options => options.SignIn.RequireConfirmedAccount = false)
-        //        .AddEntityFrameworkStores<ApplicationDbContext>()
-        //        .AddDefaultTokenProviders();
-
         services.AddIdentityApiEndpoints<ApplicationUser>(options =>
             {
                 // Password settings.
@@ -63,29 +59,8 @@ public static class IdentitySetup
             .AddClaimsPrincipalFactory<UserClaimsPrincipalFactory<ApplicationUser, ApplicationRole>>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
-
-        //services.AddAuthentication(options =>
-        //{
-        //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        //});
-
         services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ClaimsPrincipalFactory>();
         services.AddScoped<IClaimsProvider, HttpContextClaimsProvider>();
-
-        //services.ConfigureApplicationCookie(options =>
-        //{
-        //    // Cookie settings
-        //    options.Cookie.Name = "iiwi.Cookie";
-        //    options.Cookie.HttpOnly = true;
-        //    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-
-        //    options.LoginPath = new PathString("/api/v1.0/auth/login");
-        //    options.LogoutPath = new PathString("/api/v1.0/auth/logout");
-        //    options.AccessDeniedPath = new PathString("/api/v1.0/auth/denied");
-        //    options.SlidingExpiration = true;
-        //});
-
         return services;
     }
 }
