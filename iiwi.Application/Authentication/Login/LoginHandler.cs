@@ -4,11 +4,13 @@ using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using DotNetCore.Security;
 using System.Text;
 using System.Net;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 /// <summary>
 ///       Namespace Name - iiwi.Application.Authentication.
@@ -17,7 +19,6 @@ namespace iiwi.Application.Authentication;
 
 public class LoginHandler(
     SignInManager<ApplicationUser> _signInManager,
-    UserManager<ApplicationUser> _userManager,
     ILogger<ApplicationUser> _logger
     ) : IHandler<LoginRequest, LoginResponse>
 {
@@ -25,17 +26,34 @@ public class LoginHandler(
     /// <summary>
     ///  Function Name :  HandleAsync.
     /// </summary>
-    /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.LoginRequest.</param>
+    /// <param name="request">This request's Data type is : iiwi.Application.Authentication.LoginRequest.</param>
     /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Authentication.LoginResponse>>.</returns>
     public async Task<Result<LoginResponse>> HandleAsync(LoginRequest request)
     {
+        var auth = await _signInManager.GetExternalAuthenticationSchemesAsync();
+        if (request.Email == null || request.Password == null)
+        {
+            return new Result<LoginResponse>(HttpStatusCode.BadRequest, new LoginResponse
+            {
+                Message = "Email and Password are required."
+            });
+        }
+
+        auth.ToList().ForEach(x =>
+        {
+            if (x.Name == JwtBearerDefaults.AuthenticationScheme)
+            {
+                _logger.LogInformation("Login with JWT");
+            }
+        });
+
         var result = await _signInManager.PasswordSignInAsync(request.Email, request.Password, request.RememberMe, lockoutOnFailure: false);
         if (result.Succeeded)
         {
             _logger.LogInformation("User logged in.");
             return new Result<LoginResponse>(HttpStatusCode.OK, new LoginResponse
             {
-                Token = CreateToken,
+                Token = string.Empty,
                 FullName = "Sajid Khan",
                 Message = "User logged in."
             });
@@ -62,39 +80,6 @@ public class LoginHandler(
             {
                 Message = "Invalid login attempt."
             });
-        }
-    }
-
-
-
-    /// <summary>
-    ///      Property Name - CreateToken.
-    ///  </summary>
-    private string CreateToken
-    {
-        get
-        {
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("JWTAuthenticationHIGHsecuredPasswordVVVp1OH7Xzyr"));
-
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var claims = new List<Claim>
-    {
-        new(JwtRegisteredClaimNames.Name, "khanalex301@gmail.com")
-
-    };
-
-            var jwtSecurityToken = new JwtSecurityToken(
-                expires: DateTime.Now.AddMinutes(30),
-                claims: claims,
-                signingCredentials: credentials,
-                issuer: "iiwi",
-                audience: "iiwi");
-
-            var jwt = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
-
-            return jwt;
         }
     }
 }
