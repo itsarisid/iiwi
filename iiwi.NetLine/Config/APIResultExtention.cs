@@ -20,6 +20,10 @@ public static class APIResultExtention
         return status switch
         {
             HttpStatusCode.OK => TypedResults.Ok(result.Value),
+            HttpStatusCode.Created => TypedResults.CreatedAtRoute(result.Value),
+            HttpStatusCode.Accepted => TypedResults.AcceptedAtRoute(result.Value),
+            HttpStatusCode.NoContent => TypedResults.NoContent(),
+            HttpStatusCode.BadRequest => CreateValidationProblem("BadRequest", result.Message),
             _ => TypedResults.Empty
         };
     }
@@ -57,10 +61,8 @@ public static class APIResultExtention
             : TypedResults.StatusCode((int)result.Status);
     }
 
-    public static async Task<TResult> Convert<TSource, TResult>(
-    this Task<TSource> task, Func<TSource, TResult> projection)
-    {
-        var result = await task.ConfigureAwait(false);
-        return projection(result);
-    }
+    private static ValidationProblem CreateValidationProblem(string errorCode, string errorDescription) =>
+       TypedResults.ValidationProblem(new Dictionary<string, string[]> {
+            { errorCode, [errorDescription] }
+       });
 }
