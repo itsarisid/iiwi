@@ -1,6 +1,7 @@
 ﻿using DotNetCore.Results;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections;
 using System.Net;
 using System.Reflection.Metadata;
 
@@ -12,13 +13,15 @@ public static class APIResultExtention
     {
         if (result == null)
         {
-            return TypedResults.NotFound();
+            return TypedResults.Problem("Something went wrong");
         }
-        if (result.Status == HttpStatusCode.OK)
+        var status = result.Status;
+
+        return status switch
         {
-            return TypedResults.Ok(result.Value);
-        }
-        return TypedResults.Empty;
+            HttpStatusCode.OK => TypedResults.Ok(result.Value),
+            _ => TypedResults.Empty
+        };
     }
 
     public static IResult Response<T>(this Task<Result<T>> result)
@@ -28,10 +31,6 @@ public static class APIResultExtention
 
     public static IResult Response(this Result result)
     {
-        //return new ObjectResult(result.Message)
-        //{
-        //    StatusCode = (int)result.Status
-        //};
         return TypedResults.Ok(result);
     }
 
@@ -49,14 +48,6 @@ public static class APIResultExtention
     {
         return result.Result.Response();
     }
-
-    public static async Task<TResult> Convert<TSource, TResult>(
-    this Task<TSource> task, Func<TSource, TResult> projection)
-    {
-        var result = await task.ConfigureAwait(false);
-        return projection(result);
-    }
-
     public static async Task<IResult> ResponseAsync<T>(this Task<Result<T>> resultTask)
     {
         var result = await resultTask.ConfigureAwait(false);
@@ -64,5 +55,12 @@ public static class APIResultExtention
         return result.Status == HttpStatusCode.OK
             ? TypedResults.Ok(result.Value)
             : TypedResults.StatusCode((int)result.Status);
+    }
+
+    public static async Task<TResult> Convert<TSource, TResult>(
+    this Task<TSource> task, Func<TSource, TResult> projection)
+    {
+        var result = await task.ConfigureAwait(false);
+        return projection(result);
     }
 }
