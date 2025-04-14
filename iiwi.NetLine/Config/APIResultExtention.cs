@@ -8,7 +8,7 @@ namespace iiwi.NetLine.Config;
 
 public static class APIResultExtention
 {
-    public static IResult MyResult<T>(this Result<T> result)
+    public static IResult Response<T>(this Result<T> result)
     {
         if (result == null)
         {
@@ -21,20 +21,12 @@ public static class APIResultExtention
         return TypedResults.Empty;
     }
 
-
-    public static async Task<TResult> Convert<TSource, TResult>(
-    this Task<TSource> task, Func<TSource, TResult> projection)
+    public static IResult Response<T>(this Task<Result<T>> result)
     {
-        var result = await task.ConfigureAwait(false);
-        return projection(result);
+        return result.Result.Response();
     }
 
-    public static IResult MyResult<T>(this Task<Result<T>> result)
-    {
-        return result.Result.MyResult();
-    }
-
-    public static IResult MyResult(this Result result)
+    public static IResult Response(this Result result)
     {
         //return new ObjectResult(result.Message)
         //{
@@ -43,23 +35,34 @@ public static class APIResultExtention
         return TypedResults.Ok(result);
     }
 
-    public static IResult MyResult(this Task<Result> result)
+    public static IResult Response(this Task<Result> result)
     {
-        return result.Result.MyResult();
+        return result.Result.Response();
     }
 
-    public static IResult MyResult<T>(this T result)
+    public static IResult Response<T>(this T result)
     {
         return TypedResults.Ok(result);
     }
 
-    public static IResult MyResult<T>(this Task<T> result)
+    public static IResult Response<T>(this Task<T> result)
     {
-        return result.Result.MyResult();
+        return result.Result.Response();
     }
 
-    private static ValidationProblem CreateValidationProblem(string errorCode, string errorDescription) =>
-        TypedResults.ValidationProblem(new Dictionary<string, string[]> {
-            { errorCode, [errorDescription] }
-        });
+    public static async Task<TResult> Convert<TSource, TResult>(
+    this Task<TSource> task, Func<TSource, TResult> projection)
+    {
+        var result = await task.ConfigureAwait(false);
+        return projection(result);
+    }
+
+    public static async Task<IResult> ResponseAsync<T>(this Task<Result<T>> resultTask)
+    {
+        var result = await resultTask.ConfigureAwait(false);
+        if (result == null) return TypedResults.NotFound();
+        return result.Status == HttpStatusCode.OK
+            ? TypedResults.Ok(result.Value)
+            : TypedResults.StatusCode((int)result.Status);
+    }
 }
