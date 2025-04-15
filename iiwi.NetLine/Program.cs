@@ -43,7 +43,7 @@ builder.Services.AddSwaggerGen(opt =>
                     Id="Bearer"
                 }
             },
-            new string[]{}
+            Array.Empty<string>()
         }
     });
 });
@@ -81,7 +81,7 @@ builder.Services.AddScoped<IMailService, MailService>();
 builder.Services.AddAuthorization();
 builder.Services.AddMediator(nameof(iiwi));
 builder.Services.AddCarter();
-
+builder.Services.AddProblemDetails();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -95,8 +95,11 @@ else
 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+//app.UseExceptionHandler(exceptionHandlerApp
+//    => exceptionHandlerApp.Run(async context=> await Results.Problem().ExecuteAsync(context)));
+
 app.UseHttpsRedirection();
-app.MapGroup("/auth").MapMyIdentityApi<ApplicationUser>();
+app.MapGroup("/auth").MapMyIdentityApi<ApplicationUser>().WithTags("Identity");
 app.UseAuthorization();
 app.MapControllers();
 app.MapCarter();

@@ -2,7 +2,6 @@
 using DotNetCore.Mediator;
 using iiwi.Application;
 using iiwi.NetLine.Config;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace iiwi.NetLine.Modules;
 
@@ -13,6 +12,7 @@ public class HomeModule : ICarterModule
         app.MapPost("/home", IResult (IMediator mediator, UpdateProfileRequest request) => mediator
         .HandleAsync<UpdateProfileRequest, Response>(request)
         .Response())
+        .WithMappingBehaviour<Response>()
         .WithTags("Home")
         .WithName("Index")
         .RequireAuthorization()
