@@ -1,4 +1,3 @@
-using Carter;
 using DotNetCore.EntityFrameworkCore;
 using DotNetCore.Mediator;
 using iiwi.Application.Provider;
@@ -6,11 +5,11 @@ using iiwi.Application;
 using iiwi.Database;
 using iiwi.Domain.Identity;
 using iiwi.NetLine.Config;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using iiwi.Infrastructure.Email;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +24,7 @@ builder.Services.AddSwaggerGen(opt =>
     opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         In = ParameterLocation.Header,
-        Description = "Please enter token",
+        Description = "Standard Authorization header using the Bearer scheme (JWT). Example: \"bearer {token}\"",
         Name = "Authorization",
         Type = SecuritySchemeType.Http,
         BearerFormat = "JWT",
@@ -47,6 +46,7 @@ builder.Services.AddSwaggerGen(opt =>
         }
     });
 });
+
 builder.Services.ConfigureApplicationCookie(options =>
 {
     // Cookie settings
