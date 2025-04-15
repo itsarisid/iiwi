@@ -2,11 +2,10 @@
 using DotNetCore.Mediator;
 using iiwi.Application;
 using iiwi.NetLine.Config;
-using Microsoft.AspNetCore.Mvc;
 
 namespace iiwi.NetLine.Modules;
 
-public class HomeModule : ICarterModule
+public class HomeModule : IEndpoints
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
