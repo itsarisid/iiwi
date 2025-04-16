@@ -1,4 +1,4 @@
-﻿namespace iiwi.NetLine.Config;
+﻿namespace iiwi.NetLine.Extentions;
 
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
@@ -9,13 +9,13 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
-using global::Microsoft.AspNetCore.Authentication.BearerToken;
-using global::Microsoft.AspNetCore.Http.HttpResults;
-using global::Microsoft.AspNetCore.Http.Metadata;
-using global::Microsoft.AspNetCore.Identity.Data;
-using global::Microsoft.AspNetCore.Identity;
-using global::Microsoft.AspNetCore.WebUtilities;
-using global::Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authentication.BearerToken;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Http.Metadata;
+using Microsoft.AspNetCore.Identity.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -49,7 +49,7 @@ public static class IdentityApiEndpointRouteBuilderExtensions
         var linkGenerator = endpoints.ServiceProvider.GetRequiredService<LinkGenerator>();
 
         // We'll figure out a unique endpoint name based on the final route pattern during endpoint generation.
-        string? confirmEmailEndpointName = null;
+        string confirmEmailEndpointName = null;
 
         var routeGroup = endpoints.MapGroup("");
 
@@ -93,8 +93,8 @@ public static class IdentityApiEndpointRouteBuilderExtensions
         {
             var signInManager = sp.GetRequiredService<SignInManager<TUser>>();
 
-            var useCookieScheme = (useCookies == true) || (useSessionCookies == true);
-            var isPersistent = (useCookies == true) && (useSessionCookies != true);
+            var useCookieScheme = useCookies == true || useSessionCookies == true;
+            var isPersistent = useCookies == true && useSessionCookies != true;
             signInManager.AuthenticationScheme = useCookieScheme ? IdentityConstants.ApplicationScheme : IdentityConstants.BearerScheme;
 
             var result = await signInManager.PasswordSignInAsync(login.Email, login.Password, isPersistent, lockoutOnFailure: true);
@@ -141,7 +141,7 @@ public static class IdentityApiEndpointRouteBuilderExtensions
         });
 
         routeGroup.MapGet("/confirmEmail", async Task<Results<ContentHttpResult, UnauthorizedHttpResult>>
-            ([FromQuery] string userId, [FromQuery] string code, [FromQuery] string? changedEmail, [FromServices] IServiceProvider sp) =>
+            ([FromQuery] string userId, [FromQuery] string code, [FromQuery] string changedEmail, [FromServices] IServiceProvider sp) =>
         {
             var userManager = sp.GetRequiredService<UserManager<TUser>>();
             if (await userManager.FindByIdAsync(userId) is not { } user)
@@ -230,7 +230,7 @@ public static class IdentityApiEndpointRouteBuilderExtensions
 
             var user = await userManager.FindByEmailAsync(resetRequest.Email);
 
-            if (user is null || !(await userManager.IsEmailConfirmedAsync(user)))
+            if (user is null || !await userManager.IsEmailConfirmedAsync(user))
             {
                 // Don't reveal that the user does not exist or is not confirmed, so don't return a 200 if we would have
                 // returned a 400 for an invalid code given a valid user email.
@@ -300,8 +300,8 @@ public static class IdentityApiEndpointRouteBuilderExtensions
                 await userManager.ResetAuthenticatorKeyAsync(user);
             }
 
-            string[]? recoveryCodes = null;
-            if (tfaRequest.ResetRecoveryCodes || (tfaRequest.Enable == true && await userManager.CountRecoveryCodesAsync(user) == 0))
+            string[] recoveryCodes = null;
+            if (tfaRequest.ResetRecoveryCodes || tfaRequest.Enable == true && await userManager.CountRecoveryCodesAsync(user) == 0)
             {
                 var recoveryCodesEnumerable = await userManager.GenerateNewTwoFactorRecoveryCodesAsync(user, 10);
                 recoveryCodes = recoveryCodesEnumerable?.ToArray();
@@ -487,6 +487,6 @@ public static class IdentityApiEndpointRouteBuilderExtensions
     [AttributeUsage(AttributeTargets.Parameter)]
     private sealed class FromQueryAttribute : Attribute, IFromQueryMetadata
     {
-        public string? Name => null;
+        public string Name => null;
     }
 }

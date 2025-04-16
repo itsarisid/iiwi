@@ -1,4 +1,5 @@
 ﻿using iiwi.Application;
+using iiwi.NetLine.Extentions;
 
 namespace iiwi.NetLine.Modules;
 

@@ -5,65 +5,17 @@ using iiwi.Database;
 using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 using iiwi.Infrastructure.Email;
-using System.Reflection;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using SwaggerThemes;
+using iiwi.NetLine.Extentions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
-builder.Services.AddSwaggerGen(options =>
-{
-    options.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Version = "v1",
-        Title = "IIWI",
-        Description = "IIWI is a mobile-first platform designed to bridge students and counselors through personalized counseling sessions and a collaborative blogging community. Students can discover verified counselors, book sessions, and engage with user-generated content, while counselors showcase their expertise via blogs and manage their professional profiles.",
-        TermsOfService = new Uri("https://example.com/terms"),
-        Contact = new OpenApiContact
-        {
-            Name = "Sajid Khan",
-            Email = "mysipi@outlook.com",
-            Url = new Uri("https://www.linkedin.com/in/im-sajid-khan/")
-        },
-        License = new OpenApiLicense
-        {
-            Name = "MIT License",
-            Url = new Uri("https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt")
-        }
-    });
-    options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
-    {
-        In = ParameterLocation.Header,
-        Description = "Standard Authorization header using the Bearer scheme (JWT)",
-        Name = "Authorization",
-        Type = SecuritySchemeType.Http,
-        BearerFormat = "JWT",
-        Scheme = JwtBearerDefaults.AuthenticationScheme
-    });
 
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type=ReferenceType.SecurityScheme,
-                    Id=JwtBearerDefaults.AuthenticationScheme
-                }
-            },
-            Array.Empty<string>()
-        }
-    });
-});
-
+builder.Services.AddApiDocuments();
 builder.Services.ConfigureApplicationCookie(options =>
 {
     // Cookie settings
@@ -102,8 +54,6 @@ builder.Services.AddProblemDetails();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-//app.UseStaticFiles();
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -120,7 +70,6 @@ else
 app.UseHttpsRedirection();
 app.MapGroup("/auth").MapMyIdentityApi<ApplicationUser>().WithTags("Identity");
 app.UseAuthorization();
-app.MapControllers();
 app.MapCarter();
 
 app.Run();

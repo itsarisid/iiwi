@@ -5,7 +5,7 @@ using System.Collections;
 using System.Net;
 using System.Reflection.Metadata;
 
-namespace iiwi.NetLine.Config;
+namespace iiwi.NetLine.Extentions;
 
 public static class APIResultExtention
 {

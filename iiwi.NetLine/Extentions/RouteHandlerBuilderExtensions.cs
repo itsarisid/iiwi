@@ -1,4 +1,4 @@
-﻿namespace iiwi.NetLine.Config;
+﻿namespace iiwi.NetLine.Extentions;
 
 public static class RouteHandlerBuilderExtensions
 {
