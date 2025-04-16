@@ -9,6 +9,7 @@ using Microsoft.OpenApi.Models;
 using iiwi.Infrastructure.Email;
 using System.Reflection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using SwaggerThemes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -101,16 +102,12 @@ builder.Services.AddProblemDetails();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-app.UseStaticFiles();
+//app.UseStaticFiles();
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "iiwi");
-        c.InjectStylesheet("/swagger-ui/swagger-dark.css");
-    });
+    app.UseSwaggerUI(Theme.UniversalDark);
 }
 else
 {
