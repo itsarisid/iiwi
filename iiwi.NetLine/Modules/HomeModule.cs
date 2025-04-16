@@ -1,7 +1,4 @@
-﻿using Carter.OpenApi;
-using DotNetCore.Mediator;
-using iiwi.Application;
-using iiwi.NetLine.Config;
+﻿using iiwi.Application;
 
 namespace iiwi.NetLine.Modules;
 
