@@ -12,6 +12,8 @@ public static class ApiDocuments
     /// </returns>
     public static IServiceCollection AddApiDocuments(this IServiceCollection services)
     {
+        ArgumentNullException.ThrowIfNull(services);
+
         services.AddOpenApi();
         services.AddSwaggerGen(options =>
         {

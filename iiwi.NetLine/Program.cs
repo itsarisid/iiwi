@@ -1,11 +1,4 @@
-using DotNetCore.EntityFrameworkCore;
-using iiwi.Application.Provider;
-using iiwi.Application;
-using iiwi.Database;
 using iiwi.Domain.Identity;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using iiwi.Infrastructure.Email;
 using SwaggerThemes;
 using iiwi.NetLine.Extentions;
 
@@ -25,27 +18,10 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;       
 });
 
-builder.Services.AddContext<iiwiDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(iiwiDbContext))));
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(iiwiDbContext))));
-builder.Services.AddIdentityApiEndpoints<ApplicationUser>(options =>
-{
-    options.SignIn.RequireConfirmedEmail = false;
-    options.User.RequireUniqueEmail = true;
-    options.Password.RequiredLength = 8;
-    options.Password.RequireDigit = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Lockout.MaxFailedAccessAttempts = 5;
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromHours(2);
-})
- .AddRoles<ApplicationRole>()
- .AddEntityFrameworkStores<ApplicationDbContext>();
+var config = builder.Configuration;
 
-builder.Services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ClaimsPrincipalFactory>();
-builder.Services.AddScoped<IClaimsProvider, HttpContextClaimsProvider>();
-builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
-builder.Services.AddScoped<IMailService, MailService>();
+builder.Services.AddIdentity(config);
+builder.Services.AddAppServiceses(config);
 
 builder.Services.AddAuthorization();
 builder.Services.AddMediator(nameof(iiwi));
