@@ -22,6 +22,7 @@ public class TestModule : IEndpoints
          .WithName("Test")
          .WithSummary("Tes end points")
          .WithDescription("This api endpoint can be used for testing")
+         .AllowAnonymous()
          .IncludeInOpenApi();
     }
 }
