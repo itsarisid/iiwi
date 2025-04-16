@@ -12,6 +12,7 @@ public class TestModule : IEndpoints
          {
              Auther = "Sajid Khan",
              Version = "1.0.0",
+             Date = DateTime.Now.ToLongDateString(),
              Assembly = Assembly.GetExecutingAssembly().FullName,
              Environment = serviceProvider.GetRequiredService<IWebHostEnvironment>().EnvironmentName,
              Environment.MachineName,

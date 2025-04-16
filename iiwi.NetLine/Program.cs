@@ -1,15 +1,14 @@
 using DotNetCore.EntityFrameworkCore;
-using DotNetCore.Mediator;
 using iiwi.Application.Provider;
 using iiwi.Application;
 using iiwi.Database;
 using iiwi.Domain.Identity;
-using iiwi.NetLine.Config;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using iiwi.Infrastructure.Email;
 using System.Reflection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,20 +17,37 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-builder.Services.AddSwaggerGen(opt =>
+builder.Services.AddSwaggerGen(options =>
 {
-    opt.SwaggerDoc("v1", new OpenApiInfo { Title = "MyAPI", Version = "v1" });
-    opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "IIWI",
+        Description = "IIWI is a mobile-first platform designed to bridge students and counselors through personalized counseling sessions and a collaborative blogging community. Students can discover verified counselors, book sessions, and engage with user-generated content, while counselors showcase their expertise via blogs and manage their professional profiles.",
+        TermsOfService = new Uri("https://example.com/terms"),
+        Contact = new OpenApiContact
+        {
+            Name = "Sajid Khan",
+            Email = "mysipi@outlook.com",
+            Url = new Uri("https://www.linkedin.com/in/im-sajid-khan/")
+        },
+        License = new OpenApiLicense
+        {
+            Name = "MIT License",
+            Url = new Uri("https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt")
+        }
+    });
+    options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
     {
         In = ParameterLocation.Header,
         Description = "Standard Authorization header using the Bearer scheme (JWT)",
         Name = "Authorization",
         Type = SecuritySchemeType.Http,
         BearerFormat = "JWT",
-        Scheme = "bearer"
+        Scheme = JwtBearerDefaults.AuthenticationScheme
     });
 
-    opt.AddSecurityRequirement(new OpenApiSecurityRequirement
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
             new OpenApiSecurityScheme
@@ -39,7 +55,7 @@ builder.Services.AddSwaggerGen(opt =>
                 Reference = new OpenApiReference
                 {
                     Type=ReferenceType.SecurityScheme,
-                    Id="Bearer"
+                    Id=JwtBearerDefaults.AuthenticationScheme
                 }
             },
             Array.Empty<string>()
@@ -85,10 +101,16 @@ builder.Services.AddProblemDetails();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseStaticFiles();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "iiwi");
+        c.InjectStylesheet("/swagger-ui/swagger-dark.css");
+    });
 }
 else
 {
