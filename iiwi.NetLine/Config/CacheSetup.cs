@@ -1,4 +1,6 @@
-﻿namespace iiwi.NetLine.Config;
+﻿using iiwi.NetLine.Policies;
+
+namespace iiwi.NetLine.Config;
 
 public static class CacheSetup
 {
@@ -21,6 +23,8 @@ public static class CacheSetup
             options.AddPolicy("Query", builder => builder.SetVaryByQuery("culture"));
             options.AddPolicy("NoCache", builder => builder.NoCache());
             options.AddPolicy("NoLock", builder => builder.SetLocking(false));
+
+            //options.AddPolicy("CachePost", IiwiPolicy.Instance); //NOTE: For Custom output cache policy
         });
         return services;
     }
