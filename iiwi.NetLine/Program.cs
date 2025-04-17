@@ -9,14 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddApiDocuments();
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    // Cookie settings
-    options.Cookie.Name = "iiwi.Cookie";
-    options.Cookie.HttpOnly = true;
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-    options.SlidingExpiration = true;       
-});
+builder.Services.AddAppCookies();
 
 var config = builder.Configuration;
 
@@ -37,7 +30,7 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 //app.UseExceptionHandler(exceptionHandlerApp

@@ -45,7 +45,8 @@ public static class IdentitySetup
             options.SignIn = new SignInOptions
             {
                 RequireConfirmedAccount = false,
-                RequireConfirmedEmail = false
+                RequireConfirmedEmail = false,
+                RequireConfirmedPhoneNumber = false
             };
 
             // User settings.
