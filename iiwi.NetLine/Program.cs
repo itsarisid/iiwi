@@ -1,5 +1,4 @@
 using iiwi.Domain.Identity;
-using SwaggerThemes;
 using iiwi.NetLine.Extentions;
 using Serilog;
 
@@ -10,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 //Add support to logging with SERILOG
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
+
 
 builder.Services.AddEndpointsApiExplorer();
 
@@ -27,6 +27,7 @@ builder.Services.AddMediator(nameof(iiwi));
 builder.Services.AddCarter();
 builder.Services.AddProblemDetails();
 
+builder.AddAppHealthChecks();
 
 /*****************
  APPLICATIONS
@@ -35,19 +36,7 @@ builder.Services.AddProblemDetails();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(Theme.UniversalDark);
-}
-else
-{
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
-//app.UseExceptionHandler(exceptionHandlerApp
-//    => exceptionHandlerApp.Run(async context=> await Results.Problem().ExecuteAsync(context)));
+app.MapEnvironment();
 
 //Add support to logging request with SERILOG
 app.UseSerilogRequestLogging();
