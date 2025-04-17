@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using iiwi.Common;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
@@ -21,7 +22,7 @@ public class iiwiDbContextFactory : IDesignTimeDbContextFactory<iiwiDbContext>
 
         var builder = new DbContextOptionsBuilder<iiwiDbContext>();
 
-        var connectionString = configuration.GetConnectionString("DefaultConnection");
+        var connectionString = configuration.GetConnectionString(General.DbConnectionName);
 
         builder.UseSqlServer(connectionString, b => b.MigrationsAssembly("iiwi.Database"));
 
