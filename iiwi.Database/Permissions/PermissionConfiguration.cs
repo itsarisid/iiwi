@@ -12,7 +12,10 @@ public sealed class PermissionConfiguration : IEntityTypeConfiguration<Permissio
     {
         builder.ToTable(nameof(Permission), General.SchemaName);
         builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Id).ValueGeneratedOnAdd().IsRequired();
+        builder.Property(entity => entity.Id)
+            .ValueGeneratedOnAdd()
+            .IsRequired()
+            .UseHiLo(General.DbSequenceName);
         builder.Property(entity => entity.Name).HasMaxLength(250).IsRequired();
         builder.Property(entity => entity.IsActive).IsRequired();
 
