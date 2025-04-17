@@ -22,6 +22,7 @@ builder.Services.AddIdentity(config);
 builder.Services.AddAppServiceses(config);
 
 builder.Services.AddAuthorization();
+builder.Services.AddAppCache();
 builder.Services.AddMediator(nameof(iiwi));
 builder.Services.AddCarter();
 builder.Services.AddProblemDetails();
@@ -52,6 +53,7 @@ else
 app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
+app.UseOutputCache();
 app.MapGroup("/auth").MapMyIdentityApi<ApplicationUser>().WithTags("Identity");
 app.UseAuthorization();
 app.MapCarter();

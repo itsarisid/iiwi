@@ -13,6 +13,7 @@ public class TestModule : IEndpoints
              Auther = "Sajid Khan",
              Version = "1.0.0",
              Date = DateTime.Now.ToLongDateString(),
+             Time = DateTime.Now.ToLongTimeString(),
              Assembly = Assembly.GetExecutingAssembly().FullName,
              Environment = serviceProvider.GetRequiredService<IWebHostEnvironment>().EnvironmentName,
              Environment.MachineName,
@@ -24,6 +25,7 @@ public class TestModule : IEndpoints
          .WithSummary("Tes end points")
          .WithDescription("This api endpoint can be used for testing")
          .AllowAnonymous()
-         .IncludeInOpenApi();
+         .IncludeInOpenApi()
+         .CacheOutput("DefaultPolicy");
     }
 }
