@@ -15,7 +15,13 @@ public static class EnvironmentSetup
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
-            app.UseSwaggerUI(Theme.UniversalDark);
+
+            app.UseSwaggerUI(Theme.Gruvbox, @"
+                .swagger-ui .btn.execute {
+                    background-color: #89bf04;
+                    border-color: #89bf04;
+                    color: #fff;
+                }");
 
             // All health checks must pass for app to be considered ready to accept traffic after starting
             app.MapHealthChecks("/healthz", new HealthCheckOptions

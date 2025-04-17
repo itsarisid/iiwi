@@ -5,6 +5,16 @@ namespace iiwi.NetLine.Modules;
 
 public class TestModule : IEndpoints
 {
+    /// <summary>  
+    /// Configures the "/test" endpoint for the application.  
+    /// This endpoint provides metadata about the application, including version, environment, and system details.  
+    /// </summary>  
+    /// <param name="app">The <see cref="IEndpointRouteBuilder"/> used to define the route.</param>  
+    /// <remarks>  
+    /// This endpoint is useful for testing and retrieving application information.  
+    /// </remarks>  
+    /// <response code="200">Returns application metadata in JSON format.</response>  
+    /// <response code="500">If an internal server error occurs.</response>  
     public void AddRoutes(IEndpointRouteBuilder app)
     {
         app.MapGet("/test",
@@ -22,8 +32,8 @@ public class TestModule : IEndpoints
          }))
          .WithTags("Test")
          .WithName("Test")
-         .WithSummary("Tes end points")
-         .WithDescription("This api endpoint can be used for testing")
+         .WithSummary("Test endpoint")
+         .WithDescription("This API endpoint can be used for testing and retrieving application metadata.")
          .AllowAnonymous()
          .IncludeInOpenApi()
          .CacheOutput("DefaultPolicy");
