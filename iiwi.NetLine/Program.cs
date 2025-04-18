@@ -1,6 +1,7 @@
 using iiwi.Domain.Identity;
 using iiwi.NetLine.Extentions;
 using Serilog;
+using static System.Net.Mime.MediaTypeNames;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
 
-
+builder.Services.AddResponseCompression();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddApiDocuments();
@@ -40,7 +41,7 @@ app.MapEnvironment();
 
 //Add support to logging request with SERILOG
 app.UseSerilogRequestLogging();
-
+app.UseResponseCompression();
 app.UseHttpsRedirection();
 app.UseOutputCache();
 app.MapGroup("/auth").MapMyIdentityApi<ApplicationUser>().WithTags("Identity");

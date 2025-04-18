@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using iiwi.NetLine.Filters;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 namespace iiwi.NetLine.Modules;
@@ -36,6 +37,8 @@ public class TestModule : IEndpoints
          .WithDescription("This API endpoint can be used for testing and retrieving application metadata.")
          .AllowAnonymous()
          .IncludeInOpenApi()
+         .AddEndpointFilter<LoggingFilter>()
+         .AddEndpointFilter<ExceptionHandlingFilter>()
          .CacheOutput("DefaultPolicy");
     }
 }
