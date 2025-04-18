@@ -24,7 +24,7 @@ using Microsoft.Extensions.DependencyInjection;
 /// <summary>
 /// Provides extension methods for <see cref="IEndpointRouteBuilder"/> to add identity endpoints.
 /// </summary>
-public static class IdentityApiEndpointRouteBuilderExtensions
+public static class IdentityExtensions
 {
     // Validate the email address using DataAnnotations like the UserValidator does when RequireUniqueEmail = true.
     private static readonly EmailAddressAttribute _emailAddressAttribute = new();
