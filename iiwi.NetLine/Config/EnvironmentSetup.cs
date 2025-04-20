@@ -1,4 +1,5 @@
 ﻿using iiwi.NetLine.Extentions;
+using iiwi.NetLine.Health;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using SwaggerThemes;
@@ -21,7 +22,7 @@ public static class EnvironmentSetup
             app.MapHealthChecks("/healthz", new HealthCheckOptions
             {
                 AllowCachingResponses = true,
-                ResponseWriter = HealthExtensions.WriteResponse,
+                ResponseWriter = HealthCheckerResponse.WriteResponse,
                 ResultStatusCodes =
                 {
                     [HealthStatus.Healthy] = StatusCodes.Status200OK,
@@ -30,11 +31,23 @@ public static class EnvironmentSetup
                 },
             });
 
+            // For the readiness check. The readiness check filters health checks to those tagged with ready
+            app.MapHealthChecks("/healthz/ready", new HealthCheckOptions
+            {
+                Predicate = healthCheck => healthCheck.Tags.Contains("ready")
+            });
+
+            // For the liveness check. The liveness check filters out all health checks by returning false in the HealthCheckOptions.Predicate delegate. 
+            app.MapHealthChecks("/healthz/live", new HealthCheckOptions
+            {
+                Predicate = _ => false
+            });
+
             // Only health checks tagged with the "live" tag must pass for app to be considered alive
-            app.MapHealthChecks("/alive", new HealthCheckOptions
+            app.MapHealthChecks("healthz/alive", new HealthCheckOptions
             {
                 Predicate = r => r.Tags.Contains("live"),
-                ResponseWriter = HealthExtensions.WriteResponse,
+                ResponseWriter = HealthCheckerResponse.WriteResponse,
             });
         }
         else
