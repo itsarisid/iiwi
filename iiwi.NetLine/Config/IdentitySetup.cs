@@ -3,6 +3,7 @@ using iiwi.Database;
 using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace iiwi.NetLine.Config;
 
