@@ -13,7 +13,8 @@ public static class EnvironmentSetup
         ArgumentNullException.ThrowIfNull(app);
 
         // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
+        //Note: Enabled IsProduction() so that we can use the swagger in production as well.
+        if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
         {
             app.UseSwagger();
 

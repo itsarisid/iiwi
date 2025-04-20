@@ -39,3 +39,13 @@
 /iiwi.NetLine/obj
 /iiwi.NetLine/Logs
 /iiwi.AppWire/Logs/System
+/iiwi.Application/bin/Release/net9.0
+/iiwi.Common/bin/Release/net9.0
+/iiwi.Database/bin/Release/net9.0
+/iiwi.Domain/bin/Release/net9.0
+/iiwi.Infrastructure/bin/Release/net9.0
+/iiwi.Model/bin/Release/net9.0
+/iiwi.NetLine/.config
+/iiwi.NetLine/bin/Release/net9.0
+/iiwi.NetLine/Properties/PublishProfiles
+/iiwi.SearchEngine/bin/Release/net9.0
