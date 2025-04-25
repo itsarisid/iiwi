@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\iiwi.Application\iiwi.Application.csproj" />
     <ProjectReference Include="..\iiwi.Database\iiwi.Database.csproj" />
+    <ProjectReference Include="..\iiwi.Model\iiwi.Model.csproj" />
   </ItemGroup>
 
 </Project>

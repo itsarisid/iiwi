@@ -1,10 +1,10 @@
-﻿using iiwi.Common;
+﻿using iiwi.Model;
 
 namespace iiwi.NetLine.Extentions;
 
 public static class EndpointGroupExtensions
 {
-    public static RouteGroupBuilder WithGroup(this RouteGroupBuilder builder, EndpointGroup group)
+    public static RouteGroupBuilder WithGroup(this RouteGroupBuilder builder, EndpointDetails group)
     {
         builder
             .WithTags(group.Tags)
