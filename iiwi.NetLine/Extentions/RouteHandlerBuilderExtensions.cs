@@ -13,6 +13,7 @@ public static class RouteHandlerBuilderExtensions
     {
         return builder.WithName(group.Name)
                       .WithSummary(group.Summary)
-                      .WithDescription(group.Description);
+                      .WithDescription(group.Description)
+                      .IncludeInOpenApi();
     }
 }
