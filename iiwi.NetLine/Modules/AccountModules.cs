@@ -17,21 +17,21 @@ public class AccountModules : IEndpoints
         .HandleAsync<UpdateProfileRequest, Response>(request)
         .Response())
         .WithMappingBehaviour<Response>() //Note: If you used TypedResults as return type then this method not required  
-        .WithEndpointsGroup(Accounts.UpdateProfile)
+        .WithDocumentation(Accounts.UpdateProfile)
         .RequireAuthorization();
 
         routeGroup.MapPost(Accounts.SendVerificationDetails.Endpoint,
          IResult (IMediator mediator, SendVerificationEmailRequest request) => mediator
         .HandleAsync<SendVerificationEmailRequest, Response>(request)
         .Response())
-        .WithEndpointsGroup(Accounts.SendVerificationDetails)
+        .WithDocumentation(Accounts.SendVerificationDetails)
         .RequireAuthorization();
 
         routeGroup.MapPost(Accounts.DownloadPersonalData.Endpoint,
          IResult (IMediator mediator, DownloadPersonalDataRequest request) => mediator
         .HandleAsync<DownloadPersonalDataRequest, Response>(request)
         .Response())
-        .WithEndpointsGroup(Accounts.DownloadPersonalData)
+        .WithDocumentation(Accounts.DownloadPersonalData)
         .RequireAuthorization();
 
     }
