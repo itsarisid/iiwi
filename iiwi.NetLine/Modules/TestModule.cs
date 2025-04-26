@@ -1,5 +1,4 @@
-﻿using iiwi.NetLine.Endpoints;
-using iiwi.NetLine.Filters;
+﻿using iiwi.NetLine.Filters;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -37,7 +36,7 @@ public class TestModule : IEndpoints
              Framework = RuntimeInformation.FrameworkDescription,
              OS = $"{RuntimeInformation.OSDescription} - ({RuntimeInformation.OSArchitecture})",
          }))
-         .WithEndpointsGroup(Test.TestEndpoint)
+         .WithDocumentation(Test.TestEndpoint)
          .AllowAnonymous()
          .AddEndpointFilter<LoggingFilter>()
          .AddEndpointFilter<ExceptionHandlingFilter>()
