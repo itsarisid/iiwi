@@ -1,4 +1,5 @@
-﻿using iiwi.NetLine.Filters;
+﻿using iiwi.NetLine.Endpoints;
+using iiwi.NetLine.Filters;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -16,9 +17,14 @@ public class TestModule : IEndpoints
     /// </remarks>  
     /// <response code="200">Returns application metadata in JSON format.</response>  
     /// <response code="500">If an internal server error occurs.</response>  
-    public void AddRoutes(IEndpointRouteBuilder app)
+    public void AddRoutes(IEndpointRouteBuilder endpoints)
     {
-        app.MapGet("/test",
+       ArgumentNullException.ThrowIfNull(endpoints);
+
+        // Map the endpoints to the route group
+        var routeGroup = endpoints.MapGroup(string.Empty).WithGroup(Test.Group);
+
+        routeGroup.MapGet(Test.TestEndpoint.Endpoint,
          IResult (IServiceProvider serviceProvider) => TypedResults.Ok(new
          {
              Auther = "Sajid Khan",
@@ -31,12 +37,8 @@ public class TestModule : IEndpoints
              Framework = RuntimeInformation.FrameworkDescription,
              OS = $"{RuntimeInformation.OSDescription} - ({RuntimeInformation.OSArchitecture})",
          }))
-         .WithTags("Test")
-         .WithName("Test")
-         .WithSummary("Test endpoint")
-         .WithDescription("This API endpoint can be used for testing and retrieving application metadata.")
+         .WithEndpointsGroup(Test.TestEndpoint)
          .AllowAnonymous()
-         .IncludeInOpenApi()
          .AddEndpointFilter<LoggingFilter>()
          .AddEndpointFilter<ExceptionHandlingFilter>()
          .CacheOutput("DefaultPolicy");
