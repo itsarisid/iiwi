@@ -9,7 +9,7 @@ public static class RouteHandlerBuilderExtensions
         return builder.Produces<T>();
     }
 
-    public static RouteHandlerBuilder WithEndpointsGroup(this RouteHandlerBuilder builder, EndpointDetails group)
+    public static RouteHandlerBuilder WithDocumentation(this RouteHandlerBuilder builder, EndpointDetails group)
     {
         return builder.WithName(group.Name)
                       .WithSummary(group.Summary)
