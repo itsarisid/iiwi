@@ -14,7 +14,7 @@ public class Test
 
     public static EndpointDetails TestEndpoint => new()
     {
-        Endpoint = "/Test",
+        Endpoint = "/test",
         Name = "Test",
         Summary = "This API endpoint can be used for testing and retrieving application meta data.",
         Description = "This API endpoint can be used for testing and retrieving application meta data."

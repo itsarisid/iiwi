@@ -1,5 +1,6 @@
 ﻿using iiwi.Application;
 using iiwi.Application.Authentication;
+using Microsoft.AspNetCore.Mvc;
 
 namespace iiwi.NetLine.Modules;
 
@@ -27,11 +28,32 @@ public class AccountModules : IEndpoints
         .WithDocumentation(Accounts.SendVerificationDetails)
         .RequireAuthorization();
 
-        routeGroup.MapPost(Accounts.DownloadPersonalData.Endpoint,
-         IResult (IMediator mediator, DownloadPersonalDataRequest request) => mediator
-        .HandleAsync<DownloadPersonalDataRequest, Response>(request)
+        routeGroup.MapGet(Accounts.DownloadPersonalData.Endpoint,
+         IResult (IMediator mediator) => mediator
+        .HandleAsync<DownloadPersonalDataRequest, Response>(new DownloadPersonalDataRequest())
         .Response())
         .WithDocumentation(Accounts.DownloadPersonalData)
+        .RequireAuthorization();
+
+        routeGroup.MapPut(Accounts.ChangeEmail.Endpoint,
+         IResult (IMediator mediator, ChangeEmailRequest request) => mediator
+        .HandleAsync<ChangeEmailRequest, Response>(request)
+        .Response())
+        .WithDocumentation(Accounts.ChangeEmail)
+        .RequireAuthorization();
+
+        routeGroup.MapDelete(Accounts.DeletePersonalData.Endpoint,
+         IResult (IMediator mediator, [FromBody] DeletePersonalDataRequest request) => mediator
+        .HandleAsync<DeletePersonalDataRequest, Response>(request)
+        .Response())
+        .WithDocumentation(Accounts.DeletePersonalData)
+        .RequireAuthorization();
+
+        routeGroup.MapPost(Accounts.ChangePassword.Endpoint,
+         IResult (IMediator mediator, ChangePasswordRequest request) => mediator
+        .HandleAsync<ChangePasswordRequest, Response>(request)
+        .Response())
+        .WithDocumentation(Accounts.ChangePassword)
         .RequireAuthorization();
 
     }
