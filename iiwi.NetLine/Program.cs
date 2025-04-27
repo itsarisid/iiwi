@@ -30,6 +30,16 @@ builder.Services.AddProblemDetails();
 
 builder.AddAppHealthChecks();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", o =>
+    {
+            o.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 /*****************
  APPLICATIONS
  *****************/
@@ -43,6 +53,7 @@ app.MapEnvironment();
 app.UseSerilogRequestLogging();
 app.UseResponseCompression();
 app.UseHttpsRedirection();
+app.UseCors("AllowAll");
 app.UseOutputCache();
 app.MapGroup("/auth").MapMyIdentityApi<ApplicationUser>().WithTags("Identity");
 app.UseAuthorization();
