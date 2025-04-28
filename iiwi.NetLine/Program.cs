@@ -1,7 +1,5 @@
 using iiwi.Domain.Identity;
-using iiwi.NetLine.Extentions;
 using Serilog;
-using static System.Net.Mime.MediaTypeNames;
 
 var builder = WebApplication.CreateBuilder(args);
 
