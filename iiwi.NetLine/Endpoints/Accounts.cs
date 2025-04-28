@@ -83,4 +83,15 @@ public static class Accounts
         Summary = "Update account password",
         Description = "Allows a user to update their password for improved security or after a password reset request."
     };
+
+    /// <summary>
+    /// Endpoint to change the user's phone number.
+    /// </summary>
+    public static EndpointDetails UpdatePhoneNumber => new()
+    {
+        Endpoint = "/update-phone-number",
+        Name = "Update Phone Number",
+        Summary = "Update Phone Number",
+        Description = "Allows a user to update their phone number."
+    };
 }
