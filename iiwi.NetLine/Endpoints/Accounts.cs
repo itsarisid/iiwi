@@ -1,97 +1,81 @@
 ﻿using iiwi.Model;
 
-namespace iiwi.NetLine.Endpoints;
-
-/// <summary>
-/// Represents all account-related endpoint details.
-/// </summary>
 public static class Accounts
 {
     /// <summary>
-    /// General information about the Accounts endpoint group.
+    /// Metadata for the Accounts endpoint group.
     /// </summary>
-    public static EndpointDetails Group => new()
+    public static EndpointDetails Group => new EndpointDetails
     {
         Name = "Accounts",
         Tags = "Accounts",
-        Summary = "Account Management APIs",
-        Description = "This group contains all the endpoints related to user account management tasks."
+        Summary = "Account-related Endpoints",
+        Description = "This group contains all the endpoints related to user account management, including profile updates, email changes, and personal data handling."
     };
 
     /// <summary>
-    /// Endpoint to update a user's profile information.
+    /// Updates the profile information of a user.
     /// </summary>
-    public static EndpointDetails UpdateProfile => new()
+    public static EndpointDetails UpdateProfile => new EndpointDetails
     {
         Endpoint = "/update-profile",
         Name = "Update Profile",
-        Summary = "Update user profile information",
-        Description = "Allows a user to update their profile details such as name, address, and other personal information."
+        Summary = "Updates the user profile data.",
+        Description = "Allows a user to modify personal details such as name, contact info, or preferences stored in their profile."
     };
 
     /// <summary>
-    /// Endpoint to send a verification email to the user's registered address.
+    /// Sends a verification email to the user’s registered email address.
     /// </summary>
-    public static EndpointDetails SendVerificationDetails => new()
+    public static EndpointDetails SendVerificationDetails => new EndpointDetails
     {
         Endpoint = "/send-verification-email",
-        Name = "Send Verification Email",
-        Summary = "Send email verification",
-        Description = "Sends a verification email to confirm the user's email address."
+        Name = "Send Verification Details",
+        Summary = "Sends a verification email to the user.",
+        Description = "Used to verify a user's email address during registration or when changing an email. Helps ensure the address belongs to the user."
     };
 
     /// <summary>
-    /// Endpoint to download all personal data associated with a user's account.
+    /// Allows the user to download their stored personal data.
     /// </summary>
-    public static EndpointDetails DownloadPersonalData => new()
+    public static EndpointDetails DownloadPersonalData => new EndpointDetails
     {
         Endpoint = "/download-personal-data",
         Name = "Download Personal Data",
-        Summary = "Export user's personal data",
-        Description = "Allows users to download a copy of all their personal data stored in the system."
+        Summary = "Exports the user's personal data.",
+        Description = "Provides a downloadable copy of the personal data the system has stored about the user, to support GDPR or similar policies."
     };
 
     /// <summary>
-    /// Endpoint to change the user's registered email address.
+    /// Initiates the process of changing the user's email address.
     /// </summary>
-    public static EndpointDetails ChangeEmail => new()
+    public static EndpointDetails ChangeEmail => new EndpointDetails
     {
         Endpoint = "/change-email",
         Name = "Change Email",
-        Summary = "Update registered email address",
-        Description = "Allows a user to update or change their primary email address linked to their account."
+        Summary = "Changes the user’s registered email address.",
+        Description = "Updates the email address on file. May require confirmation via a verification link sent to the new address."
     };
 
     /// <summary>
-    /// Endpoint to permanently delete a user's personal data.
+    /// Permanently deletes the user’s personal data from the system.
     /// </summary>
-    public static EndpointDetails DeletePersonalData => new()
+    public static EndpointDetails DeletePersonalData => new EndpointDetails
     {
         Endpoint = "/delete-personal-data",
         Name = "Delete Personal Data",
-        Summary = "Erase user's personal information",
-        Description = "Deletes all stored personal data associated with the user's account, following GDPR or privacy requirements."
+        Summary = "Deletes personal data associated with the account.",
+        Description = "Removes all personally identifiable information (PII) related to the user. Often used for right-to-be-forgotten compliance."
     };
 
     /// <summary>
-    /// Endpoint to change the user's account password.
+    /// Allows the user to change their current password.
     /// </summary>
-    public static EndpointDetails ChangePassword => new()
+    public static EndpointDetails ChangePassword => new EndpointDetails
     {
         Endpoint = "/change-password",
         Name = "Change Password",
-        Summary = "Update account password",
-        Description = "Allows a user to update their password for improved security or after a password reset request."
-    };
-
-    /// <summary>
-    /// Endpoint to change the user's phone number.
-    /// </summary>
-    public static EndpointDetails UpdatePhoneNumber => new()
-    {
-        Endpoint = "/update-phone-number",
-        Name = "Update Phone Number",
-        Summary = "Update Phone Number",
-        Description = "Allows a user to update their phone number."
+        Summary = "Changes the user’s password.",
+        Description = "Lets the user update their account password. Typically used after login, or during a security update."
     };
 }
