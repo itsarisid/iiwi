@@ -68,4 +68,15 @@ public static class Accounts
         Description = "Removes all personally identifiable information (PII) related to the user. Often used for right-to-be-forgotten compliance."
     };
 
+    /// <summary>
+    /// Updates the user's phone number.    
+    /// </summary>
+    public static EndpointDetails UpdatePhoneNumber => new()
+    {
+        Endpoint = "/update-phone-number",
+        Name = "Update Phone Number",
+        Summary = "Update phone number associated with the account.",
+        Description = "Allow user to update there phone number"
+    };
+
 }

@@ -71,6 +71,16 @@ public class AccountModules : IEndpoints
         .WithDocumentation(Accounts.DeletePersonalData)
         .RequireAuthorization();
 
+        /// <summary>
+        /// Deletes the user's personal data.
+        /// </summary>
+        routeGroup.MapPut(Accounts.UpdatePhoneNumber.Endpoint,
+         IResult (IMediator mediator, UpdatePhoneNumberRequest request) => mediator
+        .HandleAsync<UpdatePhoneNumberRequest, Response>(request)
+        .Response())
+        .WithDocumentation(Accounts.UpdatePhoneNumber)
+        .RequireAuthorization();
+
         
     }
 }
