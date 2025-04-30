@@ -5,7 +5,7 @@ public static class Authentication
     /// <summary>
     /// Metadata for the Authentication group.
     /// </summary>
-    public static EndpointDetails Group => new EndpointDetails
+    public static EndpointDetails Group => new()
     {
         Name = "Authentication",
         Tags = "Authentication",
@@ -16,7 +16,7 @@ public static class Authentication
     /// <summary>
     /// Returns the key and QR code URI for setting up authenticator apps.
     /// </summary>
-    public static EndpointDetails LoadKeyAndQrCodeUri => new EndpointDetails
+    public static EndpointDetails LoadKeyAndQrCodeUri => new()
     {
         Endpoint = "/load-key",
         Name = "Load Key and QR Code URI",
@@ -27,7 +27,7 @@ public static class Authentication
     /// <summary>
     /// Finalizes 2FA setup using a code from the authenticator app.
     /// </summary>
-    public static EndpointDetails EnableAuthenticator => new EndpointDetails
+    public static EndpointDetails EnableAuthenticator => new()
     {
         Endpoint = "/enable-authenticator",
         Name = "Enable Authenticator",
@@ -38,7 +38,7 @@ public static class Authentication
     /// <summary>
     /// Lists external login providers linked to the user's account.
     /// </summary>
-    public static EndpointDetails ExternalLogins => new EndpointDetails
+    public static EndpointDetails ExternalLogins => new()
     {
         Endpoint = "/external-logins",
         Name = "External Logins",
@@ -49,7 +49,7 @@ public static class Authentication
     /// <summary>
     /// Removes a linked external login from the user's account.
     /// </summary>
-    public static EndpointDetails RemoveLogin => new EndpointDetails
+    public static EndpointDetails RemoveLogin => new()
     {
         Endpoint = "/remove-login",
         Name = "Remove Login",
@@ -60,7 +60,7 @@ public static class Authentication
     /// <summary>
     /// Starts the linking process for an external login.
     /// </summary>
-    public static EndpointDetails LinkLogin => new EndpointDetails
+    public static EndpointDetails LinkLogin => new()
     {
         Endpoint = "/link-login",
         Name = "Link External Login",
@@ -71,7 +71,7 @@ public static class Authentication
     /// <summary>
     /// Callback endpoint for completing external login linking.
     /// </summary>
-    public static EndpointDetails LinkLoginCallback => new EndpointDetails
+    public static EndpointDetails LinkLoginCallback => new()
     {
         Endpoint = "/link-login-callback",
         Name = "Link Login Callback",
@@ -82,7 +82,7 @@ public static class Authentication
     /// <summary>
     /// Generates one-time recovery codes for 2FA recovery.
     /// </summary>
-    public static EndpointDetails GenerateRecoveryCodes => new EndpointDetails
+    public static EndpointDetails GenerateRecoveryCodes => new()
     {
         Endpoint = "/generate-recovery-codes",
         Name = "Generate Recovery Codes",
@@ -93,7 +93,7 @@ public static class Authentication
     /// <summary>
     /// Resets the current authenticator key, disabling 2FA.
     /// </summary>
-    public static EndpointDetails ResetAuthenticator => new EndpointDetails
+    public static EndpointDetails ResetAuthenticator => new()
     {
         Endpoint = "/reset-authenticator",
         Name = "Reset Authenticator",
@@ -104,7 +104,7 @@ public static class Authentication
     /// <summary>
     /// Sets a new password for the user (typically used after external login setup).
     /// </summary>
-    public static EndpointDetails SetPassword => new EndpointDetails
+    public static EndpointDetails SetPassword => new()
     {
         Endpoint = "/set-password",
         Name = "Set Password",
@@ -115,7 +115,7 @@ public static class Authentication
     /// <summary>
     /// Returns current authentication and security settings of the user.
     /// </summary>
-    public static EndpointDetails AccountStatus => new EndpointDetails
+    public static EndpointDetails AccountStatus => new()
     {
         Endpoint = "/account-status",
         Name = "Account Status",
@@ -126,7 +126,7 @@ public static class Authentication
     /// <summary>
     /// Removes the 'trusted' status from the current browser for 2FA.
     /// </summary>
-    public static EndpointDetails ForgotBrowser => new EndpointDetails
+    public static EndpointDetails ForgotBrowser => new()
     {
         Endpoint = "/forgot-browser",
         Name = "Forget Browser",
@@ -137,7 +137,7 @@ public static class Authentication
     /// <summary>
     /// Disables two-factor authentication for the user's account.
     /// </summary>
-    public static EndpointDetails Disable2fa => new EndpointDetails
+    public static EndpointDetails Disable2fa => new()
     {
         Endpoint = "/disable-2fa",
         Name = "Disable Two-Factor Authentication",
