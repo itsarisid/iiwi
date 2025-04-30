@@ -113,6 +113,17 @@ public static class Authentication
     };
 
     /// <summary>
+    /// Allows the user to change their current password.
+    /// </summary>
+    public static EndpointDetails ChangePassword => new()
+    {
+        Endpoint = "/change-password",
+        Name = "Change Password",
+        Summary = "Changes the user’s password.",
+        Description = "Lets the user update their account password. Typically used after login, or during a security update."
+    };
+
+    /// <summary>
     /// Returns current authentication and security settings of the user.
     /// </summary>
     public static EndpointDetails AccountStatus => new()

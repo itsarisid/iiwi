@@ -71,14 +71,6 @@ public class AccountModules : IEndpoints
         .WithDocumentation(Accounts.DeletePersonalData)
         .RequireAuthorization();
 
-        /// <summary>
-        /// Changes the user's password.
-        /// </summary>
-        routeGroup.MapPost(Accounts.ChangePassword.Endpoint,
-         IResult (IMediator mediator, ChangePasswordRequest request) => mediator
-        .HandleAsync<ChangePasswordRequest, Response>(request)
-        .Response())
-        .WithDocumentation(Accounts.ChangePassword)
-        .RequireAuthorization();
+        
     }
 }

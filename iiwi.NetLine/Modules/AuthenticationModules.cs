@@ -110,6 +110,16 @@ public class AuthenticationModules : IEndpoints
             .RequireAuthorization();
 
         /// <summary>
+        /// Changes the user's password.
+        /// </summary>
+        routeGroup.MapPost(Authentication.ChangePassword.Endpoint,
+         IResult (IMediator mediator, ChangePasswordRequest request) => mediator
+        .HandleAsync<ChangePasswordRequest, Response>(request)
+        .Response())
+        .WithDocumentation(Authentication.ChangePassword)
+        .RequireAuthorization();
+
+        /// <summary>
         /// Retrieves the current authentication and security status of the account.
         /// </summary>
         routeGroup.MapPost(Authentication.AccountStatus.Endpoint,

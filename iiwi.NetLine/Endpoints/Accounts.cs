@@ -68,14 +68,4 @@ public static class Accounts
         Description = "Removes all personally identifiable information (PII) related to the user. Often used for right-to-be-forgotten compliance."
     };
 
-    /// <summary>
-    /// Allows the user to change their current password.
-    /// </summary>
-    public static EndpointDetails ChangePassword => new()
-    {
-        Endpoint = "/change-password",
-        Name = "Change Password",
-        Summary = "Changes the user’s password.",
-        Description = "Lets the user update their account password. Typically used after login, or during a security update."
-    };
 }
