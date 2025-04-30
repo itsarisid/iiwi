@@ -5,7 +5,7 @@ public static class Accounts
     /// <summary>
     /// Metadata for the Accounts endpoint group.
     /// </summary>
-    public static EndpointDetails Group => new EndpointDetails
+    public static EndpointDetails Group => new()
     {
         Name = "Accounts",
         Tags = "Accounts",
@@ -16,7 +16,7 @@ public static class Accounts
     /// <summary>
     /// Updates the profile information of a user.
     /// </summary>
-    public static EndpointDetails UpdateProfile => new EndpointDetails
+    public static EndpointDetails UpdateProfile => new()
     {
         Endpoint = "/update-profile",
         Name = "Update Profile",
@@ -27,7 +27,7 @@ public static class Accounts
     /// <summary>
     /// Sends a verification email to the user’s registered email address.
     /// </summary>
-    public static EndpointDetails SendVerificationDetails => new EndpointDetails
+    public static EndpointDetails SendVerificationDetails => new()
     {
         Endpoint = "/send-verification-email",
         Name = "Send Verification Details",
@@ -38,7 +38,7 @@ public static class Accounts
     /// <summary>
     /// Allows the user to download their stored personal data.
     /// </summary>
-    public static EndpointDetails DownloadPersonalData => new EndpointDetails
+    public static EndpointDetails DownloadPersonalData => new()
     {
         Endpoint = "/download-personal-data",
         Name = "Download Personal Data",
@@ -49,7 +49,7 @@ public static class Accounts
     /// <summary>
     /// Initiates the process of changing the user's email address.
     /// </summary>
-    public static EndpointDetails ChangeEmail => new EndpointDetails
+    public static EndpointDetails ChangeEmail => new()
     {
         Endpoint = "/change-email",
         Name = "Change Email",
@@ -60,7 +60,7 @@ public static class Accounts
     /// <summary>
     /// Permanently deletes the user’s personal data from the system.
     /// </summary>
-    public static EndpointDetails DeletePersonalData => new EndpointDetails
+    public static EndpointDetails DeletePersonalData => new()
     {
         Endpoint = "/delete-personal-data",
         Name = "Delete Personal Data",
@@ -71,7 +71,7 @@ public static class Accounts
     /// <summary>
     /// Allows the user to change their current password.
     /// </summary>
-    public static EndpointDetails ChangePassword => new EndpointDetails
+    public static EndpointDetails ChangePassword => new()
     {
         Endpoint = "/change-password",
         Name = "Change Password",
