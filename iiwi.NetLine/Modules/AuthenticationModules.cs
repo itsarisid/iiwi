@@ -1,5 +1,6 @@
 ﻿using iiwi.Application;
 using iiwi.Application.Authentication;
+using Microsoft.AspNetCore.Mvc;
 
 namespace iiwi.NetLine.Modules;
 
@@ -52,7 +53,7 @@ public class AuthenticationModules : IEndpoints
         /// Unlinks a specified external login provider from the user's account.
         /// </summary>
         routeGroup.MapDelete(Authentication.RemoveLogin.Endpoint,
-            IResult (IMediator mediator, RemoveLoginRequest request) => mediator
+            IResult (IMediator mediator, [FromBody] RemoveLoginRequest request) => mediator
             .HandleAsync<RemoveLoginRequest, Response>(request)
             .Response())
             .WithDocumentation(Authentication.RemoveLogin)
@@ -121,11 +122,11 @@ public class AuthenticationModules : IEndpoints
         /// <summary>
         /// Marks the current browser as forgotten, requiring re-authentication in future sessions.
         /// </summary>
-        routeGroup.MapPost(Authentication.ForgotBrowser.Endpoint,
+        routeGroup.MapDelete(Authentication.ForgotBrowser.Endpoint,
             IResult (IMediator mediator) => mediator
             .HandleAsync<ForgotBrowserRequest, Response>(new ForgotBrowserRequest())
             .Response())
-            .WithDocumentation(Authentication.AccountStatus)
+            .WithDocumentation(Authentication.ForgotBrowser)
             .RequireAuthorization();
 
         /// <summary>
