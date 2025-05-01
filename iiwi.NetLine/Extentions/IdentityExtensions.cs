@@ -1,8 +1,5 @@
 ﻿namespace iiwi.NetLine.Extentions;
 
-// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
@@ -51,11 +48,11 @@ public static class IdentityExtensions
         // We'll figure out a unique endpoint name based on the final route pattern during endpoint generation.
         string confirmEmailEndpointName = null;
 
-        var routeGroup = endpoints.MapGroup("");
+        var routeGroup = endpoints.MapGroup(string.Empty).WithGroup(Identity.Group);
 
         // NOTE: We cannot inject UserManager<TUser> directly because the TUser generic parameter is currently unsupported by RDG.
         // https://github.com/dotnet/aspnetcore/issues/47338
-        routeGroup.MapPost("/register", async Task<Results<Ok, ValidationProblem>>
+        routeGroup.MapPost(Identity.Register.Endpoint, async Task<Results<Ok, ValidationProblem>>
             ([FromBody] RegisterRequest registration, HttpContext context, [FromServices] IServiceProvider sp) =>
         {
             var userManager = sp.GetRequiredService<UserManager<TUser>>();
@@ -86,9 +83,9 @@ public static class IdentityExtensions
 
             await SendConfirmationEmailAsync(user, userManager, context, email);
             return TypedResults.Ok();
-        });
+        }).WithDocumentation(Identity.Register);
 
-        routeGroup.MapPost("/login", async Task<Results<Ok<AccessTokenResponse>, EmptyHttpResult, ProblemHttpResult>>
+        routeGroup.MapPost(Identity.Login.Endpoint, async Task<Results<Ok<AccessTokenResponse>, EmptyHttpResult, ProblemHttpResult>>
             ([FromBody] LoginRequest login, [FromQuery] bool? useCookies, [FromQuery] bool? useSessionCookies, [FromServices] IServiceProvider sp) =>
         {
             var signInManager = sp.GetRequiredService<SignInManager<TUser>>();
@@ -118,9 +115,9 @@ public static class IdentityExtensions
 
             // The signInManager already produced the needed response in the form of a cookie or bearer token.
             return TypedResults.Empty;
-        });
+        }).WithDocumentation(Identity.Login);
 
-        routeGroup.MapPost("/refresh", async Task<Results<Ok<AccessTokenResponse>, UnauthorizedHttpResult, SignInHttpResult, ChallengeHttpResult>>
+        routeGroup.MapPost(Identity.Refresh.Endpoint, async Task<Results<Ok<AccessTokenResponse>, UnauthorizedHttpResult, SignInHttpResult, ChallengeHttpResult>>
             ([FromBody] RefreshRequest refreshRequest, [FromServices] IServiceProvider sp) =>
         {
             var signInManager = sp.GetRequiredService<SignInManager<TUser>>();
@@ -138,9 +135,9 @@ public static class IdentityExtensions
 
             var newPrincipal = await signInManager.CreateUserPrincipalAsync(user);
             return TypedResults.SignIn(newPrincipal, authenticationScheme: IdentityConstants.BearerScheme);
-        });
+        }).WithDocumentation(Identity.Refresh);
 
-        routeGroup.MapGet("/confirmEmail", async Task<Results<ContentHttpResult, UnauthorizedHttpResult>>
+        routeGroup.MapGet(Identity.ConfirmEmail.Endpoint, async Task<Results<ContentHttpResult, UnauthorizedHttpResult>>
             ([FromQuery] string userId, [FromQuery] string code, [FromQuery] string changedEmail, [FromServices] IServiceProvider sp) =>
         {
             var userManager = sp.GetRequiredService<UserManager<TUser>>();
@@ -184,6 +181,7 @@ public static class IdentityExtensions
 
             return TypedResults.Text("Thank you for confirming your email.");
         })
+        .WithDocumentation(Identity.ConfirmEmail)
         .Add(endpointBuilder =>
         {
             var finalPattern = ((RouteEndpointBuilder)endpointBuilder).RoutePattern.RawText;
@@ -191,7 +189,7 @@ public static class IdentityExtensions
             endpointBuilder.Metadata.Add(new EndpointNameMetadata(confirmEmailEndpointName));
         });
 
-        routeGroup.MapPost("/resendConfirmationEmail", async Task<Ok>
+        routeGroup.MapPost(Identity.ResendConfirmationEmail.Endpoint, async Task<Ok>
             ([FromBody] ResendConfirmationEmailRequest resendRequest, HttpContext context, [FromServices] IServiceProvider sp) =>
         {
             var userManager = sp.GetRequiredService<UserManager<TUser>>();
@@ -202,9 +200,9 @@ public static class IdentityExtensions
 
             await SendConfirmationEmailAsync(user, userManager, context, resendRequest.Email);
             return TypedResults.Ok();
-        });
+        }).WithDocumentation(Identity.ResendConfirmationEmail);
 
-        routeGroup.MapPost("/forgotPassword", async Task<Results<Ok, ValidationProblem>>
+        routeGroup.MapPost(Identity.ForgotPassword.Endpoint, async Task<Results<Ok, ValidationProblem>>
             ([FromBody] ForgotPasswordRequest resetRequest, [FromServices] IServiceProvider sp) =>
         {
             var userManager = sp.GetRequiredService<UserManager<TUser>>();
@@ -221,9 +219,9 @@ public static class IdentityExtensions
             // Don't reveal that the user does not exist or is not confirmed, so don't return a 200 if we would have
             // returned a 400 for an invalid code given a valid user email.
             return TypedResults.Ok();
-        });
+        }).WithDocumentation(Identity.ForgotPassword);
 
-        routeGroup.MapPost("/resetPassword", async Task<Results<Ok, ValidationProblem>>
+        routeGroup.MapPost(Identity.ResetPassword.Endpoint, async Task<Results<Ok, ValidationProblem>>
             ([FromBody] ResetPasswordRequest resetRequest, [FromServices] IServiceProvider sp) =>
         {
             var userManager = sp.GetRequiredService<UserManager<TUser>>();
@@ -254,11 +252,11 @@ public static class IdentityExtensions
             }
 
             return TypedResults.Ok();
-        });
+        }).WithDocumentation(Identity.ResetPassword);
 
         var accountGroup = routeGroup.MapGroup("/manage").RequireAuthorization();
 
-        accountGroup.MapPost("/2fa", async Task<Results<Ok<TwoFactorResponse>, ValidationProblem, NotFound>>
+        accountGroup.MapPost(Identity.MFA.Endpoint, async Task<Results<Ok<TwoFactorResponse>, ValidationProblem, NotFound>>
             (ClaimsPrincipal claimsPrincipal, [FromBody] TwoFactorRequest tfaRequest, [FromServices] IServiceProvider sp) =>
         {
             var signInManager = sp.GetRequiredService<SignInManager<TUser>>();
@@ -332,9 +330,9 @@ public static class IdentityExtensions
                 IsTwoFactorEnabled = await userManager.GetTwoFactorEnabledAsync(user),
                 IsMachineRemembered = await signInManager.IsTwoFactorClientRememberedAsync(user),
             });
-        });
+        }).WithDocumentation(Identity.MFA);
 
-        accountGroup.MapGet("/info", async Task<Results<Ok<InfoResponse>, ValidationProblem, NotFound>>
+        accountGroup.MapGet(Identity.Info.Endpoint, async Task<Results<Ok<InfoResponse>, ValidationProblem, NotFound>>
             (ClaimsPrincipal claimsPrincipal, [FromServices] IServiceProvider sp) =>
         {
             var userManager = sp.GetRequiredService<UserManager<TUser>>();
@@ -344,9 +342,9 @@ public static class IdentityExtensions
             }
 
             return TypedResults.Ok(await CreateInfoResponseAsync(user, userManager));
-        });
+        }).WithDocumentation(Identity.Info);
 
-        accountGroup.MapPost("/info", async Task<Results<Ok<InfoResponse>, ValidationProblem, NotFound>>
+        accountGroup.MapPost(Identity.Info.Endpoint, async Task<Results<Ok<InfoResponse>, ValidationProblem, NotFound>>
             (ClaimsPrincipal claimsPrincipal, [FromBody] InfoRequest infoRequest, HttpContext context, [FromServices] IServiceProvider sp) =>
         {
             var userManager = sp.GetRequiredService<UserManager<TUser>>();
@@ -386,7 +384,7 @@ public static class IdentityExtensions
             }
 
             return TypedResults.Ok(await CreateInfoResponseAsync(user, userManager));
-        });
+        }).WithDocumentation(Identity.Info);
 
         async Task SendConfirmationEmailAsync(TUser user, UserManager<TUser> userManager, HttpContext context, string email, bool isChange = false)
         {
