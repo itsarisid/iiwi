@@ -167,7 +167,7 @@ public static class Identity
     public static EndpointDetails Information => new()
     {
         Endpoint = "/info",
-        Name = "Info",
+        Name = "Information",
         Summary = "Update user information",
         Description = "Update user account information for the authenticated user."
     };

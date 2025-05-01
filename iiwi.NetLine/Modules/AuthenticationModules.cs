@@ -17,7 +17,11 @@ public class AuthenticationModules : IEndpoints
     {
         ArgumentNullException.ThrowIfNull(endpoints);
 
-        var routeGroup = endpoints.MapGroup(string.Empty).WithGroup(Authentication.Group);
+        // Map the endpoints to the route group
+        var routeGroup = endpoints
+            .MapGroup(string.Empty)
+            .WithGroup(Authentication.Group)
+            .RequireAuthorization();
 
         /// <summary>
         /// Generates a shared key and QR code URI for the user's authenticator app.
@@ -26,8 +30,7 @@ public class AuthenticationModules : IEndpoints
             IResult (IMediator mediator) => mediator
             .HandleAsync<LoadKeyAndQrCodeUriRequest, LoadKeyAndQrCodeUriResponse>(new LoadKeyAndQrCodeUriRequest())
             .Response())
-            .WithDocumentation(Authentication.LoadKeyAndQrCodeUri)
-            .RequireAuthorization();
+            .WithDocumentation(Authentication.LoadKeyAndQrCodeUri);
 
         /// <summary>
         /// Enables two-factor authentication using the provided code and shared key.
@@ -36,8 +39,7 @@ public class AuthenticationModules : IEndpoints
             IResult (IMediator mediator, EnableAuthenticatorRequest request) => mediator
             .HandleAsync<EnableAuthenticatorRequest, EnableAuthenticatorResponse>(request)
             .Response())
-            .WithDocumentation(Authentication.EnableAuthenticator)
-            .RequireAuthorization();
+            .WithDocumentation(Authentication.EnableAuthenticator);
 
         /// <summary>
         /// Lists all external login providers linked to the user's account.
@@ -46,8 +48,7 @@ public class AuthenticationModules : IEndpoints
             IResult (IMediator mediator) => mediator
             .HandleAsync<ExternalLoginsRequest, ExternalLoginsResponse>(new ExternalLoginsRequest())
             .Response())
-            .WithDocumentation(Authentication.ExternalLogins)
-            .RequireAuthorization();
+            .WithDocumentation(Authentication.ExternalLogins);
 
         /// <summary>
         /// Unlinks a specified external login provider from the user's account.
@@ -56,8 +57,7 @@ public class AuthenticationModules : IEndpoints
             IResult (IMediator mediator, [FromBody] RemoveLoginRequest request) => mediator
             .HandleAsync<RemoveLoginRequest, Response>(request)
             .Response())
-            .WithDocumentation(Authentication.RemoveLogin)
-            .RequireAuthorization();
+            .WithDocumentation(Authentication.RemoveLogin);
 
         /// <summary>
         /// Initiates a link between an external login provider and the current user.
@@ -66,8 +66,7 @@ public class AuthenticationModules : IEndpoints
             IResult (IMediator mediator, LinkLoginRequest request) => mediator
             .HandleAsync<LinkLoginRequest, Response>(request)
             .Response())
-            .WithDocumentation(Authentication.LinkLogin)
-            .RequireAuthorization();
+            .WithDocumentation(Authentication.LinkLogin);
 
         /// <summary>
         /// Callback endpoint after an external login is linked to the account.
@@ -76,8 +75,7 @@ public class AuthenticationModules : IEndpoints
             IResult (IMediator mediator) => mediator
             .HandleAsync<LinkLoginCallbackRequest, Response>(new LinkLoginCallbackRequest())
             .Response())
-            .WithDocumentation(Authentication.LinkLoginCallback)
-            .RequireAuthorization();
+            .WithDocumentation(Authentication.LinkLoginCallback);
 
         /// <summary>
         /// Generates recovery codes for account access when 2FA is unavailable.
@@ -86,8 +84,7 @@ public class AuthenticationModules : IEndpoints
             IResult (IMediator mediator) => mediator
             .HandleAsync<GenerateRecoveryCodesRequest, GenerateRecoveryCodesResponse>(new GenerateRecoveryCodesRequest())
             .Response())
-            .WithDocumentation(Authentication.GenerateRecoveryCodes)
-            .RequireAuthorization();
+            .WithDocumentation(Authentication.GenerateRecoveryCodes);
 
         /// <summary>
         /// Resets the authenticator key for the user, requiring re-setup of 2FA.
@@ -96,8 +93,7 @@ public class AuthenticationModules : IEndpoints
             IResult (IMediator mediator) => mediator
             .HandleAsync<ResetAuthenticatorRequest, Response>(new ResetAuthenticatorRequest())
             .Response())
-            .WithDocumentation(Authentication.ResetAuthenticator)
-            .RequireAuthorization();
+            .WithDocumentation(Authentication.ResetAuthenticator);
 
         /// <summary>
         /// Allows the user to set a password if one is not already configured.
@@ -106,8 +102,7 @@ public class AuthenticationModules : IEndpoints
             IResult (IMediator mediator, SetPasswordRequest request) => mediator
             .HandleAsync<SetPasswordRequest, Response>(request)
             .Response())
-            .WithDocumentation(Authentication.SetPassword)
-            .RequireAuthorization();
+            .WithDocumentation(Authentication.SetPassword);
 
         /// <summary>
         /// Changes the user's password.
@@ -116,8 +111,7 @@ public class AuthenticationModules : IEndpoints
          IResult (IMediator mediator, ChangePasswordRequest request) => mediator
         .HandleAsync<ChangePasswordRequest, Response>(request)
         .Response())
-        .WithDocumentation(Authentication.ChangePassword)
-        .RequireAuthorization();
+        .WithDocumentation(Authentication.ChangePassword);
 
         /// <summary>
         /// Retrieves the current authentication and security status of the account.
@@ -126,8 +120,7 @@ public class AuthenticationModules : IEndpoints
             IResult (IMediator mediator) => mediator
             .HandleAsync<AccountStatusRequest, Response>(new AccountStatusRequest())
             .Response())
-            .WithDocumentation(Authentication.AccountStatus)
-            .RequireAuthorization();
+            .WithDocumentation(Authentication.AccountStatus);
 
         /// <summary>
         /// Marks the current browser as forgotten, requiring re-authentication in future sessions.
@@ -136,8 +129,7 @@ public class AuthenticationModules : IEndpoints
             IResult (IMediator mediator) => mediator
             .HandleAsync<ForgotBrowserRequest, Response>(new ForgotBrowserRequest())
             .Response())
-            .WithDocumentation(Authentication.ForgotBrowser)
-            .RequireAuthorization();
+            .WithDocumentation(Authentication.ForgotBrowser);
 
         /// <summary>
         /// Disables two-factor authentication for the user.
@@ -146,7 +138,6 @@ public class AuthenticationModules : IEndpoints
             IResult (IMediator mediator) => mediator
             .HandleAsync<Disable2faRequest, Response>(new Disable2faRequest())
             .Response())
-            .WithDocumentation(Authentication.Disable2fa)
-            .RequireAuthorization();
+            .WithDocumentation(Authentication.Disable2fa);
     }
 }

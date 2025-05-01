@@ -18,7 +18,10 @@ public class AccountModules : IEndpoints
         ArgumentNullException.ThrowIfNull(endpoints);
 
         // Map the endpoints to the route group
-        var routeGroup = endpoints.MapGroup(string.Empty).WithGroup(Accounts.Group);
+        var routeGroup = endpoints
+            .MapGroup(string.Empty)
+            .WithGroup(Accounts.Group)
+            .RequireAuthorization();
 
         /// <summary>
         /// Updates the user's profile information.
@@ -28,8 +31,7 @@ public class AccountModules : IEndpoints
         .HandleAsync<UpdateProfileRequest, Response>(request)
         .Response())
         .WithMappingBehaviour<Response>()
-        .WithDocumentation(Accounts.UpdateProfile)
-        .RequireAuthorization();
+        .WithDocumentation(Accounts.UpdateProfile);
 
         /// <summary>
         /// Sends verification details to the user's email.
@@ -38,8 +40,7 @@ public class AccountModules : IEndpoints
          IResult (IMediator mediator, SendVerificationEmailRequest request) => mediator
         .HandleAsync<SendVerificationEmailRequest, Response>(request)
         .Response())
-        .WithDocumentation(Accounts.SendVerificationDetails)
-        .RequireAuthorization();
+        .WithDocumentation(Accounts.SendVerificationDetails);
 
         /// <summary>
         /// Downloads the user's personal data.
@@ -48,8 +49,7 @@ public class AccountModules : IEndpoints
          IResult (IMediator mediator) => mediator
         .HandleAsync<DownloadPersonalDataRequest, Response>(new DownloadPersonalDataRequest())
         .Response())
-        .WithDocumentation(Accounts.DownloadPersonalData)
-        .RequireAuthorization();
+        .WithDocumentation(Accounts.DownloadPersonalData);
 
         /// <summary>
         /// Changes the user's email address.
@@ -58,8 +58,7 @@ public class AccountModules : IEndpoints
          IResult (IMediator mediator, ChangeEmailRequest request) => mediator
         .HandleAsync<ChangeEmailRequest, Response>(request)
         .Response())
-        .WithDocumentation(Accounts.ChangeEmail)
-        .RequireAuthorization();
+        .WithDocumentation(Accounts.ChangeEmail);
 
         /// <summary>
         /// Deletes the user's personal data.
@@ -68,8 +67,7 @@ public class AccountModules : IEndpoints
          IResult (IMediator mediator, [FromBody] DeletePersonalDataRequest request) => mediator
         .HandleAsync<DeletePersonalDataRequest, Response>(request)
         .Response())
-        .WithDocumentation(Accounts.DeletePersonalData)
-        .RequireAuthorization();
+        .WithDocumentation(Accounts.DeletePersonalData);
 
         /// <summary>
         /// Deletes the user's personal data.
@@ -78,9 +76,6 @@ public class AccountModules : IEndpoints
          IResult (IMediator mediator, UpdatePhoneNumberRequest request) => mediator
         .HandleAsync<UpdatePhoneNumberRequest, Response>(request)
         .Response())
-        .WithDocumentation(Accounts.UpdatePhoneNumber)
-        .RequireAuthorization();
-
-        
+        .WithDocumentation(Accounts.UpdatePhoneNumber);
     }
 }
