@@ -344,7 +344,7 @@ public static class IdentityExtensions
             return TypedResults.Ok(await CreateInfoResponseAsync(user, userManager));
         }).WithDocumentation(Identity.Info);
 
-        accountGroup.MapPost(Identity.Info.Endpoint, async Task<Results<Ok<InfoResponse>, ValidationProblem, NotFound>>
+        accountGroup.MapPost(Identity.Information.Endpoint, async Task<Results<Ok<InfoResponse>, ValidationProblem, NotFound>>
             (ClaimsPrincipal claimsPrincipal, [FromBody] InfoRequest infoRequest, HttpContext context, [FromServices] IServiceProvider sp) =>
         {
             var userManager = sp.GetRequiredService<UserManager<TUser>>();
@@ -384,7 +384,7 @@ public static class IdentityExtensions
             }
 
             return TypedResults.Ok(await CreateInfoResponseAsync(user, userManager));
-        }).WithDocumentation(Identity.Info);
+        }).WithDocumentation(Identity.Information);
 
         async Task SendConfirmationEmailAsync(TUser user, UserManager<TUser> userManager, HttpContext context, string email, bool isChange = false)
         {

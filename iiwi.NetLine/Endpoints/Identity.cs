@@ -160,4 +160,15 @@ public static class Identity
         Summary = "Get user info",
         Description = "Returns basic account information for the authenticated user."
     };
+
+    /// <summary>
+    /// Update user account info.
+    /// </summary>
+    public static EndpointDetails Information => new()
+    {
+        Endpoint = "/info",
+        Name = "Info",
+        Summary = "Update user information",
+        Description = "Update user account information for the authenticated user."
+    };
 }
