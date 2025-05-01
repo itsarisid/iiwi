@@ -3,12 +3,12 @@
 namespace iiwi.NetLine.Endpoints;
 
 /// <summary>
-/// Provides metadata for all identity-related API endpoints.
+/// Provides meta data for all identity-related API endpoints.
 /// </summary>
 public static class Identity
 {
     /// <summary>
-    /// Metadata for the Identity endpoint group.
+    /// Meta data for the Identity endpoint group.
     /// </summary>
     public static EndpointDetails Group => new()
     {
