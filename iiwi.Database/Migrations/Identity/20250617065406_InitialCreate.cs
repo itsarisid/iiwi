@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace iiwi.Database.Migrations.Identity
 {
     /// <inheritdoc />
-    public partial class Identity : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -141,6 +141,7 @@ namespace iiwi.Database.Migrations.Identity
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CodeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -174,7 +175,7 @@ namespace iiwi.Database.Migrations.Identity
                 });
 
             migrationBuilder.CreateTable(
-                name: "Roles",
+                name: "UserRole",
                 schema: "Identity",
                 columns: table => new
                 {
@@ -183,16 +184,16 @@ namespace iiwi.Database.Migrations.Identity
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Roles", x => new { x.UserId, x.RoleId });
+                    table.PrimaryKey("PK_UserRole", x => new { x.UserId, x.RoleId });
                     table.ForeignKey(
-                        name: "FK_Roles_Role_RoleId",
+                        name: "FK_UserRole_Role_RoleId",
                         column: x => x.RoleId,
                         principalSchema: "Identity",
                         principalTable: "Role",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Roles_User_UserId",
+                        name: "FK_UserRole_User_UserId",
                         column: x => x.UserId,
                         principalSchema: "Identity",
                         principalTable: "User",
@@ -230,47 +231,23 @@ namespace iiwi.Database.Migrations.Identity
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<int>(type: "int", nullable: true),
-                    PermissionsId = table.Column<long>(type: "bigint", nullable: true),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedByUserId = table.Column<int>(type: "int", nullable: true),
-                    DeletedByUserId = table.Column<int>(type: "int", nullable: true),
-                    UpdateByUserId = table.Column<int>(type: "int", nullable: true)
+                    PermissionId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RolePermission", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RolePermission_Permission_PermissionsId",
-                        column: x => x.PermissionsId,
+                        name: "FK_RolePermission_Permission_PermissionId",
+                        column: x => x.PermissionId,
                         principalSchema: "Identity",
                         principalTable: "Permission",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_RolePermission_Role_RoleId",
                         column: x => x.RoleId,
                         principalSchema: "Identity",
                         principalTable: "Role",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_RolePermission_User_CreatedByUserId",
-                        column: x => x.CreatedByUserId,
-                        principalSchema: "Identity",
-                        principalTable: "User",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_RolePermission_User_DeletedByUserId",
-                        column: x => x.DeletedByUserId,
-                        principalSchema: "Identity",
-                        principalTable: "User",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_RolePermission_User_UpdateByUserId",
-                        column: x => x.UpdateByUserId,
-                        principalSchema: "Identity",
-                        principalTable: "User",
                         principalColumn: "Id");
                 });
 
@@ -319,39 +296,15 @@ namespace iiwi.Database.Migrations.Identity
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RolePermission_CreatedByUserId",
+                name: "IX_RolePermission_PermissionId",
                 schema: "Identity",
                 table: "RolePermission",
-                column: "CreatedByUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RolePermission_DeletedByUserId",
-                schema: "Identity",
-                table: "RolePermission",
-                column: "DeletedByUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RolePermission_PermissionsId",
-                schema: "Identity",
-                table: "RolePermission",
-                column: "PermissionsId");
+                column: "PermissionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RolePermission_RoleId",
                 schema: "Identity",
                 table: "RolePermission",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RolePermission_UpdateByUserId",
-                schema: "Identity",
-                table: "RolePermission",
-                column: "UpdateByUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Roles_RoleId",
-                schema: "Identity",
-                table: "Roles",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
@@ -367,6 +320,12 @@ namespace iiwi.Database.Migrations.Identity
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRole_RoleId",
+                schema: "Identity",
+                table: "UserRole",
+                column: "RoleId");
         }
 
         /// <inheritdoc />
@@ -389,7 +348,7 @@ namespace iiwi.Database.Migrations.Identity
                 schema: "Identity");
 
             migrationBuilder.DropTable(
-                name: "Roles",
+                name: "UserRole",
                 schema: "Identity");
 
             migrationBuilder.DropTable(

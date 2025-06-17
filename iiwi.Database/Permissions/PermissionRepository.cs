@@ -1,14 +1,12 @@
 ﻿using DotNetCore.EntityFrameworkCore;
 using DotNetCore.Objects;
-using DotNetCore.Repositories;
 using iiwi.Domain;
 using iiwi.Model.Permission;
-using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace iiwi.Database.Permissions;
 
-public class PermissionRepository(iiwiDbContext context) : EFRepository<Permission>(context), IPermissionRepository
+public class PermissionRepository(ApplicationDbContext context) : EFRepository<Permission>(context), IPermissionRepository
 {
     public static Expression<Func<Permission, PermissionModel>> Model => user => new PermissionModel
     {
@@ -16,10 +14,23 @@ public class PermissionRepository(iiwiDbContext context) : EFRepository<Permissi
         Name = user.Name,
     };
 
+    public Task DeleteModelAsync(long id)
+    {
+        throw new NotImplementedException();
+    }
 
-    public Task<PermissionModel> GetModelAsync(long id) => Queryable.Where(user => user.Id == id).Select(Model).SingleOrDefaultAsync();
+    public Task<PermissionModel> GetModelAsync(long id)
+    {
+        throw new NotImplementedException();
+    }
 
-    public Task<Grid<PermissionModel>> GridAsync(GridParameters parameters) => Queryable.Select(Model).GridAsync(parameters);
+    public Task<Grid<PermissionModel>> GridAsync(GridParameters parameters)
+    {
+        throw new NotImplementedException();
+    }
 
-    public async Task<IEnumerable<PermissionModel>> ListModelAsync() => await Queryable.Select(Model).ToListAsync();
+    public Task<IEnumerable<PermissionModel>> ListModelAsync()
+    {
+        throw new NotImplementedException();
+    }
 }

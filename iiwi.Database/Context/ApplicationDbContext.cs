@@ -1,12 +1,18 @@
 ﻿using iiwi.Common;
 using iiwi.Domain;
 using iiwi.Domain.Identity;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 namespace iiwi.Database;
 
-public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser, ApplicationRole, int>(options)
+public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser, 
+    ApplicationRole, int,
+    ApplicationUserClaim, 
+    ApplicationUserRole,
+    ApplicationUserLogin,
+    ApplicationRoleClaim,
+    ApplicationUserToken>(options)
 {
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -27,32 +33,32 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
         {
             entity.ToTable(name: "Role");
         });
-        builder.Entity<IdentityUserRole<int>>(entity =>
+        builder.Entity<ApplicationUserRole>(entity =>
         {
-            entity.ToTable("Roles");
+            entity.ToTable("UserRole");
             //in case you changed the TKey type
             //entity.HasKey(key => new { key.UserId, key.RoleId });
         });
 
-        builder.Entity<IdentityUserClaim<int>>(entity =>
+        builder.Entity<ApplicationUserClaim>(entity =>
         {
             entity.ToTable("Claims");
         });
 
-        builder.Entity<IdentityUserLogin<int>>(entity =>
+        builder.Entity<ApplicationUserLogin>(entity =>
         {
             entity.ToTable("Logins");
             //in case you changed the TKey type
             //entity.HasKey(key => new { key.ProviderKey, key.LoginProvider });       
         });
 
-        builder.Entity<IdentityRoleClaim<int>>(entity =>
+        builder.Entity<ApplicationRoleClaim>(entity =>
         {
             entity.ToTable("RoleClaims");
 
         });
 
-        builder.Entity<IdentityUserToken<int>>(entity =>
+        builder.Entity<ApplicationUserToken>(entity =>
         {
             entity.ToTable("UserTokens");
             //in case you changed the TKey type
