@@ -55,8 +55,15 @@ public class PermissionRepository(ApplicationDbContext context) : EFRepository<P
         throw new NotImplementedException();
     }
 
-    public Task RemovePermissionFromRoleAsync(int roleId, int permissionId)
+    public async Task RemovePermissionFromRoleAsync(int roleId, int permissionId)
     {
-        throw new NotImplementedException();
+        var rolePermission = await context.RolePermissions
+            .FirstOrDefaultAsync(rp => rp.RoleId == roleId && rp.PermissionId == permissionId);
+
+        if (rolePermission != null)
+        {
+            context.RolePermissions.Remove(rolePermission);
+            await context.SaveChangesAsync();
+        }
     }
 }
