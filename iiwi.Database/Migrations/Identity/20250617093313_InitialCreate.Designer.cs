@@ -12,7 +12,7 @@ using iiwi.Database;
 namespace iiwi.Database.Migrations.Identity
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250617065406_InitialCreate")]
+    [Migration("20250617093313_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

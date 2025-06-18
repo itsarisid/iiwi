@@ -4,8 +4,6 @@ using DotNetCore.IoC;
 using DotNetCore.Logging;
 using DotNetCore.Mediator;
 using DotNetCore.Services;
-using iiwi.Application.Provider;
-using iiwi.Application;
 using iiwi.AppWire.Configurations;
 using iiwi.Database;
 using iiwi.Domain.Identity;
@@ -13,10 +11,6 @@ using iiwi.Model.Settings;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Ui.MsSqlServerProvider.Extensions;
-using Serilog.Ui.Web.Extensions;
-using Serilog.Ui.Web.Models;
-using System.Text;
-using static System.Net.WebRequestMethods;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -13,4 +13,8 @@ public interface IPermissionRepository : IRepository<Permission>
     Task<Grid<PermissionModel>> GridAsync(GridParameters parameters);
 
     Task<IEnumerable<PermissionModel>> ListModelAsync();
+
+    Task<bool> HasPermissionAsync(int userId, string permissionName);
+    Task AddPermissionToRoleAsync(int roleId, int permissionId);
+    Task RemovePermissionFromRoleAsync(int roleId, int permissionId);
 }

@@ -17,6 +17,11 @@ namespace iiwi.Database.Permissions
             throw new NotImplementedException();
         }
 
+        public Task<bool> HasPermissionAsync(int userId, string permissionName)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IEnumerable<PermissionModel>> ListModelAsync()
         {
             throw new NotImplementedException();

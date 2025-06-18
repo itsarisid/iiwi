@@ -14,6 +14,10 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
     ApplicationRoleClaim,
     ApplicationUserToken>(options)
 {
+    public DbSet<Permission> Permission { get; set; }
+    public DbSet<RolePermission> RolePermissions { get; set; }
+
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -71,15 +75,13 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
             entity.ToTable("Permission");
             //in case you changed the TKey type
             entity.HasKey(key => new { key.Id });
-
         });
 
         builder.Entity<RolePermission>(entity =>
         {
             entity.ToTable("RolePermission");
             //in case you changed the TKey type
-            entity.HasKey(key => new { key.Id });
-
+            //entity.HasKey(key => new { key.Id });
         });
     }
 }

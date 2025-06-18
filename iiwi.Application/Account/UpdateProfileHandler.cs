@@ -1,6 +1,7 @@
 ﻿using DotNetCore.Mediator;
 using DotNetCore.Results;
 using iiwi.Application.Provider;
+using iiwi.Database.Permissions;
 using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
@@ -14,6 +15,7 @@ namespace iiwi.Application.Account;
 public class UpdateProfileHandler(
     UserManager<ApplicationUser> _userManager,
     IClaimsProvider _claimsProvider,
+    IPermissionRepository permission,
     ILogger<UpdateProfileHandler> _logger) : IHandler<UpdateProfileRequest, Response>
 {
 
@@ -33,6 +35,8 @@ public class UpdateProfileHandler(
             });
         }
 
+        var hasPermission = await permission.HasPermissionAsync(user.Id, "UpdateProfile");
+        _logger.LogInformation("UpdateProfile Permission {HasPermission}", hasPermission);
         user.Address = request.Address;
         user.DOB = request.DOB;
         user.FirstName = request.FirstName;
