@@ -16,15 +16,6 @@ public class PermissionRepository(ApplicationDbContext context) : EFRepository<P
         Name = user.Name,
     };
 
-    public async Task AddPermissionToRoleAsync(int roleId, int permissionId)
-    {
-        if (await context.RolePermissions.AnyAsync(rp => rp.RoleId == roleId && rp.PermissionId == permissionId))
-            return;
-
-        context.RolePermissions.Add(new RolePermission { RoleId = roleId, PermissionId = permissionId });
-        await context.SaveChangesAsync();
-    }
-
     public Task DeleteModelAsync(long id)
     {
         throw new NotImplementedException();
@@ -43,11 +34,10 @@ public class PermissionRepository(ApplicationDbContext context) : EFRepository<P
     public async Task<bool> HasPermissionAsync(int userId, string permissionName)
     {
         return await context.UserRoles
-        .Join(context.RolePermissions,
-            ur => ur.RoleId,
-            rp => rp.RoleId,
-            (ur, rp) => new { ur.UserId, rp.Permission })
-        .AnyAsync(x => x.UserId == userId && x.Permission.CodeName == permissionName);
+            .Where(ur => ur.UserId == userId)
+            .SelectMany(ur => ur.Role.RolePermissions)
+            .AnyAsync(rp =>
+                rp.Permission.Name == permissionName);
     }
 
     public Task<IEnumerable<PermissionModel>> ListModelAsync()
@@ -55,15 +45,13 @@ public class PermissionRepository(ApplicationDbContext context) : EFRepository<P
         throw new NotImplementedException();
     }
 
-    public async Task RemovePermissionFromRoleAsync(int roleId, int permissionId)
+    public async Task<List<Permission>> GetUserPermissionsAsync(int userId)
     {
-        var rolePermission = await context.RolePermissions
-            .FirstOrDefaultAsync(rp => rp.RoleId == roleId && rp.PermissionId == permissionId);
-
-        if (rolePermission != null)
-        {
-            context.RolePermissions.Remove(rolePermission);
-            await context.SaveChangesAsync();
-        }
+        return await context.UserRoles
+            .Where(ur => ur.UserId == userId)
+            .SelectMany(ur => ur.Role.RolePermissions)
+            .Select(rp => rp.Permission)
+            .Distinct()
+            .ToListAsync();
     }
 }

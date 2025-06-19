@@ -12,7 +12,7 @@ using iiwi.Database;
 namespace iiwi.Database.Migrations.Identity
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250617093313_InitialCreate")]
+    [Migration("20250619073503_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -226,6 +226,8 @@ namespace iiwi.Database.Migrations.Identity
 
                     b.HasIndex("RoleId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("UserRole", "Identity");
                 });
 
@@ -316,9 +318,9 @@ namespace iiwi.Database.Migrations.Identity
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PermissionId");
+                    b.HasIndex(new[] { "PermissionId" }, "IX_RolePermission_PermissionId");
 
-                    b.HasIndex("RoleId");
+                    b.HasIndex(new[] { "RoleId" }, "IX_RolePermission_RoleId");
 
                     b.ToTable("RolePermission", "Identity");
                 });
@@ -352,17 +354,21 @@ namespace iiwi.Database.Migrations.Identity
 
             modelBuilder.Entity("iiwi.Domain.Identity.ApplicationUserRole", b =>
                 {
-                    b.HasOne("iiwi.Domain.Identity.ApplicationRole", null)
-                        .WithMany()
+                    b.HasOne("iiwi.Domain.Identity.ApplicationRole", "Role")
+                        .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("iiwi.Domain.Identity.ApplicationUser", null)
-                        .WithMany()
+                    b.HasOne("iiwi.Domain.Identity.ApplicationUser", "User")
+                        .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("iiwi.Domain.Identity.ApplicationUserToken", b =>
@@ -415,6 +421,13 @@ namespace iiwi.Database.Migrations.Identity
             modelBuilder.Entity("iiwi.Domain.Identity.ApplicationRole", b =>
                 {
                     b.Navigation("RolePermissions");
+
+                    b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("iiwi.Domain.Identity.ApplicationUser", b =>
+                {
+                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("iiwi.Domain.Permission", b =>

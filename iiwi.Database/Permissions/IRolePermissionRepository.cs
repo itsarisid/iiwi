@@ -6,12 +6,8 @@ namespace iiwi.Database.Permissions
 {
     internal interface IRolePermissionRepository : IRepository<RolePermission>
     {
-        Task<RolePermission> GetModelAsync(long id);
-
-        Task<Grid<RolePermission>> GridAsync(GridParameters parameters);
-
-        Task<IEnumerable<RolePermission>> ListModelAsync();
-
-        Task DeleteModelAsync(long id);
+        Task AddPermissionToRoleAsync(int roleId, int permissionId);
+        Task RemovePermissionFromRoleAsync(int roleId, int permissionId);
+        Task RemoveAllPermissionFromRoleAsync(int roleId);
     }
 }

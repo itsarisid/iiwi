@@ -1,30 +1,34 @@
 ﻿using DotNetCore.EntityFrameworkCore;
 using DotNetCore.Objects;
 using iiwi.Domain;
-using iiwi.Model.Permission;
+using Microsoft.EntityFrameworkCore;
 
 namespace iiwi.Database.Permissions
 {
-    public class RolePermissionRepository(ApplicationDbContext context) : EFRepository<Permission>(context), IPermissionRepository
+    public class RolePermissionRepository(ApplicationDbContext context) : EFRepository<RolePermission>(context), IRolePermissionRepository
     {
-        public Task<PermissionModel> GetModelAsync(long id)
+
+        public async Task AddPermissionToRoleAsync(int roleId, int permissionId)
         {
-            throw new NotImplementedException();
+            if (await context.RolePermissions.AnyAsync(rp => rp.RoleId == roleId && rp.PermissionId == permissionId))
+                return;
+
+            context.RolePermissions.Add(new RolePermission { RoleId = roleId, PermissionId = permissionId });
+            await context.SaveChangesAsync();
         }
 
-        public Task<Grid<PermissionModel>> GridAsync(GridParameters parameters)
+        public async Task RemoveAllPermissionFromRoleAsync(int roleId)
         {
-            throw new NotImplementedException();
+            await context.RolePermissions
+                 .Where(rp => rp.RoleId == roleId)
+                 .ExecuteDeleteAsync();
         }
 
-        public Task<bool> HasPermissionAsync(int userId, string permissionName)
+        public async Task RemovePermissionFromRoleAsync(int roleId, int permissionId)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<PermissionModel>> ListModelAsync()
-        {
-            throw new NotImplementedException();
+            await context.RolePermissions
+                .Where(rp => rp.RoleId == roleId && rp.PermissionId == permissionId)
+                .ExecuteDeleteAsync();
         }
     }
 }

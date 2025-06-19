@@ -142,10 +142,10 @@ namespace iiwi.Database.Migrations.Identity
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CodeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedByUserId = table.Column<int>(type: "int", nullable: true),
                     DeletedByUserId = table.Column<int>(type: "int", nullable: true),
@@ -326,6 +326,12 @@ namespace iiwi.Database.Migrations.Identity
                 schema: "Identity",
                 table: "UserRole",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRole_UserId",
+                schema: "Identity",
+                table: "UserRole",
+                column: "UserId");
         }
 
         /// <inheritdoc />

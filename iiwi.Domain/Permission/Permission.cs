@@ -7,7 +7,6 @@ public class Permission: BaseEntity
     public string Name { get; set; }
     public string CodeName { get; set; }
     public string Description { get; set; } = string.Empty;
-    public bool IsActive { get; set; }
-    
-    public ICollection<RolePermission> RolePermissions { get; set; }
+
+    public virtual ICollection<RolePermission> RolePermissions { get; set; } = [];
 }

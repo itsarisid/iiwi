@@ -16,4 +16,6 @@ public class ApplicationUser : IdentityUser<int>
     public DateTime DOB { get; set; }
     public string Address { get; set; }
     public DateTime LastLogin { get; set; }
+
+    public virtual ICollection<ApplicationUserRole> UserRoles { get; set; }=[];
 }

@@ -15,6 +15,6 @@ public interface IPermissionRepository : IRepository<Permission>
     Task<IEnumerable<PermissionModel>> ListModelAsync();
 
     Task<bool> HasPermissionAsync(int userId, string permissionName);
-    Task AddPermissionToRoleAsync(int roleId, int permissionId);
-    Task RemovePermissionFromRoleAsync(int roleId, int permissionId);
+ 
+    Task<List<Permission>> GetUserPermissionsAsync(int userId);
 }
