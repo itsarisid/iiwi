@@ -16,8 +16,6 @@ public class PermissionRepository(ApplicationDbContext context) : EFRepository<P
         Name = user.Name,
     };
 
-    
-
     public async Task<bool> HasPermissionAsync(int userId, string permissionName)
     {
         return await context.UserRoles
