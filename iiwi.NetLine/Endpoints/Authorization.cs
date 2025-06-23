@@ -9,7 +9,7 @@ public static class Authorization
         Summary = "Authorization-related Endpoints",
         Description = "This group contains all the endpoints related to user authorization resource, including roles and permissions."
     };
-    public static EndpointDetails Roles => new()
+    public static EndpointDetails AllRoles => new()
     {
         Endpoint = "/roles",
         Name = "roles",
