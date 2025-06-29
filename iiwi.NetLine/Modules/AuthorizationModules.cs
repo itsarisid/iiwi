@@ -24,14 +24,12 @@ public class AuthorizationModules : IEndpoints
          .WithMappingBehaviour<Response>()
          .WithDocumentation(Authorization.AllRoles);
 
-        routeGroup.MapGet("/{id}", async (string id, RoleManager<IdentityRole> roleManager) =>
-        {
-            var role = await roleManager.FindByIdAsync(id);
-            return role is null
-                ? Results.NotFound()
-                : Results.Ok(new RoleDto(role.Id, role.Name, role.Description()));
-        }).RequireAuthorization(PolicyNames.AdminPolicy);
-
+        routeGroup.MapGet(Authorization.RolesById.Endpoint, 
+          IResult (IMediator mediator, GetByIdRoleRequest request) => mediator
+         .HandleAsync<GetByIdRoleRequest, GetByIdRoleResponse>(request)
+         .Response())
+         .WithMappingBehaviour<Response>()
+         .WithDocumentation(Authorization.AllRoles);
 
     }
 
