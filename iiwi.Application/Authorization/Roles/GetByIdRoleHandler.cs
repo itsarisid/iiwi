@@ -2,6 +2,7 @@
 using DotNetCore.Results;
 using iiwi.Application.Account;
 using iiwi.Database.Permissions;
+using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System.Net;
@@ -9,7 +10,7 @@ using System.Net;
 namespace iiwi.Application.Authorization;
 
 public class GetByIdRoleHandler(
-    RoleManager<IdentityRole> _roleManager,
+    RoleManager<ApplicationRole> _roleManager,
     IPermissionRepository permission,
     ILogger<UpdateProfileHandler> _logger
     ) : IHandler<GetByIdRoleRequest, GetByIdRoleResponse>
@@ -29,7 +30,7 @@ public class GetByIdRoleHandler(
             })
             : new Result<GetByIdRoleResponse>(HttpStatusCode.OK, new GetByIdRoleResponse
             {
-                Id = role.Id,
+                //Id = role.Id,
                 Name = role.Name,
                 //Description = role.Description,
                 Message = "Role found"

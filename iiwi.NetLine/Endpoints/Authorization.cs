@@ -19,9 +19,9 @@ public static class Authorization
     
     public static EndpointDetails RolesById => new()
     {
-        Endpoint = "/{id}",
-        Name = "roles",
-        Summary = "roles",
+        Endpoint = "role/{id}",
+        Name = "Search Role",
+        Summary = "Search role by id",
         Description = ""
     };
 }

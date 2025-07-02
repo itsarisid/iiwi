@@ -2,6 +2,7 @@
 using DotNetCore.Results;
 using iiwi.Application.Account;
 using iiwi.Database.Permissions;
+using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System.Data.Entity;
@@ -10,7 +11,7 @@ using System.Net;
 namespace iiwi.Application.Authorization;
 
 public class RoleHandler(
-    RoleManager<IdentityRole> _roleManager,
+    RoleManager<ApplicationRole> _roleManager,
     IPermissionRepository permission,
     ILogger<UpdateProfileHandler> _logger
     ) : IHandler<RoleRequest, RoleResponse>
@@ -21,7 +22,7 @@ public class RoleHandler(
         var roles = await _roleManager.Roles
                 .Select(r => new Role
                 {
-                    Id = r.Id,
+                    //Id = r.Id,
                     Name = r.Name,
                 })
                 .ToListAsync();

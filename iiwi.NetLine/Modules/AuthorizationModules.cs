@@ -1,6 +1,7 @@
 ﻿
 using iiwi.Application;
 using iiwi.Application.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace iiwi.NetLine.Modules;
 
@@ -23,18 +24,14 @@ public class AuthorizationModules : IEndpoints
          .Response())
          .WithMappingBehaviour<Response>()
          .WithDocumentation(Authorization.AllRoles);
-
-        routeGroup.MapGet(Authorization.RolesById.Endpoint, 
-          IResult (IMediator mediator, GetByIdRoleRequest request) => mediator
-         .HandleAsync<GetByIdRoleRequest, GetByIdRoleResponse>(request)
-         .Response())
-         .WithMappingBehaviour<Response>()
-         .WithDocumentation(Authorization.AllRoles);
-
+        
+        // Get role by id
+        routeGroup.MapGet(Authorization.RolesById.Endpoint,
+         IResult (IMediator mediator, [AsParameters] GetByIdRoleRequest request) => mediator
+        .HandleAsync<GetByIdRoleRequest, GetByIdRoleResponse>(request)
+        .Response())
+        .WithMappingBehaviour<Response>()
+        .WithDocumentation(Authorization.RolesById);
     }
 
 }
-public record RoleDto(string Id, string Name, string? Description);
-public record CreateRoleDto(string Name, string? Description);
-public record UpdateRoleDto(string Name, string? Description);
-public record RolePermissionsDto(string RoleId, List<string> Permissions);

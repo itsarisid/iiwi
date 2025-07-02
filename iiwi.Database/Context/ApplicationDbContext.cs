@@ -50,7 +50,7 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
         {
             entity.ToTable("UserRole");
             //in case you changed the TKey type
-            //entity.HasKey(key => new { key.UserId, key.RoleId });
+            entity.HasKey(key => key.Id);
             entity.HasIndex(ur => ur.UserId);
             entity.HasIndex(ur => ur.RoleId);
         });
