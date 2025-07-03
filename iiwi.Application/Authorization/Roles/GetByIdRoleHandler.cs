@@ -1,6 +1,5 @@
 ﻿using DotNetCore.Mediator;
 using DotNetCore.Results;
-using iiwi.Application.Account;
 using iiwi.Database.Permissions;
 using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -12,7 +11,7 @@ namespace iiwi.Application.Authorization;
 public class GetByIdRoleHandler(
     RoleManager<ApplicationRole> _roleManager,
     IPermissionRepository permission,
-    ILogger<UpdateProfileHandler> _logger
+    ILogger<GetByIdRoleHandler> _logger
     ) : IHandler<GetByIdRoleRequest, GetByIdRoleResponse>
 {
 

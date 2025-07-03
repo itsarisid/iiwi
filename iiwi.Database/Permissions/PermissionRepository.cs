@@ -4,6 +4,7 @@ using iiwi.Domain;
 using iiwi.Model.Permission;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Immutable;
 using System.Linq.Expressions;
 
 namespace iiwi.Database.Permissions;
@@ -73,4 +74,12 @@ public class PermissionRepository(ApplicationDbContext context) : EFRepository<P
             .Distinct()
             .ToListAsync();
     }
+
+    public async Task<IEnumerable<RolePermission>> GetPermissionsByRoleIdAsync(int id)
+    {
+        return await context.Permission
+            .Where(p => p.RolePermissions.Any(rp => rp.RoleId == id))
+            .SelectMany(r => r.RolePermissions).ToListAsync();
+    }
+
 }

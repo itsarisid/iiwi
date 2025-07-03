@@ -32,6 +32,14 @@ public class AuthorizationModules : IEndpoints
         .Response())
         .WithMappingBehaviour<Response>()
         .WithDocumentation(Authorization.RolesById);
+
+        // Get role permissions
+        routeGroup.MapGet(Authorization.Permissions.Endpoint,
+         IResult (IMediator mediator, [AsParameters] PermissionRequest request) => mediator
+        .HandleAsync<PermissionRequest, PermissionResponse>(request)
+        .Response())
+        .WithMappingBehaviour<Response>()
+        .WithDocumentation(Authorization.Permissions);
     }
 
 }
