@@ -77,9 +77,18 @@ public class PermissionRepository(ApplicationDbContext context) : EFRepository<P
 
     public async Task<IEnumerable<RolePermission>> GetPermissionsByRoleIdAsync(int id)
     {
-        return await context.Permission
-            .Where(p => p.RolePermissions.Any(rp => rp.RoleId == id))
-            .SelectMany(r => r.RolePermissions).ToListAsync();
+        return await context.RolePermissions
+            .Where(rp => rp.RoleId == id)
+            .Select(rp => new RolePermission
+            {
+                Id = rp.Id,
+                RoleId = rp.RoleId,
+                Permission = new Permission
+                {
+                    Id = rp.Permission.Id,
+                    Name = rp.Permission.Name
+                }
+            }).ToListAsync();
     }
 
 }

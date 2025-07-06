@@ -27,15 +27,12 @@ public class PermissionHandler(
                 Message = "Not Found"
             });
         }
-        var claims = await _roleManager.GetClaimsAsync(role);
-        var response = claims
-            .Where(c => c.Type == "Permission")
-            .Select(c => c.Value);
+        var response = await permission.GetPermissionsByRoleIdAsync(role.Id);
 
-        return new Result<PermissionResponse>(HttpStatusCode.NotFound, new PermissionResponse
+        return new Result<PermissionResponse>(HttpStatusCode.OK, new PermissionResponse
         {
-            Message = "Not Found",
-            Permissions = response
+            Message = "Permissions list",
+            Permissions = [.. response.Select(rp => rp.Permission.Name)]
         });
     }
 }
