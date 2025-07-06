@@ -52,22 +52,6 @@ public class AuthorizationModules : IEndpoints
         .Response())
         .WithMappingBehaviour<Response>()
         .WithDocumentation(Authorization.Permissions);
-
-        //group.MapPut("/{id}/permissions", async (
-        //    string id,
-        //    List<string> permissions,
-        //    RoleManager<IdentityRole> roleManager,
-        //    IPermissionService permissionService) =>
-        //{
-        //    var role = await roleManager.FindByIdAsync(id);
-        //    if (role is null) return Results.NotFound();
-
-        //    var result = await permissionService.UpdatePermissionsForRoleAsync(role.Name, permissions);
-
-        //    return result.Succeeded
-        //        ? Results.Ok()
-        //        : Results.BadRequest(result.Errors);
-        //}).RequireAuthorization(PolicyNames.AdminPolicy);
     }
 
 }
