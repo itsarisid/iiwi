@@ -13,10 +13,11 @@ public static class AuthConfig
     {
         services.AddAuthentication(options =>
         {
-            options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
-            options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
-            options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+            options.DefaultAuthenticateScheme = IdentityConstants.BearerScheme;
+            options.DefaultChallengeScheme = IdentityConstants.BearerScheme;
+            options.DefaultScheme = IdentityConstants.BearerScheme;
         })
+        .AddBearerToken(IdentityConstants.BearerScheme)
         .AddCookie(IdentityConstants.ApplicationScheme, o =>
         {
             o.LoginPath = new PathString("/Account/Login");
@@ -52,7 +53,7 @@ public static class AuthConfig
             config.ExpireTimeSpan = TimeSpan.FromDays(7);
             config.SlidingExpiration = true;
         })
-        .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+        .AddJwtBearer(IdentityConstants.BearerScheme, options =>
         {
             options.Authority = "https://localhost:7122";
             options.Audience = "https://localhost:7122";

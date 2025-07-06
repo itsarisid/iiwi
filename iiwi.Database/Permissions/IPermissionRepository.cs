@@ -1,8 +1,5 @@
-﻿
-using DotNetCore.Objects;
-using DotNetCore.Repositories;
+﻿using DotNetCore.Repositories;
 using iiwi.Domain;
-using iiwi.Model.Permission;
 
 namespace iiwi.Database.Permissions;
 
@@ -20,4 +17,5 @@ public interface IPermissionRepository : IRepository<Permission>
     Task<bool> HasPermissionAsync(int userId, string permissionName);
  
     Task<List<Permission>> GetUserPermissionsAsync(int userId);
+    Task UpdateRolePermissionsForRoleAsync(int roleId, List<int> permissions);
 }

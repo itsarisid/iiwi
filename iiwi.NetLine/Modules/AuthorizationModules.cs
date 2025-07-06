@@ -24,7 +24,7 @@ public class AuthorizationModules : IEndpoints
          .Response())
          .WithMappingBehaviour<Response>()
          .WithDocumentation(Authorization.AllRoles);
-        
+
         // Get role by id
         routeGroup.MapGet(Authorization.RolesById.Endpoint,
          IResult (IMediator mediator, [AsParameters] GetByIdRoleRequest request) => mediator
@@ -40,6 +40,34 @@ public class AuthorizationModules : IEndpoints
         .Response())
         .WithMappingBehaviour<Response>()
         .WithDocumentation(Authorization.Permissions);
+
+        // Update role permissions
+        routeGroup.MapPut(Authorization.Permissions.Endpoint,
+         IResult (IMediator mediator, [AsParameters] string id, UpdatePermissionRequest request) => mediator
+        .HandleAsync<UpdatePermissionRequest, Response>(new UpdatePermissionRequest
+        {
+            Id = id,
+            Permissions = request.Permissions
+        })
+        .Response())
+        .WithMappingBehaviour<Response>()
+        .WithDocumentation(Authorization.Permissions);
+
+        //group.MapPut("/{id}/permissions", async (
+        //    string id,
+        //    List<string> permissions,
+        //    RoleManager<IdentityRole> roleManager,
+        //    IPermissionService permissionService) =>
+        //{
+        //    var role = await roleManager.FindByIdAsync(id);
+        //    if (role is null) return Results.NotFound();
+
+        //    var result = await permissionService.UpdatePermissionsForRoleAsync(role.Name, permissions);
+
+        //    return result.Succeeded
+        //        ? Results.Ok()
+        //        : Results.BadRequest(result.Errors);
+        //}).RequireAuthorization(PolicyNames.AdminPolicy);
     }
 
 }

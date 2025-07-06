@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Immutable;
 using System.Linq.Expressions;
+using System.Security;
+using System.Security.Claims;
 
 namespace iiwi.Database.Permissions;
 
@@ -91,4 +93,27 @@ public class PermissionRepository(ApplicationDbContext context) : EFRepository<P
             }).ToListAsync();
     }
 
+    public async Task UpdateRolePermissionsForRoleAsync(int roleId, List<int> permissionIds)
+    {
+        // Remove existing permissions for the role in a single operation
+        await context.RolePermissions
+            .Where(rp => rp.RoleId == roleId)
+            .ExecuteDeleteAsync();
+
+        // Add new permissions if any were provided
+        if (permissionIds.Count > 0)
+        {
+            var newRolePermissions = permissionIds
+                .Select(permissionId => new RolePermission
+                {
+                    RoleId = roleId,
+                    PermissionId = permissionId
+                })
+                .ToList();
+
+            await context.RolePermissions.AddRangeAsync(newRolePermissions);
+        }
+
+        await context.SaveChangesAsync();
+    }
 }
