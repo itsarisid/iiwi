@@ -56,33 +56,51 @@ public class AuthorizationModules : IEndpoints
 
         // Delete a role
         routeGroup.MapDelete(Authorization.DeleteRole.Endpoint,
-         IResult (IMediator mediator, [AsParameters] DeleteRoleRequest request) => mediator
+        IResult (IMediator mediator, [AsParameters] DeleteRoleRequest request) => mediator
         .HandleAsync<DeleteRoleRequest, Response>(request)
         .Response())
         .WithMappingBehaviour<Response>()
         .WithDocumentation(Authorization.DeleteRole);
 
+        // Add claim to role
+        routeGroup.MapPost(Authorization.AddRoleClaim.Endpoint,
+        IResult (IMediator mediator, [AsParameters] int roleId, AddClaimRequest request) => mediator
+        .HandleAsync<AddClaimRequest, Response>(request)
+        .Response())
+        .WithMappingBehaviour<Response>()
+        .WithDocumentation(Authorization.AddClaim);
 
+        // Remove claim from role
+        routeGroup.MapDelete(Authorization.RemoveRoleClaim.Endpoint,
+        IResult (IMediator mediator, [AsParameters] int roleId, [AsParameters] int id) => mediator
+        .HandleAsync<RemoveClaimRequest, Response>(new RemoveClaimRequest())
+        .Response())
+        .WithMappingBehaviour<Response>()
+        .WithDocumentation(Authorization.RemoveRoleClaim);
 
-        // Get role permissions
-        //routeGroup.MapGet(Authorization.Permissions.Endpoint,
-        // IResult (IMediator mediator, [AsParameters] PermissionRequest request) => mediator
-        //.HandleAsync<PermissionRequest, PermissionResponse>(request)
-        //.Response())
-        //.WithMappingBehaviour<Response>()
-        //.WithDocumentation(Authorization.Permissions);
+        // Get role claims
+        routeGroup.MapGet(Authorization.GetRoleClaims.Endpoint,
+        IResult (IMediator mediator, [AsParameters] int roleId) => mediator
+        .HandleAsync<GetRoleClaimsRequest, Response>(new GetRoleClaimsRequest())
+        .Response())
+        .WithMappingBehaviour<Response>()
+        .WithDocumentation(Authorization.GetRoleClaims);
 
-        // Update role permissions
-        //routeGroup.MapPut(Authorization.Permissions.Endpoint,
-        // IResult (IMediator mediator, [AsParameters] string id, UpdatePermissionRequest request) => mediator
-        //.HandleAsync<UpdatePermissionRequest, Response>(new UpdatePermissionRequest
-        //{
-        //    Id = id,
-        //    Permissions = request.Permissions
-        //})
-        //.Response())
-        //.WithMappingBehaviour<Response>()
-        //.WithDocumentation(Authorization.Permissions);
+        // Assign role to user
+        routeGroup.MapPost(Authorization.AssignRole.Endpoint,
+        IResult (IMediator mediator, [FromBody] AssignRoleToUserRequest request) => mediator
+        .HandleAsync<AssignRoleToUserRequest, Response>(request)
+        .Response())
+        .WithMappingBehaviour<Response>()
+        .WithDocumentation(Authorization.AssignRole);
+
+        // Add claim to user
+        routeGroup.MapPost(Authorization.AddUserClaim.Endpoint,
+        IResult (IMediator mediator, [FromBody] AssignRoleToUserRequest request) => mediator
+        .HandleAsync<AssignRoleToUserRequest, Response>(request)
+        .Response())
+        .WithMappingBehaviour<Response>()
+        .WithDocumentation(Authorization.AddUserClaim);
     }
 
 }
