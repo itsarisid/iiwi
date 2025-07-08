@@ -16,6 +16,13 @@ public static class Authorization
         Summary = "roles",
         Description = ""
     };
+    public static EndpointDetails AddRole => new()
+    {
+        Endpoint = "/role",
+        Name = "User Role",
+        Summary = "roles related oprations",
+        Description = ""
+    };
     
     public static EndpointDetails Permissions => new()
     {
