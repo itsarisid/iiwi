@@ -19,24 +19,37 @@ public static class Authorization
     public static EndpointDetails AddRole => new()
     {
         Endpoint = "/role",
-        Name = "User Role",
+        Name = "Add Role",
         Summary = "roles related oprations",
         Description = ""
     };
-    
-    public static EndpointDetails Permissions => new()
+    public static EndpointDetails UpdateRole => new()
     {
-        Endpoint = "role/{id}/permissions",
-        Name = "Search permissions",
-        Summary = "Search permissions by role id",
+        Endpoint = "/role/{id}",
+        Name = "Update Role",
+        Summary = "roles related oprations",
         Description = ""
     };
-    
+    public static EndpointDetails DeleteRole => new()
+    {
+        Endpoint = "/role/{id}",
+        Name = "Delete Role",
+        Summary = "roles related oprations",
+        Description = ""
+    };
     public static EndpointDetails RolesById => new()
     {
         Endpoint = "role/{id}",
         Name = "Search Role",
         Summary = "Search role by id",
+        Description = ""
+    };
+
+    public static EndpointDetails Permissions => new()
+    {
+        Endpoint = "role/{id}/permissions",
+        Name = "Search permissions",
+        Summary = "Search permissions by role id",
         Description = ""
     };
 }

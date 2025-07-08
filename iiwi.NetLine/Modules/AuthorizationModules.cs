@@ -18,9 +18,9 @@ public class AuthorizationModules : IEndpoints
             .RequireAuthorization();
 
         // Get all roles
-        routeGroup.MapPost(Authorization.AllRoles.Endpoint,
-          IResult (IMediator mediator, RoleRequest request) => mediator
-         .HandleAsync<RoleRequest, RoleResponse>(request)
+        routeGroup.MapGet(Authorization.AllRoles.Endpoint,
+          IResult (IMediator mediator) => mediator
+         .HandleAsync<RoleRequest, RoleResponse>(new RoleRequest())
          .Response())
          .WithMappingBehaviour<Response>()
          .WithDocumentation(Authorization.AllRoles);
@@ -33,25 +33,56 @@ public class AuthorizationModules : IEndpoints
         .WithMappingBehaviour<Response>()
         .WithDocumentation(Authorization.RolesById);
 
-        // Get role permissions
-        routeGroup.MapGet(Authorization.Permissions.Endpoint,
-         IResult (IMediator mediator, [AsParameters] PermissionRequest request) => mediator
-        .HandleAsync<PermissionRequest, PermissionResponse>(request)
+        // Add a new role
+        routeGroup.MapPost(Authorization.AddRole.Endpoint,
+         IResult (IMediator mediator, [FromBody] AddRoleRequest request) => mediator
+        .HandleAsync<AddRoleRequest, Response>(request)
         .Response())
         .WithMappingBehaviour<Response>()
-        .WithDocumentation(Authorization.Permissions);
+        .WithDocumentation(Authorization.AddRole);
+
+        // Update an existing role
+        routeGroup.MapPut(Authorization.UpdateRole.Endpoint,
+         IResult (IMediator mediator, [AsParameters] int id, UpdateRoleRequest request) => mediator
+         .HandleAsync<UpdateRoleRequest, Response>(new UpdateRoleRequest
+         {
+             Id = id,
+             Name = request.Name,
+             Description = request.Description
+         })
+        .Response())
+        .WithMappingBehaviour<Response>()
+        .WithDocumentation(Authorization.UpdateRole);
+
+        // Delete a role
+        routeGroup.MapDelete(Authorization.DeleteRole.Endpoint,
+         IResult (IMediator mediator, [AsParameters] DeleteRoleRequest request) => mediator
+        .HandleAsync<DeleteRoleRequest, Response>(request)
+        .Response())
+        .WithMappingBehaviour<Response>()
+        .WithDocumentation(Authorization.DeleteRole);
+
+
+
+        // Get role permissions
+        //routeGroup.MapGet(Authorization.Permissions.Endpoint,
+        // IResult (IMediator mediator, [AsParameters] PermissionRequest request) => mediator
+        //.HandleAsync<PermissionRequest, PermissionResponse>(request)
+        //.Response())
+        //.WithMappingBehaviour<Response>()
+        //.WithDocumentation(Authorization.Permissions);
 
         // Update role permissions
-        routeGroup.MapPut(Authorization.Permissions.Endpoint,
-         IResult (IMediator mediator, [AsParameters] string id, UpdatePermissionRequest request) => mediator
-        .HandleAsync<UpdatePermissionRequest, Response>(new UpdatePermissionRequest
-        {
-            Id = id,
-            Permissions = request.Permissions
-        })
-        .Response())
-        .WithMappingBehaviour<Response>()
-        .WithDocumentation(Authorization.Permissions);
+        //routeGroup.MapPut(Authorization.Permissions.Endpoint,
+        // IResult (IMediator mediator, [AsParameters] string id, UpdatePermissionRequest request) => mediator
+        //.HandleAsync<UpdatePermissionRequest, Response>(new UpdatePermissionRequest
+        //{
+        //    Id = id,
+        //    Permissions = request.Permissions
+        //})
+        //.Response())
+        //.WithMappingBehaviour<Response>()
+        //.WithDocumentation(Authorization.Permissions);
     }
 
 }
