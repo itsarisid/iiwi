@@ -1,4 +1,5 @@
-﻿using iiwi.NetLine.Filters;
+﻿using iiwi.Common;
+using iiwi.NetLine.Filters;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -40,6 +41,26 @@ public class TestModule : IEndpoints
          .AllowAnonymous()
          .AddEndpointFilter<LoggingFilter>()
          .AddEndpointFilter<ExceptionHandlingFilter>()
+         .CacheOutput("DefaultPolicy");
+        
+        routeGroup.MapGet(Test.AuthTestEndpoint.Endpoint,
+         IResult (IServiceProvider serviceProvider) => TypedResults.Ok(new
+         {
+             Auther = "Sajid Khan",
+             Version = "2.0.0",
+             Date = DateTime.Now.ToLongDateString(),
+             Time = DateTime.Now.ToLongTimeString(),
+             Assembly = Assembly.GetExecutingAssembly().FullName,
+             Environment = serviceProvider.GetRequiredService<IWebHostEnvironment>().EnvironmentName,
+             Environment.MachineName,
+             Framework = RuntimeInformation.FrameworkDescription,
+             OS = $"{RuntimeInformation.OSDescription} - ({RuntimeInformation.OSArchitecture})",
+         }))
+         .WithDocumentation(Test.AuthTestEndpoint)
+         .AddEndpointFilter<LoggingFilter>()
+         .AddEndpointFilter<ExceptionHandlingFilter>()
+         .RequireAuthorization(Permissions.Test.Read)
+         //.RequireAuthorization("Permission")
          .CacheOutput("DefaultPolicy");
     }
 }

@@ -16,7 +16,7 @@ public sealed class PermissionConfiguration : IEntityTypeConfiguration<Permissio
             .ValueGeneratedOnAdd()
             .IsRequired()
             .UseHiLo(General.DbSequenceName);
-        builder.Property(entity => entity.Name).HasMaxLength(250).IsRequired();
+        builder.Property(entity => entity.CodeName).HasMaxLength(250).IsRequired();
         builder.Property(entity => entity.Description).HasMaxLength(450).IsRequired();
         builder.Property(entity => entity.IsActive).IsRequired();
 

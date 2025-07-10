@@ -32,7 +32,7 @@ public class PermissionHandler(
         return new Result<PermissionResponse>(HttpStatusCode.OK, new PermissionResponse
         {
             Message = "Permissions list",
-            Permissions = [.. response.Select(rp => rp.Permission.Name)]
+            Permissions = [.. response.Select(rp => rp.Permission.CodeName)]
         });
     }
 }

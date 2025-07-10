@@ -19,4 +19,12 @@ public class Test
         Summary = "This API endpoint can be used for testing and retrieving application meta data.",
         Description = "This API endpoint can be used for testing and retrieving application meta data."
     };
+    
+    public static EndpointDetails AuthTestEndpoint => new()
+    {
+        Endpoint = "/auth-test",
+        Name = "Authorized End point Test",
+        Summary = "This API endpoint can be used for testing and retrieving application meta data.",
+        Description = "This API endpoint can be used for testing and retrieving application meta data."
+    };
 }

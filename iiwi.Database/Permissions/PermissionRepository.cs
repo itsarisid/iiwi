@@ -16,7 +16,7 @@ public class PermissionRepository(ApplicationDbContext context) : EFRepository<P
     public static Expression<Func<Permission, PermissionModel>> Model => user => new PermissionModel
     {
         Id = user.Id,
-        Name = user.Name,
+        Name = user.CodeName,
     };
 
     public async Task<bool> HasPermissionAsync(int userId, string permissionName)
@@ -25,7 +25,7 @@ public class PermissionRepository(ApplicationDbContext context) : EFRepository<P
             .Where(ur => ur.UserId == userId)
             .SelectMany(ur => ur.Role.RolePermissions)
             .AnyAsync(rp =>
-                rp.Permission.Name == permissionName);
+                rp.Permission.CodeName == permissionName);
     }
     public async Task<Permission> GetPermissionByIdAsync(int id)
     {
@@ -35,7 +35,7 @@ public class PermissionRepository(ApplicationDbContext context) : EFRepository<P
     public async Task<Permission> GetPermissionByNameAsync(string name)
     {
         return await context.Permission
-            .FirstOrDefaultAsync(p => p.Name == name);
+            .FirstOrDefaultAsync(p => p.CodeName == name);
     }
 
     public async Task<IEnumerable<Permission>> GetAllPermissionsAsync()
@@ -88,7 +88,7 @@ public class PermissionRepository(ApplicationDbContext context) : EFRepository<P
                 Permission = new Permission
                 {
                     Id = rp.Permission.Id,
-                    Name = rp.Permission.Name
+                    CodeName = rp.Permission.CodeName
                 }
             }).ToListAsync();
     }
