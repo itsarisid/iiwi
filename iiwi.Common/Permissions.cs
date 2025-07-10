@@ -9,6 +9,8 @@ public static class Permissions
     public static class Test
     {
         public const string Read = "Test.Read";
+        public const string Write = "Test.Write";
+        public const string Delete = "Test.Remove";
     }
 
     public static IEnumerable<string> GetAll()

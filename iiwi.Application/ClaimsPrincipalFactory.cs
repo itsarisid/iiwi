@@ -1,4 +1,5 @@
 ﻿using iiwi.Domain.Identity;
+using Lucene.Net.Util;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
@@ -21,26 +22,40 @@ public class ClaimsPrincipalFactory(
         //await roleManager.AddClaimAsync(role, new Claim("Permission", "Test.Read"));
 
         //var claims = new List<Claim>();
-        var claims = await userManager.GetClaimsAsync(user);
-        foreach (var claim in claims)
+        var allClaims = await userManager.GetClaimsAsync(user)?? [];
+        foreach (var claim in allClaims)
         {
             if (!identity.HasClaim(c => c.Type == claim.Type && c.Value == claim.Value))
             {
-                claims.Add(claim);
+                allClaims.Add(claim);
+            }
+        }
+
+        var userRoles = await userManager.GetRolesAsync(user);
+        // Get claims from user's roles
+        var roleClaims = new List<Claim>();
+
+        foreach (var roleName in userRoles)
+        {
+            var role = await roleManager.FindByNameAsync(roleName);
+            if (role != null)
+            {
+                var claims = await roleManager.GetClaimsAsync(role);
+                allClaims.AddRange(claims);
             }
         }
 
         if (user.TwoFactorEnabled)
         {
-            claims.Add(new Claim("amr", "mfa"));
+            allClaims.Add(new Claim("amr", "mfa"));
         }
         else
         {
-            claims.Add(new Claim("amr", "pwd"));
+            allClaims.Add(new Claim("amr", "pwd"));
         }
 
         //claims.Add(new Claim("Permission", "Test.Read"));
-        identity?.AddClaims(claims);
+        identity?.AddClaims(allClaims);
         return principal;
     }
 }
