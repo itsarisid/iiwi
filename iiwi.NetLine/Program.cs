@@ -54,6 +54,7 @@ app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 app.UseOutputCache();
 app.MapGroup("/auth").MapMyIdentityApi<ApplicationUser>().WithTags("Identity");
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapCarter();
 

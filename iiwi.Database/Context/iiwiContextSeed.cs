@@ -11,8 +11,7 @@ public static class iiwiContextSeed
         builder.Entity<Permission>(entity => entity.HasData(new Permission
         {
             Id = 1L,
-            Name = "Admin",
-            CodeName= "admin",
+            CodeName = "Admin",
             IsActive = true,
             IsDeleted = false,
             //CreatedByUserId = new Guid("00000000-0000-0000-0000-000000000000"),

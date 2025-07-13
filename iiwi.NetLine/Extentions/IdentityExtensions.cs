@@ -117,6 +117,16 @@ public static class IdentityExtensions
             return TypedResults.Empty;
         }).WithDocumentation(Identity.Login);
 
+        routeGroup.MapPost(Identity.Logout.Endpoint, async ([FromServices] IServiceProvider sp) =>
+        {
+            var signInManager = sp.GetRequiredService<SignInManager<TUser>>();
+            await signInManager.SignOutAsync();
+            return Results.Ok();
+        })
+        .WithOpenApi()
+        .RequireAuthorization()
+        .WithDocumentation(Identity.Logout);
+
         routeGroup.MapPost(Identity.Refresh.Endpoint, async Task<Results<Ok<AccessTokenResponse>, UnauthorizedHttpResult, SignInHttpResult, ChallengeHttpResult>>
             ([FromBody] RefreshRequest refreshRequest, [FromServices] IServiceProvider sp) =>
         {

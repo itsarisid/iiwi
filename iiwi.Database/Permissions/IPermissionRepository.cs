@@ -1,16 +1,21 @@
-﻿
-using DotNetCore.Objects;
-using DotNetCore.Repositories;
+﻿using DotNetCore.Repositories;
 using iiwi.Domain;
-using iiwi.Model.Permission;
 
 namespace iiwi.Database.Permissions;
 
 public interface IPermissionRepository : IRepository<Permission>
 {
-    Task<PermissionModel> GetModelAsync(long id);
+    Task<Permission> GetPermissionByIdAsync(int id);
+    Task<Permission> GetPermissionByNameAsync(string name);
+    Task<IEnumerable<Permission>> GetAllPermissionsAsync();
+    Task<IEnumerable<RolePermission>> GetPermissionsByRoleIdAsync(int id);
+    Task CreatePermissionAsync(Permission permission);
+    Task UpdatePermissionAsync(Permission permission);
+    Task DeletePermissionAsync(int id);
+    Task<bool> PermissionExistsAsync(int id);
 
-    Task<Grid<PermissionModel>> GridAsync(GridParameters parameters);
-
-    Task<IEnumerable<PermissionModel>> ListModelAsync();
+    Task<bool> HasPermissionAsync(int userId, string permissionName);
+ 
+    Task<List<Permission>> GetUserPermissionsAsync(int userId);
+    Task UpdateRolePermissionsForRoleAsync(int roleId, List<int> permissions);
 }

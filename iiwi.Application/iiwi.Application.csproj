@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\iiwi.Common\iiwi.Common.csproj" />
+    <ProjectReference Include="..\iiwi.Database\iiwi.Database.csproj" />
     <ProjectReference Include="..\iiwi.Domain\iiwi.Domain.csproj" />
     <ProjectReference Include="..\iiwi.Infrastructure\iiwi.Infrastructure.csproj" />
   </ItemGroup>
