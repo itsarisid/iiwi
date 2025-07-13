@@ -1,5 +1,4 @@
 ﻿using iiwi.Domain.Identity;
-using Lucene.Net.Util;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
@@ -7,55 +6,82 @@ using System.Security.Claims;
 namespace iiwi.Application;
 
 public class ClaimsPrincipalFactory(
-        UserManager<ApplicationUser> userManager,
-        RoleManager<ApplicationRole> roleManager,
-        IOptions<IdentityOptions> optionsAccessor) : UserClaimsPrincipalFactory<ApplicationUser, ApplicationRole>(userManager, roleManager, optionsAccessor)
+    UserManager<ApplicationUser> userManager,
+    RoleManager<ApplicationRole> roleManager,
+    IOptions<IdentityOptions> optionsAccessor) : UserClaimsPrincipalFactory<ApplicationUser, ApplicationRole>(userManager, roleManager, optionsAccessor)
 {
-    public async override Task<ClaimsPrincipal> CreateAsync(ApplicationUser user)
+    public override async Task<ClaimsPrincipal> CreateAsync(ApplicationUser user)
     {
+        ArgumentNullException.ThrowIfNull(user);
+
+        // Get base principal with standard claims
         var principal = await base.CreateAsync(user);
-        var identity = (ClaimsIdentity)principal.Identity;
 
-        //await userManager.AddClaimAsync(user, new Claim("Permission", "Test.Read"));
+        if (principal.Identity is not ClaimsIdentity identity)
+        {
+            return principal;
+        }
 
-        //var role = await roleManager.FindByNameAsync("Test");
-        //await roleManager.AddClaimAsync(role, new Claim("Permission", "Test.Read"));
+        // Get all claims and roles separately
+        var userClaims = await UserManager.GetClaimsAsync(user);
+        var userRoles = await UserManager.GetRolesAsync(user);
 
-        //var claims = new List<Claim>();
-        var allClaims = await userManager.GetClaimsAsync(user)?? [];
-        foreach (var claim in allClaims)
+        // Process user claims
+        await AddUniqueClaimsAsync(identity, userClaims);
+
+        // Process role claims
+        var roleClaims = await GetRoleClaimsAsync(userRoles);
+        await AddUniqueClaimsAsync(identity, roleClaims);
+
+        // Add authentication method claim
+        AddAuthenticationMethodClaim(identity, user);
+
+        return principal;
+    }
+
+    private async Task<List<Claim>> GetRoleClaimsAsync(IEnumerable<string> roleNames)
+    {
+        var roleClaims = new List<Claim>();
+
+        foreach (var roleName in roleNames)
+        {
+            var role = await RoleManager.FindByNameAsync(roleName);
+            if (role != null)
+            {
+                var claims = await RoleManager.GetClaimsAsync(role);
+                roleClaims.AddRange(claims);
+            }
+        }
+
+        return roleClaims;
+    }
+
+    private static Task AddUniqueClaimsAsync(ClaimsIdentity identity, IEnumerable<Claim> claims)
+    {
+        foreach (var claim in claims)
         {
             if (!identity.HasClaim(c => c.Type == claim.Type && c.Value == claim.Value))
             {
-                allClaims.Add(claim);
+                identity.AddClaim(claim);
             }
         }
 
-        var userRoles = await userManager.GetRolesAsync(user);
-        // Get claims from user's roles
-        var roleClaims = new List<Claim>();
+        return Task.CompletedTask;
+    }
 
-        foreach (var roleName in userRoles)
+    private static void AddAuthenticationMethodClaim(ClaimsIdentity identity, ApplicationUser user)
+    {
+        var amrClaim = new Claim(
+            "amr",
+            user.TwoFactorEnabled ? "mfa" : "pwd");
+
+        // Remove existing amr claim if exists
+        var existingAmr = identity.FindFirst("amr");
+        if (existingAmr != null)
         {
-            var role = await roleManager.FindByNameAsync(roleName);
-            if (role != null)
-            {
-                var claims = await roleManager.GetClaimsAsync(role);
-                allClaims.AddRange(claims);
-            }
+            identity.RemoveClaim(existingAmr);
         }
 
-        if (user.TwoFactorEnabled)
-        {
-            allClaims.Add(new Claim("amr", "mfa"));
-        }
-        else
-        {
-            allClaims.Add(new Claim("amr", "pwd"));
-        }
-
-        //claims.Add(new Claim("Permission", "Test.Read"));
-        identity?.AddClaims(allClaims);
-        return principal;
+        identity.AddClaim(amrClaim);
     }
 }
