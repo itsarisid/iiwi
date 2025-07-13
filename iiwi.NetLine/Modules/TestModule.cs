@@ -59,8 +59,7 @@ public class TestModule : IEndpoints
          .WithDocumentation(Test.AuthTestEndpoint)
          .AddEndpointFilter<LoggingFilter>()
          .AddEndpointFilter<ExceptionHandlingFilter>()
-         .RequireAuthorization(Permissions.Test.Write)
-         //.RequireAuthorization("Permission")
+         .RequireAuthorization(Permissions.Test.Read)
          .CacheOutput("DefaultPolicy");
     }
 }
