@@ -6,5 +6,4 @@ namespace iiwi.Domain.Identity;
 public class ApplicationRole: IdentityRole<int>
 {
     public ICollection<ApplicationUserRole> UserRoles { get; set; } = [];
-    public ICollection<RolePermission> RolePermissions { get; set; } = [];
 }

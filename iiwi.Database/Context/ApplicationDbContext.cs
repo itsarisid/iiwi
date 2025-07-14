@@ -2,6 +2,7 @@
 using iiwi.Common;
 using iiwi.Domain;
 using iiwi.Domain.Identity;
+using iiwi.Domain.Logs;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
@@ -16,7 +17,7 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
     ApplicationUserToken>(options)
 {
     public DbSet<Permission> Permission { get; set; }
-    public DbSet<RolePermission> RolePermissions { get; set; }
+    public DbSet<AuditLog> AuditLog { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -84,23 +85,11 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
         builder.Entity<Permission>(entity =>
         {
             entity.ToTable("Permission");
-            entity.HasMany(r => r.RolePermissions)        
-                  .WithOne(o => o.Permission)           
-                  .HasForeignKey(ur => ur.PermissionId)   
-                  .OnDelete(DeleteBehavior.Cascade);
         });
 
-        builder.Entity<RolePermission>(entity =>
+        builder.Entity<AuditLog>(entity =>
         {
-            entity.ToTable("RolePermission");
-
-            entity.HasIndex(e => e.PermissionId, "IX_RolePermission_PermissionId");
-
-            entity.HasIndex(e => e.RoleId, "IX_RolePermission_RoleId");
-
-            entity.HasOne(d => d.Permission).WithMany(p => p.RolePermissions).HasForeignKey(d => d.PermissionId);
-
-            entity.HasOne(d => d.Role).WithMany(p => p.RolePermissions).HasForeignKey(d => d.RoleId);
+            entity.ToTable("AuditLog");
         });
     }
 }

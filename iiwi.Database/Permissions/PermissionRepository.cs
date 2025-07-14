@@ -19,13 +19,9 @@ public class PermissionRepository(ApplicationDbContext context) : EFRepository<P
         Name = user.CodeName,
     };
 
-    public async Task<bool> HasPermissionAsync(int userId, string permissionName)
+    public Task<bool> HasPermissionAsync(int userId, string permissionName)
     {
-        return await context.UserRoles
-            .Where(ur => ur.UserId == userId)
-            .SelectMany(ur => ur.Role.RolePermissions)
-            .AnyAsync(rp =>
-                rp.Permission.CodeName == permissionName);
+        throw new NotImplementedException("This method is not implemented yet. Please implement it according to your requirements.");
     }
     public async Task<Permission> GetPermissionByIdAsync(int id)
     {
@@ -67,53 +63,8 @@ public class PermissionRepository(ApplicationDbContext context) : EFRepository<P
         return await context.Permission
             .AnyAsync(p => p.Id == id);
     }
-    public async Task<List<Permission>> GetUserPermissionsAsync(int userId)
+    public Task<List<Permission>> GetUserPermissionsAsync(int userId)
     {
-        return await context.UserRoles
-            .Where(ur => ur.UserId == userId)
-            .SelectMany(ur => ur.Role.RolePermissions)
-            .Select(rp => rp.Permission)
-            .Distinct()
-            .ToListAsync();
-    }
-
-    public async Task<IEnumerable<RolePermission>> GetPermissionsByRoleIdAsync(int id)
-    {
-        return await context.RolePermissions
-            .Where(rp => rp.RoleId == id)
-            .Select(rp => new RolePermission
-            {
-                Id = rp.Id,
-                RoleId = rp.RoleId,
-                Permission = new Permission
-                {
-                    Id = rp.Permission.Id,
-                    CodeName = rp.Permission.CodeName
-                }
-            }).ToListAsync();
-    }
-
-    public async Task UpdateRolePermissionsForRoleAsync(int roleId, List<int> permissionIds)
-    {
-        // Remove existing permissions for the role in a single operation
-        await context.RolePermissions
-            .Where(rp => rp.RoleId == roleId)
-            .ExecuteDeleteAsync();
-
-        // Add new permissions if any were provided
-        if (permissionIds.Count > 0)
-        {
-            var newRolePermissions = permissionIds
-                .Select(permissionId => new RolePermission
-                {
-                    RoleId = roleId,
-                    PermissionId = permissionId
-                })
-                .ToList();
-
-            await context.RolePermissions.AddRangeAsync(newRolePermissions);
-        }
-
-        await context.SaveChangesAsync();
+        throw new NotImplementedException("This method is not implemented yet. Please implement it according to your requirements.");
     }
 }

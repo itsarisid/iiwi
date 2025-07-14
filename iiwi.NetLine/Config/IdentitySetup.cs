@@ -1,4 +1,5 @@
-﻿using DotNetCore.EntityFrameworkCore;
+﻿using Audit.EntityFramework;
+using DotNetCore.EntityFrameworkCore;
 using iiwi.Database;
 using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -20,7 +21,8 @@ public static class IdentitySetup
         ArgumentNullException.ThrowIfNull(services);
 
         services.AddContext<iiwiDbContext>(options => options.UseSqlServer(configuration.GetConnectionString(nameof(iiwiDbContext))));
-        services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString(nameof(iiwiDbContext))));
+        services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString(nameof(iiwiDbContext)))
+                .AddInterceptors(new AuditSaveChangesInterceptor()));
         services.AddIdentityApiEndpoints<ApplicationUser>(options =>
         {
             // Password settings.
@@ -59,7 +61,6 @@ public static class IdentitySetup
         })
          .AddRoles<ApplicationRole>()
          .AddEntityFrameworkStores<ApplicationDbContext>();
-
         return services;
     }
 }

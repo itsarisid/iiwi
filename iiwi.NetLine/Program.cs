@@ -18,6 +18,8 @@ builder.Services.AddAppCookies();
 var config = builder.Configuration;
 
 builder.Services.AddIdentity(config);
+builder.Services.AddAuditTrail();
+
 builder.Services.AddAppServiceses(config);
 
 builder.Services.AddAuthorization();
