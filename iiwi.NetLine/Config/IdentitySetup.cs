@@ -1,4 +1,5 @@
 ﻿using Audit.EntityFramework;
+using Audit.EntityFramework.Interceptors;
 using DotNetCore.EntityFrameworkCore;
 using iiwi.Database;
 using iiwi.Domain.Identity;
@@ -22,7 +23,14 @@ public static class IdentitySetup
 
         services.AddContext<iiwiDbContext>(options => options.UseSqlServer(configuration.GetConnectionString(nameof(iiwiDbContext))));
         services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString(nameof(iiwiDbContext)))
-                .AddInterceptors(new AuditSaveChangesInterceptor()));
+                .AddInterceptors([new AuditSaveChangesInterceptor(),
+                new AuditCommandInterceptor()
+                {
+                    // Configure the audit command interceptor.
+                    AuditEventType = "{database}-{context}",
+                    IncludeReaderResults = true
+                    
+                }]));
         services.AddIdentityApiEndpoints<ApplicationUser>(options =>
         {
             // Password settings.

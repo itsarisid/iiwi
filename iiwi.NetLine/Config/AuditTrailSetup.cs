@@ -1,4 +1,6 @@
 ﻿using Audit.Core;
+using iiwi.Database;
+using iiwi.Domain.Identity;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 namespace iiwi.NetLine.Config;
@@ -16,7 +18,8 @@ public static class AuditTrailSetup
         ArgumentNullException.ThrowIfNull(services);
 
         // Configure the Entity framework audit.
-        Configuration.Setup()
+        _ = Configuration.Setup()
+        .AuditDisabled(false) // Enable auditing
         .IncludeActivityTrace()
         .IncludeStackTrace()
         .UseEntityFramework(_ => _
@@ -41,5 +44,16 @@ public static class AuditTrailSetup
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
             AllowTrailingCommas = true
         };
+
+        Audit.EntityFramework.Configuration.Setup()
+               .ForContext<ApplicationDbContext>(config => config
+               .ForEntity<ApplicationUser>(_ => _
+                .Ignore(user => user.ConcurrencyStamp)
+                .Override(user => user.PasswordHash, null)
+                .Format(user => user.Gender, pass => new String('*', pass.Length)))
+               .IncludeEntityObjects()
+               .AuditEventType("{context}:{database}"))
+               .UseOptOut()
+                   .IgnoreAny(t => t.Name.EndsWith("History"));
     }
 }
