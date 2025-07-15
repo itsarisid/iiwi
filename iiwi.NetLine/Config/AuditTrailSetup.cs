@@ -32,7 +32,7 @@ public static class AuditTrailSetup
                 entity.AuditAction = entry.Action.ToString();
                 // If the primary key is a composite key, we can only take the first value.
                 entity.TablePk = entry.PrimaryKey.First().Value.ToString();
-            })
+            })// Ignore these properties in the audit log
         .IgnoreMatchedProperties(true))
         .WithCreationPolicy(EventCreationPolicy.InsertOnEnd); // Insert the audit log at the end of the transaction
 
