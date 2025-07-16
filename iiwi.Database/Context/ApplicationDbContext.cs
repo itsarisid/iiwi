@@ -17,7 +17,10 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
     ApplicationUserToken>(options)
 {
     public DbSet<Permission> Permission { get; set; }
+
+    // NOTE: These logs should move to diffrent DbContext 
     public DbSet<AuditLog> AuditLog { get; set; }
+    public DbSet<ApiLog> ApiLog { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -90,6 +93,23 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
         builder.Entity<AuditLog>(entity =>
         {
             entity.ToTable("AuditLog");
+        });
+
+        builder.Entity<ApiLog>(entity =>
+        {
+            entity.ToTable("ApiLogs");
+
+            entity.OwnsOne(a => a.RequestBody, requestBody =>
+            {
+                requestBody.ToTable("ApiLog_Requeses");
+                requestBody.WithOwner().HasForeignKey("ApiLogId");
+            });
+
+            entity.OwnsOne(a => a.ResponseBody, responseBody =>
+            {
+                responseBody.ToTable("ApiLog_Responses");
+                responseBody.WithOwner().HasForeignKey("ApiLogId");
+            });
         });
     }
 }

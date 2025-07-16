@@ -1,5 +1,6 @@
 ﻿using iiwi.Common;
 using iiwi.NetLine.Filters;
+using Microsoft.AspNetCore.HttpLogging;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -39,9 +40,9 @@ public class TestModule : IEndpoints
          }))
          .WithDocumentation(Test.TestEndpoint)
          .AllowAnonymous()
-         .AddEndpointFilter<LoggingFilter>()
          .AddEndpointFilter<ExceptionHandlingFilter>()
-         .CacheOutput("DefaultPolicy");
+         .CacheOutput("DefaultPolicy")
+         .WithHttpLogging(HttpLoggingFields.All); ;
         
         routeGroup.MapGet(Test.AuthTestEndpoint.Endpoint,
          IResult (IServiceProvider serviceProvider) => TypedResults.Ok(new

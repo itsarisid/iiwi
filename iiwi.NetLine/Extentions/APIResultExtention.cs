@@ -30,7 +30,7 @@ public static class APIResultExtention
 
     public static IResult Response<T>(this Task<Result<T>> result)
     {
-        return result.Result.Response();
+        return result?.Result.Response();
     }
 
     public static IResult Response(this Result result)
@@ -40,7 +40,7 @@ public static class APIResultExtention
 
     public static IResult Response(this Task<Result> result)
     {
-        return result.Result.Response();
+        return result?.Result.Response();
     }
 
     public static IResult Response<T>(this T result)
@@ -50,7 +50,7 @@ public static class APIResultExtention
 
     public static IResult Response<T>(this Task<T> result)
     {
-        return result.Result.Response();
+        return result?.Result.Response();
     }
     public static async Task<IResult> ResponseAsync<T>(this Task<Result<T>> resultTask)
     {
