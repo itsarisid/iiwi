@@ -10,16 +10,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
 
-builder.Services.AddHttpLogging(logging =>
-{
-    logging.LoggingFields = HttpLoggingFields.All;
-    logging.RequestHeaders.Add("sec-ch-ua");
-    logging.ResponseHeaders.Add("MyResponseHeader");
-    logging.MediaTypeOptions.AddText("application/javascript");
-    logging.RequestBodyLogLimit = 4096;
-    logging.ResponseBodyLogLimit = 4096;
-    logging.CombineLogs = true;
-});
+//builder.Services.AddHttpLogging(logging =>
+//{
+//    logging.LoggingFields = HttpLoggingFields.All;
+//    logging.RequestHeaders.Add("sec-ch-ua");
+//    logging.ResponseHeaders.Add("MyResponseHeader");
+//    logging.MediaTypeOptions.AddText("application/javascript");
+//    logging.RequestBodyLogLimit = 4096;
+//    logging.ResponseBodyLogLimit = 4096;
+//    logging.CombineLogs = true;
+//});
 
 builder.Services.AddResponseCompression();
 builder.Services.AddEndpointsApiExplorer();
@@ -30,6 +30,8 @@ builder.Services.AddAppCookies();
 var config = builder.Configuration;
 
 builder.Services.AddIdentity(config);
+
+//builder.Services.AddAuditDataProvider();
 builder.Services.AddAuditTrail();
 
 builder.Services.AddAppServiceses(config);
@@ -62,7 +64,7 @@ var app = builder.Build();
 app.MapEnvironment();
 
 app.UseAuditTrail();
-app.UseHttpLogging();
+//app.UseHttpLogging();
 //Add support to logging request with SERILOG
 app.UseSerilogRequestLogging();
 app.UseResponseCompression();

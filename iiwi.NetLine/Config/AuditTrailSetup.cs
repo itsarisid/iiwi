@@ -4,6 +4,7 @@ using Audit.EntityFramework.Providers;
 using Audit.WebApi;
 using iiwi.Database;
 using iiwi.Domain.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 namespace iiwi.NetLine.Config;
@@ -20,13 +21,31 @@ public static class AuditTrailSetup
     {
         ArgumentNullException.ThrowIfNull(services);
 
+        Configuration.JsonSettings = new JsonSerializerOptions
+        {
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
+            AllowTrailingCommas = true
+        };
+
+        Audit.EntityFramework.Configuration.Setup()
+               .ForContext<ApplicationDbContext>(config => config
+               .ForEntity<ApplicationUser>(_ => _
+                .Ignore(user => user.ConcurrencyStamp)
+                .Override(user => user.PasswordHash, null)
+                .Format(user => user.Gender, pass => new String('*', pass.Length)))
+               .IncludeEntityObjects()
+               .AuditEventType("{context}:{database}"))
+               .UseOptOut()
+                   .IgnoreAny(t => t.Name.EndsWith("History"));
 
         Configuration.Setup()
             .AuditDisabled(false) // Enable auditing
             .IncludeActivityTrace()
             .IncludeStackTrace()
             .UseConditional(c => c
-                .When(ev => ev.EventType == "API", new FileDataProvider(file => file.Directory(@"D:\logs")))
+                .When(ev => ev.EventType.StartsWith("HTTP"), new FileDataProvider(cfg => cfg
+                    .Directory(@"D:\logs")
+                    .FilenameBuilder(ev => $"{ev.StartDate:yyyyMMddHHmmssffff}.json")))
                 .Otherwise(new EntityFrameworkDataProvider(_ => _
                 .AuditTypeMapper(t => typeof(Domain.Logs.AuditLog))
                 .AuditEntityAction<Domain.Logs.AuditLog>((ev, entry, entity) =>
@@ -46,59 +65,48 @@ public static class AuditTrailSetup
             )))
             .WithCreationPolicy(EventCreationPolicy.InsertOnEnd);
 
-        // Configure the Entity framework audit.
-        //_ = Configuration.Setup()
-        //.AuditDisabled(false) // Enable auditing
-        //.IncludeActivityTrace()
-        //.IncludeStackTrace()
-        //.UseEntityFramework(_ => _
-        //    .AuditTypeMapper(t => typeof(Domain.Logs.AuditLog))
-        //    .AuditEntityAction<Domain.Logs.AuditLog>((ev, entry, entity) =>
-        //    {
-        //        entity.AuditData = entry.ToJson();
-        //        entity.EntityType = entry.EntityType.Name;
-        //        entity.AuditDate = DateTime.Now;
-        //        entity.AuditUser = Environment.UserName;
-        //        //entity.AuditUser = Environment.MachineName;
-        //        //entity.IPAddress = Environment.IpAddress;
-        //        entity.AuditAction = entry.Action.ToString();
-        //        // If the primary key is a composite key, we can only take the first value.
-        //        entity.TablePk = entry.PrimaryKey.First().Value.ToString();
-        //    })// Ignore these properties in the audit log
-        //.IgnoreMatchedProperties(true))
-        //.WithCreationPolicy(EventCreationPolicy.InsertOnEnd); // Insert the audit log at the end of the transaction
 
-        Configuration.JsonSettings = new JsonSerializerOptions
-        {
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
-            AllowTrailingCommas = true
-        };
-
-        //Audit.EntityFramework.Configuration.Setup()
-        //    .ForAnyContext()
-        //    .UseOptOut()
-        //    .Ignore<Domain.Logs.AuditLog>()
-        //    .Ignore<Domain.Logs.ApiLog>();
 
         Audit.EntityFramework.Configuration.Setup()
-               .ForContext<ApplicationDbContext>(config => config
-               .ForEntity<ApplicationUser>(_ => _
-                .Ignore(user => user.ConcurrencyStamp)
-                .Override(user => user.PasswordHash, null)
-                .Format(user => user.Gender, pass => new String('*', pass.Length)))
-               .IncludeEntityObjects()
-               .AuditEventType("{context}:{database}"))
-               .UseOptOut()
-                   .IgnoreAny(t => t.Name.EndsWith("History"));
+            .ForAnyContext()
+            .UseOptOut()
+            .Ignore<Domain.Logs.AuditLog>()
+            .Ignore<Domain.Logs.ApiLog>();
 
+    }
+    /// <summary>
+    /// Setups the audit output
+    /// </summary>
+    public static IServiceCollection AddAuditDataProvider(this IServiceCollection services)
+    {
+        Audit.Core.Configuration.JsonSettings.WriteIndented = true;
+
+        services.AddSingleton<AuditDataProvider>(new FileDataProvider(cfg => cfg
+            .Directory(@"D:\logs")
+            .FilenameBuilder(ev => $"{ev.StartDate:yyyyMMddHHmmssffff}.json")));
+
+        return services;
+    }
+
+    /// <summary>
+    /// Add the global audit filter to the MVC pipeline
+    /// </summary>
+    public static MvcOptions AuditSetupMvcFilter(this MvcOptions mvcOptions)
+    {
+        // Add the global MVC Action Filter to the filter chain
+        mvcOptions.AddAuditFilter(a => a
+            .LogAllActions()
+            .WithEventType("MVC")
+            .IncludeModelState()
+            .IncludeRequestBody()
+            .IncludeResponseBody());
+
+        return mvcOptions;
     }
 
     public static IApplicationBuilder UseAuditTrail(this WebApplication app)
     {
         ArgumentNullException.ThrowIfNull(app);
-
-        
-
         app.Use(async (context, next) => {  
             context.Request.EnableBuffering(); // or .EnableRewind();
             await next();
