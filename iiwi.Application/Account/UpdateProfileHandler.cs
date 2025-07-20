@@ -35,8 +35,6 @@ public class UpdateProfileHandler(
             });
         }
 
-        var hasPermission = await permission.HasPermissionAsync(user.Id, "UpdateProfile");
-        _logger.LogInformation("UpdateProfile Permission {HasPermission}", hasPermission);
         user.Address = request.Address;
         user.DOB = request.DOB;
         user.FirstName = request.FirstName;

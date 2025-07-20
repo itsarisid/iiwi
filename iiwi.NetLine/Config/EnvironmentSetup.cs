@@ -16,6 +16,8 @@ public static class EnvironmentSetup
         //Note: Enabled IsProduction() so that we can use the swagger in production as well.
         if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
         {
+            //Audit.Core.Configuration.AuditDisabled = true;
+
             app.UseSwagger();
 
             app.UseSwaggerUI(Theme.Gruvbox, @"

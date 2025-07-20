@@ -2,6 +2,7 @@
 using iiwi.Common;
 using iiwi.Domain;
 using iiwi.Domain.Identity;
+using iiwi.Domain.Logs;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
@@ -16,7 +17,10 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
     ApplicationUserToken>(options)
 {
     public DbSet<Permission> Permission { get; set; }
-    public DbSet<RolePermission> RolePermissions { get; set; }
+
+    // NOTE: These logs should move to diffrent DbContext 
+    public DbSet<AuditLog> AuditLog { get; set; }
+    public DbSet<ApiLog> ApiLog { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -84,23 +88,28 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
         builder.Entity<Permission>(entity =>
         {
             entity.ToTable("Permission");
-            entity.HasMany(r => r.RolePermissions)        
-                  .WithOne(o => o.Permission)           
-                  .HasForeignKey(ur => ur.PermissionId)   
-                  .OnDelete(DeleteBehavior.Cascade);
         });
 
-        builder.Entity<RolePermission>(entity =>
+        builder.Entity<AuditLog>(entity =>
         {
-            entity.ToTable("RolePermission");
+            entity.ToTable("AuditLog");
+        });
 
-            entity.HasIndex(e => e.PermissionId, "IX_RolePermission_PermissionId");
+        builder.Entity<ApiLog>(entity =>
+        {
+            entity.ToTable("ApiLogs");
 
-            entity.HasIndex(e => e.RoleId, "IX_RolePermission_RoleId");
+            entity.OwnsOne(a => a.RequestBody, requestBody =>
+            {
+                requestBody.ToTable("ApiLog_Requeses");
+                requestBody.WithOwner().HasForeignKey("ApiLogId");
+            });
 
-            entity.HasOne(d => d.Permission).WithMany(p => p.RolePermissions).HasForeignKey(d => d.PermissionId);
-
-            entity.HasOne(d => d.Role).WithMany(p => p.RolePermissions).HasForeignKey(d => d.RoleId);
+            entity.OwnsOne(a => a.ResponseBody, responseBody =>
+            {
+                responseBody.ToTable("ApiLog_Responses");
+                responseBody.WithOwner().HasForeignKey("ApiLogId");
+            });
         });
     }
 }

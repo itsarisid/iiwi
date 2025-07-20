@@ -27,7 +27,7 @@ public class UpdatePermissionHandler(
                 Message = "Not Found"
             });
         }
-        await permission.UpdateRolePermissionsForRoleAsync(role.Id, request.Permissions);
+        //await permission.UpdateRolePermissionsForRoleAsync(role.Id, request.Permissions);
 
         return new Result<Response>(HttpStatusCode.OK, new Response
         {

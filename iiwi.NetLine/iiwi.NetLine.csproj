@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="9.0.0" />
+    <PackageReference Include="Audit.EntityFramework.Core" Version="30.0.2" />
+    <PackageReference Include="Audit.WebApi.Core" Version="30.0.2" />
     <PackageReference Include="Carter" Version="9.0.0" />
     <PackageReference Include="DotNetCore.Mediator" Version="19.14.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.4" />

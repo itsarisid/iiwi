@@ -27,12 +27,12 @@ public class PermissionHandler(
                 Message = "Not Found"
             });
         }
-        var response = await permission.GetPermissionsByRoleIdAsync(role.Id);
+        //var response = await permission.GetPermissionsByRoleIdAsync(role.Id);
 
         return new Result<PermissionResponse>(HttpStatusCode.OK, new PermissionResponse
         {
             Message = "Permissions list",
-            Permissions = [.. response.Select(rp => rp.Permission.CodeName)]
+            Permissions = []
         });
     }
 }
