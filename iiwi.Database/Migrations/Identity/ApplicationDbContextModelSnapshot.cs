@@ -253,77 +253,6 @@ namespace iiwi.Database.Migrations.Identity
                     b.ToTable("UserTokens", "Identity");
                 });
 
-            modelBuilder.Entity("iiwi.Domain.Logs.ApiLog", b =>
-                {
-                    b.Property<string>("TraceId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ActionName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("ActionParameters")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ControllerName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Exception")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FormVariables")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Headers")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HttpMethod")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<long>("Id")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("IpAddress")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("ModelStateErrors")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("ModelStateValid")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("RequestUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ResponseHeaders")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ResponseStatus")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("ResponseStatusCode")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("TraceId");
-
-                    b.ToTable("ApiLogs", "Identity");
-                });
-
             modelBuilder.Entity("iiwi.Domain.Logs.AuditLog", b =>
                 {
                     b.Property<long>("Id")
@@ -332,27 +261,36 @@ namespace iiwi.Database.Migrations.Identity
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<string>("AuditAction")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ActionType")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
-                    b.Property<string>("AuditData")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ChangedData")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ChangedDataJson");
 
-                    b.Property<DateTime>("AuditDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("AuditUser")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("EntityName")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("EntityType")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("PerformedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("RecordId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TablePk")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("EventTimestamp");
 
                     b.HasKey("Id");
 
-                    b.ToTable("AuditLog", "Identity");
+                    b.ToTable("Audit", "Log");
                 });
 
             modelBuilder.Entity("iiwi.Domain.Permission", b =>
@@ -457,59 +395,6 @@ namespace iiwi.Database.Migrations.Identity
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("iiwi.Domain.Logs.ApiLog", b =>
-                {
-                    b.OwnsOne("iiwi.Domain.Logs.BodyContent", "RequestBody", b1 =>
-                        {
-                            b1.Property<string>("ApiLogId")
-                                .HasColumnType("nvarchar(450)");
-
-                            b1.Property<long?>("Length")
-                                .HasColumnType("bigint");
-
-                            b1.Property<string>("Type")
-                                .HasMaxLength(50)
-                                .HasColumnType("nvarchar(50)");
-
-                            b1.Property<string>("Value")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("ApiLogId");
-
-                            b1.ToTable("ApiLog_Requeses", "Identity");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ApiLogId");
-                        });
-
-                    b.OwnsOne("iiwi.Domain.Logs.BodyContent", "ResponseBody", b1 =>
-                        {
-                            b1.Property<string>("ApiLogId")
-                                .HasColumnType("nvarchar(450)");
-
-                            b1.Property<long?>("Length")
-                                .HasColumnType("bigint");
-
-                            b1.Property<string>("Type")
-                                .HasMaxLength(50)
-                                .HasColumnType("nvarchar(50)");
-
-                            b1.Property<string>("Value")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("ApiLogId");
-
-                            b1.ToTable("ApiLog_Responses", "Identity");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ApiLogId");
-                        });
-
-                    b.Navigation("RequestBody");
-
-                    b.Navigation("ResponseBody");
                 });
 
             modelBuilder.Entity("iiwi.Domain.Permission", b =>

@@ -12,7 +12,30 @@ namespace iiwi.Database.Migrations.Identity
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
+                name: "Log");
+
+            migrationBuilder.EnsureSchema(
                 name: "Identity");
+
+            migrationBuilder.CreateTable(
+                name: "Audit",
+                schema: "Log",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ChangedDataJson = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntityType = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    EntityName = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    EventTimestamp = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ActionType = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    RecordId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PerformedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Audit", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Role",
@@ -139,7 +162,6 @@ namespace iiwi.Database.Migrations.Identity
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CodeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -179,12 +201,14 @@ namespace iiwi.Database.Migrations.Identity
                 schema: "Identity",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRole", x => new { x.UserId, x.RoleId });
+                    table.PrimaryKey("PK_UserRole", x => x.Id);
                     table.ForeignKey(
                         name: "FK_UserRole_Role_RoleId",
                         column: x => x.RoleId,
@@ -221,34 +245,6 @@ namespace iiwi.Database.Migrations.Identity
                         principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RolePermission",
-                schema: "Identity",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<int>(type: "int", nullable: true),
-                    PermissionId = table.Column<long>(type: "bigint", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RolePermission", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RolePermission_Permission_PermissionId",
-                        column: x => x.PermissionId,
-                        principalSchema: "Identity",
-                        principalTable: "Permission",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_RolePermission_Role_RoleId",
-                        column: x => x.RoleId,
-                        principalSchema: "Identity",
-                        principalTable: "Role",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -296,18 +292,6 @@ namespace iiwi.Database.Migrations.Identity
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RolePermission_PermissionId",
-                schema: "Identity",
-                table: "RolePermission",
-                column: "PermissionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RolePermission_RoleId",
-                schema: "Identity",
-                table: "RolePermission",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 schema: "Identity",
                 table: "User",
@@ -338,6 +322,10 @@ namespace iiwi.Database.Migrations.Identity
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Audit",
+                schema: "Log");
+
+            migrationBuilder.DropTable(
                 name: "Claims",
                 schema: "Identity");
 
@@ -346,11 +334,11 @@ namespace iiwi.Database.Migrations.Identity
                 schema: "Identity");
 
             migrationBuilder.DropTable(
-                name: "RoleClaims",
+                name: "Permission",
                 schema: "Identity");
 
             migrationBuilder.DropTable(
-                name: "RolePermission",
+                name: "RoleClaims",
                 schema: "Identity");
 
             migrationBuilder.DropTable(
@@ -359,10 +347,6 @@ namespace iiwi.Database.Migrations.Identity
 
             migrationBuilder.DropTable(
                 name: "UserTokens",
-                schema: "Identity");
-
-            migrationBuilder.DropTable(
-                name: "Permission",
                 schema: "Identity");
 
             migrationBuilder.DropTable(

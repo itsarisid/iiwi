@@ -12,8 +12,8 @@ using iiwi.Database;
 namespace iiwi.Database.Migrations.Identity
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250630090602_InitialCreate_v1")]
-    partial class InitialCreate_v1
+    [Migration("20250721070250_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -216,13 +216,19 @@ namespace iiwi.Database.Migrations.Identity
 
             modelBuilder.Entity("iiwi.Domain.Identity.ApplicationUserRole", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId", "RoleId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("RoleId");
 
@@ -248,6 +254,46 @@ namespace iiwi.Database.Migrations.Identity
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("UserTokens", "Identity");
+                });
+
+            modelBuilder.Entity("iiwi.Domain.Logs.AuditLog", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("ActionType")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("ChangedData")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ChangedDataJson");
+
+                    b.Property<string>("EntityName")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("EntityType")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("PerformedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("RecordId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("EventTimestamp");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Audit", "Log");
                 });
 
             modelBuilder.Entity("iiwi.Domain.Permission", b =>
@@ -282,9 +328,6 @@ namespace iiwi.Database.Migrations.Identity
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("UpdateByUserId")
                         .HasColumnType("int");
 
@@ -300,29 +343,6 @@ namespace iiwi.Database.Migrations.Identity
                     b.HasIndex("UpdateByUserId");
 
                     b.ToTable("Permission", "Identity");
-                });
-
-            modelBuilder.Entity("iiwi.Domain.RolePermission", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("PermissionId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int?>("RoleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "PermissionId" }, "IX_RolePermission_PermissionId");
-
-                    b.HasIndex(new[] { "RoleId" }, "IX_RolePermission_RoleId");
-
-                    b.ToTable("RolePermission", "Identity");
                 });
 
             modelBuilder.Entity("iiwi.Domain.Identity.ApplicationRoleClaim", b =>
@@ -401,38 +421,14 @@ namespace iiwi.Database.Migrations.Identity
                     b.Navigation("UpdateByUser");
                 });
 
-            modelBuilder.Entity("iiwi.Domain.RolePermission", b =>
-                {
-                    b.HasOne("iiwi.Domain.Permission", "Permission")
-                        .WithMany("RolePermissions")
-                        .HasForeignKey("PermissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("iiwi.Domain.Identity.ApplicationRole", "Role")
-                        .WithMany("RolePermissions")
-                        .HasForeignKey("RoleId");
-
-                    b.Navigation("Permission");
-
-                    b.Navigation("Role");
-                });
-
             modelBuilder.Entity("iiwi.Domain.Identity.ApplicationRole", b =>
                 {
-                    b.Navigation("RolePermissions");
-
                     b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("iiwi.Domain.Identity.ApplicationUser", b =>
                 {
                     b.Navigation("UserRoles");
-                });
-
-            modelBuilder.Entity("iiwi.Domain.Permission", b =>
-                {
-                    b.Navigation("RolePermissions");
                 });
 #pragma warning restore 612, 618
         }

@@ -30,7 +30,7 @@ public class MailService(IOptions<MailSettings> mailSettings) : IMailService
                 {
                     using (var ms = new MemoryStream())
                     {
-                        file.CopyTo(ms);
+                        await file.CopyToAsync(ms);
                         fileBytes = ms.ToArray();
                     }
                     builder.Attachments.Add(file.FileName, fileBytes, ContentType.Parse(file.ContentType));
@@ -41,10 +41,10 @@ public class MailService(IOptions<MailSettings> mailSettings) : IMailService
         builder.HtmlBody = mailRequest.Body;
         email.Body = builder.ToMessageBody();
         using var smtp = new SmtpClient();
-        smtp.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.StartTls);
-        smtp.Authenticate(_mailSettings.Mail, _mailSettings.Password);
+        await smtp.ConnectAsync(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.StartTls);
+        await smtp.AuthenticateAsync(_mailSettings.Mail, _mailSettings.Password);
         await smtp.SendAsync(email);
-        smtp.Disconnect(true);
+        await smtp.DisconnectAsync(true);
     }
 
     public async Task SendEmailWithTemplateAsync(EmailSettings model)
@@ -62,7 +62,7 @@ public class MailService(IOptions<MailSettings> mailSettings) : IMailService
         if (parser.TryParse(doc.Text, out var template, out var error))
         {
             var context = new TemplateContext(model.Model);
-            var emailBody = template.Render(context);
+            var emailBody = await template.RenderAsync(context);
 
             foreach (var email in model.Emails)
             {
