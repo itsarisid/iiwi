@@ -71,9 +71,9 @@ app.UseResponseCompression();
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 app.UseOutputCache();
-app.MapGroup("/auth").MapMyIdentityApi<ApplicationUser>().WithTags("Identity");
+app.UseIdentity();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapCarter();
 
-app.Run();
+await app.RunAsync();

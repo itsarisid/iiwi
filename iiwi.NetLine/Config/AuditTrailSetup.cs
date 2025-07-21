@@ -50,15 +50,15 @@ public static class AuditTrailSetup
                 .AuditTypeMapper(t => typeof(Domain.Logs.AuditLog))
                 .AuditEntityAction<Domain.Logs.AuditLog>((ev, entry, entity) =>
                 {
-                    entity.AuditData = entry.ToJson();
+                    entity.ChangedData = entry.ToJson();
                     entity.EntityType = entry.EntityType.Name;
-                    entity.AuditDate = DateTime.Now;
-                    entity.AuditUser = Environment.UserName;
-                    //entity.AuditUser = Environment.MachineName;
-                    //entity.IPAddress = Environment.IpAddress;
-                    entity.AuditAction = entry.Action.ToString();
+                    entity.EntityName = entry.Name;
+                    entity.Timestamp = DateTime.Now;
+                    entity.PerformedBy = Environment.UserName;
+                    entity.ActionType = entry.Action.ToString();
+
                     // If the primary key is a composite key, we can only take the first value.
-                    entity.TablePk = entry.PrimaryKey.First().Value.ToString();
+                    entity.RecordId = entry.PrimaryKey.First().Value.ToString();
                 })
                 .IgnoreMatchedProperties(true)
 

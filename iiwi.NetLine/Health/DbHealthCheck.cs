@@ -12,9 +12,8 @@ public class DbHealthCheck: IHealthCheck
     public Task<HealthCheckResult> CheckHealthAsync(
         HealthCheckContext context, CancellationToken cancellationToken = default)
     {
+        //FIXME: Here you would typically check the health of a database connection or similar resource.
         var isHealthy = true;
-
-        // ...
 
         if (isHealthy)
         {

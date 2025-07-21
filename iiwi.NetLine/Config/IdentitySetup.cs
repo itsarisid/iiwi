@@ -71,4 +71,12 @@ public static class IdentitySetup
          .AddEntityFrameworkStores<ApplicationDbContext>();
         return services;
     }
+
+    public static void UseIdentity(this WebApplication app)
+    {
+        ArgumentNullException.ThrowIfNull(app);
+        app.MapGroup("/auth")
+           .MapMyIdentityApi<ApplicationUser>()
+           .WithTags("Identity");
+    }
 }

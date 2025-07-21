@@ -20,14 +20,13 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
 
     // NOTE: These logs should move to diffrent DbContext 
     public DbSet<AuditLog> AuditLog { get; set; }
-    public DbSet<ApiLog> ApiLog { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
 
-        builder.HasDefaultSchema(General.IdentitySchemaName);
+        builder.HasDefaultSchema(General.Schema.Identity);
 
         // Customize the ASP.NET Identity model and override the defaults if needed.
         // For example, you can rename the ASP.NET Identity table names and more.
@@ -92,24 +91,30 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
 
         builder.Entity<AuditLog>(entity =>
         {
-            entity.ToTable("AuditLog");
-        });
+            // Configure the table name and schema
+            entity.ToTable("Audit", General.Schema.Log); // "auditing" is the custom schema name
 
-        builder.Entity<ApiLog>(entity =>
-        {
-            entity.ToTable("ApiLogs");
+            // Optional: Add additional configuration for columns if needed
+            entity.Property(e => e.ChangedData)
+                .HasColumnName("ChangedDataJson")  // Custom column name
+                .HasColumnType("nvarchar(max)");      // Explicit data type
 
-            entity.OwnsOne(a => a.RequestBody, requestBody =>
-            {
-                requestBody.ToTable("ApiLog_Requeses");
-                requestBody.WithOwner().HasForeignKey("ApiLogId");
-            });
+            entity.Property(e => e.EntityType)
+                .HasMaxLength(100);                // Add length constraint
 
-            entity.OwnsOne(a => a.ResponseBody, responseBody =>
-            {
-                responseBody.ToTable("ApiLog_Responses");
-                responseBody.WithOwner().HasForeignKey("ApiLogId");
-            });
+            entity.Property(e => e.EntityName)
+                .HasMaxLength(128);
+
+            entity.Property(e => e.ActionType)
+                .HasMaxLength(20);
+            
+            entity.Property(e => e.RecordId);
+
+            entity.Property(e => e.PerformedBy)
+                .HasMaxLength(100);
+
+            entity.Property(e => e.Timestamp)
+                .HasColumnName("EventTimestamp");  // Custom column name
         });
     }
 }
