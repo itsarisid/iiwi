@@ -85,7 +85,19 @@ public static class AuditTrailSetup
     {
         Audit.Core.Configuration.JsonSettings.WriteIndented = true;
         services.AddSingleton<AuditDataProvider>(new FileDataProvider(cfg => cfg
-            .Directory(Environment.CurrentDirectory + @"\Logs\Audit")
+public static IServiceCollection AddAuditDataProvider(this IServiceCollection services, IConfiguration configuration)
+{
+    Audit.Core.Configuration.JsonSettings.WriteIndented = true;
+
+    var auditLogDirectory = configuration.GetValue<string>("AuditLog:Directory")
+                           ?? Path.Combine(Environment.CurrentDirectory, General.Directories.Logs, General.Directories.Audit);
+
+    services.AddSingleton<AuditDataProvider>(new FileDataProvider(cfg => cfg
+        .Directory(auditLogDirectory)
+        .FilenameBuilder(ev => $"{ev.StartDate:yyyyMMddHHmmssffff}.json")));
+
+    return services;
+}
             .FilenameBuilder(ev => $"{ev.StartDate:yyyyMMddHHmmssffff}.json")));
 
         return services;
