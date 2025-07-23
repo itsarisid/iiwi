@@ -32,7 +32,7 @@ var config = builder.Configuration;
 builder.Services.AddIdentity(config);
 
 //builder.Services.AddAuditDataProvider();
-builder.Services.AddAuditTrail();
+builder.Services.AddAuditTrail(config);
 
 builder.Services.AddAppServiceses(config);
 

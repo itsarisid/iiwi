@@ -2,6 +2,7 @@
 using Audit.Core.Providers;
 using Audit.EntityFramework.Providers;
 using Audit.WebApi;
+using iiwi.Common;
 using iiwi.Database;
 using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,9 +18,12 @@ public static class AuditTrailSetup
     ///   <br />
     /// </returns>
     /// <exception cref="System.ArgumentNullException">app</exception>
-    public static void AddAuditTrail(this IServiceCollection services)
+    public static void AddAuditTrail(this IServiceCollection services, IConfiguration configuration)
     {
         ArgumentNullException.ThrowIfNull(services);
+
+        var auditLogDirectory = configuration.GetValue<string>("AuditLog:Directory")
+                           ?? Path.Combine(Environment.CurrentDirectory, General.Directories.Logs, General.Directories.Audit); // Default fallback
 
         Configuration.JsonSettings = new JsonSerializerOptions
         {
@@ -34,7 +38,7 @@ public static class AuditTrailSetup
                 .Override(user => user.PasswordHash, null)
                 .Format(user => user.Gender, pass => new String('*', pass.Length)))
                .IncludeEntityObjects()
-               .AuditEventType("{context}:{database}"))
+               .AuditEventType("{ context}:{database}"))
                .UseOptOut()
                    .IgnoreAny(t => t.Name.EndsWith("History"));
 
@@ -44,7 +48,7 @@ public static class AuditTrailSetup
             .IncludeStackTrace()
             .UseConditional(c => c
                 .When(ev => ev.EventType.StartsWith("HTTP"), new FileDataProvider(cfg => cfg
-                    .Directory(@"D:\logs")
+                    .Directory(auditLogDirectory)
                     .FilenameBuilder(ev => $"{ev.StartDate:yyyyMMddHHmmssffff}.json")))
                 .Otherwise(new EntityFrameworkDataProvider(_ => _
                 .AuditTypeMapper(t => typeof(Domain.Logs.AuditLog))
@@ -80,9 +84,8 @@ public static class AuditTrailSetup
     public static IServiceCollection AddAuditDataProvider(this IServiceCollection services)
     {
         Audit.Core.Configuration.JsonSettings.WriteIndented = true;
-
         services.AddSingleton<AuditDataProvider>(new FileDataProvider(cfg => cfg
-            .Directory(@"D:\logs")
+            .Directory(Environment.CurrentDirectory + @"\Logs\Audit")
             .FilenameBuilder(ev => $"{ev.StartDate:yyyyMMddHHmmssffff}.json")));
 
         return services;
@@ -107,7 +110,8 @@ public static class AuditTrailSetup
     public static IApplicationBuilder UseAuditTrail(this WebApplication app)
     {
         ArgumentNullException.ThrowIfNull(app);
-        app.Use(async (context, next) => {  
+        app.Use(async (context, next) =>
+        {
             context.Request.EnableBuffering(); // or .EnableRewind();
             await next();
         });
