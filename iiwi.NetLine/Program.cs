@@ -1,79 +1,101 @@
-using iiwi.Domain.Identity;
-using Microsoft.AspNetCore.HttpLogging;
+using iiwi.NetLine.Extensions;
 using Serilog;
 
+// Initialize the web application builder with configuration from appsettings, environment variables, etc.
 var builder = WebApplication.CreateBuilder(args);
 
-//NOTE: Add services to the container.
+/**********************************************
+ * SERVICE CONFIGURATION SECTION
+ **********************************************/
 
-//Add support to logging with SERILOG
+// Configure Serilog for advanced structured logging
+// Reads configuration from Logging section in appsettings.json
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
 
-//builder.Services.AddHttpLogging(logging =>
-//{
-//    logging.LoggingFields = HttpLoggingFields.All;
-//    logging.RequestHeaders.Add("sec-ch-ua");
-//    logging.ResponseHeaders.Add("MyResponseHeader");
-//    logging.MediaTypeOptions.AddText("application/javascript");
-//    logging.RequestBodyLogLimit = 4096;
-//    logging.ResponseBodyLogLimit = 4096;
-//    logging.CombineLogs = true;
-//});
+/* 
+ * HTTP logging configuration (commented out as alternative to Serilog)
+ * Uncomment to enable detailed HTTP request/response logging
+builder.Services.AddHttpLogging(logging =>
+{
+    logging.LoggingFields = HttpLoggingFields.All;
+    logging.RequestHeaders.Add("sec-ch-ua");
+    logging.ResponseHeaders.Add("MyResponseHeader");
+    logging.MediaTypeOptions.AddText("application/javascript");
+    logging.RequestBodyLogLimit = 4096;
+    logging.ResponseBodyLogLimit = 4096;
+    logging.CombineLogs = true;
+});
+*/
 
+// Enable response compression for better performance
 builder.Services.AddResponseCompression();
+
+// Add API endpoint explorer for Swagger/OpenAPI documentation
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddApiDocuments();
-builder.Services.AddAppCookies();
+// Register application-specific services
+builder.Services.AddApiDocuments();      // API documentation (Swagger/OpenAPI)
+builder.Services.AddAppCookies();        // Cookie policy configuration
 
-var config = builder.Configuration;
+var config = builder.Configuration;      // Shortcut to configuration root
 
+// Configure Identity system with application-specific settings
 builder.Services.AddIdentity(config);
 
-//builder.Services.AddAuditDataProvider();
-builder.Services.AddAuditTrail(config);
+// Configure audit trail functionality
+//builder.Services.AddAuditDataProvider();  // Basic version
+builder.Services.AddAuditTrail(config);   // Enhanced version with config
 
-builder.Services.AddAppServiceses(config);
+// Register core application services
+builder.Services.AddAppServiceses(config); // Main business logic services
+builder.Services.AddAuthorization();      // Authorization policies
+builder.Services.AddAppCache();           // Caching infrastructure
+builder.Services.AddMediator(nameof(iiwi)); // MediatR for CQRS
+builder.Services.AddCarter();             // Carter module system
+builder.Services.AddProblemDetails();     // Standardized error responses
 
-builder.Services.AddAuthorization();
-builder.Services.AddAppCache();
-builder.Services.AddMediator(nameof(iiwi));
-builder.Services.AddCarter();
-builder.Services.AddProblemDetails();
-
+// Configure health checks for monitoring
 builder.AddAppHealthChecks();
 
+// Configure CORS to allow all origins (adjust for production!)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", o =>
     {
-            o.AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader();
+        o.AllowAnyOrigin()
+         .AllowAnyMethod()
+         .AllowAnyHeader();
     });
 });
 
-/*****************
- APPLICATIONS
- *****************/
-
+/**********************************************
+ * APPLICATION BUILD SECTION
+ **********************************************/
 
 var app = builder.Build();
 
+// Environment-specific middleware (development-only features)
 app.MapEnvironment();
 
+// Configure audit trail middleware
 app.UseAuditTrail();
-//app.UseHttpLogging();
-//Add support to logging request with SERILOG
-app.UseSerilogRequestLogging();
-app.UseResponseCompression();
-app.UseHttpsRedirection();
-app.UseCors("AllowAll");
-app.UseOutputCache();
-app.UseIdentity();
-app.UseAuthentication();
-app.UseAuthorization();
-app.MapCarter();
 
+// Configure logging middleware
+//app.UseHttpLogging();                   // Alternative HTTP logging
+app.UseSerilogRequestLogging();          // Structured request logging with Serilog
+
+// Configure application pipeline
+app.UseResponseCompression();            // Enable response compression
+app.UseHttpsRedirection();               // Force HTTPS
+app.UseCors("AllowAll");                 // Apply CORS policy
+app.UseOutputCache();                    // Enable response caching
+app.UseIdentity();                       // Apply identity system
+app.UseAuthentication();                 // Enable authentication
+app.UseAuthorization();                  // Enable authorization
+
+// Configure endpoints
+app.MapCarter();                         // Map Carter modules as endpoints
+
+// Start the application
 await app.RunAsync();
