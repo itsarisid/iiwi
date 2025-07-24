@@ -64,7 +64,11 @@ public class AuthorizeAttribute : TypeFilterAttribute
 /// </remarks>
 /// <param name="_item">The resource type to check</param>
 /// <param name="_action">The action to verify</param>
-public class AuthorizeActionFilter(PermissionItem _item, PermissionAction _action) : IAuthorizationFilter
+public class AuthorizeActionFilter(
+    PermissionItem _item, 
+    PermissionAction _action,
+    IPermissionService permissionService,
+    ILogger<AuthorizeActionFilter> logger) : IAuthorizationFilter
 {
     /// <summary>
     /// Called when authorization is required
