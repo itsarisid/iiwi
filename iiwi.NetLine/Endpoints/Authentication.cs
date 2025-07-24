@@ -1,158 +1,308 @@
 ﻿using iiwi.Model;
 
+/// <summary>
+/// Contains endpoints for authentication management and security features
+/// </summary>
+/// <remarks>
+/// This group handles all authentication-related operations including:
+/// <list type="bullet">
+/// <item><description>Two-factor authentication setup and management</description></item>
+/// <item><description>External login provider integration</description></item>
+/// <item><description>Password management</description></item>
+/// <item><description>Account security status</description></item>
+/// </list>
+/// All endpoints require authentication unless noted otherwise.
+/// </remarks>
 public static class Authentication
 {
     /// <summary>
-    /// Metadata for the Authentication group.
+    /// Group information for Authentication endpoints
     /// </summary>
+    /// <remarks>
+    /// Collection of endpoints that manage:
+    /// <list type="bullet">
+    /// <item><description>Multi-factor authentication configuration</description></item>
+    /// <item><description>External identity provider integration</description></item>
+    /// <item><description>Password security controls</description></item>
+    /// <item><description>Account security status</description></item>
+    /// </list>
+    /// </remarks>
     public static EndpointDetails Group => new()
     {
         Name = "Authentication",
         Tags = "Authentication",
-        Summary = "Authentication Endpoints",
-        Description = "This group contains all the endpoints related to user authentication, login providers, two-factor auth, and security settings."
+        Summary = "Auth Management",
+        Description = "Endpoints for managing authentication methods and security settings."
     };
 
     /// <summary>
-    /// Returns the key and QR code URI for setting up authenticator apps.
+    /// Retrieves authenticator setup data
     /// </summary>
+    /// <remarks>
+    /// Returns all required information for setting up an authenticator app:
+    /// <list type="bullet">
+    /// <item><description>Shared secret key</description></item>
+    /// <item><description>QR code URI for quick setup</description></item>
+    /// <item><description>Manual entry code</description></item>
+    /// </list>
+    /// This is the first step in enabling two-factor authentication.
+    /// Requires authentication.
+    /// </remarks>
     public static EndpointDetails LoadKeyAndQrCodeUri => new()
     {
         Endpoint = "/load-key",
-        Name = "Load Key and QR Code URI",
-        Summary = "Returns the key and QR code URI for setting up authenticator apps.",
-        Description = "Used during 2FA setup to get the secret key and QR code URI required for apps like Google Authenticator."
+        Name = "Get Authenticator Setup",
+        Summary = "Get 2FA setup data",
+        Description = "Retrieves secret key and QR code for authenticator app setup."
     };
 
     /// <summary>
-    /// Finalizes 2FA setup using a code from the authenticator app.
+    /// Activates two-factor authentication
     /// </summary>
+    /// <remarks>
+    /// Completes 2FA setup by:
+    /// <list type="bullet">
+    /// <item><description>Verifying a test code from authenticator app</description></item>
+    /// <item><description>Persisting the 2FA configuration</description></item>
+    /// <item><description>Generating initial recovery codes</description></item>
+    /// </list>
+    /// After successful activation, 2FA will be required at next login.
+    /// Requires authentication.
+    /// </remarks>
     public static EndpointDetails EnableAuthenticator => new()
     {
         Endpoint = "/enable-authenticator",
-        Name = "Enable Authenticator",
-        Summary = "Enables two-factor authentication for the current user.",
-        Description = "Verifies a code from the authenticator app and enables 2FA for the user's account."
+        Name = "Enable 2FA",
+        Summary = "Activate authenticator",
+        Description = "Verifies authenticator code and enables two-factor authentication."
     };
 
     /// <summary>
-    /// Lists external login providers linked to the user's account.
+    /// Lists connected external logins
     /// </summary>
+    /// <remarks>
+    /// Returns all external identity providers currently linked to the account:
+    /// <list type="bullet">
+    /// <item><description>Provider names (Google, Facebook, etc.)</description></item>
+    /// <item><description>Provider keys</description></item>
+    /// <item><description>Link creation dates</description></item>
+    /// </list>
+    /// Requires authentication.
+    /// </remarks>
     public static EndpointDetails ExternalLogins => new()
     {
         Endpoint = "/external-logins",
-        Name = "External Logins",
-        Summary = "Lists external login providers linked to the user account.",
-        Description = "Returns a list of OAuth-based logins (e.g., Google, Facebook) associated with the user."
+        Name = "Get External Logins",
+        Summary = "List connected logins",
+        Description = "Retrieves all linked external authentication providers."
     };
 
     /// <summary>
-    /// Removes a linked external login from the user's account.
+    /// Removes external login connection
     /// </summary>
+    /// <remarks>
+    /// Unlinks specified external provider from user account.
+    /// <para>
+    /// Important considerations:
+    /// </para>
+    /// <list type="bullet">
+    /// <item><description>Cannot remove last login method if no password set</description></item>
+    /// <item><description>May require alternative login setup</description></item>
+    /// </list>
+    /// Requires authentication.
+    /// </remarks>
     public static EndpointDetails RemoveLogin => new()
     {
         Endpoint = "/remove-login",
-        Name = "Remove Login",
-        Summary = "Removes a linked external login from the user account.",
-        Description = "Unlinks an external provider from the user's account."
+        Name = "Remove External Login",
+        Summary = "Unlink provider",
+        Description = "Disconnects an external identity provider from the account."
     };
 
     /// <summary>
-    /// Starts the linking process for an external login.
+    /// Initiates external login connection
     /// </summary>
+    /// <remarks>
+    /// Begins OAuth flow to link new external provider:
+    /// <list type="bullet">
+    /// <item><description>Redirects to provider's auth page</description></item>
+    /// <item><description>Requires callback to complete</description></item>
+    /// </list>
+    /// Typically followed by <see cref="LinkLoginCallback"/>.
+    /// Requires authentication.
+    /// </remarks>
     public static EndpointDetails LinkLogin => new()
     {
         Endpoint = "/link-login",
         Name = "Link External Login",
-        Summary = "Initiates the linking of an external login provider.",
-        Description = "Redirects to the provider's auth page to link a new login to the user account."
+        Summary = "Connect new provider",
+        Description = "Initiates linking of a new external authentication provider."
     };
 
     /// <summary>
-    /// Callback endpoint for completing external login linking.
+    /// Completes external login connection
     /// </summary>
+    /// <remarks>
+    /// Finalizes OAuth flow to link external provider.
+    /// <para>
+    /// Handles:
+    /// </para>
+    /// <list type="bullet">
+    /// <item><description>OAuth callback from provider</description></item>
+    /// <item><description>Token validation</description></item>
+    /// <item><description>Account linking</description></item>
+    /// </list>
+    /// Requires prior initiation via <see cref="LinkLogin"/>.
+    /// </remarks>
     public static EndpointDetails LinkLoginCallback => new()
     {
         Endpoint = "/link-login-callback",
-        Name = "Link Login Callback",
-        Summary = "Callback endpoint for external login linking.",
-        Description = "Finalizes the linking of an external login after successful authentication."
+        Name = "External Login Callback",
+        Summary = "Complete provider link",
+        Description = "Finalizes linking of external authentication provider."
     };
 
     /// <summary>
-    /// Generates one-time recovery codes for 2FA recovery.
+    /// Creates new 2FA recovery codes
     /// </summary>
+    /// <remarks>
+    /// Generates one-time use backup codes with:
+    /// <list type="bullet">
+    /// <item><description>10 new codes by default</description></item>
+    /// <item><description>Single-use each</description></item>
+    /// <item><description>Immediately invalidates old codes</description></item>
+    /// </list>
+    /// Users should store these securely.
+    /// Requires authentication and 2FA setup.
+    /// </remarks>
     public static EndpointDetails GenerateRecoveryCodes => new()
     {
         Endpoint = "/generate-recovery-codes",
         Name = "Generate Recovery Codes",
-        Summary = "Generates backup codes for 2FA recovery.",
-        Description = "Provides a list of single-use recovery codes to regain access if 2FA is lost. Should be stored securely."
+        Summary = "Create backup codes",
+        Description = "Generates new set of two-factor authentication recovery codes."
     };
 
     /// <summary>
-    /// Resets the current authenticator key, disabling 2FA.
+    /// Resets authenticator configuration
     /// </summary>
+    /// <remarks>
+    /// Clears current 2FA setup by:
+    /// <list type="bullet">
+    /// <item><description>Invalidating authenticator key</description></item>
+    /// <item><description>Disabling 2FA</description></item>
+    /// <item><description>Invalidating recovery codes</description></item>
+    /// </list>
+    /// Used when switching authenticator devices or apps.
+    /// Requires authentication.
+    /// </remarks>
     public static EndpointDetails ResetAuthenticator => new()
     {
         Endpoint = "/reset-authenticator",
         Name = "Reset Authenticator",
-        Summary = "Resets the authenticator key for 2FA.",
-        Description = "Disables 2FA and clears the old key. Use this if changing devices or switching to a different app."
+        Summary = "Reset 2FA setup",
+        Description = "Clears current authenticator configuration and disables 2FA."
     };
 
     /// <summary>
-    /// Sets a new password for the user (typically used after external login setup).
+    /// Establishes local account password
     /// </summary>
+    /// <remarks>
+    /// Creates password for accounts that:
+    /// <list type="bullet">
+    /// <item><description>Were created via external login</description></item>
+    /// <item><description>Need local authentication method</description></item>
+    /// </list>
+    /// Enables login without external provider.
+    /// Requires authentication.
+    /// </remarks>
     public static EndpointDetails SetPassword => new()
     {
         Endpoint = "/set-password",
         Name = "Set Password",
-        Summary = "Sets a new password for the user.",
-        Description = "Allows password creation for accounts created via external login methods."
+        Summary = "Create password",
+        Description = "Establishes local account password for external login accounts."
     };
 
     /// <summary>
-    /// Allows the user to change their current password.
+    /// Updates account password
     /// </summary>
+    /// <remarks>
+    /// Changes existing password after verifying:
+    /// <list type="bullet">
+    /// <item><description>Current password</description></item>
+    /// <item><description>New password meets complexity rules</description></item>
+    /// </list>
+    /// Invalidates all refresh tokens after change.
+    /// Requires authentication.
+    /// </remarks>
     public static EndpointDetails ChangePassword => new()
     {
         Endpoint = "/change-password",
         Name = "Change Password",
-        Summary = "Changes the user’s password.",
-        Description = "Lets the user update their account password. Typically used after login, or during a security update."
+        Summary = "Update password",
+        Description = "Modifies the account's authentication password."
     };
 
     /// <summary>
-    /// Returns current authentication and security settings of the user.
+    /// Retrieves security status
     /// </summary>
+    /// <remarks>
+    /// Returns current authentication configuration:
+    /// <list type="bullet">
+    /// <item><description>2FA enabled status</description></item>
+    /// <item><description>Linked external providers</description></item>
+    /// <item><description>Password set status</description></item>
+    /// <item><description>Recovery codes remaining</description></item>
+    /// </list>
+    /// Requires authentication.
+    /// </remarks>
     public static EndpointDetails AccountStatus => new()
     {
         Endpoint = "/account-status",
-        Name = "Account Status",
-        Summary = "Returns the current authentication status of the account.",
-        Description = "Indicates whether 2FA is enabled, external logins exist, and other auth details."
+        Name = "Get Security Status",
+        Summary = "View auth settings",
+        Description = "Retrieves current authentication configuration and status."
     };
 
     /// <summary>
-    /// Removes the 'trusted' status from the current browser for 2FA.
+    /// Revokes browser trust
     /// </summary>
+    /// <remarks>
+    /// Removes "remember this browser" status by:
+    /// <list type="bullet">
+    /// <item><description>Clearing browser cookie</description></item>
+    /// <item><description>Requiring 2FA on next login</description></item>
+    /// </list>
+    /// Used when accessing account from shared or public devices.
+    /// Requires authentication.
+    /// </remarks>
     public static EndpointDetails ForgotBrowser => new()
     {
         Endpoint = "/forgot-browser",
         Name = "Forget Browser",
-        Summary = "Removes trusted status from the current browser.",
-        Description = "Forces the browser to require 2FA verification at the next login, even if previously trusted."
+        Summary = "Revoke browser trust",
+        Description = "Removes trusted status from current browser for 2FA purposes."
     };
 
     /// <summary>
-    /// Disables two-factor authentication for the user's account.
+    /// Deactivates two-factor authentication
     /// </summary>
+    /// <remarks>
+    /// Turns off 2FA protection by:
+    /// <list type="bullet">
+    /// <item><description>Clearing authenticator key</description></item>
+    /// <item><description>Invalidating recovery codes</description></item>
+    /// <item><description>Disabling 2FA requirement</description></item>
+    /// </list>
+    /// Requires password verification.
+    /// Requires authentication.
+    /// </remarks>
     public static EndpointDetails Disable2fa => new()
     {
         Endpoint = "/disable-2fa",
-        Name = "Disable Two-Factor Authentication",
-        Summary = "Disables two-factor authentication for the user account.",
-        Description = "Deactivates 2FA protection. Only available to verified users."
+        Name = "Disable 2FA",
+        Summary = "Turn off two-factor",
+        Description = "Completely disables two-factor authentication for the account."
     };
 }

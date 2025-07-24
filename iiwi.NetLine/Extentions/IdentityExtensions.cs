@@ -16,18 +16,26 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using iiwi.NetLine.Extensions;
 
 
 /// <summary>
-/// Provides extension methods for <see cref="IEndpointRouteBuilder"/> to add identity endpoints.
+/// Provides extension methods for adding ASP.NET Core Identity endpoints
 /// </summary>
+/// <remarks>
+/// This class contains all the API endpoints for handling:
+/// - User registration and authentication
+/// - Email confirmation
+/// - Password management
+/// - Two-factor authentication
+/// </remarks>
 public static class IdentityExtensions
 {
     // Validate the email address using DataAnnotations like the UserValidator does when RequireUniqueEmail = true.
     private static readonly EmailAddressAttribute _emailAddressAttribute = new();
 
     /// <summary>
-    /// Add endpoints for registering, logging in, and logging out using ASP.NET Core Identity.
+    /// Maps all Identity-related endpoints to the route builder
     /// </summary>
     /// <typeparam name="TUser">The type describing the user. This should match the generic parameter in <see cref="UserManager{TUser}"/>.</typeparam>
     /// <param name="endpoints">
@@ -40,6 +48,7 @@ public static class IdentityExtensions
     {
         ArgumentNullException.ThrowIfNull(endpoints);
 
+        // Service initialization
         var timeProvider = endpoints.ServiceProvider.GetRequiredService<TimeProvider>();
         var bearerTokenOptions = endpoints.ServiceProvider.GetRequiredService<IOptionsMonitor<BearerTokenOptions>>();
         var emailSender = endpoints.ServiceProvider.GetRequiredService<IEmailSender<TUser>>();
@@ -50,8 +59,15 @@ public static class IdentityExtensions
 
         var routeGroup = endpoints.MapGroup(string.Empty).WithGroup(Identity.Group);
 
-        // NOTE: We cannot inject UserManager<TUser> directly because the TUser generic parameter is currently unsupported by RDG.
-        // https://github.com/dotnet/aspnetcore/issues/47338
+        /// <summary>
+        /// [POST] /register - Registers a new user account
+        /// </summary>
+        /// <remarks>
+        /// Creates a new user account with the provided credentials.
+        /// Sends a confirmation email if email confirmation is required.
+        /// </remarks>
+        /// <response code="200">User registered successfully</response>
+        /// <response code="400">Invalid registration data</response>
         routeGroup.MapPost(Identity.Register.Endpoint, async Task<Results<Ok, ValidationProblem>>
             ([FromBody] RegisterRequest registration, HttpContext context, [FromServices] IServiceProvider sp) =>
         {
@@ -85,6 +101,15 @@ public static class IdentityExtensions
             return TypedResults.Ok();
         }).WithDocumentation(Identity.Register);
 
+        /// <summary>
+        /// [POST] /login - Authenticates a user
+        /// </summary>
+        /// <remarks>
+        /// Validates user credentials and issues authentication tokens.
+        /// Supports both cookie and bearer token authentication schemes.
+        /// </remarks>
+        /// <response code="200">Authentication successful</response>
+        /// <response code="401">Invalid credentials</response>
         routeGroup.MapPost(Identity.Login.Endpoint, async Task<Results<Ok<AccessTokenResponse>, EmptyHttpResult, ProblemHttpResult>>
             ([FromBody] LoginRequest login, [FromQuery] bool? useCookies, [FromQuery] bool? useSessionCookies, [FromServices] IServiceProvider sp) =>
         {
@@ -117,6 +142,15 @@ public static class IdentityExtensions
             return TypedResults.Empty;
         }).WithDocumentation(Identity.Login);
 
+        /// <summary>
+        /// [POST] /logout - Ends the current user session
+        /// </summary>
+        /// <remarks>
+        /// Invalidates the current authentication session.
+        /// Requires an authenticated user.
+        /// </remarks>
+        /// <response code="200">Logout successful</response>
+        /// <response code="401">Unauthorized</response>
         routeGroup.MapPost(Identity.Logout.Endpoint, async ([FromServices] IServiceProvider sp) =>
         {
             var signInManager = sp.GetRequiredService<SignInManager<TUser>>();
@@ -127,6 +161,14 @@ public static class IdentityExtensions
         .RequireAuthorization()
         .WithDocumentation(Identity.Logout);
 
+        /// <summary>
+        /// [POST] /refresh - Renews authentication tokens
+        /// </summary>
+        /// <remarks>
+        /// Issues new access tokens using a valid refresh token.
+        /// </remarks>
+        /// <response code="200">New tokens issued</response>
+        /// <response code="401">Invalid refresh token</response>
         routeGroup.MapPost(Identity.Refresh.Endpoint, async Task<Results<Ok<AccessTokenResponse>, UnauthorizedHttpResult, SignInHttpResult, ChallengeHttpResult>>
             ([FromBody] RefreshRequest refreshRequest, [FromServices] IServiceProvider sp) =>
         {
@@ -147,6 +189,14 @@ public static class IdentityExtensions
             return TypedResults.SignIn(newPrincipal, authenticationScheme: IdentityConstants.BearerScheme);
         }).WithDocumentation(Identity.Refresh);
 
+        /// <summary>
+        /// [GET] /confirmEmail - Confirms a user's email address
+        /// </summary>
+        /// <remarks>
+        /// Validates an email confirmation token sent to the user.
+        /// </remarks>
+        /// <response code="200">Email confirmed</response>
+        /// <response code="401">Invalid confirmation token</response>
         routeGroup.MapGet(Identity.ConfirmEmail.Endpoint, async Task<Results<ContentHttpResult, UnauthorizedHttpResult>>
             ([FromQuery] string userId, [FromQuery] string code, [FromQuery] string changedEmail, [FromServices] IServiceProvider sp) =>
         {
@@ -199,6 +249,16 @@ public static class IdentityExtensions
             endpointBuilder.Metadata.Add(new EndpointNameMetadata(confirmEmailEndpointName));
         });
 
+        /// <summary>
+        /// [POST] /resendConfirmationEmail - Resends email confirmation link
+        /// </summary>
+        /// <remarks>
+        /// Resends the email confirmation link to the specified email address.
+        /// If no user exists with this email, returns success without action
+        /// to prevent email address enumeration.
+        /// </remarks>
+        /// <param name="resendRequest">Contains the email address to resend to</param>
+        /// <response code="200">Email resent if account exists</response>
         routeGroup.MapPost(Identity.ResendConfirmationEmail.Endpoint, async Task<Ok>
             ([FromBody] ResendConfirmationEmailRequest resendRequest, HttpContext context, [FromServices] IServiceProvider sp) =>
         {
@@ -212,6 +272,19 @@ public static class IdentityExtensions
             return TypedResults.Ok();
         }).WithDocumentation(Identity.ResendConfirmationEmail);
 
+        /// <summary>
+        /// [POST] /forgotPassword - Initiates password reset process
+        /// </summary>
+        /// <remarks>
+        /// Starts the password reset flow by sending a reset code to the user's email.
+        /// Always returns success to prevent email/account enumeration.
+        /// Only sends email if:
+        /// 1. Account exists
+        /// 2. Email is confirmed
+        /// </remarks>
+        /// <param name="resetRequest">Contains the account email address</param>
+        /// <response code="200">Request processed (email sent if valid account)</response>
+        /// <response code="400">Invalid email format</response>
         routeGroup.MapPost(Identity.ForgotPassword.Endpoint, async Task<Results<Ok, ValidationProblem>>
             ([FromBody] ForgotPasswordRequest resetRequest, [FromServices] IServiceProvider sp) =>
         {
@@ -231,6 +304,17 @@ public static class IdentityExtensions
             return TypedResults.Ok();
         }).WithDocumentation(Identity.ForgotPassword);
 
+        /// <summary>
+        /// [POST] /resetPassword - Completes password reset process
+        /// </summary>
+        /// <remarks>
+        /// Verifies the reset code and updates the user's password.
+        /// Requires valid reset token from email.
+        /// </remarks>
+        /// <param name="resetRequest">Contains reset code and new password</param>
+        /// <response code="200">Password reset successful</response>
+        /// <response code="400">Invalid reset token or password requirements not met</response>
+        /// <response code="404">User not found (treated as 400 for security)</response>
         routeGroup.MapPost(Identity.ResetPassword.Endpoint, async Task<Results<Ok, ValidationProblem>>
             ([FromBody] ResetPasswordRequest resetRequest, [FromServices] IServiceProvider sp) =>
         {
@@ -266,6 +350,18 @@ public static class IdentityExtensions
 
         var accountGroup = routeGroup.MapGroup("/manage").RequireAuthorization();
 
+        /// <summary>
+        /// [POST] /manage/2fa - Manages two-factor authentication settings
+        /// </summary>
+        /// <remarks>
+        /// Allows enabling/disabling 2FA, generating recovery codes, and resetting authenticator key.
+        /// Requires authenticated user.
+        /// </remarks>
+        /// <param name="tfaRequest">Contains 2FA configuration changes</param>
+        /// <response code="200">Returns current 2FA state</response>
+        /// <response code="400">Invalid 2FA code or request</response>
+        /// <response code="401">Unauthorized</response>
+        /// <response code="404">User not found</response>
         accountGroup.MapPost(Identity.MFA.Endpoint, async Task<Results<Ok<TwoFactorResponse>, ValidationProblem, NotFound>>
             (ClaimsPrincipal claimsPrincipal, [FromBody] TwoFactorRequest tfaRequest, [FromServices] IServiceProvider sp) =>
         {
@@ -342,6 +438,18 @@ public static class IdentityExtensions
             });
         }).WithDocumentation(Identity.MFA);
 
+        /// <summary>
+        /// [GET] /manage/info - Gets current user account information
+        /// </summary>
+        /// <remarks>
+        /// Returns the authenticated user's account details including:
+        /// - Email address
+        /// - Email confirmation status
+        /// Requires authenticated user.
+        /// </remarks>
+        /// <response code="200">Returns user info</response>
+        /// <response code="401">Unauthorized</response>
+        /// <response code="404">User not found</response>
         accountGroup.MapGet(Identity.Info.Endpoint, async Task<Results<Ok<InfoResponse>, ValidationProblem, NotFound>>
             (ClaimsPrincipal claimsPrincipal, [FromServices] IServiceProvider sp) =>
         {
@@ -354,6 +462,20 @@ public static class IdentityExtensions
             return TypedResults.Ok(await CreateInfoResponseAsync(user, userManager));
         }).WithDocumentation(Identity.Info);
 
+        /// <summary>
+        /// [POST] /manage/info - Updates user account information
+        /// </summary>
+        /// <remarks>
+        /// Allows updating:
+        /// - Email address (triggers new confirmation)
+        /// - Password (requires current password)
+        /// Requires authenticated user.
+        /// </remarks>
+        /// <param name="infoRequest">Contains updated account details</param>
+        /// <response code="200">Update successful</response>
+        /// <response code="400">Invalid data or password requirements not met</response>
+        /// <response code="401">Unauthorized</response>
+        /// <response code="404">User not found</response>
         accountGroup.MapPost(Identity.Information.Endpoint, async Task<Results<Ok<InfoResponse>, ValidationProblem, NotFound>>
             (ClaimsPrincipal claimsPrincipal, [FromBody] InfoRequest infoRequest, HttpContext context, [FromServices] IServiceProvider sp) =>
         {
@@ -396,6 +518,16 @@ public static class IdentityExtensions
             return TypedResults.Ok(await CreateInfoResponseAsync(user, userManager));
         }).WithDocumentation(Identity.Information);
 
+        // Helper methods with XML documentation...
+        /// <summary>
+        /// Sends a confirmation email to the specified user
+        /// </summary>
+        /// <typeparam name="TUser">The user type</typeparam>
+        /// <param name="user">The user to confirm</param>
+        /// <param name="userManager">User manager instance</param>
+        /// <param name="context">HTTP context</param>
+        /// <param name="email">Email address</param>
+        /// <param name="isChange">Whether this is for an email change</param>
         async Task SendConfirmationEmailAsync(TUser user, UserManager<TUser> userManager, HttpContext context, string email, bool isChange = false)
         {
             if (confirmEmailEndpointName is null)
@@ -430,11 +562,17 @@ public static class IdentityExtensions
         return new IdentityEndpointsConventionBuilder(routeGroup);
     }
 
+    /// <summary>
+    /// Creates a validation problem result from Identity errors
+    /// </summary>
     private static ValidationProblem CreateValidationProblem(string errorCode, string errorDescription) =>
         TypedResults.ValidationProblem(new Dictionary<string, string[]> {
             { errorCode, [errorDescription] }
         });
 
+    /// <summary>
+    /// Creates an info response DTO for the current user
+    /// </summary>
     private static ValidationProblem CreateValidationProblem(IdentityResult result)
     {
         // We expect a single error code and description in the normal case.

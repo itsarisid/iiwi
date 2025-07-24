@@ -32,4 +32,8 @@
     <ProjectReference Include="..\iiwi.Model\iiwi.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Logs\Audit\" />
+  </ItemGroup>
+
 </Project>

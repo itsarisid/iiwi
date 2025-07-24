@@ -1,37 +1,74 @@
 ﻿using iiwi.Model;
 
+/// <summary>
+/// Contains endpoints for managing user settings and preferences
+/// </summary>
+/// <remarks>
+/// This group handles all user-specific configurations including UI preferences,
+/// notification settings, and application behavior customizations.
+/// </remarks>
 public static class Settings
 {
     /// <summary>
-    /// Metadata for the Settings endpoint group.
+    /// Group information for Settings endpoints
     /// </summary>
+    /// <remarks>
+    /// Collections of endpoints that manage user-specific configurations including:
+    /// <list type="bullet">
+    /// <item><description>UI themes and layouts</description></item>
+    /// <item><description>Notification preferences</description></item>
+    /// <item><description>Application behavior settings</description></item>
+    /// </list>
+    /// </remarks>
     public static EndpointDetails Group => new EndpointDetails
     {
         Name = "Settings",
         Tags = "Settings",
-        Summary = "User Settings Endpoints",
-        Description = "Endpoints related to user preferences, notifications, themes, and configurations."
+        Summary = "User Settings",
+        Description = "Endpoints for managing user preferences, notifications, and configurations."
     };
 
     /// <summary>
-    /// Retrieves the current user's preference settings.
+    /// Retrieves the current user's settings
     /// </summary>
+    /// <remarks>
+    /// Returns a complete set of the authenticated user's saved preferences including:
+    /// <list type="bullet">
+    /// <item><description>UI theme and layout preferences</description></item>
+    /// <item><description>Notification channel settings</description></item>
+    /// <item><description>Application-specific toggles and flags</description></item>
+    /// </list>
+    /// Requires authentication.
+    /// </remarks>
     public static EndpointDetails GetUserPreferences => new EndpointDetails
     {
         Endpoint = "/get-user-preferences",
         Name = "Get User Preferences",
-        Summary = "Returns the user's saved preference settings.",
-        Description = "Useful for restoring UI settings, toggles, and saved behaviors across sessions."
+        Summary = "Get user settings",
+        Description = "Retrieves all saved preference settings for the authenticated user."
     };
 
     /// <summary>
-    /// Updates the user’s settings and preferences.
+    /// Updates user preferences
     /// </summary>
+    /// <remarks>
+    /// Accepts a partial or complete settings object to update the user's preferences.
+    /// <para>
+    /// Typical updates include:
+    /// </para>
+    /// <list type="bullet">
+    /// <item><description>Changing UI theme (light/dark/custom)</description></item>
+    /// <item><description>Updating notification preferences</description></item>
+    /// <item><description>Modifying default application behaviors</description></item>
+    /// </list>
+    /// Returns the updated preferences object upon success.
+    /// Requires authentication.
+    /// </remarks>
     public static EndpointDetails UpdatePreferences => new EndpointDetails
     {
         Endpoint = "/update-preferences",
         Name = "Update Preferences",
-        Summary = "Saves changes to the user’s settings.",
-        Description = "Allows toggling notification preferences, themes, layouts, and other UX options."
+        Summary = "Update user settings",
+        Description = "Modifies and persists changes to the user's application preferences."
     };
 }
