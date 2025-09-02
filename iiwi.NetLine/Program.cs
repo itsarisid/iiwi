@@ -79,7 +79,7 @@ var app = builder.Build();
 app.MapEnvironment();
 
 // Configure audit trail middleware
-app.UseAuditTrail();
+//app.UseAuditTrail();
 
 // Configure logging middleware
 //app.UseHttpLogging();                   // Alternative HTTP logging
