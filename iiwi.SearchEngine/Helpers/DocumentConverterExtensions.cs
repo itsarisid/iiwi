@@ -3,18 +3,29 @@ using iiwi.SearchEngine.Models;
 using Lucene.Net.Documents;
 using Lucene.Net.Facet;
 using System.Reflection;
+
 namespace iiwi.SearchEngine.Helpers;
 
-
+/// <summary>
+/// Provides conversion methods between domain objects and Lucene documents
+/// </summary>
+/// <remarks>
+/// Handles bidirectional conversion between custom objects and Lucene Document instances.
+/// Supports primitive types, strings, and string arrays with facet configuration.
+/// Note: Nested objects and complex types beyond arrays are not supported.
+/// </remarks>
 internal static class DocumentConverterExtensions
 {
     /// <summary>
-    /// Reconstructs a generic object from a Lucene document.
-    /// Nested objects are not supported.
+    /// Converts a Lucene Document back to a domain object instance
     /// </summary>
-    /// <param name="document"></param>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
+    /// <typeparam name="T">The type of object to create, must implement IDocument</typeparam>
+    /// <param name="document">The Lucene Document to convert</param>
+    /// <returns>A new instance of type T populated with document data</returns>
+    /// <remarks>
+    /// Handles primitive type conversion and string arrays. Does not support nested objects.
+    /// Returns default values for missing fields rather than throwing exceptions.
+    /// </remarks>
     internal static T ConvertToObjectOfType<T>(this Document document) where T : IDocument
     {
         var instance = Activator.CreateInstance<T>();
@@ -34,6 +45,9 @@ internal static class DocumentConverterExtensions
         return instance;
     }
 
+    /// <summary>
+    /// Sets a single-value field from document to property
+    /// </summary>
     private static void SetField<T>(Document document, PropertyInfo property, T instance)
         where T : IDocument
     {
@@ -41,13 +55,16 @@ internal static class DocumentConverterExtensions
 
         if (field == null)
         {
-            return;
+            return; // Field not found in document, skip
         }
 
         var fieldValue = field.GetStringValue();
         SetPropertyValue(property, instance, fieldValue);
     }
 
+    /// <summary>
+    /// Sets an array field from document to property
+    /// </summary>
     private static void SetArrayField<T>(Document document, PropertyInfo property, T instance)
         where T : IDocument
     {
@@ -55,7 +72,7 @@ internal static class DocumentConverterExtensions
 
         if (fields == null)
         {
-            return;
+            return; // No array fields found, skip
         }
 
         var fieldValues = fields.Select(field => field.GetStringValue()).ToArray();
@@ -63,11 +80,15 @@ internal static class DocumentConverterExtensions
     }
 
     /// <summary>
-    /// Stores the properties of the generic object as text fields in a Lucene document.
+    /// Converts a domain object to a Lucene Document for indexing
     /// </summary>
-    /// <param name="instance"></param>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
+    /// <typeparam name="T">The type of object to convert, must implement IDocument</typeparam>
+    /// <param name="instance">The object instance to convert</param>
+    /// <returns>A Lucene Document ready for indexing</returns>
+    /// <remarks>
+    /// Handles facet field creation for properties marked with [FacetProperty] attribute.
+    /// Stores all values as text fields. Arrays are stored as multiple fields with same name.
+    /// </remarks>
     internal static Document ConvertToDocument<T>(this T instance) where T : IDocument
     {
         var document = new Document();
@@ -80,17 +101,19 @@ internal static class DocumentConverterExtensions
 
             if (!property.PropertyType.IsArray)
             {
+                // Handle single-value properties
                 var field = new TextField(fieldName, value.ToString(), Field.Store.YES);
-
                 document.Add(field);
 
                 if (facetAttribute != null)
                 {
+                    // Add facet field for faceted search
                     document.Add(new FacetField(property.Name, value.ToString()));
                 }
             }
             else
             {
+                // Handle array properties - store each element as separate field
                 var array = (Array)value;
                 foreach (var arrayItem in array)
                 {
@@ -109,84 +132,102 @@ internal static class DocumentConverterExtensions
         return document;
     }
 
+    /// <summary>
+    /// Sets property value with type conversion from string
+    /// </summary>
     private static void SetPropertyValue<T>(PropertyInfo property, T instance, string fieldValue)
         where T : IDocument
     {
         var propertyType = property.PropertyType;
 
-        if (propertyType == typeof(string) && property.Name != nameof(IDocument.UniqueKey))
+        try
         {
-            property.SetValue(instance, fieldValue);
+            // Handle all supported primitive types with appropriate parsing
+            if (propertyType == typeof(string) && property.Name != nameof(IDocument.UniqueKey))
+            {
+                property.SetValue(instance, fieldValue);
+            }
+            else if (propertyType == typeof(int))
+            {
+                property.SetValue(instance, int.Parse(fieldValue));
+            }
+            else if (propertyType == typeof(long))
+            {
+                property.SetValue(instance, long.Parse(fieldValue));
+            }
+            else if (propertyType == typeof(double))
+            {
+                property.SetValue(instance, double.Parse(fieldValue));
+            }
+            else if (propertyType == typeof(bool))
+            {
+                property.SetValue(instance, bool.Parse(fieldValue));
+            }
+            else if (propertyType == typeof(byte))
+            {
+                property.SetValue(instance, byte.Parse(fieldValue));
+            }
+            else if (propertyType == typeof(sbyte))
+            {
+                property.SetValue(instance, sbyte.Parse(fieldValue));
+            }
+            else if (propertyType == typeof(char))
+            {
+                property.SetValue(instance, char.Parse(fieldValue));
+            }
+            else if (propertyType == typeof(decimal))
+            {
+                property.SetValue(instance, decimal.Parse(fieldValue));
+            }
+            else if (propertyType == typeof(float))
+            {
+                property.SetValue(instance, float.Parse(fieldValue));
+            }
+            else if (propertyType == typeof(uint))
+            {
+                property.SetValue(instance, uint.Parse(fieldValue));
+            }
+            else if (propertyType == typeof(nint))
+            {
+                property.SetValue(instance, nint.Parse(fieldValue));
+            }
+            else if (propertyType == typeof(nuint))
+            {
+                property.SetValue(instance, nuint.Parse(fieldValue));
+            }
+            else if (propertyType == typeof(ulong))
+            {
+                property.SetValue(instance, ulong.Parse(fieldValue));
+            }
+            else if (propertyType == typeof(short))
+            {
+                property.SetValue(instance, short.Parse(fieldValue));
+            }
+            else if (propertyType == typeof(ushort))
+            {
+                property.SetValue(instance, ushort.Parse(fieldValue));
+            }
         }
-        else if (propertyType == typeof(int))
+        catch (Exception ex) when (ex is FormatException || ex is OverflowException)
         {
-            property.SetValue(instance, int.Parse(fieldValue));
-        }
-        else if (propertyType == typeof(long))
-        {
-            property.SetValue(instance, long.Parse(fieldValue));
-        }
-        else if (propertyType == typeof(double))
-        {
-            property.SetValue(instance, double.Parse(fieldValue));
-        }
-        else if (propertyType == typeof(bool))
-        {
-            property.SetValue(instance, bool.Parse(fieldValue));
-        }
-        else if (propertyType == typeof(byte))
-        {
-            property.SetValue(instance, byte.Parse(fieldValue));
-        }
-        else if (propertyType == typeof(sbyte))
-        {
-            property.SetValue(instance, sbyte.Parse(fieldValue));
-        }
-        else if (propertyType == typeof(char))
-        {
-            property.SetValue(instance, char.Parse(fieldValue));
-        }
-        else if (propertyType == typeof(decimal))
-        {
-            property.SetValue(instance, decimal.Parse(fieldValue));
-        }
-        else if (propertyType == typeof(float))
-        {
-            property.SetValue(instance, float.Parse(fieldValue));
-        }
-        else if (propertyType == typeof(uint))
-        {
-            property.SetValue(instance, uint.Parse(fieldValue));
-        }
-        else if (propertyType == typeof(nint))
-        {
-            property.SetValue(instance, nint.Parse(fieldValue));
-        }
-        else if (propertyType == typeof(nuint))
-        {
-            property.SetValue(instance, nuint.Parse(fieldValue));
-        }
-        else if (propertyType == typeof(ulong))
-        {
-            property.SetValue(instance, ulong.Parse(fieldValue));
-        }
-        else if (propertyType == typeof(short))
-        {
-            property.SetValue(instance, short.Parse(fieldValue));
-        }
-        else if (propertyType == typeof(ushort))
-        {
-            property.SetValue(instance, ushort.Parse(fieldValue));
+            // Gracefully handle parsing errors - leave property at default value
+            // Consider logging this in production code
         }
     }
 
+    /// <summary>
+    /// Sets array property values from string array
+    /// </summary>
     private static void SetPropertyValues<T>(PropertyInfo property, T instance, string[] fieldValues)
     {
         var propertyType = property.PropertyType;
 
+        // Currently only supports string arrays
         if (propertyType == typeof(string[]))
         {
             property.SetValue(instance, fieldValues);
         }
+        // Additional array types could be supported here:
+        // else if (propertyType == typeof(int[])) { ... }
     }
 }

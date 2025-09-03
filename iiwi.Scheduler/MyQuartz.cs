@@ -4,91 +4,119 @@ using Quartz;
 
 namespace iiwi.Scheduler;
 
-/// <summary>  
-/// Configuration for den Quartz Scheduler  
-/// </summary>  
+/// <summary>
+/// Configures and manages Quartz scheduler with dependency injection support
+/// </summary>
+/// <remarks>
+/// Singleton class that provides centralized configuration for Quartz scheduling.
+/// Integrates with dependency injection through custom job factory and offers
+/// simplified methods for job registration and scheduler management.
+/// </remarks>
 public class MyQuartz
 {
-    // Der verwendete Scheduler  
-    private IScheduler _scheduler = null!; // Marked as nullable with null-forgiving operator  
+    // Der verwendete Scheduler
+    private IScheduler _scheduler = null!;
 
-    /// <summary>  
-    /// Verwendete Scheduler  
-    /// </summary>  
-    public static IScheduler Scheduler { get { return Instance._scheduler; } }
+    /// <summary>
+    /// Gets the configured Quartz scheduler instance
+    /// </summary>
+    public static IScheduler Scheduler => Instance._scheduler;
 
-    // Singleton  
+    // Singleton instance
     private static MyQuartz _instance = null!;
 
-    /// <summary>  
-    /// Singleton  
-    /// </summary>  
+    /// <summary>
+    /// Gets the singleton instance of MyQuartz
+    /// </summary>
     public static MyQuartz Instance
     {
         get
         {
-            if (_instance == null)
-            {
-                _instance = new MyQuartz();
-            }
+            _instance ??= new MyQuartz();
             return _instance;
         }
     }
 
+    /// <summary>
+    /// Private constructor for singleton pattern
+    /// </summary>
     private MyQuartz()
     {
-        // Initialisieren  
+        // Initialisieren
         _ = Init();
     }
 
+    /// <summary>
+    /// Initializes the scheduler instance
+    /// </summary>
     private async Task Init()
     {
-        // Scheduler setzen mit standard Scheduler Factory  
+        // Scheduler setzen mit standard Scheduler Factory
         _scheduler = await new StdSchedulerFactory().GetScheduler();
     }
 
-    /// <summary>  
-    /// Legt die JobFactory fest aus der die jobs erzeugt werden  
-    /// </summary>  
-    /// <param name="jobFactory"></param>  
-    /// <returns></returns>  
+    /// <summary>
+    /// Configures the job factory for dependency injection
+    /// </summary>
+    /// <param name="jobFactory">The job factory to use for creating job instances</param>
+    /// <returns>The configured scheduler instance</returns>
+    /// <remarks>
+    /// Use this method to set up dependency injection support for job creation
+    /// </remarks>
     public IScheduler UseJobFactory(IJobFactory jobFactory)
     {
         Scheduler.JobFactory = jobFactory;
         return Scheduler;
     }
 
-    /// <summary>  
-    /// Fügt einen neuen Job dem Scheduler hinzu  
-    /// </summary>  
-    /// <typeparam name="T">Job der erzeugt wird</typeparam>  
-    /// <param name="name">Name des Jobs</param>  
-    /// <param name="group">Gruppe des jobs</param>  
-    /// <param name="interval">Interval zweischen Ausführung in sekunden</param>  
+    /// <summary>
+    /// Adds a new job to the scheduler with specified interval
+    /// </summary>
+    /// <typeparam name="T">Job type implementing IJob</typeparam>
+    /// <param name="name">Unique name for the job</param>
+    /// <param name="group">Group name for job organization</param>
+    /// <param name="interval">Execution interval in seconds</param>
+    /// <remarks>
+    /// Creates a simple repeating job that starts immediately and runs forever
+    /// </remarks>
     public static async Task AddJob<T>(string name, string group, int interval)
         where T : IJob
     {
-        // Job erstellen  
+        // Job erstellen
         IJobDetail job = JobBuilder.Create<T>()
             .WithIdentity(name, group)
             .Build();
 
-        // Trigger erstellen  
+        // Trigger erstellen
         ITrigger jobTrigger = TriggerBuilder.Create()
             .WithIdentity(name + "Trigger", group)
-            .StartNow() // Jetzt starten  
-            .WithSimpleSchedule(t => t.WithIntervalInSeconds(interval).RepeatForever()) // Mit wiederholung alle interval sekunden  
+            .StartNow() // Jetzt starten
+            .WithSimpleSchedule(t => t.WithIntervalInSeconds(interval).RepeatForever()) // Mit wiederholung alle interval sekunden
             .Build();
 
-        // Job anfügen  
+        // Job anfügen
         await Scheduler.ScheduleJob(job, jobTrigger);
     }
 
-    /// <summary>  
-    /// Startet den Scheduler  
-    /// </summary>  
+    /// <summary>
+    /// Starts the Quartz scheduler
+    /// </summary>
+    /// <remarks>
+    /// Begins execution of all scheduled jobs. Call this after configuring all jobs.
+    /// </remarks>
     public static async Task Start()
     {
         await Scheduler.Start();
+    }
+
+    /// <summary>
+    /// Stops the Quartz scheduler gracefully
+    /// </summary>
+    /// <remarks>
+    /// Allows currently executing jobs to complete before shutting down
+    /// </remarks>
+    public static async Task Stop()
+    {
+        await Scheduler.Shutdown(true);
     }
 }

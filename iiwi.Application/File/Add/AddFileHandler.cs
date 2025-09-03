@@ -13,7 +13,7 @@ public sealed record AddFileHandler : IHandler<AddFileRequest, IEnumerable<Binar
 {
     public async Task<Result<IEnumerable<BinaryFile>>> HandleAsync(AddFileRequest request)
     {
-        var files = await request.Files.SaveAsync(General.Files);
+        var files = await request.Files.SaveAsync(General.Directories.Files);
 
         return new Result<IEnumerable<BinaryFile>>(HttpStatusCode.OK, files);
     }
