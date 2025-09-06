@@ -50,9 +50,9 @@ public static class AuthorizationExtensions
             }
 
             // Register permissions from database (if any)
-            using var scope = services.BuildServiceProvider().CreateScope();
+            using IServiceScope scope = services.BuildServiceProvider().CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            var dbPermissions = dbContext.Permission.ToList();
+            var dbPermissions = dbContext.Permission;
 
             foreach (var permission in dbPermissions)
             {

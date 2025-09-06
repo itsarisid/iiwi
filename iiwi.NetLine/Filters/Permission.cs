@@ -67,7 +67,7 @@ public class AuthorizeAttribute : TypeFilterAttribute
 public class AuthorizeActionFilter(
     PermissionItem _item, 
     PermissionAction _action,
-    IPermissionService permissionService,
+    //IPermissionService permissionService, FIXME: Not sure why this IPermissionService is here
     ILogger<AuthorizeActionFilter> logger) : IAuthorizationFilter
 {
     /// <summary>

@@ -5,7 +5,6 @@ using iiwi.Domain.Identity;
 using iiwi.Domain.Logs;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
 namespace iiwi.Database;
 
 public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser, 
@@ -18,7 +17,7 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
 {
     public DbSet<Permission> Permission { get; set; }
 
-    // NOTE: These logs should move to diffrent DbContext 
+    // NOTE: These logs should move to different DbContext 
     public DbSet<AuditLog> AuditLog { get; set; }
 
 

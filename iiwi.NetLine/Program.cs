@@ -75,13 +75,13 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Environment-specific middleware (development-only features)
+// Environment-specific middle-ware (development-only features)
 app.MapEnvironment();
 
-// Configure audit trail middleware
+// Configure audit trail middle-ware
 //app.UseAuditTrail();
 
-// Configure logging middleware
+// Configure logging middle-ware
 //app.UseHttpLogging();                   // Alternative HTTP logging
 app.UseSerilogRequestLogging();          // Structured request logging with Serilog
 
