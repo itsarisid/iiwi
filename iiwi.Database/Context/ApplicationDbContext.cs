@@ -1,5 +1,4 @@
-﻿using DotNetCore.Domain;
-using iiwi.Common;
+﻿using iiwi.Common;
 using iiwi.Domain;
 using iiwi.Domain.Identity;
 using iiwi.Domain.Logs;
@@ -19,6 +18,9 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
 
     // NOTE: These logs should move to different DbContext 
     public DbSet<AuditLog> AuditLog { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    => optionsBuilder.LogTo(Console.WriteLine);
 
 
     protected override void OnModelCreating(ModelBuilder builder)

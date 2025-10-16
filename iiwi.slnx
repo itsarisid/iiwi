@@ -1,0 +1,14 @@
+<Solution>
+  <Project Path="iiwi.Application/iiwi.Application.csproj" />
+  <Project Path="iiwi.AppWire/iiwi.AppWire.csproj" />
+  <Project Path="iiwi.Common/iiwi.Common.csproj" />
+  <Project Path="iiwi.Core/iiwi.Core.csproj" />
+  <Project Path="iiwi.Database/iiwi.Database.csproj" />
+  <Project Path="iiwi.Domain/iiwi.Domain.csproj" />
+  <Project Path="iiwi.Infrastructure/iiwi.Infrastructure.csproj" />
+  <Project Path="iiwi.Library/iiwi.Library.csproj" />
+  <Project Path="iiwi.Model/iiwi.Model.csproj" />
+  <Project Path="iiwi.NetLine/iiwi.NetLine.csproj" />
+  <Project Path="iiwi.Scheduler/iiwi.Scheduler.csproj" />
+  <Project Path="iiwi.SearchEngine/iiwi.SearchEngine.csproj" />
+</Solution>
