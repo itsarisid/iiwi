@@ -55,6 +55,8 @@ public class TestModule : IEndpoints
             {
                 Auther = "Sajid Khan",
                 Version = "1.0.0",
+                ActiveVersions = new[] { new ApiVersion(1, 0), new ApiVersion(2, 0) },
+                CachePolicy = "DefaultPolicy",
                 Date = DateTime.Now.ToLongDateString(),
                 Time = DateTime.Now.ToLongTimeString(),
                 Assembly = Assembly.GetExecutingAssembly().FullName,

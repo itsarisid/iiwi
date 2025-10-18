@@ -1,5 +1,8 @@
 ﻿using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
+using Asp.Versioning.Builder;
+using Asp.Versioning.Conventions;
+using iiwi.Model;
 
 namespace iiwi.NetLine.Extentions;
 
@@ -62,5 +65,22 @@ public static class ApiVersioningExtensions
         public string PolicyContentType { get; set; } = "text/html";
         public string GroupNameFormat { get; set; } = "'v'VVV";
         public bool SubstituteInUrl { get; set; } = true;
+    }
+
+    public static ApiVersionSet CreateApiVersionSet(IEndpointRouteBuilder endpoints)
+    {
+        return endpoints.NewApiVersionSet()
+            .HasDeprecatedApiVersion(0.9)
+            .HasApiVersion(new ApiVersion(1, 0))
+            .HasApiVersion(new ApiVersion(2, 0))
+            .ReportApiVersions()
+            .Build();
+    }
+
+    public static RouteHandlerBuilder WithApiVersion(this RouteHandlerBuilder builder, ApiVersionSet apiVersion)
+    {
+        return builder.WithApiVersionSet(apiVersion)
+            .MapToApiVersion(new ApiVersion(1, 0))
+            .MapToApiVersion(new ApiVersion(2, 0));
     }
 }

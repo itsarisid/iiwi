@@ -1,4 +1,6 @@
-﻿namespace iiwi.NetLine.Endpoints;
+﻿using iiwi.Model;
+
+namespace iiwi.NetLine.Endpoints;
 
 public interface IEndpoints : ICarterModule
 {
