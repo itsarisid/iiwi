@@ -1,10 +1,13 @@
 ﻿using Asp.Versioning;
+using iiwi.Application;
+using iiwi.Common;
 using iiwi.Model.Enums;
-using iiwi.NetLine.API;
+using iiwi.Model.PingPong;
 using iiwi.NetLine.Builders;
 using iiwi.NetLine.Extensions;
 using iiwi.NetLine.Filters;
 
+namespace iiwi.NetLine.Modules;
 
 public class PingPongModules : IEndpoints
 {
@@ -16,40 +19,34 @@ public class PingPongModules : IEndpoints
             .WithGroup(PingPong.Group)
             .AddEndpointFilter<ExceptionHandlingFilter>();
 
-        routeGroup.MapTestEndpoint(new TestEndpointConfiguration
-        {
-            Author = "Sajid Khan",
-            Version = "1.0.0",
-            DeprecatedVersions = [0.9],
-            ActiveVersions = [new ApiVersion(1, 0)],
-            CachePolicy = "DefaultPolicy",
-            EnableHttpLogging = true
-        });
-
         routeGroup.MapVersionedEndpoint<EmptyRequest, SystemInfoResponse>(
-            new EndpointConfiguration<EmptyRequest, SystemInfoResponse>
+            new Configure<EmptyRequest, SystemInfoResponse>
             {
                 EndpointDetails = PingPong.SystemInfoEndpoint,
                 HttpMethod = HttpVerb.Get,
                 ActiveVersions = [new ApiVersion(1, 0), new ApiVersion(2, 0)],
-                DeprecatedVersions = [0.9],
-                RequestDelegate = HandleSystemInfo,
+                RequestDelegate = (IMediator mediator) => mediator.HandleAsync<EmptyRequest, SystemInfoResponse>(new EmptyRequest()),
                 EnableCaching = true,
                 CachePolicy = CachePolicy.DefaultPolicy,
                 EnableHttpLogging = true,
                 EndpointFilters = ["ExceptionHandlingFilter"]
             });
 
+        routeGroup.MapVersionedEndpoint<EmptyRequest, SystemInfoResponse>(
+            new Configure<EmptyRequest, SystemInfoResponse>
+            {
+                EndpointDetails = PingPong.AuthTestEndpoint,
+                HttpMethod = HttpVerb.Get,
+                ActiveVersions = [new ApiVersion(1, 0), new ApiVersion(2, 0)],
+                RequestDelegate = (IMediator mediator) => mediator.HandleAsync<EmptyRequest, SystemInfoResponse>(new EmptyRequest()),
+                EnableCaching = true,
+                RequireAuthorization = true,
+                AuthorizationPolicies = [Permissions.Test.Read],
+                CachePolicy = CachePolicy.DefaultPolicy,
+                EnableHttpLogging = true,
+                EndpointFilters = ["ExceptionHandlingFilter"]
+            });
     }
-    private static IResult HandleSystemInfo(IServiceProvider serviceProvider)
-    {
-        var environment = serviceProvider.GetRequiredService<IWebHostEnvironment>();
 
-        return TypedResults.Ok(new SystemInfoResponse
-        {
-            Author = "Sajid Khan",
-            Environment = environment.EnvironmentName
-        });
-    }
 }
 

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.HttpLogging;
 using System.Reflection;
 
 using System.Runtime.InteropServices;
+namespace iiwi.NetLine.Modules;
 
 /// <summary>
 /// Provides test and diagnostic endpoints for the application

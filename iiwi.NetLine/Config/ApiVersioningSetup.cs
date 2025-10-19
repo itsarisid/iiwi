@@ -1,6 +1,4 @@
-﻿using Asp.Versioning;
-using iiwi.NetLine.Extentions;
-using static iiwi.NetLine.Extentions.ApiVersioningExtensions;
+﻿using static iiwi.NetLine.Extentions.ApiVersioningExtensions;
 namespace iiwi.NetLine.Config;
 
 public static class ApiVersioningSetup

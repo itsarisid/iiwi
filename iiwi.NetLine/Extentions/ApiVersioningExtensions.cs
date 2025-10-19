@@ -3,6 +3,7 @@ using Asp.Versioning.ApiExplorer;
 using Asp.Versioning.Builder;
 using Asp.Versioning.Conventions;
 using iiwi.Model;
+using iiwi.NetLine.Builders;
 
 namespace iiwi.NetLine.Extentions;
 
@@ -82,5 +83,26 @@ public static class ApiVersioningExtensions
         return builder.WithApiVersionSet(apiVersion)
             .MapToApiVersion(new ApiVersion(1, 0))
             .MapToApiVersion(new ApiVersion(2, 0));
+    }
+
+    public static ApiVersionSet CreateApiVersionSet<TEndpoint, TResponse>(
+        this IEndpointRouteBuilder endpoints,
+        Configure<TEndpoint, TResponse> configuration)
+        where TEndpoint : class
+        where TResponse : class, new()
+    {
+        var versionSetBuilder = endpoints.NewApiVersionSet();
+
+        foreach (var deprecatedVersion in configuration.DeprecatedVersions)
+        {
+            versionSetBuilder.HasDeprecatedApiVersion(deprecatedVersion);
+        }
+
+        foreach (var apiVersion in configuration.ActiveVersions)
+        {
+            versionSetBuilder.HasApiVersion(apiVersion);
+        }
+
+        return versionSetBuilder.ReportApiVersions().Build();
     }
 }
