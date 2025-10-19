@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Asp.Versioning;
+using iiwi.NetLine.Swagger;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 
 namespace iiwi.NetLine.Config;
@@ -56,28 +58,14 @@ public static class ApiDocuments
 
         // Configure OpenAPI/Swagger services
         services.AddOpenApi();
+        services.ApiVersioning(config =>
+        {
+            config.DefaultApiVersion = new ApiVersion(1, 0);
+            config.SunsetDays = 90;
+            config.PolicyLink = "/api/versioning-policy";
+        });
         services.AddSwaggerGen(options =>
         {
-            // API metadata and versioning
-            options.SwaggerDoc("v1", new OpenApiInfo
-            {
-                Version = "v1",
-                Title = "IIWI",
-                Description = "IIWI is a mobile-first platform designed to bridge students and counselors through personalized counseling sessions and a collaborative blogging community. Students can discover verified counselors, book sessions, and engage with user-generated content, while counselors showcase their expertise via blogs and manage their professional profiles.",
-                TermsOfService = new Uri("https://example.com/terms"),
-                Contact = new OpenApiContact
-                {
-                    Name = "Sajid Khan",
-                    Email = "mysipi@outlook.com",
-                    Url = new Uri("https://www.linkedin.com/in/im-sajid-khan/")
-                },
-                License = new OpenApiLicense
-                {
-                    Name = "MIT License",
-                    Url = new Uri("https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt")
-                }
-            });
-
             // JWT Bearer authentication configuration
             options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
             {
@@ -105,6 +93,7 @@ public static class ApiDocuments
                 }
             });
         });
+        services.ConfigureOptions<NamedSwaggerGenOptions>();
 
         return services;
     }

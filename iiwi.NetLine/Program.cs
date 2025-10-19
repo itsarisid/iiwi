@@ -74,10 +74,6 @@ builder.Services.AddCors(options =>
  **********************************************/
 
 var app = builder.Build();
-
-// Environment-specific middle-ware (development-only features)
-app.MapEnvironment();
-
 // Configure audit trail middle-ware
 //app.UseAuditTrail();
 
@@ -95,7 +91,10 @@ app.UseAuthentication();                 // Enable authentication
 app.UseAuthorization();                  // Enable authorization
 
 // Configure endpoints
-app.MapCarter();                         // Map Carter modules as endpoints
+app.MapCarter();// Map Carter modules as endpoints
+
+// Environment-specific middle-ware (development-only features)
+app.MapEnvironment();
 
 // Start the application
 await app.RunAsync();

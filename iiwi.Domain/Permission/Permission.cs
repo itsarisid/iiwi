@@ -1,6 +1,4 @@
-﻿using iiwi.Domain.Identity;
-
-namespace iiwi.Domain;
+﻿namespace iiwi.Domain;
 
 public class Permission: BaseEntity
 {

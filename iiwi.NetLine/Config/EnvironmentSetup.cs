@@ -1,4 +1,6 @@
-﻿using iiwi.NetLine.Health;
+﻿using Asp.Versioning.ApiExplorer;
+using iiwi.NetLine.Health;
+using iiwi.NetLine.Swagger;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using SwaggerThemes;
@@ -55,7 +57,7 @@ public static class EnvironmentSetup
                     background-color: #89bf04;
                     border-color: #89bf04;
                     color: #fff;
-                }");
+                }", options =>options.ConfigureApiEndpoints(app));
 
             // Comprehensive health check endpoint
             app.MapHealthChecks("/healthz", new HealthCheckOptions

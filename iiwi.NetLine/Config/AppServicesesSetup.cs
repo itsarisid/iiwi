@@ -1,11 +1,12 @@
-﻿using iiwi.Application.Provider;
-using iiwi.Application;
+﻿using iiwi.Application;
+using iiwi.Application.Provider;
+using iiwi.Database.Permissions;
 using iiwi.Domain.Identity;
 using iiwi.Infrastructure.Email;
-using Microsoft.AspNetCore.Identity;
-using iiwi.Database.Permissions;
-using Microsoft.AspNetCore.Authorization;
 using iiwi.NetLine.Extensions;
+using iiwi.NetLine.Filters;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace iiwi.NetLine.Config;
 
@@ -60,6 +61,9 @@ public static class AppServicesesSetup
         // Register identity-related services
         services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ClaimsPrincipalFactory>();
         services.AddScoped<IClaimsProvider, HttpContextClaimsProvider>();
+
+        services.AddSingleton<LoggingFilter>();
+        services.AddSingleton<ExceptionHandlingFilter>();
 
         // Register permission services
         services.AddScoped<IPermissionRepository, PermissionRepository>();

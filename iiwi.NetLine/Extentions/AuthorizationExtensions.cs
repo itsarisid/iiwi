@@ -1,5 +1,6 @@
 ﻿using iiwi.Common;
 using iiwi.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace iiwi.NetLine.Extensions;
 
