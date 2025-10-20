@@ -12,11 +12,12 @@ public class Configure<TEndpoint, TResponse>
     // Required properties
     public required Delegate RequestDelegate { get; set; }
     public required EndpointDetails EndpointDetails { get; set; }
-    public required ApiVersion[] ActiveVersions { get; set; }
+    
     public Action<RouteHandlerBuilder>? AdditionalConfiguration { get; set; }
+    public ApiVersion[] ActiveVersions { get; set; } = [];
+    public double[] DeprecatedVersions { get; set; } = [];
 
     public HttpVerb HttpMethod { get; set; } = HttpVerb.Get;
-    public double[] DeprecatedVersions { get; set; } = [];
     public bool RequireAuthorization { get; set; } = false;
     public string[] AuthorizationPolicies { get; set; } = [];
     public bool EnableCaching { get; set; } = false;

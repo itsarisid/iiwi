@@ -85,12 +85,27 @@ public static class ApiVersioningExtensions
             .MapToApiVersion(new ApiVersion(2, 0));
     }
 
+    private static Configure<TEndpoint, TResponse> GetApiVersions<TEndpoint, TResponse>(Configure<TEndpoint, TResponse> configuration)
+        where TEndpoint : class
+        where TResponse : class, new()
+    {
+        
+        if(configuration.ActiveVersions == null || configuration.ActiveVersions.Length == 0)
+        {
+            configuration.ActiveVersions = [new ApiVersion(1, 0), new ApiVersion(2, 0)];
+        }
+        configuration.DeprecatedVersions ??= [];
+        return configuration;
+    }
+
     public static ApiVersionSet CreateApiVersionSet<TEndpoint, TResponse>(
         this IEndpointRouteBuilder endpoints,
         Configure<TEndpoint, TResponse> configuration)
         where TEndpoint : class
         where TResponse : class, new()
     {
+        configuration = GetApiVersions(configuration);
+
         var versionSetBuilder = endpoints.NewApiVersionSet();
 
         foreach (var deprecatedVersion in configuration.DeprecatedVersions)

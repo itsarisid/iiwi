@@ -24,12 +24,11 @@ public class PingPongModules : IEndpoints
             {
                 EndpointDetails = PingPong.SystemInfoEndpoint,
                 HttpMethod = HttpVerb.Get,
-                ActiveVersions = [new ApiVersion(1, 0), new ApiVersion(2, 0)],
                 RequestDelegate = (IMediator mediator) => mediator.HandleAsync<EmptyRequest, SystemInfoResponse>(new EmptyRequest()),
                 EnableCaching = true,
                 CachePolicy = CachePolicy.DefaultPolicy,
                 EnableHttpLogging = true,
-                EndpointFilters = ["ExceptionHandlingFilter"]
+                EndpointFilters = ["LoggingFilter"]
             });
 
         routeGroup.MapVersionedEndpoint<EmptyRequest, SystemInfoResponse>(
@@ -37,14 +36,13 @@ public class PingPongModules : IEndpoints
             {
                 EndpointDetails = PingPong.AuthTestEndpoint,
                 HttpMethod = HttpVerb.Get,
-                ActiveVersions = [new ApiVersion(1, 0), new ApiVersion(2, 0)],
                 RequestDelegate = (IMediator mediator) => mediator.HandleAsync<EmptyRequest, SystemInfoResponse>(new EmptyRequest()),
                 EnableCaching = true,
                 RequireAuthorization = true,
                 AuthorizationPolicies = [Permissions.Test.Read],
                 CachePolicy = CachePolicy.DefaultPolicy,
                 EnableHttpLogging = true,
-                EndpointFilters = ["ExceptionHandlingFilter"]
+                EndpointFilters = ["LoggingFilter"]
             });
     }
 
