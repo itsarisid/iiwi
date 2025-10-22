@@ -1,9 +1,9 @@
 <Solution>
   <Project Path="iiwi.Application/iiwi.Application.csproj" />
-  <Project Path="iiwi.AppWire/iiwi.AppWire.csproj" />
   <Project Path="iiwi.Common/iiwi.Common.csproj" />
   <Project Path="iiwi.Core/iiwi.Core.csproj" />
   <Project Path="iiwi.Database/iiwi.Database.csproj" />
+  <Project Path="iiwi.DatabaseMigrationCli/iiwi.DatabaseMigrationCli.csproj" Id="d198bffa-7cc4-4ce1-bd46-7dd736f6ee1a" />
   <Project Path="iiwi.Domain/iiwi.Domain.csproj" />
   <Project Path="iiwi.Infrastructure/iiwi.Infrastructure.csproj" />
   <Project Path="iiwi.Library/iiwi.Library.csproj" />

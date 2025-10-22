@@ -49,3 +49,5 @@
 /iiwi.NetLine/bin/Release/net9.0
 /iiwi.NetLine/Properties/PublishProfiles
 /iiwi.SearchEngine/bin/Release/net9.0
+/iiwi.DatabaseMigrationCli/bin
+/iiwi.DatabaseMigrationCli/obj
