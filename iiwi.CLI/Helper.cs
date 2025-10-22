@@ -3,7 +3,7 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Diagnostics;
 
-namespace iiwi.DatabaseMigrationCli;
+namespace iiwi.CLI;
 
 public static class Helper
 {

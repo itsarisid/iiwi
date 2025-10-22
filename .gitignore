@@ -51,3 +51,5 @@
 /iiwi.SearchEngine/bin/Release/net9.0
 /iiwi.DatabaseMigrationCli/bin
 /iiwi.DatabaseMigrationCli/obj
+/iiwi.CLI/bin
+/iiwi.CLI/obj

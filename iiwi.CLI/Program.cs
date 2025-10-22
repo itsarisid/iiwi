@@ -1,5 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-using iiwi.DatabaseMigrationCli;
+﻿using iiwi.CLI;
 using System.CommandLine;
 
 var rootCommand = new RootCommand("Database Migration CLI for IIWI");

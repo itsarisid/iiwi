@@ -7,7 +7,7 @@
 		<Nullable>disable</Nullable>
 		<PackAsTool>true</PackAsTool>
 		<ToolCommandName>iiwi</ToolCommandName>
-		<PackageId>iiwidbMigrationCli</PackageId>
+		<PackageId>iiwiCli</PackageId>
 		<Version>1.0.0</Version>
 		<Authors>Sajid Khan</Authors>
 		<Company>IIWI</Company>
