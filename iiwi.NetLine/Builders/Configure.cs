@@ -10,9 +10,9 @@ public class Configure<TEndpoint, TResponse>
     where TResponse : class, new()
 {
     // Required properties
-    public required Delegate RequestDelegate { get; set; }
+    public Delegate? RequestDelegate { get; set; }
     public required EndpointDetails EndpointDetails { get; set; }
-    
+
     public Action<RouteHandlerBuilder>? AdditionalConfiguration { get; set; }
     public ApiVersion[] ActiveVersions { get; set; } = [];
     public double[] DeprecatedVersions { get; set; } = [];

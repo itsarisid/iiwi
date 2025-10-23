@@ -24,7 +24,6 @@ public class PingPongModules : IEndpoints
             {
                 EndpointDetails = PingPong.SystemInfoEndpoint,
                 HttpMethod = HttpVerb.Get,
-                RequestDelegate = (IMediator mediator) => mediator.HandleAsync<EmptyRequest, SystemInfoResponse>(new EmptyRequest()),
                 EnableCaching = true,
                 CachePolicy = CachePolicy.DefaultPolicy,
                 EnableHttpLogging = true,
@@ -36,7 +35,6 @@ public class PingPongModules : IEndpoints
             {
                 EndpointDetails = PingPong.AuthTestEndpoint,
                 HttpMethod = HttpVerb.Get,
-                RequestDelegate = (IMediator mediator) => mediator.HandleAsync<EmptyRequest, SystemInfoResponse>(new EmptyRequest()),
                 EnableCaching = true,
                 RequireAuthorization = true,
                 AuthorizationPolicies = [Permissions.Test.Read],

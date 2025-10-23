@@ -1,5 +1,8 @@
 ﻿using Asp.Versioning.Builder;
+using DotNetCore.Results;
+using iiwi.Application;
 using iiwi.Model.Enums;
+using iiwi.Model.PingPong;
 using iiwi.NetLine.Extensions;
 namespace iiwi.NetLine.Builders;
 
@@ -13,6 +16,8 @@ public static class EndpointBuilder
     {
         ArgumentNullException.ThrowIfNull(builder);
         ArgumentNullException.ThrowIfNull(configuration);
+
+        configuration.RequestDelegate = (IMediator mediator) => new EndpointHandler<TEndpoint, TResponse>(mediator).HandleDelegate();
 
         var apiVersionSet = builder.CreateApiVersionSet(configuration);
 
@@ -36,6 +41,7 @@ public static class EndpointBuilder
 
 
 }
+
 public class EndpointConfigurator<TEndpoint, TResponse>(
     RouteHandlerBuilder builder,
     Configure<TEndpoint, TResponse> configuration,
@@ -105,5 +111,13 @@ public class EndpointConfigurator<TEndpoint, TResponse>(
 
         return this;
     }
+
 }
 
+public  class EndpointHandler<TEndpoint, TResponse>(IMediator mediator) 
+where TEndpoint : class
+where TResponse : class, new()
+{
+    TEndpoint T;
+    internal Task<Result<TResponse>> HandleDelegate() => mediator.HandleAsync<TEndpoint, TResponse>(T);
+}
