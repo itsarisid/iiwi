@@ -71,8 +71,8 @@ public static class AuditTrailSetup
                .ForContext<ApplicationDbContext>(config => config
                .ForEntity<ApplicationUser>(_ => _
                 .Ignore(user => user.ConcurrencyStamp)
-                .Override(user => user.PasswordHash, null) // Redact sensitive data
-                .Format(user => user.Gender, pass => new String('*', pass.Length)))
+                .Override(user => user.PasswordHash, _ => "***REDACTED***") // Redact sensitive data
+                .Override(user => user.Gender, FormatSensitiveData))
                .IncludeEntityObjects()
                .AuditEventType("{context}:{database}"))
                .UseOptOut()
@@ -91,7 +91,7 @@ public static class AuditTrailSetup
                 .AuditTypeMapper(t => typeof(Domain.Logs.AuditLog))
                 .AuditEntityAction<Domain.Logs.AuditLog>((ev, entry, entity) =>
                 {
-                    entity.ChangedData = entry.ToJson();
+                    //entity.ChangedData = entry.ToJson(); // Full data - commented out for performance
                     entity.EntityType = entry.EntityType.Name;
                     entity.EntityName = entry.Name;
                     entity.Timestamp = DateTime.Now;
@@ -191,4 +191,14 @@ public static class AuditTrailSetup
             .IncludeRequestBody()
             .IncludeResponseBody());
     }
+
+    private static object FormatSensitiveData(object value)
+    {
+        if (value is string stringValue && !string.IsNullOrEmpty(stringValue))
+        {
+            return new string('*', stringValue.Length);
+        }
+        return value;
+    }
+
 }
