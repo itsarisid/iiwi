@@ -1,5 +1,3 @@
 namespace iiwi.Application.Authentication;
 
-public record SendVerificationEmailRequest
-{
-}
+public record SendVerificationEmailRequest();
