@@ -2,7 +2,6 @@
 using Asp.Versioning.ApiExplorer;
 using Asp.Versioning.Builder;
 using Asp.Versioning.Conventions;
-using iiwi.Model;
 using iiwi.NetLine.Builders;
 
 namespace iiwi.NetLine.Extentions;
@@ -85,12 +84,12 @@ public static class ApiVersioningExtensions
             .MapToApiVersion(new ApiVersion(2, 0));
     }
 
-    private static Configure<TEndpoint, TResponse> GetApiVersions<TEndpoint, TResponse>(Configure<TEndpoint, TResponse> configuration)
-        where TEndpoint : class
+    private static Configure<TRequest, TResponse> GetApiVersions<TRequest, TResponse>(Configure<TRequest, TResponse> configuration)
+        where TRequest : class
         where TResponse : class, new()
     {
-        
-        if(configuration.ActiveVersions == null || configuration.ActiveVersions.Length == 0)
+
+        if (configuration.ActiveVersions == null || configuration.ActiveVersions.Length == 0)
         {
             configuration.ActiveVersions = [new ApiVersion(1, 0), new ApiVersion(2, 0)];
         }
@@ -98,10 +97,10 @@ public static class ApiVersioningExtensions
         return configuration;
     }
 
-    public static ApiVersionSet CreateApiVersionSet<TEndpoint, TResponse>(
+    public static ApiVersionSet CreateApiVersionSet<TRequest, TResponse>(
         this IEndpointRouteBuilder endpoints,
-        Configure<TEndpoint, TResponse> configuration)
-        where TEndpoint : class
+        Configure<TRequest, TResponse> configuration)
+        where TRequest : class
         where TResponse : class, new()
     {
         configuration = GetApiVersions(configuration);
@@ -119,5 +118,35 @@ public static class ApiVersioningExtensions
         }
 
         return versionSetBuilder.ReportApiVersions().Build();
+    }
+
+    public static Delegate HandleDelegate<TRequest, TResponse>(
+        this IEndpointRouteBuilder endpoints,
+        Configure<TRequest, TResponse> configuration)
+        where TRequest : class, new()
+        where TResponse : class, new()
+    {
+        return IsEmptyRequest<TRequest>()
+        ? CreateHandlerWithoutRequest(configuration)
+        : CreateHandlerWithRequest(configuration);
+    }
+    private static bool IsEmptyRequest<TRequest>() where TRequest : class
+    {
+        return typeof(TRequest).GetProperties().Length == 0;
+    }
+    private static Delegate CreateHandlerWithoutRequest<TRequest, TResponse>(
+    Configure<TRequest, TResponse> configuration)
+        where TRequest : class, new()
+        where TResponse : class, new()
+    {
+        return (IMediator mediator) => new EndpointHandler<TRequest, TResponse>(mediator).HandleDelegate();
+    }
+
+    private static Delegate CreateHandlerWithRequest<TRequest, TResponse>(
+        Configure<TRequest, TResponse> configuration)
+        where TRequest : class, new()
+        where TResponse : class, new()
+    {
+        return (IMediator mediator, TRequest request) => new EndpointHandler<TRequest, TResponse>(mediator).HandleDelegate(request);
     }
 }
