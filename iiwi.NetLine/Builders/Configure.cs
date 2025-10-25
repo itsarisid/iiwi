@@ -18,7 +18,6 @@ public class Configure<TEndpoint, TResponse>
     public double[] DeprecatedVersions { get; set; } = [];
 
     public HttpVerb HttpMethod { get; set; } = HttpVerb.Get;
-    public bool RequireAuthorization { get; set; } = false;
     public string[] AuthorizationPolicies { get; set; } = [];
     public bool EnableCaching { get; set; } = false;
     public CachePolicy CachePolicy { get; set; } = CachePolicy.NoCache;

@@ -1,23 +1,22 @@
 ﻿using Asp.Versioning.Builder;
+using Asp.Versioning.Conventions;
 using DotNetCore.Results;
-using iiwi.Application;
 using iiwi.Model.Enums;
-using iiwi.Model.PingPong;
 using iiwi.NetLine.Extensions;
 namespace iiwi.NetLine.Builders;
 
 public static class EndpointBuilder
 {
-    public static RouteHandlerBuilder MapVersionedEndpoint<TEndpoint, TResponse>(
+    public static RouteHandlerBuilder MapVersionedEndpoint<TRequest, TResponse>(
     this IEndpointRouteBuilder builder,
-    Configure<TEndpoint, TResponse> configuration)
-    where TEndpoint : class
+    Configure<TRequest, TResponse> configuration)
+    where TRequest : class, new()
     where TResponse : class, new()
     {
         ArgumentNullException.ThrowIfNull(builder);
         ArgumentNullException.ThrowIfNull(configuration);
 
-        configuration.RequestDelegate = (IMediator mediator) => new EndpointHandler<TEndpoint, TResponse>(mediator).HandleDelegate();
+        configuration.RequestDelegate = builder.HandleDelegate(configuration);
 
         var apiVersionSet = builder.CreateApiVersionSet(configuration);
 
@@ -29,7 +28,7 @@ public static class EndpointBuilder
 
         configuration.AdditionalConfiguration?.Invoke(endpoint);
 
-        return new EndpointConfigurator<TEndpoint, TResponse>(endpoint, configuration, apiVersionSet)
+        return new EndpointConfigurator<TRequest, TResponse>(endpoint, configuration, apiVersionSet)
             .ApplyMetadata()
             .ApplyAuthentication()
             .ApplyCaching()
@@ -38,31 +37,29 @@ public static class EndpointBuilder
             .ApplyVersioning()
             .Builder;
     }
-
-
 }
 
-public class EndpointConfigurator<TEndpoint, TResponse>(
+public class EndpointConfigurator<TRequest, TResponse>(
     RouteHandlerBuilder builder,
-    Configure<TEndpoint, TResponse> configuration,
+    Configure<TRequest, TResponse> configuration,
     ApiVersionSet apiVersionSet)
-    where TEndpoint : class
+    where TRequest : class, new()
     where TResponse : class, new()
 {
     public RouteHandlerBuilder Builder { get; } = builder;
-    public Configure<TEndpoint, TResponse> Configuration { get; } = configuration;
+    public Configure<TRequest, TResponse> Configuration { get; } = configuration;
     public ApiVersionSet ApiVersionSet { get; } = apiVersionSet;
 
-    public EndpointConfigurator<TEndpoint, TResponse> ApplyMetadata()
+    public EndpointConfigurator<TRequest, TResponse> ApplyMetadata()
     {
         Builder.WithMetadata(Configuration.EndpointMetadata)
                .WithDocumentation(Configuration.EndpointDetails);
         return this;
     }
 
-    public EndpointConfigurator<TEndpoint, TResponse> ApplyAuthentication()
+    public EndpointConfigurator<TRequest, TResponse> ApplyAuthentication()
     {
-        if (Configuration.RequireAuthorization)
+        if (Configuration.AuthorizationPolicies.Length > 0)
         {
             Builder.RequireAuthorization(Configuration.AuthorizationPolicies);
         }
@@ -73,7 +70,7 @@ public class EndpointConfigurator<TEndpoint, TResponse>(
         return this;
     }
 
-    public EndpointConfigurator<TEndpoint, TResponse> ApplyCaching()
+    public EndpointConfigurator<TRequest, TResponse> ApplyCaching()
     {
         if (Configuration.EnableCaching && Configuration.CachePolicy != CachePolicy.NoCache)
         {
@@ -82,7 +79,7 @@ public class EndpointConfigurator<TEndpoint, TResponse>(
         return this;
     }
 
-    public EndpointConfigurator<TEndpoint, TResponse> ApplyLogging()
+    public EndpointConfigurator<TRequest, TResponse> ApplyLogging()
     {
         if (Configuration.EnableHttpLogging)
         {
@@ -91,7 +88,7 @@ public class EndpointConfigurator<TEndpoint, TResponse>(
         return this;
     }
 
-    public EndpointConfigurator<TEndpoint, TResponse> ApplyFilters()
+    public EndpointConfigurator<TRequest, TResponse> ApplyFilters()
     {
         if (Configuration.EndpointFilters?.Any() == true)
         {
@@ -100,7 +97,7 @@ public class EndpointConfigurator<TEndpoint, TResponse>(
         return this;
     }
 
-    public EndpointConfigurator<TEndpoint, TResponse> ApplyVersioning()
+    public EndpointConfigurator<TRequest, TResponse> ApplyVersioning()
     {
         Builder.WithApiVersionSet(ApiVersionSet);
 
@@ -111,13 +108,4 @@ public class EndpointConfigurator<TEndpoint, TResponse>(
 
         return this;
     }
-
-}
-
-public  class EndpointHandler<TEndpoint, TResponse>(IMediator mediator) 
-where TEndpoint : class
-where TResponse : class, new()
-{
-    TEndpoint T;
-    internal Task<Result<TResponse>> HandleDelegate() => mediator.HandleAsync<TEndpoint, TResponse>(T);
 }
