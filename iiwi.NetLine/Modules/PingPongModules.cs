@@ -1,6 +1,7 @@
 ﻿using Asp.Versioning;
 using iiwi.Application;
 using iiwi.Common;
+using iiwi.Common.Privileges;
 using iiwi.Model.Enums;
 using iiwi.Model.PingPong;
 using iiwi.NetLine.Builders;
@@ -25,7 +26,7 @@ public class PingPongModules : IEndpoints
                 EndpointDetails = PingPong.SystemInfoEndpoint,
                 HttpMethod = HttpVerb.Get,
                 EnableCaching = true,
-                CachePolicy = CachePolicy.DefaultPolicy,
+                CachePolicy = CachePolicy.NoCache,
                 EnableHttpLogging = true,
                 EndpointFilters = ["LoggingFilter"]
             });
@@ -36,7 +37,6 @@ public class PingPongModules : IEndpoints
                 EndpointDetails = PingPong.AuthTestEndpoint,
                 HttpMethod = HttpVerb.Get,
                 EnableCaching = true,
-                RequireAuthorization = true,
                 AuthorizationPolicies = [Permissions.Test.Read],
                 CachePolicy = CachePolicy.DefaultPolicy,
                 EnableHttpLogging = true,
