@@ -1,9 +1,7 @@
 ﻿
 using iiwi.Application.Authentication;
-using iiwi.Common;
 using iiwi.Common.Privileges;
 using iiwi.Model.Enums;
-using iiwi.Model.PingPong;
 using iiwi.NetLine.APIDoc;
 using iiwi.NetLine.Builders;
 using iiwi.NetLine.Extensions;
