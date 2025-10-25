@@ -2,7 +2,7 @@
 
 namespace iiwi.NetLine.Endpoints;
 
-public interface IEndpoints : ICarterModule
+public interface IEndpoints 
 {
     /// <summary> 
     /// This interface is used to define the endpoints for the application.
