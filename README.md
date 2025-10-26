@@ -26,6 +26,8 @@ The state-of-the-art architecture of iiwi - with `ASP.NET Core 8`, `Entity Frame
 
 ## Technology & Design
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d4ca0a6b7c9b4e3290273f6f23c1d451)](https://app.codacy.com/gh/itsarisid/iiwi?utm_source=github.com&utm_medium=referral&utm_content=itsarisid/iiwi&utm_campaign=Badge_Grade)
+
 * State-of-the-art architecture with `ASP.NET Core 8`, `Entity Framework Core 8` and domain-driven design
 * Cross-platform: run it on Windows, Linux, or Mac
 * Supports `Docker` out of the box for easy deployment
