@@ -1,12 +1,27 @@
 ﻿using Asp.Versioning.Builder;
 using Asp.Versioning.Conventions;
-using DotNetCore.Results;
 using iiwi.Model.Enums;
 using iiwi.NetLine.Extensions;
 namespace iiwi.NetLine.Builders;
 
 public static class EndpointBuilder
 {
+    public static RouteHandlerBuilder MapVersionedEndpoint<TUrlParams, TRequest, TResponse>(
+    this IEndpointRouteBuilder builder,
+    Configure<TUrlParams, TRequest, TResponse> configuration)
+    where TUrlParams : class, new()
+    where TRequest : class, new()
+    where TResponse : class, new()
+    {
+        ArgumentNullException.ThrowIfNull(builder);
+        ArgumentNullException.ThrowIfNull(configuration);
+
+        configuration.RequestDelegate = builder.HandleDelegate<TUrlParams, TRequest, TResponse>(configuration);
+
+        // Explicitly call the two-parameter overload to avoid recursive overload resolution
+        return MapVersionedEndpoint<TRequest, TResponse>(builder, (Configure<TRequest, TResponse>)configuration);
+    }
+
     public static RouteHandlerBuilder MapVersionedEndpoint<TRequest, TResponse>(
     this IEndpointRouteBuilder builder,
     Configure<TRequest, TResponse> configuration)
@@ -16,7 +31,10 @@ public static class EndpointBuilder
         ArgumentNullException.ThrowIfNull(builder);
         ArgumentNullException.ThrowIfNull(configuration);
 
-        configuration.RequestDelegate = builder.HandleDelegate(configuration);
+        if(configuration.RequestDelegate == null)
+        {
+            configuration.RequestDelegate = builder.HandleDelegate(configuration);
+        }
 
         var apiVersionSet = builder.CreateApiVersionSet(configuration);
 

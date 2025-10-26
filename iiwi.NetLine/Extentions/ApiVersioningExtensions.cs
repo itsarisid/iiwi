@@ -2,6 +2,7 @@
 using Asp.Versioning.ApiExplorer;
 using Asp.Versioning.Builder;
 using Asp.Versioning.Conventions;
+using iiwi.Library;
 using iiwi.NetLine.Builders;
 
 namespace iiwi.NetLine.Extentions;
@@ -126,10 +127,40 @@ public static class ApiVersioningExtensions
         where TRequest : class, new()
         where TResponse : class, new()
     {
-        return IsEmptyRequest<TRequest>()
-        ? CreateHandlerWithoutRequest(configuration)
-        : CreateHandlerWithRequest(configuration);
+        if (configuration.HasUrlParameters)
+        {
+            return CreateHandlerWithParameterWithoutRequest(configuration);
+        }
+
+            return IsEmptyRequest<TRequest>()
+                    ? CreateHandlerWithoutRequest(configuration)
+                    : CreateHandlerWithRequest(configuration);
     }
+
+    public static Delegate HandleDelegate<TUrlParams,TRequest, TResponse>(
+        this IEndpointRouteBuilder endpoints,
+        Configure<TRequest, TResponse> configuration)
+        where TUrlParams : class, new()
+        where TRequest : class, new()
+        where TResponse : class, new()
+    {
+        if (configuration.HasUrlParameters && configuration.HasBody)
+        {
+            // Both URL parameters and body
+            return CreateHandlerWithParameterAndRequest<TUrlParams, TRequest, TResponse>(configuration);
+        }
+        if (configuration.HasUrlParameters)
+        {
+            return CreateHandlerWithParameterWithoutRequest(configuration);
+        }
+
+            return IsEmptyRequest<TRequest>()
+                    ? CreateHandlerWithoutRequest(configuration)
+                    : CreateHandlerWithRequest(configuration);
+    }
+
+
+
     private static bool IsEmptyRequest<TRequest>() where TRequest : class
     {
         return typeof(TRequest).GetProperties().Length == 0;
@@ -142,6 +173,26 @@ public static class ApiVersioningExtensions
         return (IMediator mediator) => new EndpointHandler<TRequest, TResponse>(mediator).HandleDelegate();
     }
 
+    private static Delegate CreateHandlerWithParameterWithoutRequest<TRequest, TResponse>(
+    Configure<TRequest, TResponse> configuration)
+        where TRequest : class, new()
+        where TResponse : class, new()
+    {
+        return (IMediator mediator, [AsParameters] TRequest request) => new EndpointHandler<TRequest, TResponse>(mediator).HandleDelegate(request);
+    }
+    private static Delegate CreateHandlerWithParameterAndRequest<TUrlParams, TRequest, TResponse>(
+    Configure<TRequest, TResponse> configuration)
+        where TUrlParams : class, new()
+        where TRequest : class, new()
+        where TResponse : class, new()
+    {
+        return (IMediator mediator, [AsParameters] TUrlParams urlParams, TRequest body) =>
+        {
+            var combinedRequest = Helper.CombineParameters(urlParams, body);
+            return new EndpointHandler<TRequest, TResponse>(mediator).HandleDelegate(combinedRequest);
+        };
+    }
+
     private static Delegate CreateHandlerWithRequest<TRequest, TResponse>(
         Configure<TRequest, TResponse> configuration)
         where TRequest : class, new()
@@ -149,4 +200,5 @@ public static class ApiVersioningExtensions
     {
         return (IMediator mediator, TRequest request) => new EndpointHandler<TRequest, TResponse>(mediator).HandleDelegate(request);
     }
+
 }

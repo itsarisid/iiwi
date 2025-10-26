@@ -1,6 +1,6 @@
 ﻿namespace iiwi.Common.Privileges;
 
-public class AccountPermissions(string moduleName) : PermissionModule(moduleName)
+public class AccountPermissions(string moduleName) : PermissionModule(moduleName), IPermissionsModule
 {
     public string UpdateProfile => $"{moduleName}.UpdateProfile";
     public string DownloadInfo => $"{moduleName}.DownloadInfo";

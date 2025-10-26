@@ -1,9 +1,13 @@
-﻿using iiwi.Application;
+﻿using iiwi.Application.Authentication;
 using iiwi.Application.Authorization;
+using iiwi.Common.Privileges;
+using iiwi.Model.Enums;
+using iiwi.NetLine.APIDoc;
+using iiwi.NetLine.Builders;
 using iiwi.NetLine.Extensions;
-using Microsoft.AspNetCore.Mvc;
+using iiwi.NetLine.Filters;
 
-namespace iiwi.NetLine.Modules;
+namespace iiwi.NetLine.API;
 
 /// <summary>
 /// Provides endpoints for role-based authorization management
@@ -15,22 +19,21 @@ namespace iiwi.NetLine.Modules;
 /// - User-role assignments
 /// All endpoints require authorization.
 /// </remarks>
-public class AuthorizationModules : IEndpoints
+public class AuthorizationEndpoints : IEndpoint
 {
     /// <summary>
     /// Registers all authorization-related endpoints
     /// </summary>
     /// <param name="endpoints">The endpoint route builder</param>
     /// <exception cref="ArgumentNullException">Thrown when endpoints is null</exception>
-    public void AddRoutes(IEndpointRouteBuilder endpoints)
+    public void AddRoutes(IEndpointRouteBuilder app)
     {
-        ArgumentNullException.ThrowIfNull(endpoints);
-
-        // Create an authorized route group for all endpoints
-        var routeGroup = endpoints
-            .MapGroup(string.Empty)
-            .WithGroup(Authorization.Group)
-            .RequireAuthorization();
+        ArgumentNullException.ThrowIfNull(app);
+        // Create an Authorization route group for all endpoints
+        var routeGroup = app.MapGroup(string.Empty)
+            .WithGroup(AuthorizationDoc.Group)
+            .RequireAuthorization()
+            .AddEndpointFilter<ExceptionHandlingFilter>();
 
         /// <summary>
         /// [GET] /roles - Retrieves all application roles
@@ -44,12 +47,16 @@ public class AuthorizationModules : IEndpoints
         /// <response code="200">Returns the list of roles</response>
         /// <response code="401">If user is not authenticated</response>
         /// <response code="403">If user lacks required permissions</response>
-        routeGroup.MapGet(Authorization.AllRoles.Endpoint,
-            IResult (IMediator mediator) => mediator
-           .HandleAsync<RoleRequest, RoleResponse>(new RoleRequest())
-           .Response())
-           .WithMappingBehaviour<Response>()
-           .WithDocumentation(Authorization.AllRoles);
+        routeGroup.MapVersionedEndpoint(new Configure<RoleRequest, RoleResponse>
+        {
+            EndpointDetails = AuthorizationDoc.AllRoles,
+            HttpMethod = HttpVerb.Get,
+            EnableCaching = true,
+            CachePolicy = CachePolicy.NoCache,
+            AuthorizationPolicies = [Permissions.Authorization.AllRoles],
+            EnableHttpLogging = true,
+            EndpointFilters = ["LoggingFilter"]
+        });
 
         /// <summary>
         /// [GET] /roles/{id} - Retrieves a specific role by ID
@@ -64,12 +71,17 @@ public class AuthorizationModules : IEndpoints
         /// <response code="200">Returns the requested role</response>
         /// <response code="404">If role is not found</response>
         /// <response code="401">If user is not authenticated</response>
-        routeGroup.MapGet(Authorization.RolesById.Endpoint,
-            IResult (IMediator mediator, [AsParameters] GetByIdRoleRequest request) => mediator
-            .HandleAsync<GetByIdRoleRequest, GetByIdRoleResponse>(request)
-            .Response())
-            .WithMappingBehaviour<Response>()
-            .WithDocumentation(Authorization.RolesById);
+        routeGroup.MapVersionedEndpoint(new Configure<GetByIdRoleRequest, GetByIdRoleResponse>
+        {
+            EndpointDetails = AuthorizationDoc.RolesById,
+            HttpMethod = HttpVerb.Get,
+            HasUrlParameters = true,
+            EnableCaching = true,
+            CachePolicy = CachePolicy.NoCache,
+            //AuthorizationPolicies = [Permissions.Authorization.RolesById],
+            EnableHttpLogging = true,
+            EndpointFilters = ["LoggingFilter"]
+        });
 
         /// <summary>
         /// [POST] /roles - Creates a new role
@@ -85,12 +97,16 @@ public class AuthorizationModules : IEndpoints
         /// <response code="400">If request is invalid</response>
         /// <response code="401">If user is not authenticated</response>
         /// <response code="403">If user lacks required permissions</response>
-        routeGroup.MapPost(Authorization.AddRole.Endpoint,
-            IResult (IMediator mediator, [FromBody] AddRoleRequest request) => mediator
-            .HandleAsync<AddRoleRequest, Response>(request)
-            .Response())
-            .WithMappingBehaviour<Response>()
-            .WithDocumentation(Authorization.AddRole);
+        routeGroup.MapVersionedEndpoint(new Configure<AddRoleRequest, Response>
+        {
+            EndpointDetails = AuthorizationDoc.AddRole,
+            HttpMethod = HttpVerb.Post,
+            EnableCaching = true,
+            CachePolicy = CachePolicy.NoCache,
+            AuthorizationPolicies = [Permissions.Authorization.AddRole],
+            EnableHttpLogging = true,
+            EndpointFilters = ["LoggingFilter"]
+        });
 
         /// <summary>
         /// [PUT] /roles/{id} - Updates an existing role
@@ -106,17 +122,18 @@ public class AuthorizationModules : IEndpoints
         /// <response code="200">Role updated successfully</response>
         /// <response code="404">If role is not found</response>
         /// <response code="401">If user is not authenticated</response>
-        routeGroup.MapPut(Authorization.UpdateRole.Endpoint,
-            IResult (IMediator mediator, [AsParameters] int id, UpdateRoleRequest request) => mediator
-            .HandleAsync<UpdateRoleRequest, Response>(new UpdateRoleRequest
-            {
-                //Id = id,
-                Name = request.Name,
-                Description = request.Description
-            })
-            .Response())
-            .WithMappingBehaviour<Response>()
-            .WithDocumentation(Authorization.UpdateRole);
+        routeGroup.MapVersionedEndpoint(new Configure<UpdateRoleParams, UpdateRoleRequest, Response>
+        {
+            EndpointDetails = AuthorizationDoc.UpdateRole,
+            HttpMethod = HttpVerb.Put,
+            HasUrlParameters = true,
+            HasBody = true,
+            EnableCaching = true,
+            CachePolicy = CachePolicy.NoCache,
+            //AuthorizationPolicies = [Permissions.Authorization.UpdateRole],
+            EnableHttpLogging = true,
+            EndpointFilters = ["LoggingFilter"]
+        });
 
         /// <summary>
         /// [DELETE] /roles/{id} - Deletes a role
@@ -131,12 +148,17 @@ public class AuthorizationModules : IEndpoints
         /// <response code="204">Role deleted successfully</response>
         /// <response code="404">If role is not found</response>
         /// <response code="401">If user is not authenticated</response>
-        routeGroup.MapDelete(Authorization.DeleteRole.Endpoint,
-            IResult (IMediator mediator, [AsParameters] DeleteRoleRequest request) => mediator
-            .HandleAsync<DeleteRoleRequest, Response>(request)
-            .Response())
-            .WithMappingBehaviour<Response>()
-            .WithDocumentation(Authorization.DeleteRole);
+        routeGroup.MapVersionedEndpoint(new Configure<DeleteRoleRequest, Response>
+        {
+            EndpointDetails = AuthorizationDoc.DeleteRole,
+            HttpMethod = HttpVerb.Delete,
+            HasUrlParameters = true,
+            EnableCaching = true,
+            CachePolicy = CachePolicy.NoCache,
+            AuthorizationPolicies = [Permissions.Authorization.DeleteRole],
+            EnableHttpLogging = true,
+            EndpointFilters = ["LoggingFilter"]
+        });
 
         /// <summary>
         /// [POST] /roles/{roleId}/claims - Adds a claim to a role
@@ -152,12 +174,17 @@ public class AuthorizationModules : IEndpoints
         /// <response code="200">Claim added successfully</response>
         /// <response code="404">If role is not found</response>
         /// <response code="401">If user is not authenticated</response>
-        routeGroup.MapPost(Authorization.AddRoleClaim.Endpoint,
-            IResult (IMediator mediator, [AsParameters] int roleId, AddClaimRequest request) => mediator
-            .HandleAsync<AddClaimRequest, Response>(request)
-            .Response())
-            .WithMappingBehaviour<Response>()
-            .WithDocumentation(Authorization.AddClaim);
+        routeGroup.MapVersionedEndpoint(new Configure<AddClaimRequest, Response>
+        {
+            EndpointDetails = AuthorizationDoc.AddRoleClaim,
+            HttpMethod = HttpVerb.Post,
+            HasUrlParameters = true,
+            EnableCaching = true,
+            CachePolicy = CachePolicy.NoCache,
+            AuthorizationPolicies = [Permissions.Authorization.AddRoleClaim],
+            EnableHttpLogging = true,
+            EndpointFilters = ["LoggingFilter"]
+        });
 
         /// <summary>
         /// [DELETE] /roles/{roleId}/claims/{id} - Removes a claim from a role
@@ -173,12 +200,17 @@ public class AuthorizationModules : IEndpoints
         /// <response code="204">Claim removed successfully</response>
         /// <response code="404">If role or claim is not found</response>
         /// <response code="401">If user is not authenticated</response>
-        routeGroup.MapDelete(Authorization.RemoveRoleClaim.Endpoint,
-            IResult (IMediator mediator, [AsParameters] int roleId, [AsParameters] int id) => mediator
-            .HandleAsync<RemoveClaimRequest, Response>(new RemoveClaimRequest())
-            .Response())
-            .WithMappingBehaviour<Response>()
-            .WithDocumentation(Authorization.RemoveRoleClaim);
+        routeGroup.MapVersionedEndpoint(new Configure<RemoveClaimRequest, Response>
+        {
+            EndpointDetails = AuthorizationDoc.RemoveRoleClaim,
+            HttpMethod = HttpVerb.Delete,
+            HasUrlParameters = true,
+            EnableCaching = true,
+            CachePolicy = CachePolicy.NoCache,
+            AuthorizationPolicies = [Permissions.Authorization.RemoveRoleClaim],
+            EnableHttpLogging = true,
+            EndpointFilters = ["LoggingFilter"]
+        });
 
         /// <summary>
         /// [GET] /roles/{roleId}/claims - Gets all claims for a role
@@ -193,12 +225,17 @@ public class AuthorizationModules : IEndpoints
         /// <response code="200">Returns the list of claims</response>
         /// <response code="404">If role is not found</response>
         /// <response code="401">If user is not authenticated</response>
-        routeGroup.MapGet(Authorization.GetRoleClaims.Endpoint,
-            IResult (IMediator mediator, [AsParameters] int roleId) => mediator
-            .HandleAsync<GetRoleClaimsRequest, Response>(new GetRoleClaimsRequest())
-            .Response())
-            .WithMappingBehaviour<Response>()
-            .WithDocumentation(Authorization.GetRoleClaims);
+        routeGroup.MapVersionedEndpoint(new Configure<GetRoleClaimsRequest, Response>
+        {
+            EndpointDetails = AuthorizationDoc.GetRoleClaims,
+            HttpMethod = HttpVerb.Get,
+            HasUrlParameters = true,
+            EnableCaching = true,
+            CachePolicy = CachePolicy.NoCache,
+            AuthorizationPolicies = [Permissions.Authorization.GetRoleClaims],
+            EnableHttpLogging = true,
+            EndpointFilters = ["LoggingFilter"]
+        });
 
         /// <summary>
         /// [POST] /users/roles - Assigns a role to a user
@@ -213,12 +250,16 @@ public class AuthorizationModules : IEndpoints
         /// <response code="200">Role assigned successfully</response>
         /// <response code="404">If user or role is not found</response>
         /// <response code="401">If user is not authenticated</response>
-        routeGroup.MapPost(Authorization.AssignRole.Endpoint,
-            IResult (IMediator mediator, [FromBody] AssignRoleToUserRequest request) => mediator
-            .HandleAsync<AssignRoleToUserRequest, Response>(request)
-            .Response())
-            .WithMappingBehaviour<Response>()
-            .WithDocumentation(Authorization.AssignRole);
+        routeGroup.MapVersionedEndpoint(new Configure<AssignRoleToUserRequest, Response>
+        {
+            EndpointDetails = AuthorizationDoc.AssignRole,
+            HttpMethod = HttpVerb.Post,
+            EnableCaching = true,
+            CachePolicy = CachePolicy.NoCache,
+            AuthorizationPolicies = [Permissions.Authorization.AssignRole],
+            EnableHttpLogging = true,
+            EndpointFilters = ["LoggingFilter"]
+        });
 
         /// <summary>
         /// [POST] /users/claims - Adds a claim to a user
@@ -233,11 +274,15 @@ public class AuthorizationModules : IEndpoints
         /// <response code="200">Claim added successfully</response>
         /// <response code="404">If user is not found</response>
         /// <response code="401">If user is not authenticated</response>
-        routeGroup.MapPost(Authorization.AddUserClaim.Endpoint,
-            IResult (IMediator mediator, [FromBody] AddClaimToUserRequest request) => mediator
-            .HandleAsync<AddClaimToUserRequest, Response>(request)
-            .Response())
-            .WithMappingBehaviour<Response>()
-            .WithDocumentation(Authorization.AddUserClaim);
+        routeGroup.MapVersionedEndpoint(new Configure<AddClaimToUserRequest, Response>
+        {
+            EndpointDetails = AuthorizationDoc.AddUserClaim,
+            HttpMethod = HttpVerb.Post,
+            EnableCaching = true,
+            CachePolicy = CachePolicy.NoCache,
+            AuthorizationPolicies = [Permissions.Authorization.AddUserClaim],
+            EnableHttpLogging = true,
+            EndpointFilters = ["LoggingFilter"]
+        });
     }
 }
