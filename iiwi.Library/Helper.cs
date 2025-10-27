@@ -79,7 +79,7 @@ public static class Helper
     /// </summary>
     public static void CopyProperties<TSource, TDestination>(TSource source, TDestination destination)
     {
-        if (source == null)
+        if (source.Equals(default(TSource)))
             throw new ArgumentNullException(nameof(source));
 
         if (destination == null)
