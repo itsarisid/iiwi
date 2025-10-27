@@ -82,7 +82,7 @@ public static class Helper
         if (source.Equals(default(TSource)))
             throw new ArgumentNullException(nameof(source));
 
-        if (destination == null)
+        if (EqualityComparer<TDestination>.Default.Equals(destination, default(TDestination)))
             throw new ArgumentNullException(nameof(destination));
 
         PropertyInfo[] sourceProperties = typeof(TSource).GetProperties(BindingFlags.Public | BindingFlags.Instance);
