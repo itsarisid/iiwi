@@ -1,12 +1,10 @@
-﻿
-using static iiwi.Library.Helper;
+﻿using static iiwi.Library.Helper;
 
 namespace iiwi.Application.Authorization;
 
 public class UpdateRoleRequest
 {
-    [FromUrl]
-    public int Id { get; set; }
+    private  int Id { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
 }

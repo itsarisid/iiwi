@@ -188,7 +188,8 @@ public static class ApiVersioningExtensions
     {
         return (IMediator mediator, [AsParameters] TUrlParams urlParams, TRequest body) =>
         {
-            var combinedRequest = Helper.CombineParameters(urlParams, body);
+            //var combinedRequest = Helper.CombineParameters(urlParams, body);
+            var combinedRequest = Helper.MergeParameters(urlParams, body);
             return new EndpointHandler<TRequest, TResponse>(mediator).HandleDelegate(combinedRequest);
         };
     }
