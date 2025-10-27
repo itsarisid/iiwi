@@ -531,7 +531,7 @@ public static class Helper
         var startInfo = new ProcessStartInfo
         {
             FileName = "dotnet",
-            Arguments = string.Join(" ", args),
+            Arguments = string.Join(" ", args.Select(arg => $"\"{arg}\"")),
             WorkingDirectory = workingDirectory ?? Directory.GetCurrentDirectory(),
             RedirectStandardOutput = true,
             RedirectStandardError = true,
