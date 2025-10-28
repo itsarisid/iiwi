@@ -130,7 +130,7 @@ public class AuthorizationEndpoints : IEndpoint
             HasBody = true,
             EnableCaching = true,
             CachePolicy = CachePolicy.NoCache,
-            //AuthorizationPolicies = [Permissions.Authorization.UpdateRole],
+            AuthorizationPolicies = [Permissions.Authorization.UpdateRole],
             EnableHttpLogging = true,
             EndpointFilters = ["LoggingFilter"]
         });
@@ -148,7 +148,7 @@ public class AuthorizationEndpoints : IEndpoint
         /// <response code="204">Role deleted successfully</response>
         /// <response code="404">If role is not found</response>
         /// <response code="401">If user is not authenticated</response>
-        routeGroup.MapVersionedEndpoint(new Configure<DeleteRoleRequest, Response>
+        routeGroup.MapVersionedEndpoint(new Configure<DeleteRoleParams, DeleteRoleRequest, Response>
         {
             EndpointDetails = AuthorizationDoc.DeleteRole,
             HttpMethod = HttpVerb.Delete,
@@ -174,14 +174,14 @@ public class AuthorizationEndpoints : IEndpoint
         /// <response code="200">Claim added successfully</response>
         /// <response code="404">If role is not found</response>
         /// <response code="401">If user is not authenticated</response>
-        routeGroup.MapVersionedEndpoint(new Configure<AddClaimRequest, Response>
+        routeGroup.MapVersionedEndpoint(new Configure<AddClaimParams,AddClaimRequest, Response>
         {
             EndpointDetails = AuthorizationDoc.AddRoleClaim,
             HttpMethod = HttpVerb.Post,
             HasUrlParameters = true,
             EnableCaching = true,
             CachePolicy = CachePolicy.NoCache,
-            AuthorizationPolicies = [Permissions.Authorization.AddRoleClaim],
+            //AuthorizationPolicies = [Permissions.Authorization.AddRoleClaim],
             EnableHttpLogging = true,
             EndpointFilters = ["LoggingFilter"]
         });

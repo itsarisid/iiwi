@@ -1,6 +1,4 @@
-﻿using static iiwi.Library.Helper;
-
-namespace iiwi.Application.Authorization;
+﻿namespace iiwi.Application.Authorization;
 
 public class UpdateRoleRequest
 {

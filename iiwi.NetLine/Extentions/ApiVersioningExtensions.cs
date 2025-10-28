@@ -132,31 +132,39 @@ public static class ApiVersioningExtensions
             return CreateHandlerWithParameterWithoutRequest(configuration);
         }
 
-            return IsEmptyRequest<TRequest>()
-                    ? CreateHandlerWithoutRequest(configuration)
-                    : CreateHandlerWithRequest(configuration);
+        return IsEmptyRequest<TRequest>()
+                ? CreateHandlerWithoutRequest(configuration)
+                : CreateHandlerWithRequest(configuration);
     }
 
-    public static Delegate HandleDelegate<TUrlParams,TRequest, TResponse>(
+    // Plan / Pseudocode:
+    // 1. Accept the generic types: TUrlParams, TRequest, TResponse.
+    // 2. If URL parameters are present, always return the combined parameter+request handler
+    //    - This covers both cases (with body or without). The combined handler signature
+    //      matches both scenarios and avoids duplicated branches.
+    // 3. If no URL parameters:
+    //    - If TRequest has no properties => return a handler without request body.
+    //    - Otherwise return a handler that expects a request body.
+    // 4. Keep logic concise and avoid redundant checks/returns.
+
+    public static Delegate HandleDelegate<TUrlParams, TRequest, TResponse>(
         this IEndpointRouteBuilder endpoints,
         Configure<TRequest, TResponse> configuration)
         where TUrlParams : class, new()
         where TRequest : class, new()
         where TResponse : class, new()
     {
-        if (configuration.HasUrlParameters && configuration.HasBody)
-        {
-            // Both URL parameters and body
-            return CreateHandlerWithParameterAndRequest<TUrlParams, TRequest, TResponse>(configuration);
-        }
+        // If the endpoint uses URL parameters, use the parameter+request handler.
+        // The combined handler works whether or not a body is present and removes duplicate branches.
         if (configuration.HasUrlParameters)
         {
-            return CreateHandlerWithParameterWithoutRequest(configuration);
+            return CreateHandlerWithParameterAndRequest<TUrlParams, TRequest, TResponse>(configuration);
         }
 
-            return IsEmptyRequest<TRequest>()
-                    ? CreateHandlerWithoutRequest(configuration)
-                    : CreateHandlerWithRequest(configuration);
+        // No URL parameters: choose between request-less or request-aware handler.
+        return IsEmptyRequest<TRequest>()
+            ? CreateHandlerWithoutRequest<TRequest, TResponse>(configuration)
+            : CreateHandlerWithRequest<TRequest, TResponse>(configuration);
     }
 
 
@@ -180,6 +188,7 @@ public static class ApiVersioningExtensions
     {
         return (IMediator mediator, [AsParameters] TRequest request) => new EndpointHandler<TRequest, TResponse>(mediator).HandleDelegate(request);
     }
+
     private static Delegate CreateHandlerWithParameterAndRequest<TUrlParams, TRequest, TResponse>(
     Configure<TRequest, TResponse> configuration)
         where TUrlParams : class, new()
@@ -188,7 +197,6 @@ public static class ApiVersioningExtensions
     {
         return (IMediator mediator, [AsParameters] TUrlParams urlParams, TRequest body) =>
         {
-            //var combinedRequest = Helper.CombineParameters(urlParams, body);
             var combinedRequest = Helper.MergeParameters(urlParams, body);
             return new EndpointHandler<TRequest, TResponse>(mediator).HandleDelegate(combinedRequest);
         };
