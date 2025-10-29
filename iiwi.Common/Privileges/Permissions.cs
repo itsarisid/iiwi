@@ -9,7 +9,7 @@ public static class Permissions
 
     public static readonly AccountPermissions Account = PermissionModule.Permissions<AccountPermissions>("Account");
     public static readonly AuthenticationPermissions Authentication = PermissionModule.Permissions<AuthenticationPermissions>("Authentication");
-    public static readonly AuthorizationPermissions Authorization = PermissionModule.Permissions<AuthorizationPermissions>("Authentication");
+    public static readonly AuthorizationPermissions Authorization = PermissionModule.Permissions<AuthorizationPermissions>("Authorization");
 
     public static IEnumerable<string> GetAll() =>
        AllPermissionModules.SelectMany(module => module);
