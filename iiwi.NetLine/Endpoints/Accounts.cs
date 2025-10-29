@@ -1,5 +1,5 @@
 ﻿using iiwi.Model;
-
+namespace iiwi.NetLine.Endpoints;
 /// <summary>
 /// Contains endpoints for user account management and personal data handling
 /// </summary>

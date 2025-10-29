@@ -1,5 +1,5 @@
 ﻿using iiwi.Model;
-
+namespace iiwi.NetLine.Endpoints;
 /// <summary>
 /// Contains endpoints for managing user settings and preferences
 /// </summary>

@@ -1,5 +1,5 @@
 ﻿using iiwi.Model;
-
+namespace iiwi.NetLine.Endpoints;
 /// <summary>
 /// Contains endpoints for role-based access control (RBAC) and authorization management
 /// </summary>

@@ -1,5 +1,5 @@
 ﻿using iiwi.Model;
-
+namespace iiwi.NetLine.Endpoints;
 /// <summary>
 /// Contains endpoints for security management and account protection
 /// </summary>
