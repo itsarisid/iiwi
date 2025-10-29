@@ -3,7 +3,7 @@ using DotNetCore.Results;
 using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 
 namespace iiwi.Application.Authorization;
