@@ -2,7 +2,7 @@
 using Asp.Versioning.ApiExplorer;
 using Asp.Versioning.Builder;
 using Asp.Versioning.Conventions;
-using iiwi.Model;
+using iiwi.Library;
 using iiwi.NetLine.Builders;
 
 namespace iiwi.NetLine.Extentions;
@@ -85,12 +85,27 @@ public static class ApiVersioningExtensions
             .MapToApiVersion(new ApiVersion(2, 0));
     }
 
-    public static ApiVersionSet CreateApiVersionSet<TEndpoint, TResponse>(
-        this IEndpointRouteBuilder endpoints,
-        Configure<TEndpoint, TResponse> configuration)
-        where TEndpoint : class
+    private static Configure<TRequest, TResponse> GetApiVersions<TRequest, TResponse>(Configure<TRequest, TResponse> configuration)
+        where TRequest : class
         where TResponse : class, new()
     {
+
+        if (configuration.ActiveVersions == null || configuration.ActiveVersions.Length == 0)
+        {
+            configuration.ActiveVersions = [new ApiVersion(1, 0), new ApiVersion(2, 0)];
+        }
+        configuration.DeprecatedVersions ??= [];
+        return configuration;
+    }
+
+    public static ApiVersionSet CreateApiVersionSet<TRequest, TResponse>(
+        this IEndpointRouteBuilder endpoints,
+        Configure<TRequest, TResponse> configuration)
+        where TRequest : class
+        where TResponse : class, new()
+    {
+        configuration = GetApiVersions(configuration);
+
         var versionSetBuilder = endpoints.NewApiVersionSet();
 
         foreach (var deprecatedVersion in configuration.DeprecatedVersions)
@@ -105,4 +120,94 @@ public static class ApiVersioningExtensions
 
         return versionSetBuilder.ReportApiVersions().Build();
     }
+
+    public static Delegate HandleDelegate<TRequest, TResponse>(
+        this IEndpointRouteBuilder endpoints,
+        Configure<TRequest, TResponse> configuration)
+        where TRequest : class, new()
+        where TResponse : class, new()
+    {
+        if (configuration.HasUrlParameters)
+        {
+            return CreateHandlerWithParameterWithoutRequest(configuration);
+        }
+
+        return IsEmptyRequest<TRequest>()
+                ? CreateHandlerWithoutRequest(configuration)
+                : CreateHandlerWithRequest(configuration);
+    }
+
+    // Plan / Pseudocode:
+    // 1. Accept the generic types: TUrlParams, TRequest, TResponse.
+    // 2. If URL parameters are present, always return the combined parameter+request handler
+    //    - This covers both cases (with body or without). The combined handler signature
+    //      matches both scenarios and avoids duplicated branches.
+    // 3. If no URL parameters:
+    //    - If TRequest has no properties => return a handler without request body.
+    //    - Otherwise return a handler that expects a request body.
+    // 4. Keep logic concise and avoid redundant checks/returns.
+
+    public static Delegate HandleDelegate<TUrlParams, TRequest, TResponse>(
+        this IEndpointRouteBuilder endpoints,
+        Configure<TRequest, TResponse> configuration)
+        where TUrlParams : class, new()
+        where TRequest : class, new()
+        where TResponse : class, new()
+    {
+        // If the endpoint uses URL parameters, use the parameter+request handler.
+        // The combined handler works whether or not a body is present and removes duplicate branches.
+        if (configuration.HasUrlParameters)
+        {
+            return CreateHandlerWithParameterAndRequest<TUrlParams, TRequest, TResponse>(configuration);
+        }
+
+        // No URL parameters: choose between request-less or request-aware handler.
+        return IsEmptyRequest<TRequest>()
+            ? CreateHandlerWithoutRequest<TRequest, TResponse>(configuration)
+            : CreateHandlerWithRequest<TRequest, TResponse>(configuration);
+    }
+
+
+
+    private static bool IsEmptyRequest<TRequest>() where TRequest : class
+    {
+        return typeof(TRequest).GetProperties().Length == 0;
+    }
+    private static Delegate CreateHandlerWithoutRequest<TRequest, TResponse>(
+    Configure<TRequest, TResponse> configuration)
+        where TRequest : class, new()
+        where TResponse : class, new()
+    {
+        return (IMediator mediator) => new EndpointHandler<TRequest, TResponse>(mediator).HandleDelegate();
+    }
+
+    private static Delegate CreateHandlerWithParameterWithoutRequest<TRequest, TResponse>(
+    Configure<TRequest, TResponse> configuration)
+        where TRequest : class, new()
+        where TResponse : class, new()
+    {
+        return (IMediator mediator, [AsParameters] TRequest request) => new EndpointHandler<TRequest, TResponse>(mediator).HandleDelegate(request);
+    }
+
+    private static Delegate CreateHandlerWithParameterAndRequest<TUrlParams, TRequest, TResponse>(
+    Configure<TRequest, TResponse> configuration)
+        where TUrlParams : class, new()
+        where TRequest : class, new()
+        where TResponse : class, new()
+    {
+        return (IMediator mediator, [AsParameters] TUrlParams urlParams, TRequest body) =>
+        {
+            var combinedRequest = Helper.MergeParameters(urlParams, body);
+            return new EndpointHandler<TRequest, TResponse>(mediator).HandleDelegate(combinedRequest);
+        };
+    }
+
+    private static Delegate CreateHandlerWithRequest<TRequest, TResponse>(
+        Configure<TRequest, TResponse> configuration)
+        where TRequest : class, new()
+        where TResponse : class, new()
+    {
+        return (IMediator mediator, TRequest request) => new EndpointHandler<TRequest, TResponse>(mediator).HandleDelegate(request);
+    }
+
 }

@@ -49,3 +49,11 @@
 /iiwi.NetLine/bin/Release/net9.0
 /iiwi.NetLine/Properties/PublishProfiles
 /iiwi.SearchEngine/bin/Release/net9.0
+/iiwi.DatabaseMigrationCli/bin
+/iiwi.DatabaseMigrationCli/obj
+/iiwi.CLI/bin
+/iiwi.CLI/obj
+/iiwi.CLI/.vs/iiwi.CLI/CopilotIndices/17.14.1231.31060
+/iiwi.CLI/.vs/iiwi.CLI/DesignTimeBuild
+/iiwi.CLI/.vs/iiwi.CLI/FileContentIndex
+/iiwi.CLI/.vs/iiwi.CLI/v17

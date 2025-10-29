@@ -1,6 +1,6 @@
 <Solution>
   <Project Path="iiwi.Application/iiwi.Application.csproj" />
-  <Project Path="iiwi.AppWire/iiwi.AppWire.csproj" />
+  <Project Path="iiwi.CLI/iiwi.CLI.csproj" />
   <Project Path="iiwi.Common/iiwi.Common.csproj" />
   <Project Path="iiwi.Core/iiwi.Core.csproj" />
   <Project Path="iiwi.Database/iiwi.Database.csproj" />

@@ -1,6 +1,6 @@
 ﻿using Asp.Versioning;
 using Asp.Versioning.Conventions;
-using iiwi.Common;
+using iiwi.Common.Privileges;
 using iiwi.NetLine.Extensions;
 using iiwi.NetLine.Filters;
 using Microsoft.AspNetCore.HttpLogging;

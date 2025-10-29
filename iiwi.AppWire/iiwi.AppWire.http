@@ -1,6 +1,0 @@
-@iiwi.AppWire_HostAddress = http://localhost:5093
-
-GET {{iiwi.AppWire_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
