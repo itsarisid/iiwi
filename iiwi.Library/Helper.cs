@@ -114,7 +114,7 @@ public static class Helper
         if (EqualityComparer<TSource>.Default.Equals(source, default(TSource)))
             throw new ArgumentNullException(nameof(source));
 
-        if (destination == null)
+        if (destination.Equals(default(TDestination)))
             throw new ArgumentNullException(nameof(destination));
 
         var result = new Dictionary<string, object>();
