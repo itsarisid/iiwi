@@ -111,7 +111,7 @@ public static class Helper
     /// </summary>
     public static dynamic CopyPropertiesWithMissing<TSource, TDestination>(TSource source, TDestination destination)
     {
-        if (source == null)
+        if (EqualityComparer<TSource>.Default.Equals(source, default(TSource)))
             throw new ArgumentNullException(nameof(source));
 
         if (destination == null)
