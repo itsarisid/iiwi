@@ -12,7 +12,7 @@ namespace iiwi.Application.Authorization;
 
 public class UpdateRoleRequestHandler(
     RoleManager<ApplicationRole> _roleManager,
-    ILogger<UpdateProfileHandler> _logger
+    ILogger<UpdateRoleRequestHandler> _logger
     ) : IHandler<UpdateRoleRequest, Response>
 {
 
