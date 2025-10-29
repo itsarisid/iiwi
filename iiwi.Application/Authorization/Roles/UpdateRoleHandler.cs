@@ -18,17 +18,26 @@ public class UpdateRoleRequestHandler(
 
     public async Task<Result<Response>> HandleAsync(UpdateRoleRequest request)
     {
-        var roles = await _roleManager.Roles
-                .Select(r => new Role
-                {
-                    //Id = r.Id,
-                    Name = r.Name,
-                })
-                .ToListAsync();
-
-        return new Result<Response>(HttpStatusCode.OK, new Response
+        // Expecting Id to be set via URL params merge (Helper.MergeParameters supports non-public props)
+        var role = await _roleManager.FindByIdAsync(request.Id.ToString());
+        if (role is null)
         {
-            Message = "Role Update Successfully."
-        });
+            return new Result<Response>(HttpStatusCode.NotFound, new Response { Message = "Role not found." });
+        }
+
+        // Update fields
+        role.Name = request.Name;
+        role.NormalizedName = request.Name?.ToUpperInvariant();
+        // If you store Description on ApplicationRole, set it here as well
+
+        var result = await _roleManager.UpdateAsync(role);
+        if (!result.Succeeded)
+        {
+            var error = string.Join("; ", result.Errors.Select(e => $"{e.Code}:{e.Description}"));
+            return new Result<Response>(HttpStatusCode.BadRequest, new Response { Message = error });
+        }
+
+        _logger.LogInformation("Role {RoleId} updated.", role.Id);
+        return new Result<Response>(HttpStatusCode.OK, new Response { Message = "Role updated successfully." });
     }
 }
