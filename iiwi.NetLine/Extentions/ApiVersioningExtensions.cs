@@ -4,8 +4,6 @@ using Asp.Versioning.Builder;
 using Asp.Versioning.Conventions;
 using iiwi.Library;
 using iiwi.NetLine.Builders;
-using System.Reflection;
-using System.Text.Json.Serialization;
 
 namespace iiwi.NetLine.Extentions;
 
@@ -134,20 +132,18 @@ public static class ApiVersioningExtensions
             return CreateHandlerWithParameterWithoutRequest(configuration);
         }
 
-        return IsEmptyRequest<TRequest>()
-                ? CreateHandlerWithoutRequest(configuration)
-                : CreateHandlerWithRequest(configuration);
+            return IsEmptyRequest<TRequest>()
+                    ? CreateHandlerWithoutRequest(configuration)
+                    : CreateHandlerWithRequest(configuration);
     }
 
-    public static Delegate HandleDelegate<TUrlParams, TRequest, TResponse>(
+    public static Delegate HandleDelegate<TUrlParams,TRequest, TResponse>(
         this IEndpointRouteBuilder endpoints,
         Configure<TRequest, TResponse> configuration)
         where TUrlParams : class, new()
         where TRequest : class, new()
         where TResponse : class, new()
     {
-        var hasEmptyBody = HasEmptyBody(typeof(TRequest));
-        if (configuration.HasUrlParameters && !hasEmptyBody)
         {
             // Both URL parameters and body
             return CreateHandlerWithParameterAndRequest<TUrlParams, TRequest, TResponse>(configuration);
@@ -157,9 +153,9 @@ public static class ApiVersioningExtensions
             return CreateHandlerWithParameterWithoutRequest(configuration);
         }
 
-        return IsEmptyRequest<TRequest>()
-                ? CreateHandlerWithoutRequest(configuration)
-                : CreateHandlerWithRequest(configuration);
+            return IsEmptyRequest<TRequest>()
+                    ? CreateHandlerWithoutRequest(configuration)
+                    : CreateHandlerWithRequest(configuration);
     }
 
     private static bool IsEmptyRequest<TRequest>() where TRequest : class
@@ -202,22 +198,5 @@ public static class ApiVersioningExtensions
     {
         return (IMediator mediator, TRequest request) => new EndpointHandler<TRequest, TResponse>(mediator).HandleDelegate(request);
     }
-    private static bool HasNoProperties(Type type)
-    {
-        var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-        return properties.Length == 0;
-    }
 
-    private static bool HasPropertiesWithoutJsonIgnore(Type type)
-    {
-        var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-
-        return properties.Any(prop =>
-            !prop.GetCustomAttributes(typeof(JsonIgnoreAttribute), true).Any());
-    }
-
-    private static bool HasEmptyBody(Type type)
-    {
-        return HasNoProperties(type) || !HasPropertiesWithoutJsonIgnore(type);
-    }
 }
