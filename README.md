@@ -82,6 +82,8 @@ The state-of-the-art architecture of iiwi - with `ASP.NET Core 8`, `Entity Frame
 
 ## Try it online
 
+## Contributions
+![Alt](https://repobeats.axiom.co/api/embed/64145f83ca6d9fe687940f9e0a782fca341dda5f.svg "Repobeats analytics image")
 
 ## License
 
