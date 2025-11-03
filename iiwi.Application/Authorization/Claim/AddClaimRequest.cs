@@ -1,9 +1,12 @@
 ﻿
+using System.Text.Json.Serialization;
+
 namespace iiwi.Application.Authorization;
 
 public class AddClaimRequest
 {
-    private int RoleId { get; set; }
+    [JsonIgnore]
+    public int RoleId { get; set; }
 }
 public class AddClaimParams
 {

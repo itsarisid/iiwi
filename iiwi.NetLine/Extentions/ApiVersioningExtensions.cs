@@ -4,6 +4,8 @@ using Asp.Versioning.Builder;
 using Asp.Versioning.Conventions;
 using iiwi.Library;
 using iiwi.NetLine.Builders;
+using System.Reflection;
+using System.Text.Json.Serialization;
 
 namespace iiwi.NetLine.Extentions;
 
@@ -137,16 +139,6 @@ public static class ApiVersioningExtensions
                 : CreateHandlerWithRequest(configuration);
     }
 
-    // Plan / Pseudocode:
-    // 1. Accept the generic types: TUrlParams, TRequest, TResponse.
-    // 2. If URL parameters are present, always return the combined parameter+request handler
-    //    - This covers both cases (with body or without). The combined handler signature
-    //      matches both scenarios and avoids duplicated branches.
-    // 3. If no URL parameters:
-    //    - If TRequest has no properties => return a handler without request body.
-    //    - Otherwise return a handler that expects a request body.
-    // 4. Keep logic concise and avoid redundant checks/returns.
-
     public static Delegate HandleDelegate<TUrlParams, TRequest, TResponse>(
         this IEndpointRouteBuilder endpoints,
         Configure<TRequest, TResponse> configuration)
@@ -154,20 +146,21 @@ public static class ApiVersioningExtensions
         where TRequest : class, new()
         where TResponse : class, new()
     {
-        // If the endpoint uses URL parameters, use the parameter+request handler.
-        // The combined handler works whether or not a body is present and removes duplicate branches.
-        if (configuration.HasUrlParameters)
+        var hasEmptyBody = HasEmptyBody(typeof(TRequest));
+        if (configuration.HasUrlParameters && !hasEmptyBody)
         {
+            // Both URL parameters and body
             return CreateHandlerWithParameterAndRequest<TUrlParams, TRequest, TResponse>(configuration);
         }
+        if (configuration.HasUrlParameters)
+        {
+            return CreateHandlerWithParameterWithoutRequest(configuration);
+        }
 
-        // No URL parameters: choose between request-less or request-aware handler.
         return IsEmptyRequest<TRequest>()
-            ? CreateHandlerWithoutRequest<TRequest, TResponse>(configuration)
-            : CreateHandlerWithRequest<TRequest, TResponse>(configuration);
+                ? CreateHandlerWithoutRequest(configuration)
+                : CreateHandlerWithRequest(configuration);
     }
-
-
 
     private static bool IsEmptyRequest<TRequest>() where TRequest : class
     {
@@ -188,7 +181,6 @@ public static class ApiVersioningExtensions
     {
         return (IMediator mediator, [AsParameters] TRequest request) => new EndpointHandler<TRequest, TResponse>(mediator).HandleDelegate(request);
     }
-
     private static Delegate CreateHandlerWithParameterAndRequest<TUrlParams, TRequest, TResponse>(
     Configure<TRequest, TResponse> configuration)
         where TUrlParams : class, new()
@@ -197,6 +189,7 @@ public static class ApiVersioningExtensions
     {
         return (IMediator mediator, [AsParameters] TUrlParams urlParams, TRequest body) =>
         {
+            //var combinedRequest = Helper.CombineParameters(urlParams, body);
             var combinedRequest = Helper.MergeParameters(urlParams, body);
             return new EndpointHandler<TRequest, TResponse>(mediator).HandleDelegate(combinedRequest);
         };
@@ -209,5 +202,22 @@ public static class ApiVersioningExtensions
     {
         return (IMediator mediator, TRequest request) => new EndpointHandler<TRequest, TResponse>(mediator).HandleDelegate(request);
     }
+    private static bool HasNoProperties(Type type)
+    {
+        var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+        return properties.Length == 0;
+    }
 
+    private static bool HasPropertiesWithoutJsonIgnore(Type type)
+    {
+        var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+        return properties.Any(prop =>
+            !prop.GetCustomAttributes(typeof(JsonIgnoreAttribute), true).Any());
+    }
+
+    private static bool HasEmptyBody(Type type)
+    {
+        return HasNoProperties(type) || !HasPropertiesWithoutJsonIgnore(type);
+    }
 }

@@ -1,10 +1,13 @@
-﻿namespace iiwi.Application.Authorization;
+﻿using System.Text.Json.Serialization;
+
+namespace iiwi.Application.Authorization;
 
 public class DeleteRoleRequest
 {
-    public string RoleId { get; set; } = string.Empty;
+    [JsonIgnore]
+    public int Id { get; set; } 
 }
 public class DeleteRoleParams
 {
-    public int RoleId { get; set; }
+    public int Id { get; set; }
 }

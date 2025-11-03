@@ -78,7 +78,7 @@ public class AuthorizationEndpoints : IEndpoint
             HasUrlParameters = true,
             EnableCaching = true,
             CachePolicy = CachePolicy.NoCache,
-            //AuthorizationPolicies = [Permissions.Authorization.RolesById],
+            AuthorizationPolicies = [Permissions.Authorization.RolesById],
             EnableHttpLogging = true,
             EndpointFilters = ["LoggingFilter"]
         });
@@ -127,7 +127,6 @@ public class AuthorizationEndpoints : IEndpoint
             EndpointDetails = AuthorizationDoc.UpdateRole,
             HttpMethod = HttpVerb.Put,
             HasUrlParameters = true,
-            HasBody = true,
             EnableCaching = true,
             CachePolicy = CachePolicy.NoCache,
             AuthorizationPolicies = [Permissions.Authorization.UpdateRole],
@@ -174,14 +173,14 @@ public class AuthorizationEndpoints : IEndpoint
         /// <response code="200">Claim added successfully</response>
         /// <response code="404">If role is not found</response>
         /// <response code="401">If user is not authenticated</response>
-        routeGroup.MapVersionedEndpoint(new Configure<AddClaimParams,AddClaimRequest, Response>
+        routeGroup.MapVersionedEndpoint(new Configure<AddClaimParams, AddClaimRequest, Response>
         {
             EndpointDetails = AuthorizationDoc.AddRoleClaim,
             HttpMethod = HttpVerb.Post,
             HasUrlParameters = true,
             EnableCaching = true,
             CachePolicy = CachePolicy.NoCache,
-            //AuthorizationPolicies = [Permissions.Authorization.AddRoleClaim],
+            AuthorizationPolicies = [Permissions.Authorization.AddRoleClaim],
             EnableHttpLogging = true,
             EndpointFilters = ["LoggingFilter"]
         });
@@ -200,7 +199,7 @@ public class AuthorizationEndpoints : IEndpoint
         /// <response code="204">Claim removed successfully</response>
         /// <response code="404">If role or claim is not found</response>
         /// <response code="401">If user is not authenticated</response>
-        routeGroup.MapVersionedEndpoint(new Configure<RemoveClaimRequest, Response>
+        routeGroup.MapVersionedEndpoint(new Configure<RemoveClaimParams, RemoveClaimRequest, Response>
         {
             EndpointDetails = AuthorizationDoc.RemoveRoleClaim,
             HttpMethod = HttpVerb.Delete,
@@ -225,7 +224,7 @@ public class AuthorizationEndpoints : IEndpoint
         /// <response code="200">Returns the list of claims</response>
         /// <response code="404">If role is not found</response>
         /// <response code="401">If user is not authenticated</response>
-        routeGroup.MapVersionedEndpoint(new Configure<GetRoleClaimsRequest, Response>
+        routeGroup.MapVersionedEndpoint(new Configure<GetRoleClaimsParams, GetRoleClaimsRequest, Response>
         {
             EndpointDetails = AuthorizationDoc.GetRoleClaims,
             HttpMethod = HttpVerb.Get,

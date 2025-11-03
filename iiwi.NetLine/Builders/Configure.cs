@@ -22,7 +22,6 @@ public class Configure<TEndpoint, TResponse>
     public string[] AuthorizationPolicies { get; set; } = [];
     public bool EnableCaching { get; set; } = false;
     public bool HasUrlParameters { get; set; } = false;
-    public bool HasBody { get; set; } = false;
     public CachePolicy CachePolicy { get; set; } = CachePolicy.NoCache;
     public bool EnableHttpLogging { get; set; } = false;
     public HttpLoggingFields HttpLoggingFields { get; set; } = HttpLoggingFields.All;

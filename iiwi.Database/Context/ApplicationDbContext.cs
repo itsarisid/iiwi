@@ -1,9 +1,11 @@
 ﻿using iiwi.Common;
+using iiwi.Data.Seeds;
 using iiwi.Domain;
 using iiwi.Domain.Identity;
 using iiwi.Domain.Logs;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 namespace iiwi.Database;
 
 public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser, 
@@ -88,7 +90,9 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
         builder.Entity<Permission>(entity =>
         {
             entity.ToTable("Permission");
+            entity.SeedPermissions();
         });
+        
 
         builder.Entity<AuditLog>(entity =>
         {
