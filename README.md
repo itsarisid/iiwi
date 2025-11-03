@@ -85,6 +85,16 @@ The state-of-the-art architecture of iiwi - with `ASP.NET Core 8`, `Entity Frame
 ## Contributions
 ![Alt](https://repobeats.axiom.co/api/embed/64145f83ca6d9fe687940f9e0a782fca341dda5f.svg "Repobeats analytics image")
 
+## Star History
+
+<a href="https://www.star-history.com/#itsarisid/iiwi&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=itsarisid/iiwi&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=itsarisid/iiwi&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=itsarisid/iiwi&type=date&legend=top-left" />
+ </picture>
+</a>
+
 ## License
 
 iiwi is released under the [MIT](https://github.com/itsarisid/iiwi?tab=MIT-1-ov-file#readme).
