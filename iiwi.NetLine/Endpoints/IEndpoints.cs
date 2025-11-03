@@ -1,10 +1,9 @@
-﻿using iiwi.Model;
+﻿namespace iiwi.NetLine.Endpoints;
 
-namespace iiwi.NetLine.Endpoints;
-
-public interface IEndpoints 
+/// <summary>
+/// Marker interface for endpoint definition classes.
+/// Implementations should provide endpoint metadata or registration logic for the API.
+/// </summary>
+public interface IEndpoints
 {
-    /// <summary> 
-    /// This interface is used to define the endpoints for the application.
-    /// </summary>  
 }
