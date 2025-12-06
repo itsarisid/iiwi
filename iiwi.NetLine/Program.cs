@@ -48,7 +48,7 @@ builder.Services.AddIdentity(config);
 builder.Services.AddAuditTrail(config);   // Enhanced version with config
 
 // Register core application services
-builder.Services.AddAppServiceses(config); // Main business logic services
+builder.Services.AddAppServices(config); // Main business logic services
 builder.Services.AddAuthorization();      // Authorization policies
 builder.Services.AddAppCache();           // Caching infrastructure
 builder.Services.AddMediator(nameof(iiwi)); // MediatR for CQRS

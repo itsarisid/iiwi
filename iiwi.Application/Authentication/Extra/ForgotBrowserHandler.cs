@@ -5,28 +5,19 @@ using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using System.Net;
 
-/// <summary>
-///       Namespace Name - iiwi.Application.Authentication.
-/// </summary>
-namespace iiwi.Application.Authentication;
+namespace iiwi.Application.Authentication.Extra;
 
 public class ForgotBrowserHandler(
-UserManager<ApplicationUser> _userManager,
-SignInManager<ApplicationUser> _signInManager,
-IClaimsProvider _claimsProvider) : IHandler<ForgotBrowserRequest, Response>
+    UserManager<ApplicationUser> _userManager,
+    SignInManager<ApplicationUser> _signInManager,
+    IClaimsProvider _claimsProvider) : IHandler<ForgotBrowserRequest, Response>
 {
-
-    /// <summary>
-    ///  Function Name :  HandleAsync.
-    /// </summary>
-    /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.ForgotBrowserRequest.</param>
-    /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Response>>.</returns>
     public async Task<Result<Response>> HandleAsync(ForgotBrowserRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
         if (user == null)
         {
-            return new Result<Response>(HttpStatusCode.BadRequest, new Response
+            return new Result<Response>(HttpStatusCode.NotFound, new Response
             {
                 Message = $"Unable to load user with ID '{_userManager.GetUserId(_claimsProvider.ClaimsPrinciple)}'."
             });
@@ -39,4 +30,3 @@ IClaimsProvider _claimsProvider) : IHandler<ForgotBrowserRequest, Response>
         });
     }
 }
-

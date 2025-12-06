@@ -7,12 +7,27 @@ using Microsoft.AspNetCore.Identity;
 using System.Net;
 using System.Text;
 using System.Text.Encodings.Web;
+using DotNetCore.Mediator;
+using DotNetCore.Results;
+using iiwi.Application.Provider;
+using iiwi.Common;
+using iiwi.Domain.Identity;
+using Microsoft.AspNetCore.Identity;
+using System.Net;
+using System.Text;
+using System.Text.Encodings.Web;
 
 /// <summary>
 ///       Namespace Name - iiwi.Application.Authentication.
 /// </summary>
 namespace iiwi.Application.Authentication;
 
+/// <summary>
+/// Handler for loading the authenticator key and QR code URI.
+/// </summary>
+/// <param name="_userManager">The user manager.</param>
+/// <param name="_claimsProvider">The claims provider.</param>
+/// <param name="_urlEncoder">The URL encoder.</param>
 internal class LoadKeyAndQrCodeUriHandler(
 UserManager<ApplicationUser> _userManager,
 IClaimsProvider _claimsProvider,
@@ -20,10 +35,10 @@ UrlEncoder _urlEncoder) : IHandler<LoadKeyAndQrCodeUriRequest, LoadKeyAndQrCodeU
 {
 
     /// <summary>
-    ///  Function Name :  HandleAsync.
+    /// Handles the load key and QR code URI request asynchronously.
     /// </summary>
-    /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.LoadKeyAndQrCodeUriRequest.</param>
-    /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Authentication.LoadKeyAndQrCodeUriResponse>>.</returns>
+    /// <param name="request">The load key and QR code URI request.</param>
+    /// <returns>A result containing the load key and QR code URI response.</returns>
     public async Task<Result<LoadKeyAndQrCodeUriResponse>> HandleAsync(LoadKeyAndQrCodeUriRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
@@ -53,10 +68,10 @@ UrlEncoder _urlEncoder) : IHandler<LoadKeyAndQrCodeUriRequest, LoadKeyAndQrCodeU
 
 
     /// <summary>
-    ///  Function Name :  FormatKey.
+    /// Formats the authenticator key.
     /// </summary>
-    /// <param name="unformattedKey">This unformattedKey's Datatype is : string.</param>
-    /// <returns>string.</returns>
+    /// <param name="unformattedKey">The unformatted key.</param>
+    /// <returns>The formatted key.</returns>
     private static string FormatKey(string unformattedKey)
     {
         var result = new StringBuilder();
@@ -76,11 +91,11 @@ UrlEncoder _urlEncoder) : IHandler<LoadKeyAndQrCodeUriRequest, LoadKeyAndQrCodeU
 
 
     /// <summary>
-    ///  Function Name :  GenerateQrCodeUri.
+    /// Generates the QR code URI.
     /// </summary>
-    /// <param name="email">This email's Datatype is : string.</param>
-    /// <param name="unformattedKey">This unformattedKey's Datatype is : string.</param>
-    /// <returns>string.</returns>
+    /// <param name="email">The email address.</param>
+    /// <param name="unformattedKey">The unformatted key.</param>
+    /// <returns>The QR code URI.</returns>
     private string GenerateQrCodeUri(string email, string unformattedKey)
     {
         return string.Format(

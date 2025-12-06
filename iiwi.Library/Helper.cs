@@ -1,19 +1,29 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Concurrent;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace iiwi.Library;
 
+/// <summary>
+/// Helper class for various operations.
+/// </summary>
 public static class Helper
 {
+    /// <summary>
+    /// Attribute to mark properties that should be populated from URL parameters.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class FromUrlAttribute : Attribute { }
 
+    /// <summary>
+    /// Combines URL parameters and request body into a single request object.
+    /// </summary>
+    /// <typeparam name="TUrlParams">The type of URL parameters.</typeparam>
+    /// <typeparam name="TRequest">The type of the request.</typeparam>
+    /// <param name="urlParams">The URL parameters.</param>
+    /// <param name="body">The request body.</param>
+    /// <returns>The combined request object.</returns>
     public static TRequest CombineParameters<TUrlParams, TRequest>(TUrlParams urlParams, TRequest body)
         where TUrlParams : class, new()
         where TRequest : class, new()
@@ -54,6 +64,14 @@ public static class Helper
         return combined;
     }
 
+    /// <summary>
+    /// Merges URL parameters and request body into a single request object.
+    /// </summary>
+    /// <typeparam name="TUrlParams">The type of URL parameters.</typeparam>
+    /// <typeparam name="TRequest">The type of the request.</typeparam>
+    /// <param name="urlParams">The URL parameters.</param>
+    /// <param name="body">The request body.</param>
+    /// <returns>The merged request object.</returns>
     public static TRequest MergeParameters<TUrlParams, TRequest>(TUrlParams urlParams, TRequest body)
     where TUrlParams : class, new()
     where TRequest : class, new()
@@ -153,13 +171,6 @@ public static class Helper
         return false;
     }
 
-    // Usage in request classes
-    public class AddRoleClaimRequest
-    {
-        [FromUrl]
-        public int RoleId { get; init; }  // This comes from URL
 
-        public string ClaimType { get; init; } = string.Empty;  // This comes from body
-        public string ClaimValue { get; init; } = string.Empty; // This comes from body
-    }
+
 }

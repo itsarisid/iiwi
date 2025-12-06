@@ -5,28 +5,19 @@ using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using System.Net;
 
-/// <summary>
-///       Namespace Name - iiwi.Application.Authentication.
-/// </summary>
-namespace iiwi.Application.Authentication;
+namespace iiwi.Application.Authentication.Login;
 
 public class ExternalLoginsHandler(
-UserManager<ApplicationUser> _userManager,
-SignInManager<ApplicationUser> _signInManager,
-IClaimsProvider _claimsProvider) : IHandler<ExternalLoginsRequest, ExternalLoginsResponse>
+    UserManager<ApplicationUser> _userManager,
+    SignInManager<ApplicationUser> _signInManager,
+    IClaimsProvider _claimsProvider) : IHandler<ExternalLoginsRequest, ExternalLoginsResponse>
 {
-
-    /// <summary>
-    ///  Function Name :  HandleAsync.
-    /// </summary>
-    /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.ExternalLoginsRequest.</param>
-    /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Authentication.ExternalLoginsResponse>>.</returns>
     public async Task<Result<ExternalLoginsResponse>> HandleAsync(ExternalLoginsRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
         if (user == null)
         {
-            return new Result<ExternalLoginsResponse>(HttpStatusCode.BadRequest, new ExternalLoginsResponse
+            return new Result<ExternalLoginsResponse>(HttpStatusCode.NotFound, new ExternalLoginsResponse
             {
                 Message = $"Unable to load user with ID '{_userManager.GetUserId(_claimsProvider.ClaimsPrinciple)}'."
             });
@@ -46,4 +37,3 @@ IClaimsProvider _claimsProvider) : IHandler<ExternalLoginsRequest, ExternalLogin
         });
     }
 }
-

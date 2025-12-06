@@ -3,18 +3,27 @@ using DotNetCore.Results;
 using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
-using static iiwi.Library.Helper;
 
 namespace iiwi.Application.Authorization;
 
+/// <summary>
+/// Handler for adding a role claim.
+/// </summary>
+/// <param name="_roleManager">The role manager.</param>
+/// <param name="_logger">The logger.</param>
 public class AddRoleClaimRequestHandler(
     RoleManager<ApplicationRole> _roleManager,
     ILogger<AddRoleClaimRequestHandler> _logger
     ) : IHandler<AddRoleClaimRequest, Response>
 {
 
+    /// <summary>
+    /// Handles the add role claim request asynchronously.
+    /// </summary>
+    /// <param name="request">The add role claim request.</param>
+    /// <returns>A result containing the response.</returns>
     public async Task<Result<Response>> HandleAsync(AddRoleClaimRequest request)
     {
         var roles = await _roleManager.Roles

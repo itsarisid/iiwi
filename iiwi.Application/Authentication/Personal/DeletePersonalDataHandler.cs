@@ -6,28 +6,20 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System.Net;
 
-/// <summary>
-///       Namespace Name - iiwi.Application.Authentication.
-/// </summary>
-namespace iiwi.Application.Authentication;
-public class DeletePersonalDataHandler(
-UserManager<ApplicationUser> _userManager,
-SignInManager<ApplicationUser> _signInManager,
-IClaimsProvider _claimsProvider,
-ILogger<DeletePersonalDataHandler> _logger) : IHandler<DeletePersonalDataRequest, Response>
-{
+namespace iiwi.Application.Authentication.Personal;
 
-    /// <summary>
-    ///  Function Name :  HandleAsync.
-    /// </summary>
-    /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.DeletePersonalDataRequest.</param>
-    /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Response>>.</returns>
+public class DeletePersonalDataHandler(
+    UserManager<ApplicationUser> _userManager,
+    SignInManager<ApplicationUser> _signInManager,
+    IClaimsProvider _claimsProvider,
+    ILogger<DeletePersonalDataHandler> _logger) : IHandler<DeletePersonalDataRequest, Response>
+{
     public async Task<Result<Response>> HandleAsync(DeletePersonalDataRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
         if (user == null)
         {
-            return new Result<Response>(HttpStatusCode.BadRequest, new Response
+            return new Result<Response>(HttpStatusCode.NotFound, new Response
             {
                 Message = $"Unable to load user with ID '{_userManager.GetUserId(_claimsProvider.ClaimsPrinciple)}'."
             });
@@ -61,4 +53,3 @@ ILogger<DeletePersonalDataHandler> _logger) : IHandler<DeletePersonalDataRequest
         });
     }
 }
-

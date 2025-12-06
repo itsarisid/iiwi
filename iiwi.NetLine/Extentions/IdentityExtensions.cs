@@ -1,4 +1,4 @@
-﻿namespace iiwi.NetLine.Extentions;
+﻿namespace iiwi.NetLine.Extensions;
 
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
@@ -16,7 +16,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using iiwi.NetLine.Extensions;
+
 
 
 /// <summary>

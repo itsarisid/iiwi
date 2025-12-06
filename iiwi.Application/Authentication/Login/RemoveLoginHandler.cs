@@ -5,28 +5,19 @@ using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using System.Net;
 
-/// <summary>
-///       Namespace Name - iiwi.Application.Authentication.
-/// </summary>
-namespace iiwi.Application.Authentication;
+namespace iiwi.Application.Authentication.Login;
 
 public class RemoveLoginHandler(
-UserManager<ApplicationUser> _userManager,
-SignInManager<ApplicationUser> _signInManager,
-IClaimsProvider _claimsProvider) : IHandler<RemoveLoginRequest, Response>
+    UserManager<ApplicationUser> _userManager,
+    SignInManager<ApplicationUser> _signInManager,
+    IClaimsProvider _claimsProvider) : IHandler<RemoveLoginRequest, Response>
 {
-
-    /// <summary>
-    ///  Function Name :  HandleAsync.
-    /// </summary>
-    /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.RemoveLoginRequest.</param>
-    /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Response>>.</returns>
     public async Task<Result<Response>> HandleAsync(RemoveLoginRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
         if (user == null)
         {
-            return new Result<Response>(HttpStatusCode.BadRequest, new Response
+            return new Result<Response>(HttpStatusCode.NotFound, new Response
             {
                 Message = $"Unable to load user with ID '{_userManager.GetUserId(_claimsProvider.ClaimsPrinciple)}'."
             });
@@ -42,10 +33,9 @@ IClaimsProvider _claimsProvider) : IHandler<RemoveLoginRequest, Response>
         }
 
         await _signInManager.RefreshSignInAsync(user);
-        return new Result<Response>(HttpStatusCode.BadRequest, new Response
+        return new Result<Response>(HttpStatusCode.OK, new Response
         {
             Message = "The external login was removed.",
         });
     }
 }
-

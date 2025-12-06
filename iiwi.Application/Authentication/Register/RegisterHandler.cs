@@ -15,6 +15,13 @@ using iiwi.Domain.Identity;
 /// </summary>
 namespace iiwi.Application.Authentication;
 
+/// <summary>
+/// Handler for user registration.
+/// </summary>
+/// <param name="_userManager">The user manager.</param>
+/// <param name="_signInManager">The sign-in manager.</param>
+/// <param name="_logger">The logger.</param>
+/// <param name="_mailService">The mail service.</param>
 public class RegisterHandler(
 UserManager<ApplicationUser> _userManager,
 SignInManager<ApplicationUser> _signInManager,
@@ -23,10 +30,10 @@ IMailService _mailService) : IHandler<RegisterRequest, RegisterResponse>
 {
 
     /// <summary>
-    ///  Function Name :  HandleAsync.
+    /// Handles the register request asynchronously.
     /// </summary>
-    /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.RegisterRequest.</param>
-    /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Authentication.RegisterResponse>>.</returns>
+    /// <param name="request">The register request.</param>
+    /// <returns>A result containing the register response.</returns>
     public async Task<Result<RegisterResponse>> HandleAsync(RegisterRequest request)
     {
 

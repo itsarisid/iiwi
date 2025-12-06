@@ -9,16 +9,20 @@ using System.Net;
 /// </summary>
 namespace iiwi.Application.Authentication;
 
+/// <summary>
+/// Handler for processing user logout.
+/// </summary>
+/// <param name="_signInManager">The sign-in manager.</param>
 public class LogoutHandler(
     SignInManager<ApplicationUser> _signInManager
     ) : IHandler<LogoutRequest, Response>
 {
 
     /// <summary>
-    ///  Function Name :  HandleAsync.
+    /// Handles the logout request asynchronously.
     /// </summary>
-    /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.LogoutRequest.</param>
-    /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Response>>.</returns>
+    /// <param name="request">The logout request.</param>
+    /// <returns>A result containing the response.</returns>
     public async Task<Result<Response>> HandleAsync(LogoutRequest request)
     {
         await _signInManager.SignOutAsync();

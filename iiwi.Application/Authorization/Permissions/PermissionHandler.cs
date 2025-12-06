@@ -8,6 +8,12 @@ using System.Net;
 
 namespace iiwi.Application.Authorization;
 
+/// <summary>
+/// Handler for getting permissions.
+/// </summary>
+/// <param name="_roleManager">The role manager.</param>
+/// <param name="permission">The permission repository.</param>
+/// <param name="_logger">The logger.</param>
 public class PermissionHandler(
     RoleManager<ApplicationRole> _roleManager,
     IPermissionRepository permission,
@@ -15,6 +21,11 @@ public class PermissionHandler(
     ) : IHandler<PermissionRequest, PermissionResponse>
 {
 
+    /// <summary>
+    /// Handles the permission request asynchronously.
+    /// </summary>
+    /// <param name="request">The permission request.</param>
+    /// <returns>A result containing the permission response.</returns>
     public async Task<Result<PermissionResponse>> HandleAsync(PermissionRequest request)
     {
         var role = await _roleManager.FindByIdAsync(request.Id);

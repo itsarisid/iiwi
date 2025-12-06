@@ -2,6 +2,9 @@
 
 namespace iiwi.Model.Account;
 
+/// <summary>
+/// Model for enabling authenticator.
+/// </summary>
 public class EnableAuthenticatorModel
 {
     [Required]

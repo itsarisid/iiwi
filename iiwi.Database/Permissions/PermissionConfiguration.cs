@@ -6,8 +6,15 @@ using iiwi.Common;
 
 namespace iiwi.Database;
 
+/// <summary>
+/// Configuration for the Permission entity.
+/// </summary>
 public sealed class PermissionConfiguration : IEntityTypeConfiguration<Permission>
 {
+    /// <summary>
+    /// Configures the Permission entity.
+    /// </summary>
+    /// <param name="builder">The entity type builder.</param>
     public void Configure(EntityTypeBuilder<Permission> builder)
     {
         builder.ToTable(nameof(Permission), General.Schema.Name);

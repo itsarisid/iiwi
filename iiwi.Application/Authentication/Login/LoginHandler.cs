@@ -3,20 +3,19 @@ using DotNetCore.Results;
 using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using System.Net;
-using System.Security.Claims;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Net;
 
 /// <summary>
 ///       Namespace Name - iiwi.Application.Authentication.
 /// </summary>
 namespace iiwi.Application.Authentication;
 
+/// <summary>
+/// Handler for processing user login requests.
+/// </summary>
+/// <param name="_signInManager">The sign-in manager.</param>
+/// <param name="_logger">The logger.</param>
 public class LoginHandler(
     SignInManager<ApplicationUser> _signInManager,
     ILogger<ApplicationUser> _logger
@@ -24,10 +23,10 @@ public class LoginHandler(
 {
 
     /// <summary>
-    ///  Function Name :  HandleAsync.
+    /// Handles the login request asynchronously.
     /// </summary>
-    /// <param name="request">This request's Data type is : iiwi.Application.Authentication.LoginRequest.</param>
-    /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Authentication.LoginResponse>>.</returns>
+    /// <param name="request">The login request.</param>
+    /// <returns>A result containing the login response.</returns>
     public async Task<Result<LoginResponse>> HandleAsync(LoginRequest request)
     {
         var auth = await _signInManager.GetExternalAuthenticationSchemesAsync();

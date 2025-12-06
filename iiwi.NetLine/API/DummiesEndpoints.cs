@@ -1,5 +1,6 @@
 ﻿using iiwi.Common.Privileges;
 using iiwi.Model.Enums;
+using iiwi.Model.Endpoints;
 using iiwi.Model.PingPong;
 using iiwi.NetLine.APIDoc;
 using iiwi.NetLine.Builders;

@@ -6,8 +6,16 @@ using Microsoft.Extensions.Configuration;
 
 namespace iiwi.Database;
 
+/// <summary>
+/// Factory for creating the application database context.
+/// </summary>
 public class DbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
 {
+    /// <summary>
+    /// Creates the database context.
+    /// </summary>
+    /// <param name="args">The arguments.</param>
+    /// <returns>The application database context.</returns>
     public ApplicationDbContext CreateDbContext(string[] args)
     {
         // Get environment

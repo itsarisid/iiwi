@@ -1,4 +1,4 @@
-﻿using static iiwi.NetLine.Extentions.ApiVersioningExtensions;
+﻿using static iiwi.NetLine.Extensions.ApiVersioningExtensions;
 namespace iiwi.NetLine.Config;
 
 public static class ApiVersioningSetup

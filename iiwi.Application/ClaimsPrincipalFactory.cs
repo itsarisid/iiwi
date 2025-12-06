@@ -5,11 +5,23 @@ using System.Security.Claims;
 
 namespace iiwi.Application;
 
+/// <summary>
+/// Custom factory for creating claims principals for application users.
+/// Adds user and role claims, and authentication method claims.
+/// </summary>
+/// <param name="userManager">The user manager.</param>
+/// <param name="roleManager">The role manager.</param>
+/// <param name="optionsAccessor">The identity options accessor.</param>
 public class ClaimsPrincipalFactory(
     UserManager<ApplicationUser> userManager,
     RoleManager<ApplicationRole> roleManager,
     IOptions<IdentityOptions> optionsAccessor) : UserClaimsPrincipalFactory<ApplicationUser, ApplicationRole>(userManager, roleManager, optionsAccessor)
 {
+    /// <summary>
+    /// Creates a claims principal for the specified user asynchronously.
+    /// </summary>
+    /// <param name="user">The user to create the principal for.</param>
+    /// <returns>The created claims principal.</returns>
     public override async Task<ClaimsPrincipal> CreateAsync(ApplicationUser user)
     {
         ArgumentNullException.ThrowIfNull(user);

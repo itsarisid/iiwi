@@ -8,10 +8,15 @@ using System.Reflection;
 using Fluid;
 namespace iiwi.Infrastructure.Email;
 
+/// <summary>
+/// Service for sending emails.
+/// </summary>
+/// <param name="mailSettings">The mail settings.</param>
 public class MailService(IOptions<MailSettings> mailSettings) : IMailService
 {
     private readonly MailSettings _mailSettings = mailSettings.Value;
 
+    /// <inheritdoc />
     public async Task SendEmailAsync(MailRequest mailRequest)
     {
         var email = new MimeMessage
@@ -47,6 +52,7 @@ public class MailService(IOptions<MailSettings> mailSettings) : IMailService
         await smtp.DisconnectAsync(true);
     }
 
+    /// <inheritdoc />
     public async Task SendEmailWithTemplateAsync(EmailSettings model)
     {
         //FIXME: Dynamic template path.

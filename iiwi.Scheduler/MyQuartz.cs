@@ -14,7 +14,7 @@ namespace iiwi.Scheduler;
 /// </remarks>
 public class MyQuartz
 {
-    // Der verwendete Scheduler
+    // The scheduler used
     private IScheduler _scheduler = null!;
 
     /// <summary>
@@ -42,7 +42,7 @@ public class MyQuartz
     /// </summary>
     private MyQuartz()
     {
-        // Initialisieren
+        // Initialize
         _ = Init();
     }
 
@@ -51,7 +51,7 @@ public class MyQuartz
     /// </summary>
     private async Task Init()
     {
-        // Scheduler setzen mit standard Scheduler Factory
+        // Set scheduler with standard Scheduler Factory
         _scheduler = await new StdSchedulerFactory().GetScheduler();
     }
 
@@ -82,19 +82,19 @@ public class MyQuartz
     public static async Task AddJob<T>(string name, string group, int interval)
         where T : IJob
     {
-        // Job erstellen
+        // Create Job
         IJobDetail job = JobBuilder.Create<T>()
             .WithIdentity(name, group)
             .Build();
 
-        // Trigger erstellen
+        // Create Trigger
         ITrigger jobTrigger = TriggerBuilder.Create()
             .WithIdentity(name + "Trigger", group)
-            .StartNow() // Jetzt starten
-            .WithSimpleSchedule(t => t.WithIntervalInSeconds(interval).RepeatForever()) // Mit wiederholung alle interval sekunden
+            .StartNow() // Start now
+            .WithSimpleSchedule(t => t.WithIntervalInSeconds(interval).RepeatForever()) // With repetition every interval seconds
             .Build();
 
-        // Job anfügen
+        // Add Job
         await Scheduler.ScheduleJob(job, jobTrigger);
     }
 

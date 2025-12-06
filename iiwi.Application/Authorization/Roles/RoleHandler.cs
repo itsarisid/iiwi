@@ -1,22 +1,32 @@
 ﻿using DotNetCore.Mediator;
 using DotNetCore.Results;
-using iiwi.Application.Account;
 using iiwi.Database.Permissions;
 using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System.Data.Entity;
 using System.Net;
 
 namespace iiwi.Application.Authorization;
 
+/// <summary>
+/// Handler for getting roles.
+/// </summary>
+/// <param name="_roleManager">The role manager.</param>
+/// <param name="permission">The permission repository.</param>
+/// <param name="_logger">The logger.</param>
 public class RoleHandler(
     RoleManager<ApplicationRole> _roleManager,
     IPermissionRepository permission,
-    ILogger<UpdateProfileHandler> _logger
+    ILogger<RoleHandler> _logger
     ) : IHandler<RoleRequest, RoleResponse>
 {
 
+    /// <summary>
+    /// Handles the role request asynchronously.
+    /// </summary>
+    /// <param name="request">The role request.</param>
+    /// <returns>A result containing the role response.</returns>
     public async Task<Result<RoleResponse>> HandleAsync(RoleRequest request)
     {
         var roles = await _roleManager.Roles

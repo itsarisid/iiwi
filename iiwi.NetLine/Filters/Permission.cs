@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using iiwi.Common.Privileges;
+using Microsoft.Extensions.Logging;
 
 namespace iiwi.NetLine.Filters;
 
@@ -67,7 +69,6 @@ public class AuthorizeAttribute : TypeFilterAttribute
 public class AuthorizeActionFilter(
     PermissionItem _item, 
     PermissionAction _action,
-    //IPermissionService permissionService, FIXME: Not sure why this IPermissionService is here
     ILogger<AuthorizeActionFilter> logger) : IAuthorizationFilter
 {
     /// <summary>
@@ -106,13 +107,7 @@ public class AuthorizeActionFilter(
     /// </remarks>
     private bool CheckUserPermissions(ClaimsPrincipal user, PermissionItem item, PermissionAction action)
     {
-        // TODO: Implement actual permission verification logic
-        // Example implementation steps:
-        // 1. Get user roles/claims
-        // 2. Query permission store
-        // 3. Check if combination exists
-        // 4. Return true if authorized
-
-        return true; // Placeholder - replace with real implementation
+        var permission = $"{item}.{action}";
+        return user.HasClaim(Permissions.Permission, permission);
     }
 }

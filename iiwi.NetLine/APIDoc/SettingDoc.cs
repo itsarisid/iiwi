@@ -1,4 +1,5 @@
 ﻿using iiwi.Model;
+using iiwi.Model.Endpoints;
 namespace iiwi.NetLine.APIDoc;
 /// <summary>
 /// Contains endpoints for managing user settings and preferences

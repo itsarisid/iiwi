@@ -1,4 +1,6 @@
 ﻿namespace iiwi.Application;
 
-// Base request/response
+/// <summary>
+/// Represents an empty request or response, typically used when no data needs to be transferred.
+/// </summary>
 public record EmptyRequest();

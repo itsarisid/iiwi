@@ -2,6 +2,7 @@
 using iiwi.Application.Authentication;
 using iiwi.Common.Privileges;
 using iiwi.Model.Enums;
+using iiwi.Model.Endpoints;
 using iiwi.NetLine.APIDoc;
 using iiwi.NetLine.Builders;
 using iiwi.NetLine.Extensions;

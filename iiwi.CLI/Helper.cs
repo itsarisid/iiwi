@@ -7,6 +7,10 @@ namespace iiwi.CLI;
 
 public static class Helper
 {
+    /// <summary>
+    /// Creates a command to add a new migration.
+    /// </summary>
+    /// <returns>The configured Command object.</returns>
     public static Command CreateAddMigrationCommand()
     {
         var command = new Command("add", "Add a new migration");
@@ -36,6 +40,10 @@ public static class Helper
         return command;
     }
 
+    /// <summary>
+    /// Creates a command to update the database to a specified migration.
+    /// </summary>
+    /// <returns>The configured Command object.</returns>
     public static Command CreateUpdateDatabaseCommand()
     {
         var command = new Command("update", "Update database to latest or specified migration");
@@ -78,6 +86,10 @@ public static class Helper
         return command;
     }
 
+    /// <summary>
+    /// Creates a command to list all available migrations.
+    /// </summary>
+    /// <returns>The configured Command object.</returns>
     public static Command CreateListMigrationsCommand()
     {
         var command = new Command("list", "List all migrations");
@@ -113,6 +125,10 @@ public static class Helper
         return command;
     }
 
+    /// <summary>
+    /// Creates a command to remove the last migration.
+    /// </summary>
+    /// <returns>The configured Command object.</returns>
     public static Command CreateRemoveMigrationCommand()
     {
         var command = new Command("remove", "Remove the last migration");
@@ -140,6 +156,10 @@ public static class Helper
         return command;
     }
 
+    /// <summary>
+    /// Creates a command to generate a SQL script from migrations.
+    /// </summary>
+    /// <returns>The configured Command object.</returns>
     public static Command CreateScriptMigrationCommand()
     {
         var command = new Command("script", "Generate SQL script for migrations");
@@ -207,6 +227,10 @@ public static class Helper
         return command;
     }
 
+    /// <summary>
+    /// Creates a command to display configuration information.
+    /// </summary>
+    /// <returns>The configured Command object.</returns>
     public static Command CreateInfoCommand()
     {
         var command = new Command("info", "Display connection string and configuration information");
@@ -240,6 +264,13 @@ public static class Helper
         return command;
     }
 
+    /// <summary>
+    /// Displays configuration and connection string information.
+    /// </summary>
+    /// <param name="project">The project path.</param>
+    /// <param name="connectionName">The name of the connection string.</param>
+    /// <param name="environment">The environment name.</param>
+    /// <param name="showConnection">Whether to show the full connection string.</param>
     public static void DisplayInfo(string? project, string? connectionName, string? environment, bool showConnection)
     {
         try
@@ -283,6 +314,11 @@ public static class Helper
         }
     }
 
+    /// <summary>
+    /// Masks sensitive information in a connection string.
+    /// </summary>
+    /// <param name="connectionString">The original connection string.</param>
+    /// <returns>The masked connection string.</returns>
     public static string MaskConnectionString(string connectionString)
     {
         var patterns = new[] { "Password=", "Pwd=", "User ID=", "UID=" };
@@ -305,6 +341,12 @@ public static class Helper
         return result;
     }
 
+    /// <summary>
+    /// Builds the configuration from appsettings files and environment variables.
+    /// </summary>
+    /// <param name="workingDirectory">The working directory.</param>
+    /// <param name="environment">The environment name.</param>
+    /// <returns>The built IConfiguration object.</returns>
     public static IConfiguration BuildConfiguration(string workingDirectory, string? environment)
     {
         environment ??= "Development";
@@ -318,12 +360,26 @@ public static class Helper
         return builder.Build();
     }
 
+    /// <summary>
+    /// Retrieves the connection string from the configuration.
+    /// </summary>
+    /// <param name="configuration">The configuration object.</param>
+    /// <param name="connectionName">The name of the connection string.</param>
+    /// <returns>The connection string, or null if not found.</returns>
     public static string? GetConnectionString(IConfiguration configuration, string? connectionName)
     {
         connectionName ??= "DefaultConnection";
         return configuration.GetConnectionString(connectionName);
     }
 
+    /// <summary>
+    /// Executes the 'add migration' command.
+    /// </summary>
+    /// <param name="action">The action to perform.</param>
+    /// <param name="name">The name of the migration.</param>
+    /// <param name="context">The DbContext to use.</param>
+    /// <param name="project">The project path.</param>
+    /// <param name="outputDir">The output directory.</param>
     public static async Task ExecuteMigrationCommand(string action, string name, string? context, string? project, string? outputDir)
     {
         try
@@ -354,6 +410,15 @@ public static class Helper
         }
     }
 
+    /// <summary>
+    /// Updates the database to the specified migration.
+    /// </summary>
+    /// <param name="migration">The target migration.</param>
+    /// <param name="context">The DbContext to use.</param>
+    /// <param name="project">The project path.</param>
+    /// <param name="connection">The connection string.</param>
+    /// <param name="connectionName">The connection string name.</param>
+    /// <param name="environment">The environment name.</param>
     public static async Task UpdateDatabase(string? migration, string? context, string? project, string? connection, string? connectionName, string? environment)
     {
         try
@@ -401,6 +466,14 @@ public static class Helper
         }
     }
 
+    /// <summary>
+    /// Lists all available migrations.
+    /// </summary>
+    /// <param name="context">The DbContext to use.</param>
+    /// <param name="project">The project path.</param>
+    /// <param name="connection">The connection string.</param>
+    /// <param name="connectionName">The connection string name.</param>
+    /// <param name="environment">The environment name.</param>
     public static async Task ListMigrations(string? context, string? project, string? connection, string? connectionName, string? environment)
     {
         try
@@ -440,6 +513,12 @@ public static class Helper
         }
     }
 
+    /// <summary>
+    /// Removes the last migration.
+    /// </summary>
+    /// <param name="context">The DbContext to use.</param>
+    /// <param name="project">The project path.</param>
+    /// <param name="force">Whether to force removal.</param>
     public static async Task RemoveMigration(string? context, string? project, bool force)
     {
         try
@@ -470,6 +549,18 @@ public static class Helper
         }
     }
 
+    /// <summary>
+    /// Generates a SQL script for migrations.
+    /// </summary>
+    /// <param name="from">Starting migration.</param>
+    /// <param name="to">Ending migration.</param>
+    /// <param name="context">The DbContext to use.</param>
+    /// <param name="project">The project path.</param>
+    /// <param name="output">The output file path.</param>
+    /// <param name="idempotent">Whether to generate an idempotent script.</param>
+    /// <param name="connection">The connection string.</param>
+    /// <param name="connectionName">The connection string name.</param>
+    /// <param name="environment">The environment name.</param>
     public static async Task ScriptMigration(string? from, string? to, string? context, string? project, string? output, bool idempotent, string? connection, string? connectionName, string? environment)
     {
         try
@@ -526,6 +617,12 @@ public static class Helper
         }
     }
 
+    /// <summary>
+    /// Executes a dotnet command.
+    /// </summary>
+    /// <param name="args">The command arguments.</param>
+    /// <param name="workingDirectory">The working directory.</param>
+    /// <returns>The exit code of the process.</returns>
     public static async Task<int> ExecuteDotNetCommand(string[] args, string? workingDirectory)
     {
         var startInfo = new ProcessStartInfo

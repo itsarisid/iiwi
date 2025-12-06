@@ -13,6 +13,13 @@ using System.Text.Encodings.Web;
 /// </summary>
 namespace iiwi.Application.Authentication
 {
+    /// <summary>
+    /// Handler for enabling two-factor authentication.
+    /// </summary>
+    /// <param name="_userManager">The user manager.</param>
+    /// <param name="_urlEncoder">The URL encoder.</param>
+    /// <param name="_claimsProvider">The claims provider.</param>
+    /// <param name="_logger">The logger.</param>
     public class EnableAuthenticatorHandler(
     UserManager<ApplicationUser> _userManager,
     UrlEncoder _urlEncoder,
@@ -21,10 +28,10 @@ namespace iiwi.Application.Authentication
     {
 
         /// <summary>
-        ///  Function Name :  HandleAsync.
+        /// Handles the enable authenticator request asynchronously.
         /// </summary>
-        /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.EnableAuthenticatorRequest.</param>
-        /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Authentication.EnableAuthenticatorResponse>>.</returns>
+        /// <param name="request">The enable authenticator request.</param>
+        /// <returns>A result containing the enable authenticator response.</returns>
         public async Task<Result<EnableAuthenticatorResponse>> HandleAsync(EnableAuthenticatorRequest request)
         {
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
@@ -84,11 +91,11 @@ namespace iiwi.Application.Authentication
 
 
         /// <summary>
-        ///  Function Name :  GenerateQrCodeUri.
+        /// Generates the QR code URI.
         /// </summary>
-        /// <param name="email">This email's Datatype is : string.</param>
-        /// <param name="unformattedKey">This unformattedKey's Datatype is : string.</param>
-        /// <returns>string.</returns>
+        /// <param name="email">The email address.</param>
+        /// <param name="unformattedKey">The unformatted key.</param>
+        /// <returns>The QR code URI.</returns>
         private string GenerateQrCodeUri(string email, string unformattedKey)
         {
             return string.Format(

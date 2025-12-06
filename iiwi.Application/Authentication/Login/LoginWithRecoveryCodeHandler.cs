@@ -2,7 +2,7 @@ using DotNetCore.Mediator;
 using DotNetCore.Results;
 using iiwi.Application.Provider;
 using iiwi.Domain.Identity;
-using Microsoft.AspNet.Identity;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System.Net;
@@ -12,6 +12,11 @@ using System.Net;
 /// </summary>
 namespace iiwi.Application.Authentication
 {
+    /// <summary>
+    /// Handler for processing login with a recovery code.
+    /// </summary>
+    /// <param name="_signInManager">The sign-in manager.</param>
+    /// <param name="_logger">The logger.</param>
     public class LoginWithRecoveryCodeHandler(
         SignInManager<ApplicationUser> _signInManager,
          ILogger<LoginHandler> _logger
@@ -19,10 +24,10 @@ namespace iiwi.Application.Authentication
     {
 
         /// <summary>
-        ///  Function Name :  HandleAsync.
+        /// Handles the login with recovery code request asynchronously.
         /// </summary>
-        /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.LoginWithRecoveryCodeRequest.</param>
-        /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Response>>.</returns>
+        /// <param name="request">The login with recovery code request.</param>
+        /// <returns>A result containing the response.</returns>
         public async Task<Result<Response>> HandleAsync(LoginWithRecoveryCodeRequest request)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync() ?? throw new InvalidOperationException($"Unable to load two-factor authentication user.");

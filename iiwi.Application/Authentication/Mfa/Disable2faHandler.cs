@@ -11,6 +11,12 @@ using System.Net;
 /// </summary>
 namespace iiwi.Application.Authentication
 {
+    /// <summary>
+    /// Handler for disabling two-factor authentication.
+    /// </summary>
+    /// <param name="_userManager">The user manager.</param>
+    /// <param name="_claimsProvider">The claims provider.</param>
+    /// <param name="_logger">The logger.</param>
     public class Disable2faHandler(
     UserManager<ApplicationUser> _userManager,
     IClaimsProvider _claimsProvider,
@@ -18,10 +24,10 @@ namespace iiwi.Application.Authentication
     {
 
         /// <summary>
-        ///  Function Name :  HandleAsync.
+        /// Handles the disable 2FA request asynchronously.
         /// </summary>
-        /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.Disable2faRequest.</param>
-        /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Response>>.</returns>
+        /// <param name="request">The disable 2FA request.</param>
+        /// <returns>A result containing the response.</returns>
         public async Task<Result<Response>> HandleAsync(Disable2faRequest request)
         {
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

@@ -10,6 +10,11 @@ using System.Net;
 /// </summary>
 namespace iiwi.Application.Authentication;
 
+/// <summary>
+/// Handler for processing two-factor authentication login.
+/// </summary>
+/// <param name="_signInManager">The sign-in manager.</param>
+/// <param name="_logger">The logger.</param>
 public class LoginWith2faHandler(
     SignInManager<ApplicationUser> _signInManager,
     ILogger<LoginWith2faHandler> _logger
@@ -17,10 +22,10 @@ public class LoginWith2faHandler(
 {
 
     /// <summary>
-    ///  Function Name :  HandleAsync.
+    /// Handles the two-factor authentication login request asynchronously.
     /// </summary>
-    /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.LoginWith2faRequest.</param>
-    /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Response>>.</returns>
+    /// <param name="request">The login with 2FA request.</param>
+    /// <returns>A result containing the response.</returns>
     public async Task<Result<Response>> HandleAsync(LoginWith2faRequest request)
     {
         var user = await _signInManager.GetTwoFactorAuthenticationUserAsync() ??

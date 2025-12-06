@@ -3,6 +3,7 @@ using iiwi.Application;
 using iiwi.Common;
 using iiwi.Common.Privileges;
 using iiwi.Model.Enums;
+using iiwi.Model.Endpoints;
 using iiwi.Model.PingPong;
 using iiwi.NetLine.Builders;
 using iiwi.NetLine.Extensions;

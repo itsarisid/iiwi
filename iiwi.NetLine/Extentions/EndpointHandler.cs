@@ -1,6 +1,6 @@
 ﻿using DotNetCore.Results;
 
-namespace iiwi.NetLine.Extentions;
+namespace iiwi.NetLine.Extensions;
 public class EndpointHandler<TRequest, TResponse>(IMediator mediator)
 where TRequest : class, new()
 where TResponse : class, new()

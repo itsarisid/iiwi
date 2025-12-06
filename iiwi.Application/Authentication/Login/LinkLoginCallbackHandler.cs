@@ -11,6 +11,13 @@ using System.Net;
 /// </summary>
 namespace iiwi.Application.Authentication
 {
+    /// <summary>
+    /// Handler for processing the callback from linking an external login.
+    /// </summary>
+    /// <param name="_userManager">The user manager.</param>
+    /// <param name="_signInManager">The sign-in manager.</param>
+    /// <param name="_claimsProvider">The claims provider.</param>
+    /// <param name="_logger">The logger.</param>
     public class LinkLoginCallbackHandler(
     UserManager<ApplicationUser> _userManager,
     SignInManager<ApplicationUser> _signInManager,
@@ -19,10 +26,10 @@ namespace iiwi.Application.Authentication
     {
 
         /// <summary>
-        ///  Function Name :  HandleAsync.
+        /// Handles the link login callback request asynchronously.
         /// </summary>
-        /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.LinkLoginCallbackRequest.</param>
-        /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Response>>.</returns>
+        /// <param name="request">The link login callback request.</param>
+        /// <returns>A result containing the response.</returns>
         public async Task<Result<Response>> HandleAsync(LinkLoginCallbackRequest request)
         {
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

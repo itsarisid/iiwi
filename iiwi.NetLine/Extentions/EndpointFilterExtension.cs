@@ -1,4 +1,4 @@
-﻿namespace iiwi.NetLine.Extentions;
+﻿namespace iiwi.NetLine.Extensions;
 
 public static class EndpointFilterExtension
 {

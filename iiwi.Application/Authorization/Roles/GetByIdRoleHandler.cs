@@ -8,6 +8,12 @@ using System.Net;
 
 namespace iiwi.Application.Authorization;
 
+/// <summary>
+/// Handler for getting a role by ID.
+/// </summary>
+/// <param name="_roleManager">The role manager.</param>
+/// <param name="permission">The permission repository.</param>
+/// <param name="_logger">The logger.</param>
 public class GetByIdRoleHandler(
     RoleManager<ApplicationRole> _roleManager,
     IPermissionRepository permission,
@@ -15,6 +21,11 @@ public class GetByIdRoleHandler(
     ) : IHandler<GetByIdRoleRequest, GetByIdRoleResponse>
 {
 
+    /// <summary>
+    /// Handles the get role by ID request asynchronously.
+    /// </summary>
+    /// <param name="request">The get role by ID request.</param>
+    /// <returns>A result containing the role response.</returns>
     public async Task<Result<GetByIdRoleResponse>> HandleAsync(GetByIdRoleRequest request)
     {
         var role = await _roleManager.FindByIdAsync(request.Id);

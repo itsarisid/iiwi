@@ -5,9 +5,13 @@ using iiwi.Domain.Identity;
 using iiwi.Domain.Logs;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
+
 namespace iiwi.Database;
 
+/// <summary>
+/// The application database context.
+/// </summary>
+/// <param name="options">The database context options.</param>
 public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser, 
     ApplicationRole, int,
     ApplicationUserClaim, 
@@ -16,15 +20,29 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
     ApplicationRoleClaim,
     ApplicationUserToken>(options)
 {
+    /// <summary>
+    /// Gets or sets the permissions.
+    /// </summary>
     public DbSet<Permission> Permission { get; set; }
 
     // NOTE: These logs should move to different DbContext 
+    /// <summary>
+    /// Gets or sets the audit logs.
+    /// </summary>
     public DbSet<AuditLog> AuditLog { get; set; }
 
+    /// <summary>
+    /// Configures the database context.
+    /// </summary>
+    /// <param name="optionsBuilder">The options builder.</param>
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder.LogTo(Console.WriteLine);
 
 
+    /// <summary>
+    /// Configures the model.
+    /// </summary>
+    /// <param name="builder">The model builder.</param>
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

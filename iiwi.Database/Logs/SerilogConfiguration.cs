@@ -4,8 +4,15 @@ using iiwi.Domain.Logs;
 
 namespace iiwi.Database.Logs;
 
+/// <summary>
+/// Configuration for the Serilog entity.
+/// </summary>
 public sealed class SerilogConfiguration : IEntityTypeConfiguration<Serilog>
 {
+    /// <summary>
+    /// Configures the Serilog entity.
+    /// </summary>
+    /// <param name="builder">The entity type builder.</param>
     public void Configure(EntityTypeBuilder<Serilog> builder)
     {
         builder.ToTable(nameof(Serilog), "Log");

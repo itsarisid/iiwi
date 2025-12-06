@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning;
 using iiwi.Model;
+using iiwi.Model.Endpoints;
 using iiwi.Model.Enums;
 using Microsoft.AspNetCore.HttpLogging;
 

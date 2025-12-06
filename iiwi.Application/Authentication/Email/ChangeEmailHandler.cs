@@ -8,28 +8,19 @@ using iiwi.Model.Settings;
 using Microsoft.AspNetCore.Identity;
 using System.Net;
 
-/// <summary>
-///       Namespace Name - iiwi.Application.Authentication.
-/// </summary>
-namespace iiwi.Application.Authentication;
+namespace iiwi.Application.Authentication.Email;
 
 public class ChangeEmailHandler(
-UserManager<ApplicationUser> _userManager,
-IClaimsProvider _claimsProvider,
-IMailService _mailService) : IHandler<ChangeEmailRequest, Response>
+    UserManager<ApplicationUser> _userManager,
+    IClaimsProvider _claimsProvider,
+    IMailService _mailService) : IHandler<ChangeEmailRequest, Response>
 {
-
-    /// <summary>
-    ///  Function Name :  HandleAsync.
-    /// </summary>
-    /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.ChangeEmailRequest.</param>
-    /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Response>>.</returns>
     public async Task<Result<Response>> HandleAsync(ChangeEmailRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
         if (user == null)
         {
-            return new Result<Response>(HttpStatusCode.BadRequest, new Response
+            return new Result<Response>(HttpStatusCode.NotFound, new Response
             {
                 Message = $"Unable to load user with ID '{_userManager.GetUserId(_claimsProvider.ClaimsPrinciple)}'."
             });

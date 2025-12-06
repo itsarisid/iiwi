@@ -1,7 +1,6 @@
 ﻿using DotNetCore.Mediator;
 using DotNetCore.Results;
 using iiwi.Application.Provider;
-using iiwi.Database.Permissions;
 using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
@@ -12,18 +11,23 @@ using System.Net;
 /// </summary>
 namespace iiwi.Application.Account;
 
+/// <summary>
+/// Handler for updating user profile information.
+/// </summary>
+/// <param name="_userManager">The user manager.</param>
+/// <param name="_claimsProvider">The claims provider.</param>
+/// <param name="_logger">The logger.</param>
 public class UpdateProfileHandler(
     UserManager<ApplicationUser> _userManager,
     IClaimsProvider _claimsProvider,
-    IPermissionRepository permission,
     ILogger<UpdateProfileHandler> _logger) : IHandler<UpdateProfileRequest, Response>
 {
 
     /// <summary>
-    ///  Function Name :  HandleAsync.
+    /// Handles the profile update request asynchronously.
     /// </summary>
-    /// <param name="request">This request's Datatype is : iiwi.Application.Account.UpdateProfileRequest.</param>
-    /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Response>>.</returns>
+    /// <param name="request">The update profile request.</param>
+    /// <returns>A result containing the response.</returns>
     public async Task<Result<Response>> HandleAsync(UpdateProfileRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

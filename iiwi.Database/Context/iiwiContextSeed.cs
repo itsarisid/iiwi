@@ -3,8 +3,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace iiwi.Database;
 
+/// <summary>
+/// Seed data for the context.
+/// </summary>
 public static class iiwiContextSeed
 {
+    /// <summary>
+    /// Seeds the database.
+    /// </summary>
+    /// <param name="builder">The model builder.</param>
     public static void Seed(this ModelBuilder builder) => builder.SeedData();
     private static void SeedData(this ModelBuilder builder)
     {

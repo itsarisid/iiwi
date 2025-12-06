@@ -1,7 +1,6 @@
 ﻿using DotNetCore.Mediator;
 using DotNetCore.Results;
-using iiwi.Application.Account;
-using iiwi.Database.Permissions;
+
 using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
@@ -10,12 +9,22 @@ using System.Net;
 
 namespace iiwi.Application.Authorization;
 
+/// <summary>
+/// Handler for updating a role.
+/// </summary>
+/// <param name="_roleManager">The role manager.</param>
+/// <param name="_logger">The logger.</param>
 public class UpdateRoleRequestHandler(
     RoleManager<ApplicationRole> _roleManager,
     ILogger<UpdateRoleRequestHandler> _logger
     ) : IHandler<UpdateRoleRequest, Response>
 {
 
+    /// <summary>
+    /// Handles the update role request asynchronously.
+    /// </summary>
+    /// <param name="request">The update role request.</param>
+    /// <returns>A result containing the response.</returns>
     public async Task<Result<Response>> HandleAsync(UpdateRoleRequest request)
     {
         // Expecting Id to be set via URL params merge (Helper.MergeParameters supports non-public props)

@@ -8,12 +8,27 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Net;
 using System.Text;
+using DotNetCore.Mediator;
+using DotNetCore.Results;
+using iiwi.Common;
+using iiwi.Domain.Identity;
+using iiwi.Infrastructure.Email;
+using iiwi.Model.Settings;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
+using System.Net;
+using System.Text;
 
 /// <summary>
 ///       Namespace Name - iiwi.Application.Authentication.
 /// </summary>
 namespace iiwi.Application.Authentication;
 
+/// <summary>
+/// Handler for processing forgot password requests.
+/// </summary>
+/// <param name="_userManager">The user manager.</param>
+/// <param name="_mailService">The mail service.</param>
 public class ForgotPasswordHandler(
 UserManager<ApplicationUser> _userManager,
 IMailService _mailService) : IHandler<ForgotPasswordRequest, Response>
@@ -21,10 +36,10 @@ IMailService _mailService) : IHandler<ForgotPasswordRequest, Response>
 
 
     /// <summary>
-    ///  Function Name :  HandleAsync.
+    /// Handles the forgot password request asynchronously.
     /// </summary>
-    /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.ForgotPasswordRequest.</param>
-    /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Response>>.</returns>
+    /// <param name="request">The forgot password request.</param>
+    /// <returns>A result containing the response.</returns>
     public async Task<Result<Response>> HandleAsync(ForgotPasswordRequest request)
     {
         var user = await _userManager.FindByEmailAsync(request.Email);

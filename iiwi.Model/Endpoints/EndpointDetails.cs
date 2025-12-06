@@ -1,4 +1,4 @@
-﻿namespace iiwi.Model;
+﻿namespace iiwi.Model.Endpoints;
 
 /// <summary>
 /// Represents metadata for a single API endpoint used by NetLine/Carter endpoints.

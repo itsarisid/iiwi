@@ -8,12 +8,22 @@ using System.Net;
 
 namespace iiwi.Application.Authorization;
 
+/// <summary>
+/// Handler for deleting a role.
+/// </summary>
+/// <param name="_roleManager">The role manager.</param>
+/// <param name="_logger">The logger.</param>
 public class DeleteRoleRequestHandler(
     RoleManager<ApplicationRole> _roleManager,
     ILogger<DeleteRoleRequestHandler> _logger
     ) : IHandler<DeleteRoleRequest, Response>
 {
 
+    /// <summary>
+    /// Handles the delete role request asynchronously.
+    /// </summary>
+    /// <param name="request">The delete role request.</param>
+    /// <returns>A result containing the response.</returns>
     public async Task<Result<Response>> HandleAsync(DeleteRoleRequest request)
     {
         var roles = await _roleManager.Roles

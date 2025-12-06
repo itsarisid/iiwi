@@ -5,7 +5,7 @@ using Asp.Versioning.Conventions;
 using iiwi.Library;
 using iiwi.NetLine.Builders;
 
-namespace iiwi.NetLine.Extentions;
+namespace iiwi.NetLine.Extensions;
 
 public static class ApiVersioningExtensions
 {

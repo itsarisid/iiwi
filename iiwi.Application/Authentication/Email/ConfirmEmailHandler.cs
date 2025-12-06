@@ -6,26 +6,16 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Net;
 using System.Text;
 
-/// <summary>
-///       Namespace Name - iiwi.Application.Authentication.
-/// </summary>
-namespace iiwi.Application.Authentication;
+namespace iiwi.Application.Authentication.Email;
 
-public class ConfirmEmailHandler(
-UserManager<ApplicationUser> _userManager) : IHandler<ConfirmEmailRequest, Response>
+public class ConfirmEmailHandler(UserManager<ApplicationUser> _userManager) : IHandler<ConfirmEmailRequest, Response>
 {
-
-    /// <summary>
-    ///  Function Name :  HandleAsync.
-    /// </summary>
-    /// <param name="request">This request's Datatype is : iiwi.Application.Authentication.ConfirmEmailRequest.</param>
-    /// <returns>System.Threading.Tasks.Task<DotNetCore.Results.Result<iiwi.Application.Response>>.</returns>
     public async Task<Result<Response>> HandleAsync(ConfirmEmailRequest request)
     {
         var user = await _userManager.FindByIdAsync(request.UserId);
         if (user == null)
         {
-            return new Result<Response>(HttpStatusCode.BadRequest, new Response
+            return new Result<Response>(HttpStatusCode.NotFound, new Response
             {
                 Message = $"Unable to load user with ID '{request.UserId}'."
             });
