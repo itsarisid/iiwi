@@ -1,22 +1,29 @@
-# Security Policy
+# Security Policy for iiwi
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability, please contact us using the following details:
+If you discover a security vulnerability within `iiwi`, please report it to us immediately. We take security issues seriously and appreciate your help in making our project safe for everyone.
 
-- **Email**: khanalex301@gmail.com
+**DO NOT create a public GitHub issue for security vulnerabilities.**
 
-We will work to address the issue as quickly as possible. 
+Please contact us privately using the following details:
+
+- **Email**: security@iiwi.dev
+
+We will work to address the issue as quickly as possible.
 
 ## Supported Versions
 
 We currently support the following versions for security updates:
 
-- v1.0
+| Version | Supported          |
+| ------- | ------------------ |
+| Latest  | :white_check_mark: |
+| < 1.0   | :x:                |
 
 ## Preferred Method of Contact
 
-Please use the email address provided above for reporting vulnerabilities. Encrypt your message using the provided GPG key for secure communication.
+Please use the email address provided above for reporting vulnerabilities.
 
 ## Response Time
 
@@ -47,4 +54,4 @@ Security updates will be released as necessary to address vulnerabilities. We st
 
 At this time, we do not have a formal bug bounty program. However, we are open to discussing recognition and rewards on a case-by-case basis for significant discoveries.
 
-Thank you for helping to keep our project secure.
+Thank you for helping to keep `iiwi` secure.
