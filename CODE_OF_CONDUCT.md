@@ -1,4 +1,4 @@
-# Code of Conduct - Sand Castle
+# Code of Conduct - iiwi
 
 ## Our Pledge
 
