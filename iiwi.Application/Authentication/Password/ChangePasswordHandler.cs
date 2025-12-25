@@ -34,7 +34,16 @@ namespace iiwi.Application.Authentication;
         /// Handles the change password request asynchronously.
         /// </summary>
         /// <param name="request">The change password request.</param>
-        /// <returns>A result containing the response.</returns>
+        /// <summary>
+        /// Handles a change-password request for the current user.
+        /// </summary>
+        /// <param name="request">Contains the current (old) and new passwords for the change operation.</param>
+        /// <returns>
+        /// A Result containing a Response:
+        /// - HTTP 400 (BadRequest) with a message when the current user cannot be loaded.
+        /// - HTTP 500 (InternalServerError) with a message when the password change fails.
+        /// - HTTP 200 (OK) with a message when the password change succeeds.
+        /// </returns>
         public async Task<Result<Response>> HandleAsync(ChangePasswordRequest request)
         {
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

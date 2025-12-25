@@ -1,4 +1,4 @@
-﻿using DotNetCore.Mediator;
+using DotNetCore.Mediator;
 using DotNetCore.Results;
 using iiwi.Database.Permissions;
 using iiwi.Domain.Identity;
@@ -25,7 +25,13 @@ public class UpdatePermissionHandler(
     /// Handles the update permission request asynchronously.
     /// </summary>
     /// <param name="request">The update permission request.</param>
-    /// <returns>A result containing the response.</returns>
+    /// <summary>
+    /// Handles updating permissions for the role specified by the request.
+    /// </summary>
+    /// <param name="request">An UpdatePermissionRequest containing the role identifier and the permissions to apply.</param>
+    /// <returns>
+    /// A Result&lt;Response&gt; with HTTP 404 and Response.Message = &quot;Not Found&quot; if the role does not exist; otherwise HTTP 200 and Response.Message = &quot;Permission update successfully.&quot;
+    /// </returns>
     public async Task<Result<Response>> HandleAsync(UpdatePermissionRequest request)
     {
         var role = await _roleManager.FindByIdAsync(request.Id);

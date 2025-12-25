@@ -1,4 +1,4 @@
-﻿using DotNetCore.Mediator;
+using DotNetCore.Mediator;
 using DotNetCore.Results;
 using iiwi.Application.Provider;
 using iiwi.Domain.Identity;
@@ -27,7 +27,11 @@ public class UpdateProfileHandler(
     /// Handles the profile update request asynchronously.
     /// </summary>
     /// <param name="request">The update profile request.</param>
-    /// <returns>A result containing the response.</returns>
+    /// <summary>
+    /// Updates the current user's profile using values from the given request.
+    /// </summary>
+    /// <param name="request">Profile fields to apply to the current user: Address, DOB, FirstName, LastName, DisplayName, and Gender.</param>
+    /// <returns>A Result containing a Response: on success an HTTP 200 result with a confirmation message; if the current user cannot be loaded an HTTP 400 result with an error message.</returns>
     public async Task<Result<Response>> HandleAsync(UpdateProfileRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

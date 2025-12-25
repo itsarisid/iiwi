@@ -1,4 +1,4 @@
-﻿using DotNetCore.Mediator;
+using DotNetCore.Mediator;
 using DotNetCore.Objects;
 using DotNetCore.Results;
 using iiwi.Common;
@@ -18,7 +18,11 @@ public sealed record AddFileHandler : IHandler<AddFileRequest, IEnumerable<Binar
     /// Handles the add file request asynchronously.
     /// </summary>
     /// <param name="request">The add file request.</param>
-    /// <returns>A result containing the added binary files.</returns>
+    /// <summary>
+    /// Handles adding uploaded files and returns the saved binary files.
+    /// </summary>
+    /// <param name="request">The request containing files to save.</param>
+    /// <returns>A Result containing the saved <see cref="BinaryFile"/> instances and HTTP status code 200 (OK).</returns>
     public async Task<Result<IEnumerable<BinaryFile>>> HandleAsync(AddFileRequest request)
     {
         var files = await request.Files.SaveAsync(General.Directories.Files);

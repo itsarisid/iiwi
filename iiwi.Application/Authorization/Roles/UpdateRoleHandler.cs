@@ -1,4 +1,4 @@
-﻿using DotNetCore.Mediator;
+using DotNetCore.Mediator;
 using DotNetCore.Results;
 
 using iiwi.Domain.Identity;
@@ -24,7 +24,11 @@ public class UpdateRoleRequestHandler(
     /// Handles the update role request asynchronously.
     /// </summary>
     /// <param name="request">The update role request.</param>
-    /// <returns>A result containing the response.</returns>
+    /// <summary>
+    /// Handles updating an existing role identified by the request's Id.
+    /// </summary>
+    /// <param name="request">Contains the role Id (expected to be populated from URL parameters) and the new Name to apply to the role.</param>
+    /// <returns>A Result containing a Response with an HTTP status and message: 404 if the role is not found, 400 with aggregated identity errors if the update fails, or 200 on success.</returns>
     public async Task<Result<Response>> HandleAsync(UpdateRoleRequest request)
     {
         // Expecting Id to be set via URL params merge (Helper.MergeParameters supports non-public props)

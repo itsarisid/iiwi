@@ -12,6 +12,12 @@ public class UpdatePhoneNumberHandler(
     SignInManager<ApplicationUser> _signInManager,
     IClaimsProvider _claimsProvider) : IHandler<UpdatePhoneNumberRequest, Response>
 {
+    /// <summary>
+    /// Updates the current user's phone number if it differs from the provided value and refreshes the user's sign-in state.
+    /// </summary>
+    /// <param name="request">The request containing the new phone number to set for the current user.</param>
+    /// <returns>A Result containing a Response: `200 OK` with a success message when the update completes, or `404 NotFound` if the current user cannot be loaded.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if saving the new phone number fails unexpectedly.</exception>
     public async Task<Result<Response>> HandleAsync(UpdatePhoneNumberRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

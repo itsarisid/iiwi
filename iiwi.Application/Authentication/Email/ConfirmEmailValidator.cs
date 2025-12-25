@@ -10,7 +10,12 @@ public class ConfirmEmailValidator : AbstractValidator<ConfirmEmailRequest>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="ConfirmEmailValidator"/> class.
+    /// <summary>
+    /// Initializes a new instance of <see cref="ConfirmEmailValidator"/> and configures validation rules for confirming an email.
     /// </summary>
+    /// <remarks>
+    /// Ensures the request's <see cref="ConfirmEmailRequest.UserId"/> and <see cref="ConfirmEmailRequest.Code"/> are not empty.
+    /// </remarks>
     public ConfirmEmailValidator()
     {
         RuleFor(request => request.UserId).NotEmpty();

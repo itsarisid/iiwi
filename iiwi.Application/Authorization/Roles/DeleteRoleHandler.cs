@@ -1,4 +1,4 @@
-﻿using DotNetCore.Mediator;
+using DotNetCore.Mediator;
 using DotNetCore.Results;
 using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -23,7 +23,11 @@ public class DeleteRoleRequestHandler(
     /// Handles the delete role request asynchronously.
     /// </summary>
     /// <param name="request">The delete role request.</param>
-    /// <returns>A result containing the response.</returns>
+    /// <summary>
+    /// Handles a delete role request and produces a success response.
+    /// </summary>
+    /// <param name="request">The delete role request to process.</param>
+    /// <returns>A Result containing an HTTP 200 response with a Response whose Message is "Role Update Successfully."</returns>
     public async Task<Result<Response>> HandleAsync(DeleteRoleRequest request)
     {
         var roles = await _roleManager.Roles

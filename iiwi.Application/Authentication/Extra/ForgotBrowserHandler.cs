@@ -12,6 +12,13 @@ public class ForgotBrowserHandler(
     SignInManager<ApplicationUser> _signInManager,
     IClaimsProvider _claimsProvider) : IHandler<ForgotBrowserRequest, Response>
 {
+    /// <summary>
+    /// Forgets the current browser's two-factor authentication state for the authenticated user.
+    /// </summary>
+    /// <param name="request">The request triggering the forget-browser operation.</param>
+    /// <returns>
+    /// A Result containing a Response with an HTTP status and message: `404 Not Found` when the user cannot be loaded, or `200 OK` after the current browser's two-factor client has been forgotten.
+    /// </returns>
     public async Task<Result<Response>> HandleAsync(ForgotBrowserRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

@@ -39,7 +39,13 @@ IMailService _mailService) : IHandler<ForgotPasswordRequest, Response>
     /// Handles the forgot password request asynchronously.
     /// </summary>
     /// <param name="request">The forgot password request.</param>
-    /// <returns>A result containing the response.</returns>
+    /// <summary>
+    /// Handles a forgot-password request by sending a password-reset email when a user with the provided email exists and their email is confirmed.
+    /// </summary>
+    /// <param name="request">The forgot-password request containing the user's email.</param>
+    /// <returns>
+    /// A Result containing a Response with a message instructing the user to check their email; the Result status is 200 (OK) if the reset email was sent and 400 (Bad Request) if the user does not exist or the email is unconfirmed.
+    /// </returns>
     public async Task<Result<Response>> HandleAsync(ForgotPasswordRequest request)
     {
         var user = await _userManager.FindByEmailAsync(request.Email);

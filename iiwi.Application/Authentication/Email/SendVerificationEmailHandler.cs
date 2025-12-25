@@ -17,6 +17,15 @@ public class SendVerificationEmailHandler(
     IClaimsProvider _claimsProvider,
     IMailService _mailService) : IHandler<SendVerificationEmailRequest, Response>
 {
+    /// <summary>
+    /// Sends an email verification message to the currently authenticated user's email address.
+    /// </summary>
+    /// <param name="request">The request payload for sending the verification email.</param>
+    /// <returns>
+    /// A Result containing a Response:
+    /// - If the current user cannot be loaded: a NotFound status and a message identifying the user ID that could not be loaded.
+    /// - If the email is sent: an OK status and a message indicating the verification email was sent.
+    /// </returns>
     public async Task<Result<Response>> HandleAsync(SendVerificationEmailRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

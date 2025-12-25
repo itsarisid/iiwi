@@ -1,4 +1,4 @@
-﻿using DotNetCore.Mediator;
+using DotNetCore.Mediator;
 using DotNetCore.Objects;
 using DotNetCore.Results;
 using System.Net;
@@ -17,7 +17,11 @@ public sealed record GetFileHandler : IHandler<GetFileRequest, BinaryFile>
     /// Handles the get file request asynchronously.
     /// </summary>
     /// <param name="request">The get file request.</param>
-    /// <returns>A result containing the binary file.</returns>
+    /// <summary>
+    /// Retrieves the binary file identified by the provided request.
+    /// </summary>
+    /// <param name="request">The request containing the identifier of the file to retrieve.</param>
+    /// <returns>A Result&lt;BinaryFile&gt; with HTTP status code 200 (OK) and the requested file.</returns>
     public async Task<Result<BinaryFile>> HandleAsync(GetFileRequest request)
     {
         var file = await BinaryFile.ReadAsync("Files", request.Id);

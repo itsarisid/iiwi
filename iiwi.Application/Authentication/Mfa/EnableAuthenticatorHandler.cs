@@ -31,7 +31,15 @@ namespace iiwi.Application.Authentication
         /// Handles the enable authenticator request asynchronously.
         /// </summary>
         /// <param name="request">The enable authenticator request.</param>
-        /// <returns>A result containing the enable authenticator response.</returns>
+        /// <summary>
+        /// Enables two-factor authentication for the current user using the provided authenticator verification code.
+        /// </summary>
+        /// <param name="request">The request containing the authenticator verification code.</param>
+        /// <returns>
+        /// A result wrapping an <see cref="EnableAuthenticatorResponse"/>:
+        /// - On success (HTTP 200): contains generated recovery codes, an authenticator QR code URI, and a success message.
+        /// - On failure (HTTP 400): contains an error message describing why the enable operation did not complete.
+        /// </returns>
         public async Task<Result<EnableAuthenticatorResponse>> HandleAsync(EnableAuthenticatorRequest request)
         {
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
@@ -95,7 +103,12 @@ namespace iiwi.Application.Authentication
         /// </summary>
         /// <param name="email">The email address.</param>
         /// <param name="unformattedKey">The unformatted key.</param>
-        /// <returns>The QR code URI.</returns>
+        /// <summary>
+        /// Builds the authenticator provisioning URI used to generate a QR code for an authenticator app.
+        /// </summary>
+        /// <param name="email">The user's email address to include in the URI; may be null or empty.</param>
+        /// <param name="unformattedKey">The authenticator key in unformatted form to include in the URI.</param>
+        /// <returns>The formatted authenticator provisioning URI with the path and email URL-encoded and the provided key included.</returns>
         private string GenerateQrCodeUri(string email, string unformattedKey)
         {
             return string.Format(
@@ -106,4 +119,3 @@ namespace iiwi.Application.Authentication
         }
     }
 }
-

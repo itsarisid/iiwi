@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 
 namespace iiwi.Application;
@@ -13,7 +13,12 @@ public class PermissionAuthorizationHandler(ILogger<PermissionAuthorizationHandl
     /// Handles the authorization requirement asynchronously.
     /// </summary>
     /// <param name="context">The authorization handler context.</param>
-    /// <param name="requirement">The permission requirement.</param>
+    /// <summary>
+    /// Evaluates whether the current user satisfies the specified permission requirement and updates the authorization context accordingly.
+    /// </summary>
+    /// <param name="context">The authorization context containing the user and the mechanism to mark the requirement as succeeded or failed.</param>
+    /// <param name="requirement">The permission requirement to evaluate.</param>
+    /// <returns>A completed task after the requirement has been evaluated and the authorization context updated.</returns>
     protected override Task HandleRequirementAsync(
         AuthorizationHandlerContext context,
         PermissionRequirement requirement)

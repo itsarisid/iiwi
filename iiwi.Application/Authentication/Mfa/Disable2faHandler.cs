@@ -27,7 +27,16 @@ namespace iiwi.Application.Authentication
         /// Handles the disable 2FA request asynchronously.
         /// </summary>
         /// <param name="request">The disable 2FA request.</param>
-        /// <returns>A result containing the response.</returns>
+        /// <summary>
+        /// Disables two-factor authentication for the current user.
+        /// </summary>
+        /// <param name="request">The request containing any parameters required to disable 2FA.</param>
+        /// <returns>
+        /// A Result containing a Response:
+        /// - On success: HTTP 200 with a message indicating 2FA has been disabled.
+        /// - If the current user cannot be loaded: HTTP 400 with an error message identifying the user ID.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">Thrown if disabling two-factor authentication fails for the current user.</exception>
         public async Task<Result<Response>> HandleAsync(Disable2faRequest request)
         {
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

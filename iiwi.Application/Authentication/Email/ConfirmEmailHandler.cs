@@ -10,6 +10,16 @@ namespace iiwi.Application.Authentication.Email;
 
 public class ConfirmEmailHandler(UserManager<ApplicationUser> _userManager) : IHandler<ConfirmEmailRequest, Response>
 {
+    /// <summary>
+    /// Confirms a user's email using the confirmation code supplied in the request.
+    /// </summary>
+    /// <param name="request">Request containing the target user's Id and the email confirmation code.</param>
+    /// <returns>
+    /// A Result&lt;Response&gt; containing an HTTP status and message:
+    /// `200 OK` with a success message when the email is confirmed,
+    /// `404 NotFound` with an error message when the user cannot be found,
+    /// `500 InternalServerError` with an error message when confirmation fails.
+    /// </returns>
     public async Task<Result<Response>> HandleAsync(ConfirmEmailRequest request)
     {
         var user = await _userManager.FindByIdAsync(request.UserId);

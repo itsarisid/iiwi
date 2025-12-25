@@ -12,6 +12,14 @@ public class ConfirmEmailChangeHandler(
     UserManager<ApplicationUser> _userManager,
     SignInManager<ApplicationUser> _signInManager) : IHandler<ConfirmEmailChangeRequest, Response>
 {
+    /// <summary>
+    /// Confirms and applies a user's email change using the provided confirmation code.
+    /// </summary>
+    /// <param name="request">The request containing the user's ID, the new email, and the encoded confirmation code.</param>
+    /// <returns>
+    /// A Result wrapping a Response with a message and an HTTP status code indicating the outcome:
+    /// 200 OK on success, 404 NotFound if the user cannot be found, or 500 InternalServerError if changing the email or username fails.
+    /// </returns>
     public async Task<Result<Response>> HandleAsync(ConfirmEmailChangeRequest request)
     {
         var user = await _userManager.FindByIdAsync(request.UserId);

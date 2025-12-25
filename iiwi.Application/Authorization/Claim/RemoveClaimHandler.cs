@@ -1,4 +1,4 @@
-﻿using DotNetCore.Mediator;
+using DotNetCore.Mediator;
 using DotNetCore.Results;
 using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -23,7 +23,11 @@ public class RemoveClaimHandler(
     /// Handles the remove claim request asynchronously.
     /// </summary>
     /// <param name="request">The remove claim request.</param>
-    /// <returns>A result containing the response.</returns>
+    /// <summary>
+    /// Handles a request to remove a claim by querying existing roles and returning an outcome message.
+    /// </summary>
+    /// <param name="request">The request containing details of the claim to remove.</param>
+    /// <returns>A Result containing a Response with HTTP 200 OK and a message indicating the role removal outcome.</returns>
     public async Task<Result<Response>> HandleAsync(RemoveClaimRequest request)
     {
         var roles = await _roleManager.Roles

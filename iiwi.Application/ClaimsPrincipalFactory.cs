@@ -1,4 +1,4 @@
-﻿using iiwi.Domain.Identity;
+using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
@@ -21,7 +21,12 @@ public class ClaimsPrincipalFactory(
     /// Creates a claims principal for the specified user asynchronously.
     /// </summary>
     /// <param name="user">The user to create the principal for.</param>
-    /// <returns>The created claims principal.</returns>
+    /// <summary>
+    /// Creates a ClaimsPrincipal for the specified user augmented with the user's claims, role claims, and an authentication method (AMR) claim.
+    /// </summary>
+    /// <param name="user">The application user for whom to create the principal.</param>
+    /// <returns>The created ClaimsPrincipal containing the user's claims, role claims, and an updated "amr" claim.</returns>
+    /// <exception cref="ArgumentNullException">Thrown if <paramref name="user"/> is null.</exception>
     public override async Task<ClaimsPrincipal> CreateAsync(ApplicationUser user)
     {
         ArgumentNullException.ThrowIfNull(user);

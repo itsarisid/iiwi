@@ -36,7 +36,14 @@ ILogger<ResetAuthenticatorHandler> _logger) : IHandler<ResetAuthenticatorRequest
     /// Handles the reset authenticator request asynchronously.
     /// </summary>
     /// <param name="request">The reset authenticator request.</param>
-    /// <returns>A result containing the response.</returns>
+    /// <summary>
+    /// Resets the current user's authenticator app key and disables two-factor authentication for that account.
+    /// </summary>
+    /// <param name="request">The reset request (contains any request-specific data).</param>
+    /// <returns>
+    /// A Result containing a Response: a BadRequest response with an error message if the current user cannot be loaded;
+    /// otherwise an OK response with a message indicating the authenticator key was reset and reconfiguration is required.
+    /// </returns>
     public async Task<Result<Response>> HandleAsync(ResetAuthenticatorRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

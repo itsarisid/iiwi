@@ -38,7 +38,11 @@ UrlEncoder _urlEncoder) : IHandler<LoadKeyAndQrCodeUriRequest, LoadKeyAndQrCodeU
     /// Handles the load key and QR code URI request asynchronously.
     /// </summary>
     /// <param name="request">The load key and QR code URI request.</param>
-    /// <returns>A result containing the load key and QR code URI response.</returns>
+    /// <summary>
+    /// Loads the current user's authenticator key and the corresponding QR code URI for TOTP setup.
+    /// </summary>
+    /// <param name="request">The request triggering the load operation.</param>
+    /// <returns>`Result` containing a `LoadKeyAndQrCodeUriResponse` with `SharedKey` (formatted authenticator key) and `AuthenticatorUri` on success; returns a `BadRequest` result with an error message if the current user cannot be loaded.</returns>
     public async Task<Result<LoadKeyAndQrCodeUriResponse>> HandleAsync(LoadKeyAndQrCodeUriRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
@@ -71,7 +75,11 @@ UrlEncoder _urlEncoder) : IHandler<LoadKeyAndQrCodeUriRequest, LoadKeyAndQrCodeU
     /// Formats the authenticator key.
     /// </summary>
     /// <param name="unformattedKey">The unformatted key.</param>
-    /// <returns>The formatted key.</returns>
+    /// <summary>
+    /// Formats an authenticator key by inserting a space every four characters and converting the result to lowercase.
+    /// </summary>
+    /// <param name="unformattedKey">The authenticator key to format; may be null or empty.</param>
+    /// <returns>The formatted key with groups of up to four characters separated by spaces and converted to lowercase; returns an empty string if <paramref name="unformattedKey"/> is null or empty.</returns>
     private static string FormatKey(string unformattedKey)
     {
         var result = new StringBuilder();
@@ -95,7 +103,12 @@ UrlEncoder _urlEncoder) : IHandler<LoadKeyAndQrCodeUriRequest, LoadKeyAndQrCodeU
     /// </summary>
     /// <param name="email">The email address.</param>
     /// <param name="unformattedKey">The unformatted key.</param>
-    /// <returns>The QR code URI.</returns>
+    /// <summary>
+    /// Builds the authenticator QR code URI for the given account email and authenticator key.
+    /// </summary>
+    /// <param name="email">Account email used as the authenticator label; empty string if null.</param>
+    /// <param name="unformattedKey">The raw authenticator key to embed in the URI.</param>
+    /// <returns>The formatted authenticator URI suitable for generating a QR code.</returns>
     private string GenerateQrCodeUri(string email, string unformattedKey)
     {
         return string.Format(

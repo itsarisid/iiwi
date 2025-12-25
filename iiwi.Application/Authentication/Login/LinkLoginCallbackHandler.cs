@@ -29,7 +29,11 @@ namespace iiwi.Application.Authentication
         /// Handles the link login callback request asynchronously.
         /// </summary>
         /// <param name="request">The link login callback request.</param>
-        /// <returns>A result containing the response.</returns>
+        /// <summary>
+        /// Handles the external login callback and associates the external login with the current user account.
+        /// </summary>
+        /// <returns>A Result containing a Response. On success the result has HTTP 200 with Message "The external login was added."; on failure the result has HTTP 400 with an explanatory message (user not found or external login not added).</returns>
+        /// <exception cref="InvalidOperationException">Thrown when external login information cannot be loaded for the user.</exception>
         public async Task<Result<Response>> HandleAsync(LinkLoginCallbackRequest request)
         {
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
@@ -60,4 +64,3 @@ namespace iiwi.Application.Authentication
         }
     }
 }
-

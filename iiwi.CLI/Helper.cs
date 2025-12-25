@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Diagnostics;
@@ -10,6 +10,12 @@ public static class Helper
     /// <summary>
     /// Creates a command to add a new migration.
     /// </summary>
+    /// <summary>
+    /// Creates a command named "add" configured to add a new Entity Framework migration.
+    /// </summary>
+    /// <remarks>
+    /// The command requires a migration name argument and provides options for the DbContext, project path (defaults to the current directory), and output directory for migration files.
+    /// </remarks>
     /// <returns>The configured Command object.</returns>
     public static Command CreateAddMigrationCommand()
     {
@@ -42,6 +48,9 @@ public static class Helper
 
     /// <summary>
     /// Creates a command to update the database to a specified migration.
+    /// </summary>
+    /// <summary>
+    /// Builds and returns the "update" CLI command configured to update the database to a specified migration or to the latest migration.
     /// </summary>
     /// <returns>The configured Command object.</returns>
     public static Command CreateUpdateDatabaseCommand()
@@ -89,6 +98,9 @@ public static class Helper
     /// <summary>
     /// Creates a command to list all available migrations.
     /// </summary>
+    /// <summary>
+    /// Builds and returns the "list" CLI command which lists all available Entity Framework migrations and exposes options for DbContext, project path, connection string/name, and environment.
+    /// </summary>
     /// <returns>The configured Command object.</returns>
     public static Command CreateListMigrationsCommand()
     {
@@ -128,6 +140,13 @@ public static class Helper
     /// <summary>
     /// Creates a command to remove the last migration.
     /// </summary>
+    /// <summary>
+    /// Creates the "remove" CLI command used to remove the last Entity Framework migration.
+    /// </summary>
+    /// <remarks>
+    /// The command accepts options for DbContext (--context / -c), project path (--project / -p, defaults to the current directory),
+    /// and a force flag (--force / -f) to remove migrations that have been applied to the database.
+    /// </remarks>
     /// <returns>The configured Command object.</returns>
     public static Command CreateRemoveMigrationCommand()
     {
@@ -159,7 +178,10 @@ public static class Helper
     /// <summary>
     /// Creates a command to generate a SQL script from migrations.
     /// </summary>
-    /// <returns>The configured Command object.</returns>
+    /// <summary>
+    /// Creates and configures the "script" CLI command for generating a SQL script from migrations.
+    /// </summary>
+    /// <returns>The configured Command for generating migration SQL scripts.</returns>
     public static Command CreateScriptMigrationCommand()
     {
         var command = new Command("script", "Generate SQL script for migrations");
@@ -230,7 +252,10 @@ public static class Helper
     /// <summary>
     /// Creates a command to display configuration information.
     /// </summary>
-    /// <returns>The configured Command object.</returns>
+    /// <summary>
+    /// Creates the "info" command which displays project, environment, connection name, and connection string information.
+    /// </summary>
+    /// <returns>The configured Command that, when invoked, displays configuration and connection details.</returns>
     public static Command CreateInfoCommand()
     {
         var command = new Command("info", "Display connection string and configuration information");
@@ -270,7 +295,13 @@ public static class Helper
     /// <param name="project">The project path.</param>
     /// <param name="connectionName">The name of the connection string.</param>
     /// <param name="environment">The environment name.</param>
-    /// <param name="showConnection">Whether to show the full connection string.</param>
+    /// <summary>
+    /// Displays the project directory, environment, connection name, and the resolved connection string (masked by default).
+    /// </summary>
+    /// <param name="project">Path to the project directory to inspect; uses current directory when null.</param>
+    /// <param name="connectionName">The named connection string to look up in configuration; uses the default when null.</param>
+    /// <param name="environment">The environment name used to locate environment-specific configuration; may be null.</param>
+    /// <param name="showConnection">When true, prints the full connection string; when false, prints a masked version.</param>
     public static void DisplayInfo(string? project, string? connectionName, string? environment, bool showConnection)
     {
         try
@@ -318,7 +349,11 @@ public static class Helper
     /// Masks sensitive information in a connection string.
     /// </summary>
     /// <param name="connectionString">The original connection string.</param>
-    /// <returns>The masked connection string.</returns>
+    /// <summary>
+    /// Returns the connection string with sensitive credential values (e.g., Password, Pwd, User ID, UID) obscured.
+    /// </summary>
+    /// <param name="connectionString">The connection string to mask.</param>
+    /// <returns>The connection string with sensitive values replaced by up to eight asterisks.</returns>
     public static string MaskConnectionString(string connectionString)
     {
         var patterns = new[] { "Password=", "Pwd=", "User ID=", "UID=" };
@@ -346,7 +381,12 @@ public static class Helper
     /// </summary>
     /// <param name="workingDirectory">The working directory.</param>
     /// <param name="environment">The environment name.</param>
-    /// <returns>The built IConfiguration object.</returns>
+    /// <summary>
+    /// Builds an <see cref="IConfiguration"/> by loading appsettings.json, an optional environment-specific appsettings file, and environment variables using the provided working directory.
+    /// </summary>
+    /// <param name="workingDirectory">The base path used to locate appsettings files.</param>
+    /// <param name="environment">The environment name to load environment-specific settings for; if null, defaults to "Development".</param>
+    /// <returns>The constructed <see cref="IConfiguration"/>.</returns>
     public static IConfiguration BuildConfiguration(string workingDirectory, string? environment)
     {
         environment ??= "Development";
@@ -365,7 +405,11 @@ public static class Helper
     /// </summary>
     /// <param name="configuration">The configuration object.</param>
     /// <param name="connectionName">The name of the connection string.</param>
-    /// <returns>The connection string, or null if not found.</returns>
+    /// <summary>
+    /// Retrieves a named connection string from the provided configuration.
+    /// </summary>
+    /// <param name="connectionName">The name of the connection to retrieve; defaults to "DefaultConnection" when null.</param>
+    /// <returns>The connection string for the specified name, or null if not found.</returns>
     public static string? GetConnectionString(IConfiguration configuration, string? connectionName)
     {
         connectionName ??= "DefaultConnection";
@@ -379,7 +423,14 @@ public static class Helper
     /// <param name="name">The name of the migration.</param>
     /// <param name="context">The DbContext to use.</param>
     /// <param name="project">The project path.</param>
-    /// <param name="outputDir">The output directory.</param>
+    /// <summary>
+    /// Executes the Entity Framework CLI to add a migration for the specified project and context.
+    /// </summary>
+    /// <param name="action">The migration action to perform (typically "add").</param>
+    /// <param name="name">The migration name to create.</param>
+    /// <param name="context">The DbContext type name to target, or null to use the default context.</param>
+    /// <param name="project">The project path or directory containing the target project; if null the current directory is used.</param>
+    /// <param name="outputDir">The directory (relative to the project) where the generated migration files should be placed, or null to use the default location.</param>
     public static async Task ExecuteMigrationCommand(string action, string name, string? context, string? project, string? outputDir)
     {
         try
@@ -418,7 +469,15 @@ public static class Helper
     /// <param name="project">The project path.</param>
     /// <param name="connection">The connection string.</param>
     /// <param name="connectionName">The connection string name.</param>
-    /// <param name="environment">The environment name.</param>
+    /// <summary>
+    /// Updates the database to a specific migration or to the latest migration using the dotnet EF CLI.
+    /// </summary>
+    /// <param name="migration">The target migration name; if null, updates to the latest migration.</param>
+    /// <param name="context">The DbContext type name to target; optional.</param>
+    /// <param name="project">The project directory or path containing the EF project; if null the current directory is used.</param>
+    /// <param name="connection">An explicit connection string to use; if null the connection will be read from configuration.</param>
+    /// <param name="connectionName">The configuration key for the connection string; defaults to "DefaultConnection" when not provided.</param>
+    /// <param name="environment">The environment name used when loading appsettings (e.g., "Development"); defaults to "Development" when not provided.</param>
     public static async Task UpdateDatabase(string? migration, string? context, string? project, string? connection, string? connectionName, string? environment)
     {
         try
@@ -473,7 +532,14 @@ public static class Helper
     /// <param name="project">The project path.</param>
     /// <param name="connection">The connection string.</param>
     /// <param name="connectionName">The connection string name.</param>
-    /// <param name="environment">The environment name.</param>
+    /// <summary>
+    /// Lists Entity Framework migrations for the specified project and context, printing results to the console.
+    /// </summary>
+    /// <param name="context">The EF DbContext name to target; null to use the default.</param>
+    /// <param name="project">The project path containing the EF migrations; null to use the current directory.</param>
+    /// <param name="connection">An explicit connection string to use; if null the configuration will be checked for a named connection.</param>
+    /// <param name="connectionName">The name of the connection string to look up in configuration when <paramref name="connection"/> is null.</param>
+    /// <param name="environment">The environment name used when loading configuration (e.g., "Development").</param>
     public static async Task ListMigrations(string? context, string? project, string? connection, string? connectionName, string? environment)
     {
         try
@@ -518,7 +584,13 @@ public static class Helper
     /// </summary>
     /// <param name="context">The DbContext to use.</param>
     /// <param name="project">The project path.</param>
-    /// <param name="force">Whether to force removal.</param>
+    /// <summary>
+    /// Removes the last Entity Framework migration for the specified project and context.
+    /// </summary>
+    /// <param name="context">The DbContext type name to target; if null, the default context is used.</param>
+    /// <param name="project">The project directory or project file path to run the command in; if null, the current directory is used.</param>
+    /// <param name="force">If true, forces removal without prompting for confirmation.</param>
+    /// <returns>A task that completes when the migration removal process has finished.</returns>
     public static async Task RemoveMigration(string? context, string? project, bool force)
     {
         try
@@ -560,7 +632,18 @@ public static class Helper
     /// <param name="idempotent">Whether to generate an idempotent script.</param>
     /// <param name="connection">The connection string.</param>
     /// <param name="connectionName">The connection string name.</param>
-    /// <param name="environment">The environment name.</param>
+    /// <summary>
+    /// Generates a SQL script for EF Core migrations by invoking the dotnet-ef CLI and optionally writes it to a file.
+    /// </summary>
+    /// <param name="from">The starting migration identifier or null to generate from the initial state.</param>
+    /// <param name="to">The target migration identifier or null to generate up to the latest migration.</param>
+    /// <param name="context">The DbContext type name to target, or null to use the default context.</param>
+    /// <param name="project">The project directory or file to run the command in, or null to use the current directory.</param>
+    /// <param name="output">A file path to write the generated script to, or null to write to standard output.</param>
+    /// <param name="idempotent">If true, generate an idempotent script that can be applied on any database state.</param>
+    /// <param name="connection">An explicit connection string to use; if null the connection is retrieved from configuration.</param>
+    /// <param name="connectionName">The named connection to look up in configuration when <paramref name="connection"/> is null; defaults to "DefaultConnection".</param>
+    /// <param name="environment">The environment name used to select appsettings.{environment}.json when resolving configuration.</param>
     public static async Task ScriptMigration(string? from, string? to, string? context, string? project, string? output, bool idempotent, string? connection, string? connectionName, string? environment)
     {
         try
@@ -622,7 +705,12 @@ public static class Helper
     /// </summary>
     /// <param name="args">The command arguments.</param>
     /// <param name="workingDirectory">The working directory.</param>
-    /// <returns>The exit code of the process.</returns>
+    /// <summary>
+    /// Execute the dotnet CLI with the provided arguments, streaming stdout and stderr to the console.
+    /// </summary>
+    /// <param name="args">Arguments to pass to the dotnet command (e.g., "ef", "migrations", "add", "Name").</param>
+    /// <param name="workingDirectory">Working directory for the process; if null the current directory is used.</param>
+    /// <returns>The process exit code.</returns>
     public static async Task<int> ExecuteDotNetCommand(string[] args, string? workingDirectory)
     {
         var startInfo = new ProcessStartInfo

@@ -29,7 +29,11 @@ namespace iiwi.Application.Authentication
         /// Handles the link login request asynchronously.
         /// </summary>
         /// <param name="request">The link login request.</param>
-        /// <returns>A result containing the response.</returns>
+        /// <summary>
+        /// Handles a link-login request by resolving the current user and returning an appropriate response.
+        /// </summary>
+        /// <param name="request">The link login request containing external login data.</param>
+        /// <returns>A Result containing a Response: if the current user cannot be loaded, a 400 Bad Request with an explanatory message; otherwise a 200 OK response (currently indicates the method is not implemented).</returns>
         public async Task<Result<Response>> HandleAsync(LinkLoginRequest request)
         {
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
