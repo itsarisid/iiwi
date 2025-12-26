@@ -24,6 +24,11 @@ public class DeletePersonalDataHandler(
     /// - 400 BadRequest if a required password is provided and is incorrect.
     /// - 200 OK when the account was successfully deleted.
     /// </returns>
+    /// <summary>
+    /// Deletes the currently authenticated user's account, validating the supplied password when the account requires one.
+    /// </summary>
+    /// <param name="request">Request data, including the current password when required for validation.</param>
+    /// <returns>A Result wrapping a Response and an HTTP status code: NotFound if the user cannot be loaded, BadRequest if the provided password is incorrect, and OK when the account is deleted.</returns>
     /// <exception cref="InvalidOperationException">Thrown if the user deletion operation fails.</exception>
     public async Task<Result<Response>> HandleAsync(DeletePersonalDataRequest request)
     {

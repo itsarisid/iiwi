@@ -33,6 +33,11 @@ ILogger<GenerateRecoveryCodesHandler> _logger) : IHandler<GenerateRecoveryCodesR
     /// - On success (HTTP 200): Response.RecoveryCodes contains the new codes and Message confirms generation.
     /// - On failure (HTTP 400): Response.Message contains an error indicating the user could not be loaded.
     /// </returns>
+    /// <summary>
+    /// Generates new two-factor authentication recovery codes for the current user.
+    /// </summary>
+    /// <param name="request">Marker request required by the handler contract; this handler does not use any data from the request.</param>
+    /// <returns>A Result containing a GenerateRecoveryCodesResponse. On success (HTTP 200) the response includes the generated recovery codes and a success message. If the current user cannot be loaded the result is HTTP 400 with an explanatory message.</returns>
     /// <exception cref="InvalidOperationException">Thrown if the current user does not have two-factor authentication enabled.</exception>
     public async Task<Result<GenerateRecoveryCodesResponse>> HandleAsync(GenerateRecoveryCodesRequest request)
     {

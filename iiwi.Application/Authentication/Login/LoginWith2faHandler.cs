@@ -30,6 +30,16 @@ public class LoginWith2faHandler(
     /// </summary>
     /// <param name="request">The two-factor authentication request containing the authenticator code and machine remember flags.</param>
     /// <returns>A Result&lt;Response&gt; containing an HTTP status and a RegisterResponse message indicating success, account lockout, or invalid authenticator code.</returns>
+    /// <summary>
+    /// Processes a two-factor authentication sign-in request and returns the authentication result.
+    /// </summary>
+    /// <param name="request">The two-factor sign-in request containing the authenticator code and remember flags.</param>
+    /// <returns>
+    /// A <see cref="Result{Response}"/> whose payload is a <see cref="RegisterResponse"/>:
+    /// - HTTP 200 with a message confirming successful 2FA sign-in when authentication succeeds.
+    /// - HTTP 200 with a message indicating account lockout when the user is locked out.
+    /// - HTTP 400 with a message indicating an invalid authenticator code for other failures.
+    /// </returns>
     /// <exception cref="InvalidOperationException">Thrown when the two-factor authentication user cannot be loaded.</exception>
     public async Task<Result<Response>> HandleAsync(LoginWith2faRequest request)
     {

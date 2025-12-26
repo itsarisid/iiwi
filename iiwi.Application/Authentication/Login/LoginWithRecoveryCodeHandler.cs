@@ -32,6 +32,16 @@ namespace iiwi.Application.Authentication
         /// </summary>
         /// <param name="request">Request containing the recovery code to use for two-factor authentication.</param>
         /// <returns>A Result containing a Response: on success or lockout the result uses HTTP 200 with a descriptive message; on invalid recovery code the result uses HTTP 400 with an error message.</returns>
+        /// <summary>
+        /// Handles sign-in using the two-factor authentication recovery code supplied in the request.
+        /// </summary>
+        /// <param name="request">The request containing the recovery code to use for two-factor sign-in.</param>
+        /// <returns>
+        /// A Result wrapping a Response and HTTP status code:
+        /// - HTTP 200 and a success message when the recovery code authenticates the user.
+        /// - HTTP 200 and a lockout message when the user is locked out.
+        /// - HTTP 400 and an error message when the recovery code is invalid.
+        /// </returns>
         /// <exception cref="InvalidOperationException">Thrown if the two-factor authentication user cannot be loaded.</exception>
         public async Task<Result<Response>> HandleAsync(LoginWithRecoveryCodeRequest request)
         {

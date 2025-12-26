@@ -21,6 +21,15 @@ public class ExternalLoginsHandler(
     /// - OtherLogins: external authentication schemes not currently linked,
     /// - ShowRemoveButton: true if the user has a password or more than one login.
     /// Returns a 404 Result with a message if the user cannot be found.
+    /// <summary>
+    /// Retrieves the authenticated user's configured external login providers and the external authentication schemes not yet linked to the user.
+    /// </summary>
+    /// <returns>
+    /// A Result&lt;ExternalLoginsResponse&gt; containing:
+    /// - `CurrentLogins`: the user's configured external logins,
+    /// - `OtherLogins`: external authentication schemes not currently linked,
+    /// - `ShowRemoveButton`: `true` if the user has a password or more than one external login, `false` otherwise.
+    /// Returns a NotFound result with an explanatory message if the user cannot be loaded.
     /// </returns>
     public async Task<Result<ExternalLoginsResponse>> HandleAsync(ExternalLoginsRequest request)
     {

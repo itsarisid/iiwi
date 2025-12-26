@@ -16,6 +16,11 @@ public class LoginRequestValidator : AbstractValidator<LoginRequest>
     /// </summary>
     /// <remarks>
     /// Enforces that Email has a valid email format and Password meets the configured password requirements.
+    /// <summary>
+    /// Configures validation rules for LoginRequest.
+    /// </summary>
+    /// <remarks>
+    /// Requires that Email is in a valid email format and that Password satisfies the configured password requirements.
     /// </remarks>
     public LoginRequestValidator()
     {

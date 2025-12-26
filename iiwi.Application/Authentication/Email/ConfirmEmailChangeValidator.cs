@@ -19,6 +19,13 @@ public class ConfirmEmailChangeValidator : AbstractValidator<ConfirmEmailChangeR
     /// - Email must be a valid email address.
     /// - UserId must not be empty.
     /// - Code must not be empty.
+    /// <summary>
+    /// Configures validation rules for ConfirmEmailChangeRequest.
+    /// </summary>
+    /// <remarks>
+    /// Email must be a valid email address.
+    /// UserId must not be empty.
+    /// Code must not be empty.
     /// </remarks>
     public ConfirmEmailChangeValidator()
     {

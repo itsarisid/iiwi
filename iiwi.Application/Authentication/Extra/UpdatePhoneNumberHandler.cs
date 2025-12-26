@@ -17,6 +17,15 @@ public class UpdatePhoneNumberHandler(
     /// </summary>
     /// <param name="request">The request containing the new phone number to set for the current user.</param>
     /// <returns>A Result containing a Response: `200 OK` with a success message when the update completes, or `404 NotFound` if the current user cannot be loaded.</returns>
+    /// <summary>
+    /// Updates the current user's phone number if it differs from the provided value and refreshes the user's sign-in state.
+    /// </summary>
+    /// <param name="request">The update request containing the desired phone number.</param>
+    /// <returns>
+    /// A Result containing a Response:
+    /// - 200 OK with a success message when the phone number is updated (or unchanged) and sign-in is refreshed.
+    /// - 404 NotFound with an error message if the current user cannot be loaded from the claims principal.
+    /// </returns>
     /// <exception cref="InvalidOperationException">Thrown if saving the new phone number fails unexpectedly.</exception>
     public async Task<Result<Response>> HandleAsync(UpdatePhoneNumberRequest request)
     {

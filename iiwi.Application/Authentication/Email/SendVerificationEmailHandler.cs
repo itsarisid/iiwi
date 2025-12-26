@@ -25,7 +25,11 @@ public class SendVerificationEmailHandler(
     /// A Result containing a Response:
     /// - If the current user cannot be loaded: a NotFound status and a message identifying the user ID that could not be loaded.
     /// - If the email is sent: an OK status and a message indicating the verification email was sent.
-    /// </returns>
+    /// <summary>
+    /// Sends a verification email to the currently authenticated user.
+    /// </summary>
+    /// <param name="request">Request parameters for sending the verification email.</param>
+    /// <returns>A Result&lt;Response&gt; that is NotFound with a message if the current user cannot be loaded; otherwise OK with a message indicating the verification email was sent.</returns>
     public async Task<Result<Response>> HandleAsync(SendVerificationEmailRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

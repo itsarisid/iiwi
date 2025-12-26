@@ -34,6 +34,10 @@ UserManager<ApplicationUser> _userManager) : IHandler<ResetPasswordRequest, Resp
     /// Processes a password reset request and returns an HTTP-wrapped response indicating the outcome.
     /// </summary>
     /// <param name="request">The reset request containing the user's email, a Base64 URL-encoded reset token in <c>Code</c>, and the new password in <c>Password</c>.</param>
+    /// <summary>
+    /// Processes a password reset request: decodes the Base64 URL-encoded reset token, looks up the user by email, and attempts to reset the user's password.
+    /// </summary>
+    /// <param name="request">ResetPasswordRequest containing Email, Code (Base64 URL-encoded), and Password.</param>
     /// <returns>A <see cref="Result{Response}"/> whose HTTP status and message reflect the outcome: HTTP 200 with a success message when the password is reset; HTTP 400 if the user email is not found; HTTP 500 if the reset operation fails.</returns>
     public async Task<Result<Response>> HandleAsync(ResetPasswordRequest request)
     {

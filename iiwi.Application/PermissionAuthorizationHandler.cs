@@ -18,7 +18,12 @@ public class PermissionAuthorizationHandler(ILogger<PermissionAuthorizationHandl
     /// </summary>
     /// <param name="context">The authorization context containing the user and the mechanism to mark the requirement as succeeded or failed.</param>
     /// <param name="requirement">The permission requirement to evaluate.</param>
-    /// <returns>A completed task after the requirement has been evaluated and the authorization context updated.</returns>
+    /// <summary>
+    /// Evaluates whether the current user has the required permission and updates the authorization context to succeed or fail accordingly.
+    /// </summary>
+    /// <param name="context">The authorization context containing the user principal and evaluation state.</param>
+    /// <param name="requirement">The permission requirement to validate against the user's claims.</param>
+    /// <returns>A completed task after the requirement has been evaluated and the authorization context has been updated.</returns>
     protected override Task HandleRequirementAsync(
         AuthorizationHandlerContext context,
         PermissionRequirement requirement)

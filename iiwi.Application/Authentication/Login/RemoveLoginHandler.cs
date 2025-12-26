@@ -21,7 +21,11 @@ public class RemoveLoginHandler(
     /// 200 OK when the external login was removed,
     /// 400 Bad Request if the removal failed,
     /// 404 Not Found if the current user could not be loaded.
-    /// </returns>
+    /// <summary>
+    /// Removes an external login from the currently authenticated user and refreshes the user's sign-in.
+    /// </summary>
+    /// <param name="request">The request containing the external login provider name and provider key to remove.</param>
+    /// <returns>A Result&lt;Response&gt; with status code 200 when the external login was removed, 400 if removal failed, or 404 if the current user cannot be found; the Response contains a descriptive message.</returns>
     public async Task<Result<Response>> HandleAsync(RemoveLoginRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

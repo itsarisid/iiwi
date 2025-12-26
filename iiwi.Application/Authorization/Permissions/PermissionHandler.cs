@@ -33,7 +33,11 @@ public class PermissionHandler(
     /// A Result containing a PermissionResponse:
     /// - If the role is not found: HTTP 404 with Message = "Not Found".
     /// - If the role is found: HTTP 200 with Message = "Permissions list" and an empty Permissions collection (current behavior).
-    /// </returns>
+    /// <summary>
+    /// Handles a permission lookup request and returns a permission summary for the specified role.
+    /// </summary>
+    /// <param name="request">The permission request containing the role identifier to look up.</param>
+    /// <returns>A Result containing a PermissionResponse: if the role is not found, HTTP 404 with Message = "Not Found"; if the role is found, HTTP 200 with Message = "Permissions list" and a Permissions collection (currently empty).</returns>
     public async Task<Result<PermissionResponse>> HandleAsync(PermissionRequest request)
     {
         var role = await _roleManager.FindByIdAsync(request.Id);

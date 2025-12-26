@@ -43,6 +43,13 @@ namespace iiwi.Application.Authentication;
         /// A Result containing a Response:
         /// - On success: HTTP 200 with a DownloadPersonalDataResponse whose Data is a dictionary of IdentityUser properties marked with PersonalDataAttribute mapped to their string values (or "null") and Message "Personal Data".
         /// - On failure: HTTP 400 with a Response containing an error Message indicating the user could not be loaded.
+        /// <summary>
+        /// Handles a request to retrieve the current user's personal data marked with PersonalDataAttribute.
+        /// </summary>
+        /// <param name="request">The download personal data request.</param>
+        /// <returns>
+        /// On success: HTTP 200 with a DownloadPersonalDataResponse whose Data is a dictionary mapping IdentityUser property names (those marked with PersonalDataAttribute) to their string values (or "null") and whose Message is "Personal Data". 
+        /// On failure: HTTP 400 with a Response containing an error Message indicating the user could not be loaded (including the user ID).
         /// </returns>
         public async Task<Result<Response>> HandleAsync(DownloadPersonalDataRequest request)
         {

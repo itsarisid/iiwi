@@ -27,6 +27,10 @@ public class RemoveClaimHandler(
     /// Handles a request to remove a claim by querying existing roles and returning an outcome message.
     /// </summary>
     /// <param name="request">The request containing details of the claim to remove.</param>
+    /// <summary>
+    /// Processes a RemoveClaimRequest and reports the outcome of the role claim removal.
+    /// </summary>
+    /// <param name="request">Request containing the data required to remove a claim from a role.</param>
     /// <returns>A Result containing a Response with HTTP 200 OK and a message indicating the role removal outcome.</returns>
     public async Task<Result<Response>> HandleAsync(RemoveClaimRequest request)
     {

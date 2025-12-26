@@ -16,6 +16,11 @@ public class DeletePersonalDataValidator : AbstractValidator<DeletePersonalDataR
     /// </summary>
     /// <remarks>
     /// Requires the request's <c>Password</c> to satisfy the application's password policy.
+    /// <summary>
+    /// Configures validation rules for DeletePersonalDataRequest.
+    /// </summary>
+    /// <remarks>
+    /// The Password property must satisfy the application's password policy.
     /// </remarks>
     public DeletePersonalDataValidator()
     {

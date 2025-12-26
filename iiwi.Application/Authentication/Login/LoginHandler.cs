@@ -36,6 +36,17 @@ public class LoginHandler(
     /// - If two-factor is required: HTTP 200 with a LoginResponse containing a two-factor message.
     /// - If the account is locked out: HTTP 200 with a LoginResponse containing a lockout message.
     /// - If email or password is missing or the credentials are invalid: HTTP 400 with a LoginResponse containing an error message.
+    /// <summary>
+    /// Processes a login request and returns a Result containing a LoginResponse that reflects the authentication outcome.
+    /// </summary>
+    /// <param name="request">LoginRequest containing Email, Password, and RememberMe used to authenticate the user.</param>
+    /// <returns>
+    /// A Result&lt;LoginResponse&gt; whose content varies by outcome:
+    /// - HTTP 200 with a LoginResponse containing Token (empty), FullName "Sajid Khan", and Message "User logged in." when authentication succeeds.
+    /// - HTTP 200 with a LoginResponse containing Message "Login with 2fa" when two-factor authentication is required.
+    /// - HTTP 200 with a LoginResponse containing Message "User account locked out." when the account is locked out.
+    /// - HTTP 400 with a LoginResponse containing Message "Email and Password are required." when email or password is missing.
+    /// - HTTP 400 with a LoginResponse containing Message "Invalid login attempt." for invalid credentials.
     /// </returns>
     public async Task<Result<LoginResponse>> HandleAsync(LoginRequest request)
     {

@@ -13,6 +13,8 @@ public class ForgotPasswordValidator : AbstractValidator<ForgotPasswordRequest>
     /// Initializes a new instance of the <see cref="ForgotPasswordValidator"/> class.
     /// <summary>
     /// Initializes a <see cref="ForgotPasswordValidator"/> that enforces a valid email format for the request's <c>Email</c> property.
+    /// <summary>
+    /// Initializes a validator that enforces a valid email format for the request's <c>Email</c> property.
     /// </summary>
     public ForgotPasswordValidator()
     {

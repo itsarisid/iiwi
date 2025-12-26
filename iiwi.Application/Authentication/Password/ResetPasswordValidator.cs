@@ -20,6 +20,15 @@ public class ResetPasswordValidator : AbstractValidator<ResetPasswordRequest>
     /// - Password must satisfy the application's password requirements.
     /// - ConfirmPassword must satisfy confirm-password rules and equal Password.
     /// - Code must be provided (not empty).
+    /// <summary>
+    /// Initializes validation rules for <see cref="ResetPasswordRequest"/>.
+    /// </summary>
+    /// <remarks>
+    /// Validation rules:
+    /// - Email must be a valid email format.
+    /// - Password must meet the application's password requirements.
+    /// - ConfirmPassword must meet confirm-password requirements and match Password.
+    /// - Code must be provided (not empty).
     /// </remarks>
     public ResetPasswordValidator()
     {
