@@ -1,4 +1,4 @@
-﻿using DotNetCore.Mediator;
+using DotNetCore.Mediator;
 using DotNetCore.Results;
 using iiwi.Database.Permissions;
 using iiwi.Domain.Identity;
@@ -26,7 +26,11 @@ public class RoleHandler(
     /// Handles the role request asynchronously.
     /// </summary>
     /// <param name="request">The role request.</param>
-    /// <returns>A result containing the role response.</returns>
+    /// <summary>
+    /// Processes a role listing request and produces a response containing the available roles.
+    /// </summary>
+    /// <param name="request">The request describing parameters for listing roles.</param>
+    /// <returns>A Result containing a RoleResponse with the retrieved roles and a message.</returns>
     public async Task<Result<RoleResponse>> HandleAsync(RoleRequest request)
     {
         var roles = await _roleManager.Roles

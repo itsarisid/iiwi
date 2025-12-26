@@ -12,6 +12,12 @@ public class AccountStatusHandler(
     SignInManager<ApplicationUser> _signInManager,
     IClaimsProvider _claimsProvider) : IHandler<AccountStatusRequest, AccountStatusResponse>
 {
+    /// <summary>
+    /// Retrieves the current user's account security status (authenticator presence, 2FA enabled, remembered machine, and remaining recovery codes).
+    /// </summary>
+    /// <returns>
+    /// A Result containing an AccountStatusResponse with the user's two-factor and recovery-code status. If the current user cannot be loaded the result will have HTTP status NotFound and an AccountStatusResponse with a message indicating the user ID.
+    /// </returns>
     public async Task<Result<AccountStatusResponse>> HandleAsync(AccountStatusRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

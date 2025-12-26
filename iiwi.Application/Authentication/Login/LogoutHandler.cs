@@ -22,7 +22,10 @@ public class LogoutHandler(
     /// Handles the logout request asynchronously.
     /// </summary>
     /// <param name="request">The logout request.</param>
-    /// <returns>A result containing the response.</returns>
+    /// <summary>
+    /// Signs out the current authenticated user and returns a success response.
+    /// </summary>
+    /// <returns>A Result containing a Response with HTTP status 200 (OK) and Message = "Logout successfully".</returns>
     public async Task<Result<Response>> HandleAsync(LogoutRequest request)
     {
         await _signInManager.SignOutAsync();

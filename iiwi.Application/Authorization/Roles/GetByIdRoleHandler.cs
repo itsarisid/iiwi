@@ -1,4 +1,4 @@
-﻿using DotNetCore.Mediator;
+using DotNetCore.Mediator;
 using DotNetCore.Results;
 using iiwi.Database.Permissions;
 using iiwi.Domain.Identity;
@@ -25,7 +25,11 @@ public class GetByIdRoleHandler(
     /// Handles the get role by ID request asynchronously.
     /// </summary>
     /// <param name="request">The get role by ID request.</param>
-    /// <returns>A result containing the role response.</returns>
+    /// <summary>
+    /// Retrieves a role by the identifier in the request and returns a response describing the result.
+    /// </summary>
+    /// <param name="request">The request containing the role identifier to look up.</param>
+    /// <returns>A Result containing a GetByIdRoleResponse: when the role is found the payload includes the role name and a success message; when not found the payload contains a not-found message with the requested id.</returns>
     public async Task<Result<GetByIdRoleResponse>> HandleAsync(GetByIdRoleRequest request)
     {
         var role = await _roleManager.FindByIdAsync(request.Id);

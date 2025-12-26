@@ -12,6 +12,16 @@ public class ExternalLoginsHandler(
     SignInManager<ApplicationUser> _signInManager,
     IClaimsProvider _claimsProvider) : IHandler<ExternalLoginsRequest, ExternalLoginsResponse>
 {
+    /// <summary>
+    /// Retrieves the authenticated user's current external login providers and the available external authentication schemes not already linked to the user.
+    /// </summary>
+    /// <returns>
+    /// A Result&lt;ExternalLoginsResponse&gt; with:
+    /// - CurrentLogins: the user's configured external logins,
+    /// - OtherLogins: external authentication schemes not currently linked,
+    /// - ShowRemoveButton: true if the user has a password or more than one login.
+    /// Returns a 404 Result with a message if the user cannot be found.
+    /// </returns>
     public async Task<Result<ExternalLoginsResponse>> HandleAsync(ExternalLoginsRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

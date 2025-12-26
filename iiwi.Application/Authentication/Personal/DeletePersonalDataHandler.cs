@@ -14,6 +14,17 @@ public class DeletePersonalDataHandler(
     IClaimsProvider _claimsProvider,
     ILogger<DeletePersonalDataHandler> _logger) : IHandler<DeletePersonalDataRequest, Response>
 {
+    /// <summary>
+    /// Deletes the currently authenticated user's account, optionally validating the supplied password before deletion.
+    /// </summary>
+    /// <param name="request">The request containing the password to validate when the account requires one.</param>
+    /// <returns>
+    /// A Result&lt;Response&gt; containing an HTTP status and message:
+    /// - 404 NotFound if the current user cannot be loaded.
+    /// - 400 BadRequest if a required password is provided and is incorrect.
+    /// - 200 OK when the account was successfully deleted.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">Thrown if the user deletion operation fails.</exception>
     public async Task<Result<Response>> HandleAsync(DeletePersonalDataRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

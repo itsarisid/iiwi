@@ -26,7 +26,17 @@ public class LoginHandler(
     /// Handles the login request asynchronously.
     /// </summary>
     /// <param name="request">The login request.</param>
-    /// <returns>A result containing the login response.</returns>
+    /// <summary>
+    /// Authenticates the provided credentials and returns a Result containing the corresponding LoginResponse and HTTP status.
+    /// </summary>
+    /// <param name="request">LoginRequest holding the user's email, password, and RememberMe flag.</param>
+    /// <returns>
+    /// A Result&lt;LoginResponse&gt; containing an HTTP status and a LoginResponse:
+    /// - On successful sign-in: HTTP 200 with a LoginResponse that includes a token, the user's full name, and a success message.
+    /// - If two-factor is required: HTTP 200 with a LoginResponse containing a two-factor message.
+    /// - If the account is locked out: HTTP 200 with a LoginResponse containing a lockout message.
+    /// - If email or password is missing or the credentials are invalid: HTTP 400 with a LoginResponse containing an error message.
+    /// </returns>
     public async Task<Result<LoginResponse>> HandleAsync(LoginRequest request)
     {
         var auth = await _signInManager.GetExternalAuthenticationSchemesAsync();

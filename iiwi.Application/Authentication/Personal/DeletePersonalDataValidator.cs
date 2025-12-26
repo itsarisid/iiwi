@@ -11,7 +11,12 @@ public class DeletePersonalDataValidator : AbstractValidator<DeletePersonalDataR
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DeletePersonalDataValidator"/> class.
+    /// <summary>
+    /// Initializes a new instance of <see cref="DeletePersonalDataValidator"/> and configures validation rules for <see cref="DeletePersonalDataRequest"/>.
     /// </summary>
+    /// <remarks>
+    /// Requires the request's <c>Password</c> to satisfy the application's password policy.
+    /// </remarks>
     public DeletePersonalDataValidator()
     {
         RuleFor(request => request.Password).Password();

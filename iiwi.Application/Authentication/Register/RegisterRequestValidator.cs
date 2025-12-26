@@ -11,6 +11,8 @@ public class RegisterRequestValidator : AbstractValidator<RegisterRequest>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="RegisterRequestValidator"/> class.
+    /// <summary>
+    /// Configures validation rules for <see cref="RegisterRequest"/>: verifies that Email is a valid email address, applies password validation to Password, and enforces that ConfirmPassword meets confirmation rules and equals Password.
     /// </summary>
     public RegisterRequestValidator()
     {

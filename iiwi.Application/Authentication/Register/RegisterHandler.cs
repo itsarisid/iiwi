@@ -33,7 +33,15 @@ IMailService _mailService) : IHandler<RegisterRequest, RegisterResponse>
     /// Handles the register request asynchronously.
     /// </summary>
     /// <param name="request">The register request.</param>
-    /// <returns>A result containing the register response.</returns>
+    /// <summary>
+    /// Processes a registration request by creating a new user, sending an email confirmation, and signing the user in when account confirmation is not required.
+    /// </summary>
+    /// <param name="request">Registration details including the user's email and desired password.</param>
+    /// <returns>
+    /// A Result containing a RegisterResponse and an HTTP status:
+    /// - HTTP 200 OK with a message indicating successful account creation (or instructing the user to confirm their email when confirmation is required).
+    /// - HTTP 500 InternalServerError with a generic error message if user creation fails.
+    /// </returns>
     public async Task<Result<RegisterResponse>> HandleAsync(RegisterRequest request)
     {
 

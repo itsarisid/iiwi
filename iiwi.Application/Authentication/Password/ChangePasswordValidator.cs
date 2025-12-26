@@ -10,7 +10,14 @@ public class ChangePasswordValidator : AbstractValidator<ChangePasswordRequest>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="ChangePasswordValidator"/> class.
+    /// <summary>
+    /// Initializes validator rules for a ChangePasswordRequest.
     /// </summary>
+    /// <remarks>
+    /// - Ensures OldPassword satisfies the project's password rules.
+    /// - Ensures NewPassword satisfies the project's password rules.
+    /// - Ensures ConfirmPassword satisfies confirm-password rules and is equal to NewPassword.
+    /// </remarks>
     public ChangePasswordValidator()
     {
         RuleFor(request => request.OldPassword).Password();

@@ -35,7 +35,15 @@ namespace iiwi.Application.Authentication;
         /// Handles the download personal data request asynchronously.
         /// </summary>
         /// <param name="request">The download personal data request.</param>
-        /// <returns>A result containing the response.</returns>
+        /// <summary>
+        /// Handles a request to retrieve the current user's personal data.
+        /// </summary>
+        /// <param name="request">The request to download personal data.</param>
+        /// <returns>
+        /// A Result containing a Response:
+        /// - On success: HTTP 200 with a DownloadPersonalDataResponse whose Data is a dictionary of IdentityUser properties marked with PersonalDataAttribute mapped to their string values (or "null") and Message "Personal Data".
+        /// - On failure: HTTP 400 with a Response containing an error Message indicating the user could not be loaded.
+        /// </returns>
         public async Task<Result<Response>> HandleAsync(DownloadPersonalDataRequest request)
         {
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

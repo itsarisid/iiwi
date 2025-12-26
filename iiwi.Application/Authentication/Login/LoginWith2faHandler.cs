@@ -25,7 +25,12 @@ public class LoginWith2faHandler(
     /// Handles the two-factor authentication login request asynchronously.
     /// </summary>
     /// <param name="request">The login with 2FA request.</param>
-    /// <returns>A result containing the response.</returns>
+    /// <summary>
+    /// Handles a two-factor authentication sign-in request and returns the resulting response.
+    /// </summary>
+    /// <param name="request">The two-factor authentication request containing the authenticator code and machine remember flags.</param>
+    /// <returns>A Result&lt;Response&gt; containing an HTTP status and a RegisterResponse message indicating success, account lockout, or invalid authenticator code.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when the two-factor authentication user cannot be loaded.</exception>
     public async Task<Result<Response>> HandleAsync(LoginWith2faRequest request)
     {
         var user = await _signInManager.GetTwoFactorAuthenticationUserAsync() ??

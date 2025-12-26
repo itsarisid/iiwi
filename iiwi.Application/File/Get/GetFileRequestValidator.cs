@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+using FluentValidation;
 using iiwi.Application.File;
 
 namespace iiwi.Application.File;
@@ -10,7 +10,8 @@ public sealed class GetFileRequestValidator : AbstractValidator<GetFileRequest>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="GetFileRequestValidator"/> class.
-    /// </summary>
+    /// <summary>
+/// Initializes a new <see cref="GetFileRequestValidator"/> that enforces the request's <c>Id</c> must be a valid GUID.
+/// </summary>
     public GetFileRequestValidator() => RuleFor(request => request.Id).Guid();
 }
-

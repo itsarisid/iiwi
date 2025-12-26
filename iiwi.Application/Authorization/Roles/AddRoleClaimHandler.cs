@@ -1,4 +1,4 @@
-﻿using DotNetCore.Mediator;
+using DotNetCore.Mediator;
 using DotNetCore.Results;
 using iiwi.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -23,7 +23,11 @@ public class AddRoleClaimRequestHandler(
     /// Handles the add role claim request asynchronously.
     /// </summary>
     /// <param name="request">The add role claim request.</param>
-    /// <returns>A result containing the response.</returns>
+    /// <summary>
+    /// Handles an AddRoleClaimRequest and returns a response indicating the outcome of the operation.
+    /// </summary>
+    /// <param name="request">The request containing details for adding a role claim.</param>
+    /// <returns>A Result containing a Response with an HTTP status code and a message describing the operation result.</returns>
     public async Task<Result<Response>> HandleAsync(AddRoleClaimRequest request)
     {
         var roles = await _roleManager.Roles

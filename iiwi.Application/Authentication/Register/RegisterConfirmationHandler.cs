@@ -36,7 +36,11 @@ namespace iiwi.Application.Authentication;
         /// Handles the register confirmation request asynchronously.
         /// </summary>
         /// <param name="request">The register confirmation request.</param>
-        /// <returns>A result containing the response.</returns>
+        /// <summary>
+        /// Processes a registration confirmation request: looks up the user by email, generates and encodes an email confirmation token, sends a confirmation email, and returns an HTTP result indicating success or failure.
+        /// </summary>
+        /// <param name="request">The register confirmation request containing the email to confirm.</param>
+        /// <returns>`Result<Response>` with `HttpStatusCode.BadRequest` and a response message if the user cannot be found; otherwise `HttpStatusCode.OK` with a response message prompting the user to check their email for confirmation.</returns>
         public async Task<Result<Response>> HandleAsync(RegisterConfirmationRequest request)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);

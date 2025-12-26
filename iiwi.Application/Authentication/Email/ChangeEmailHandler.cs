@@ -15,6 +15,12 @@ public class ChangeEmailHandler(
     IClaimsProvider _claimsProvider,
     IMailService _mailService) : IHandler<ChangeEmailRequest, Response>
 {
+    /// <summary>
+    /// Initiates an email change for the current user by sending a confirmation link to the requested address if it differs from the current email.
+    /// </summary>
+    /// <param name="request">Request containing the new email address to confirm.</param>
+    /// <returns>A Result wrapping a Response:
+    /// `404 NotFound` when the current user cannot be loaded; `200 OK` with a message that a confirmation link was sent if the new email differs from the current one; `200 OK` with a message that the email is unchanged if the new email matches the current address.</returns>
     public async Task<Result<Response>> HandleAsync(ChangeEmailRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

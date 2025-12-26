@@ -36,7 +36,11 @@ namespace iiwi.Application.Authentication;
         /// Handles the set password request asynchronously.
         /// </summary>
         /// <param name="request">The set password request.</param>
-        /// <returns>A result containing the response.</returns>
+        /// <summary>
+        /// Sets the current user's password if the user exists and does not already have a password, then refreshes the user's sign-in.
+        /// </summary>
+        /// <param name="request">Request containing the new password to set.</param>
+        /// <returns>A Result containing a Response with an HTTP status code and a message describing success or the error.</returns>
         public async Task<Result<Response>> HandleAsync(SetPasswordRequest request)
         {
             var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
