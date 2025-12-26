@@ -21,12 +21,12 @@ Analytics Dashboard: Counselors track session history, earnings, and blog perfor
 
 **iiwi delivers a beautiful and configurable out-of-the-box**, built with a high level design approach, including components like `Sass`, `Tailwind` `Angular` and others. The included *Flex* theme is modern, clean and fully responsive.
 
-The state-of-the-art architecture of iiwi - with `ASP.NET Core 8`, `Entity Framework Core 8` and Domain Driven Design approach - makes it easy to extend, extremely flexible and basically fun to work with ;-)
+The state-of-the-art architecture of iiwi - with `ASP.NET Core 9`, `Entity Framework Core 9` and Domain Driven Design approach - makes it easy to extend, extremely flexible and basically fun to work with ;-)
 
 
 ## Technology & Design
 
-* State-of-the-art architecture with `ASP.NET Core 8`, `Entity Framework Core 8` and domain-driven design
+* State-of-the-art architecture with `ASP.NET Core 9`, `Entity Framework Core 9` and domain-driven design
 * Cross-platform: run it on Windows, Linux, or Mac
 * Supports `Docker` out of the box for easy deployment
 * Composable, extensible and highly flexible due to modular design
