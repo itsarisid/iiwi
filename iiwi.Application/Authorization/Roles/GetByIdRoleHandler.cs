@@ -29,7 +29,13 @@ public class GetByIdRoleHandler(
     /// Retrieves a role by the identifier in the request and returns a response describing the result.
     /// </summary>
     /// <param name="request">The request containing the role identifier to look up.</param>
-    /// <returns>A Result containing a GetByIdRoleResponse: when the role is found the payload includes the role name and a success message; when not found the payload contains a not-found message with the requested id.</returns>
+    /// <summary>
+    /// Handles a request to retrieve a role by its identifier.
+    /// </summary>
+    /// <param name="request">Request containing the role ID to retrieve.</param>
+    /// <returns>
+    /// A Result&lt;GetByIdRoleResponse&gt; whose payload contains the role name and a success message when the role exists, or a payload with a not-found message referencing the requested ID when the role does not exist.
+    /// </returns>
     public async Task<Result<GetByIdRoleResponse>> HandleAsync(GetByIdRoleRequest request)
     {
         var role = await _roleManager.FindByIdAsync(request.Id);

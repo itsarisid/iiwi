@@ -36,6 +36,13 @@ namespace iiwi.Application.Authentication
         /// - On success: HTTP 200 with a message indicating 2FA has been disabled.
         /// - If the current user cannot be loaded: HTTP 400 with an error message identifying the user ID.
         /// </returns>
+        /// <summary>
+        /// Disables two-factor authentication for the current user.
+        /// </summary>
+        /// <returns>
+        /// A Result containing a Response and an HTTP status:
+        /// 200 OK when 2FA was successfully disabled; 400 Bad Request if the current user cannot be loaded.
+        /// </returns>
         /// <exception cref="InvalidOperationException">Thrown if disabling two-factor authentication fails for the current user.</exception>
         public async Task<Result<Response>> HandleAsync(Disable2faRequest request)
         {

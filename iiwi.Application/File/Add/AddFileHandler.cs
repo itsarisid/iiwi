@@ -22,6 +22,10 @@ public sealed record AddFileHandler : IHandler<AddFileRequest, IEnumerable<Binar
     /// Handles adding uploaded files and returns the saved binary files.
     /// </summary>
     /// <param name="request">The request containing files to save.</param>
+    /// <summary>
+    /// Handles adding uploaded files by saving them to the application's files directory and returning the saved binary representations.
+    /// </summary>
+    /// <param name="request">The request containing uploaded files to persist.</param>
     /// <returns>A Result containing the saved <see cref="BinaryFile"/> instances and HTTP status code 200 (OK).</returns>
     public async Task<Result<IEnumerable<BinaryFile>>> HandleAsync(AddFileRequest request)
     {

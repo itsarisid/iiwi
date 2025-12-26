@@ -11,6 +11,8 @@ public sealed class AddFileRequestValidator : AbstractValidator<AddFileRequest>
     /// Initializes a new instance of the <see cref="AddFileRequestValidator"/> class.
     /// <summary>
 /// Initializes a validator for <see cref="AddFileRequest"/>, registering file validation rules for its <c>Files</c> property.
+/// <summary>
+/// Initializes a validator for AddFileRequest and applies validation rules to its Files property.
 /// </summary>
     public AddFileRequestValidator() => RuleFor(request => request.Files).Files();
 }

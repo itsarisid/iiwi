@@ -27,7 +27,10 @@ public class DeleteRoleRequestHandler(
     /// Handles a delete role request and produces a success response.
     /// </summary>
     /// <param name="request">The delete role request to process.</param>
-    /// <returns>A Result containing an HTTP 200 response with a Response whose Message is "Role Update Successfully."</returns>
+    /// <summary>
+    /// Handles a delete-role request and returns a success response.
+    /// </summary>
+    /// <returns>A Result containing HTTP 200 and a Response whose Message is "Role Update Successfully."</returns>
     public async Task<Result<Response>> HandleAsync(DeleteRoleRequest request)
     {
         var roles = await _roleManager.Roles

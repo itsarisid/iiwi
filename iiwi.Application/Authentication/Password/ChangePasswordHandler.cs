@@ -43,6 +43,16 @@ namespace iiwi.Application.Authentication;
         /// - HTTP 400 (BadRequest) with a message when the current user cannot be loaded.
         /// - HTTP 500 (InternalServerError) with a message when the password change fails.
         /// - HTTP 200 (OK) with a message when the password change succeeds.
+        /// <summary>
+        /// Changes the current user's password using the provided old and new passwords.
+        /// </summary>
+        /// <param name="request">Request containing the user's current password and the desired new password.</param>
+        /// <returns>
+        /// A Result containing a Response with an HTTP status code:
+        ///  - 400 (BadRequest) if the current user cannot be loaded;
+        ///  - 500 (InternalServerError) if the password change fails;
+        ///  - 200 (OK) if the password was changed successfully.
+        /// The Response.Message contains a human-readable description of the outcome.
         /// </returns>
         public async Task<Result<Response>> HandleAsync(ChangePasswordRequest request)
         {

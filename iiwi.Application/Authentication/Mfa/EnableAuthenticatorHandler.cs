@@ -39,6 +39,14 @@ namespace iiwi.Application.Authentication
         /// A result wrapping an <see cref="EnableAuthenticatorResponse"/>:
         /// - On success (HTTP 200): contains generated recovery codes, an authenticator QR code URI, and a success message.
         /// - On failure (HTTP 400): contains an error message describing why the enable operation did not complete.
+        /// <summary>
+        /// Enables two-factor authentication for the current user by validating the provided authenticator verification code.
+        /// </summary>
+        /// <param name="request">Request containing the authenticator verification code (spaces and hyphens are ignored) to validate and enable 2FA.</param>
+        /// <returns>
+        /// A Result containing an EnableAuthenticatorResponse:
+        /// - HTTP 200: response includes generated recovery codes, an authenticator provisioning URI, and a success message when verification succeeds.
+        /// - HTTP 400: response contains an error message when the user cannot be loaded or the verification code is invalid.
         /// </returns>
         public async Task<Result<EnableAuthenticatorResponse>> HandleAsync(EnableAuthenticatorRequest request)
         {
@@ -108,7 +116,12 @@ namespace iiwi.Application.Authentication
         /// </summary>
         /// <param name="email">The user's email address to include in the URI; may be null or empty.</param>
         /// <param name="unformattedKey">The authenticator key in unformatted form to include in the URI.</param>
-        /// <returns>The formatted authenticator provisioning URI with the path and email URL-encoded and the provided key included.</returns>
+        /// <summary>
+        /// Builds the authenticator provisioning URI used to generate a QR code for an authenticator app.
+        /// </summary>
+        /// <param name="email">The account email to embed in the URI; empty string is used if null.</param>
+        /// <param name="unformattedKey">The user's unformatted authenticator key to include in the URI.</param>
+        /// <returns>The provisioning URI with the path and email URL-encoded and the provided key included.</returns>
         private string GenerateQrCodeUri(string email, string unformattedKey)
         {
             return string.Format(

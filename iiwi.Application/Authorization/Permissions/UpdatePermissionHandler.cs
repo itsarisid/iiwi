@@ -31,6 +31,14 @@ public class UpdatePermissionHandler(
     /// <param name="request">An UpdatePermissionRequest containing the role identifier and the permissions to apply.</param>
     /// <returns>
     /// A Result&lt;Response&gt; with HTTP 404 and Response.Message = &quot;Not Found&quot; if the role does not exist; otherwise HTTP 200 and Response.Message = &quot;Permission update successfully.&quot;
+    /// <summary>
+    /// Updates permissions for the role specified by the request.
+    /// </summary>
+    /// <param name="request">Request containing the target role's Id and the permissions to apply.</param>
+    /// <returns>
+    /// A Result containing a Response and an HTTP status code:
+    /// - 404 with Response.Message = "Not Found" if the role does not exist.
+    /// - 200 with Response.Message = "Permission update successfully." when the update path completes.
     /// </returns>
     public async Task<Result<Response>> HandleAsync(UpdatePermissionRequest request)
     {

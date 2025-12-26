@@ -20,7 +20,11 @@ public class ChangeEmailHandler(
     /// </summary>
     /// <param name="request">Request containing the new email address to confirm.</param>
     /// <returns>A Result wrapping a Response:
-    /// `404 NotFound` when the current user cannot be loaded; `200 OK` with a message that a confirmation link was sent if the new email differs from the current one; `200 OK` with a message that the email is unchanged if the new email matches the current address.</returns>
+    /// <summary>
+    /// Handles a request to change the current user's email and, when different, sends a confirmation link to the new address.
+    /// </summary>
+    /// <param name="request">The change-email request containing the desired new email address.</param>
+    /// <returns>The result containing an HTTP status and response message: `404 NotFound` if the current user cannot be loaded; `200 OK` with a confirmation message when a change-email link is sent to the new address; `200 OK` with a message that the email is unchanged when the new email matches the current address.</returns>
     public async Task<Result<Response>> HandleAsync(ChangeEmailRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

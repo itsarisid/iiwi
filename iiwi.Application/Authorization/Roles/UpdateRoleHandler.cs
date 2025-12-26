@@ -28,7 +28,11 @@ public class UpdateRoleRequestHandler(
     /// Handles updating an existing role identified by the request's Id.
     /// </summary>
     /// <param name="request">Contains the role Id (expected to be populated from URL parameters) and the new Name to apply to the role.</param>
-    /// <returns>A Result containing a Response with an HTTP status and message: 404 if the role is not found, 400 with aggregated identity errors if the update fails, or 200 on success.</returns>
+    /// <summary>
+    /// Updates an existing role identified by the request's Id with the provided new name.
+    /// </summary>
+    /// <param name="request">Request containing the role Id (typically provided via URL parameters) and the new role Name.</param>
+    /// <returns>A Result containing a Response with an HTTP status and message: `NotFound` if the role is not found, `BadRequest` with aggregated identity error codes and descriptions if the update fails, or `OK` when the role is updated successfully.</returns>
     public async Task<Result<Response>> HandleAsync(UpdateRoleRequest request)
     {
         // Expecting Id to be set via URL params merge (Helper.MergeParameters supports non-public props)

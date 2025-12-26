@@ -15,6 +15,11 @@ public class ConfirmEmailValidator : AbstractValidator<ConfirmEmailRequest>
     /// </summary>
     /// <remarks>
     /// Ensures the request's <see cref="ConfirmEmailRequest.UserId"/> and <see cref="ConfirmEmailRequest.Code"/> are not empty.
+    /// <summary>
+    /// Configures validation rules for confirming a user's email.
+    /// </summary>
+    /// <remarks>
+    /// Requires the request's <c>UserId</c> and <c>Code</c> properties to be present (not empty).
     /// </remarks>
     public ConfirmEmailValidator()
     {

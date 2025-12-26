@@ -43,7 +43,11 @@ ILogger<ResetAuthenticatorHandler> _logger) : IHandler<ResetAuthenticatorRequest
     /// <returns>
     /// A Result containing a Response: a BadRequest response with an error message if the current user cannot be loaded;
     /// otherwise an OK response with a message indicating the authenticator key was reset and reconfiguration is required.
-    /// </returns>
+    /// <summary>
+    /// Reset the current user's authenticator app key and disable two-factor authentication for the account.
+    /// </summary>
+    /// <param name="request">The reset request payload.</param>
+    /// <returns>A <see cref="Result{Response}"/> containing a success message when the authenticator key was reset and reconfiguration is required; if the current user cannot be loaded, a BadRequest result with an error message.</returns>
     public async Task<Result<Response>> HandleAsync(ResetAuthenticatorRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);

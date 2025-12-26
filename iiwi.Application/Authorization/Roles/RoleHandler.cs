@@ -30,7 +30,11 @@ public class RoleHandler(
     /// Processes a role listing request and produces a response containing the available roles.
     /// </summary>
     /// <param name="request">The request describing parameters for listing roles.</param>
-    /// <returns>A Result containing a RoleResponse with the retrieved roles and a message.</returns>
+    /// <summary>
+    /// Handles a role-listing request and produces a response with the available roles.
+    /// </summary>
+    /// <param name="request">The incoming role request.</param>
+    /// <returns>A Result containing a RoleResponse with the list of roles and an informational message.</returns>
     public async Task<Result<RoleResponse>> HandleAsync(RoleRequest request)
     {
         var roles = await _roleManager.Roles

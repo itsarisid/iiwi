@@ -27,7 +27,11 @@ public class AddRoleClaimRequestHandler(
     /// Handles an AddRoleClaimRequest and returns a response indicating the outcome of the operation.
     /// </summary>
     /// <param name="request">The request containing details for adding a role claim.</param>
-    /// <returns>A Result containing a Response with an HTTP status code and a message describing the operation result.</returns>
+    /// <summary>
+    /// Handles an add-role-claim request by retrieving roles and returning a success response.
+    /// </summary>
+    /// <param name="request">The AddRoleClaimRequest that triggered the operation; the handler does not inspect the request's payload.</param>
+    /// <returns>A Result containing a Response with HTTP status code 200 (OK) and a message indicating the role update succeeded.</returns>
     public async Task<Result<Response>> HandleAsync(AddRoleClaimRequest request)
     {
         var roles = await _roleManager.Roles

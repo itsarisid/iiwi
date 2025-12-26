@@ -17,6 +17,11 @@ public class AccountStatusHandler(
     /// </summary>
     /// <returns>
     /// A Result containing an AccountStatusResponse with the user's two-factor and recovery-code status. If the current user cannot be loaded the result will have HTTP status NotFound and an AccountStatusResponse with a message indicating the user ID.
+    /// <summary>
+    /// Retrieves the current user's account security status.
+    /// </summary>
+    /// <returns>
+    /// A Result&lt;AccountStatusResponse&gt; that is NotFound with a message when the current user cannot be loaded; otherwise OK with an AccountStatusResponse containing HasAuthenticator, Is2faEnabled, IsMachineRemembered, and RecoveryCodesLeft.
     /// </returns>
     public async Task<Result<AccountStatusResponse>> HandleAsync(AccountStatusRequest request)
     {

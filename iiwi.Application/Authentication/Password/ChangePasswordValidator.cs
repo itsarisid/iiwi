@@ -17,6 +17,13 @@ public class ChangePasswordValidator : AbstractValidator<ChangePasswordRequest>
     /// - Ensures OldPassword satisfies the project's password rules.
     /// - Ensures NewPassword satisfies the project's password rules.
     /// - Ensures ConfirmPassword satisfies confirm-password rules and is equal to NewPassword.
+    /// <summary>
+    /// Initializes a validator that enforces password-related rules for a change-password request.
+    /// </summary>
+    /// <remarks>
+    /// - Validates <c>OldPassword</c> using the standard password rule.
+    /// - Validates <c>NewPassword</c> using the standard password rule.
+    /// - Validates <c>ConfirmPassword</c> using the confirm-password rule and requires it to be equal to <c>NewPassword</c>.
     /// </remarks>
     public ChangePasswordValidator()
     {

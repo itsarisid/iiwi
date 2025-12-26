@@ -33,6 +33,11 @@ namespace iiwi.Application.Authentication
         /// Handles the external login callback and associates the external login with the current user account.
         /// </summary>
         /// <returns>A Result containing a Response. On success the result has HTTP 200 with Message "The external login was added."; on failure the result has HTTP 400 with an explanatory message (user not found or external login not added).</returns>
+        /// <summary>
+        /// Associates the external login returned by the authentication callback with the current user account.
+        /// </summary>
+        /// <param name="request">The link login callback request.</param>
+        /// <returns>A Result&lt;Response&gt; containing HTTP 200 with the message "The external login was added." on success, or HTTP 400 with an explanatory message on failure.</returns>
         /// <exception cref="InvalidOperationException">Thrown when external login information cannot be loaded for the user.</exception>
         public async Task<Result<Response>> HandleAsync(LinkLoginCallbackRequest request)
         {

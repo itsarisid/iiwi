@@ -26,6 +26,10 @@ public class ClaimsPrincipalFactory(
     /// </summary>
     /// <param name="user">The application user for whom to create the principal.</param>
     /// <returns>The created ClaimsPrincipal containing the user's claims, role claims, and an updated "amr" claim.</returns>
+    /// <summary>
+    /// Creates a ClaimsPrincipal for the specified user including the user's claims, claims derived from their roles, and an authentication method ("amr") claim.
+    /// </summary>
+    /// <returns>A ClaimsPrincipal augmented with the user's claims, role-derived claims, and an "amr" claim indicating the authentication method.</returns>
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="user"/> is null.</exception>
     public override async Task<ClaimsPrincipal> CreateAsync(ApplicationUser user)
     {
@@ -86,6 +90,11 @@ public class ClaimsPrincipalFactory(
         return Task.CompletedTask;
     }
 
+    /// <summary>
+    /// Set or update the authentication method ("amr") claim on the provided identity based on the user's two-factor status.
+    /// </summary>
+    /// <param name="identity">The ClaimsIdentity to modify.</param>
+    /// <param name="user">The ApplicationUser whose TwoFactorEnabled flag determines the amr value ("mfa" for enabled, "pwd" for disabled).</param>
     private static void AddAuthenticationMethodClaim(ClaimsIdentity identity, ApplicationUser user)
     {
         var amrClaim = new Claim(

@@ -21,7 +21,11 @@ public sealed record GetFileHandler : IHandler<GetFileRequest, BinaryFile>
     /// Retrieves the binary file identified by the provided request.
     /// </summary>
     /// <param name="request">The request containing the identifier of the file to retrieve.</param>
-    /// <returns>A Result&lt;BinaryFile&gt; with HTTP status code 200 (OK) and the requested file.</returns>
+    /// <summary>
+    /// Retrieves the binary file identified by the request.
+    /// </summary>
+    /// <param name="request">The request containing the identifier of the file to retrieve.</param>
+    /// <returns>A Result&lt;BinaryFile&gt; with HTTP status code 200 (OK) containing the requested file.</returns>
     public async Task<Result<BinaryFile>> HandleAsync(GetFileRequest request)
     {
         var file = await BinaryFile.ReadAsync("Files", request.Id);

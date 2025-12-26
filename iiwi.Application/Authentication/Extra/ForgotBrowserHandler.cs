@@ -18,7 +18,10 @@ public class ForgotBrowserHandler(
     /// <param name="request">The request triggering the forget-browser operation.</param>
     /// <returns>
     /// A Result containing a Response with an HTTP status and message: `404 Not Found` when the user cannot be loaded, or `200 OK` after the current browser's two-factor client has been forgotten.
-    /// </returns>
+    /// <summary>
+    /// Forgets the current browser's two-factor authentication state for the authenticated user.
+    /// </summary>
+    /// <returns>A Result containing a Response with an HTTP status and message: 200 OK and a confirmation message when the browser is forgotten, or 404 NotFound and an error message if the current user cannot be loaded.</returns>
     public async Task<Result<Response>> HandleAsync(ForgotBrowserRequest request)
     {
         var user = await _userManager.GetUserAsync(_claimsProvider.ClaimsPrinciple);
