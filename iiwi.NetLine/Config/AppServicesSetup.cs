@@ -20,7 +20,7 @@ namespace iiwi.NetLine.Config;
 /// - Email services
 /// - Application-specific providers
 /// </remarks>
-public static class AppServicesesSetup
+public static class AppServicesSetup
 {
     /// <summary>
     /// Registers all application services with the dependency injection container
@@ -50,11 +50,11 @@ public static class AppServicesesSetup
     /// Usage Example:
     /// <code>
     /// var builder = WebApplication.CreateBuilder(args);
-    /// builder.Services.AddAppServiceses(builder.Configuration);
+    /// builder.Services.AddAppServices(builder.Configuration);
     /// </code>
     /// </para>
     /// </remarks>
-    public static IServiceCollection AddAppServiceses(this IServiceCollection services, ConfigurationManager configuration)
+    public static IServiceCollection AddAppServices(this IServiceCollection services, ConfigurationManager configuration)
     {
         ArgumentNullException.ThrowIfNull(services);
 
