@@ -11,6 +11,9 @@ namespace iiwi.NetLine.Extentions;
 
 public static class ApiVersioningExtensions
 {
+    /// <summary>
+    /// Executes the ConfigureApiVersioning operation.
+    /// </summary>
     public static void ConfigureApiVersioning(this ApiVersioningOptions options, ApiVersioningConfig config)
     {
         options.AssumeDefaultVersionWhenUnspecified = config.AssumeDefaultVersion;
@@ -28,6 +31,9 @@ public static class ApiVersioningExtensions
         }
     }
 
+    /// <summary>
+    /// Executes the CreateVersionReaders operation.
+    /// </summary>
     public static IApiVersionReader CreateVersionReaders()
     {
         return ApiVersionReader.Combine(
@@ -38,6 +44,9 @@ public static class ApiVersioningExtensions
         );
     }
 
+    /// <summary>
+    /// Executes the ConfigureSunsetPolicy operation.
+    /// </summary>
     public static void ConfigureSunsetPolicy(this ApiVersioningOptions options, ApiVersioningConfig config)
     {
         options.Policies.Sunset(config.SunsetVersion)
@@ -47,6 +56,9 @@ public static class ApiVersioningExtensions
             .Type(config.PolicyContentType);
     }
 
+    /// <summary>
+    /// Executes the ConfigureApiExplorer operation.
+    /// </summary>
     public static void ConfigureApiExplorer(this ApiExplorerOptions options, ApiVersioningConfig config)
     {
         options.GroupNameFormat = config.GroupNameFormat;
@@ -56,20 +68,59 @@ public static class ApiVersioningExtensions
     // Configuration class for better maintainability
     public class ApiVersioningConfig
     {
+        /// <summary>
+        /// Gets or sets the AssumeDefaultVersion.
+        /// </summary>
         public bool AssumeDefaultVersion { get; set; } = true;
+        /// <summary>
+        /// Gets or sets the DefaultApiVersion.
+        /// </summary>
         public ApiVersion DefaultApiVersion { get; set; } = new ApiVersion(1, 0);
+        /// <summary>
+        /// Gets or sets the ReportApiVersions.
+        /// </summary>
         public bool ReportApiVersions { get; set; } = true;
+        /// <summary>
+        /// Gets or sets the EnableMultipleVersionReaders.
+        /// </summary>
         public bool EnableMultipleVersionReaders { get; set; } = true;
+        /// <summary>
+        /// Gets or sets the EnableSunsetPolicy.
+        /// </summary>
         public bool EnableSunsetPolicy { get; set; } = true;
+        /// <summary>
+        /// Gets or sets the SunsetVersion.
+        /// </summary>
         public double SunsetVersion { get; set; } = 0.9;
+        /// <summary>
+        /// Gets or sets the SunsetDays.
+        /// </summary>
         public int SunsetDays { get; set; } = 60;
+        /// <summary>
+        /// Gets or sets the PolicyLink.
+        /// </summary>
         public string PolicyLink { get; set; } = "policy.html";
+        /// <summary>
+        /// Gets or sets the PolicyTitle.
+        /// </summary>
         public string PolicyTitle { get; set; } = "Versioning Policy";
+        /// <summary>
+        /// Gets or sets the PolicyContentType.
+        /// </summary>
         public string PolicyContentType { get; set; } = "text/html";
+        /// <summary>
+        /// Gets or sets the GroupNameFormat.
+        /// </summary>
         public string GroupNameFormat { get; set; } = "'v'VVV";
+        /// <summary>
+        /// Gets or sets the SubstituteInUrl.
+        /// </summary>
         public bool SubstituteInUrl { get; set; } = true;
     }
 
+    /// <summary>
+    /// Executes the CreateApiVersionSet operation.
+    /// </summary>
     public static ApiVersionSet CreateApiVersionSet(IEndpointRouteBuilder endpoints)
     {
         return endpoints.NewApiVersionSet()
@@ -80,6 +131,9 @@ public static class ApiVersioningExtensions
             .Build();
     }
 
+    /// <summary>
+    /// Executes the WithApiVersion operation.
+    /// </summary>
     public static RouteHandlerBuilder WithApiVersion(this RouteHandlerBuilder builder, ApiVersionSet apiVersion)
     {
         return builder.WithApiVersionSet(apiVersion)

@@ -12,6 +12,9 @@ public class MailService(IOptions<MailSettings> mailSettings) : IMailService
 {
     private readonly MailSettings _mailSettings = mailSettings.Value;
 
+    /// <summary>
+    /// Executes the SendEmailAsync operation.
+    /// </summary>
     public async Task SendEmailAsync(MailRequest mailRequest)
     {
         var email = new MimeMessage
@@ -47,6 +50,9 @@ public class MailService(IOptions<MailSettings> mailSettings) : IMailService
         await smtp.DisconnectAsync(true);
     }
 
+    /// <summary>
+    /// Executes the SendEmailWithTemplateAsync operation.
+    /// </summary>
     public async Task SendEmailWithTemplateAsync(EmailSettings model)
     {
         //FIXME: Dynamic template path.

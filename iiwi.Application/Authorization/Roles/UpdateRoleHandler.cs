@@ -16,6 +16,9 @@ public class UpdateRoleRequestHandler(
     ) : IHandler<UpdateRoleRequest, Response>
 {
 
+    /// <summary>
+    /// Executes the HandleAsync operation.
+    /// </summary>
     public async Task<Result<Response>> HandleAsync(UpdateRoleRequest request)
     {
         // Expecting Id to be set via URL params merge (Helper.MergeParameters supports non-public props)

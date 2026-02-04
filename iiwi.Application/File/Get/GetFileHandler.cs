@@ -10,6 +10,9 @@ namespace iiwi.Application.File;
 
 public sealed record GetFileHandler : IHandler<GetFileRequest, BinaryFile>
 {
+    /// <summary>
+    /// Executes the HandleAsync operation.
+    /// </summary>
     public async Task<Result<BinaryFile>> HandleAsync(GetFileRequest request)
     {
         var file = await BinaryFile.ReadAsync("Files", request.Id);

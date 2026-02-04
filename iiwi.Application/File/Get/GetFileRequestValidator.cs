@@ -5,6 +5,9 @@ namespace iiwi.Application.Fil;
 
 public sealed class GetFileRequestValidator : AbstractValidator<GetFileRequest>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GetFileRequestValidator"/> class.
+    /// </summary>
     public GetFileRequestValidator() => RuleFor(request => request.Id).Guid();
 }
 

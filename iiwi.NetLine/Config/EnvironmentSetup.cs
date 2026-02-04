@@ -85,7 +85,7 @@ public static class EnvironmentSetup
             });
 
             // Extended liveness check - tagged services
-            app.MapHealthChecks("healthz/alive", new HealthCheckOptions
+            app.MapHealthChecks("/healthz/alive", new HealthCheckOptions
             {
                 Predicate = r => r.Tags.Contains("live"),
                 ResponseWriter = HealthCheckerResponse.WriteResponse,

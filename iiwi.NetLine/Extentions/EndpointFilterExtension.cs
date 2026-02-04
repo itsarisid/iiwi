@@ -2,6 +2,9 @@
 
 public static class EndpointFilterExtension
 {
+    /// <summary>
+    /// Executes the AddFiltersByNames operation.
+    /// </summary>
     public static void AddFiltersByNames(this RouteHandlerBuilder builder, IEnumerable<string> filterNames)
     {
         var assemblyName = typeof(Program).Assembly.GetName().Name;

@@ -7,6 +7,9 @@ namespace iiwi.CLI;
 
 public static class Helper
 {
+    /// <summary>
+    /// Executes the CreateAddMigrationCommand operation.
+    /// </summary>
     public static Command CreateAddMigrationCommand()
     {
         var command = new Command("add", "Add a new migration");
@@ -36,6 +39,9 @@ public static class Helper
         return command;
     }
 
+    /// <summary>
+    /// Executes the CreateUpdateDatabaseCommand operation.
+    /// </summary>
     public static Command CreateUpdateDatabaseCommand()
     {
         var command = new Command("update", "Update database to latest or specified migration");
@@ -78,6 +84,9 @@ public static class Helper
         return command;
     }
 
+    /// <summary>
+    /// Executes the CreateListMigrationsCommand operation.
+    /// </summary>
     public static Command CreateListMigrationsCommand()
     {
         var command = new Command("list", "List all migrations");
@@ -113,6 +122,9 @@ public static class Helper
         return command;
     }
 
+    /// <summary>
+    /// Executes the CreateRemoveMigrationCommand operation.
+    /// </summary>
     public static Command CreateRemoveMigrationCommand()
     {
         var command = new Command("remove", "Remove the last migration");
@@ -140,6 +152,9 @@ public static class Helper
         return command;
     }
 
+    /// <summary>
+    /// Executes the CreateScriptMigrationCommand operation.
+    /// </summary>
     public static Command CreateScriptMigrationCommand()
     {
         var command = new Command("script", "Generate SQL script for migrations");
@@ -207,6 +222,9 @@ public static class Helper
         return command;
     }
 
+    /// <summary>
+    /// Executes the CreateInfoCommand operation.
+    /// </summary>
     public static Command CreateInfoCommand()
     {
         var command = new Command("info", "Display connection string and configuration information");
@@ -240,6 +258,9 @@ public static class Helper
         return command;
     }
 
+    /// <summary>
+    /// Executes the DisplayInfo operation.
+    /// </summary>
     public static void DisplayInfo(string? project, string? connectionName, string? environment, bool showConnection)
     {
         try
@@ -283,6 +304,9 @@ public static class Helper
         }
     }
 
+    /// <summary>
+    /// Executes the MaskConnectionString operation.
+    /// </summary>
     public static string MaskConnectionString(string connectionString)
     {
         var patterns = new[] { "Password=", "Pwd=", "User ID=", "UID=" };
@@ -305,6 +329,9 @@ public static class Helper
         return result;
     }
 
+    /// <summary>
+    /// Executes the BuildConfiguration operation.
+    /// </summary>
     public static IConfiguration BuildConfiguration(string workingDirectory, string? environment)
     {
         environment ??= "Development";
@@ -318,12 +345,18 @@ public static class Helper
         return builder.Build();
     }
 
+    /// <summary>
+    /// Executes the GetConnectionString operation.
+    /// </summary>
     public static string? GetConnectionString(IConfiguration configuration, string? connectionName)
     {
         connectionName ??= "DefaultConnection";
         return configuration.GetConnectionString(connectionName);
     }
 
+    /// <summary>
+    /// Executes the ExecuteMigrationCommand operation.
+    /// </summary>
     public static async Task ExecuteMigrationCommand(string action, string name, string? context, string? project, string? outputDir)
     {
         try
@@ -354,6 +387,9 @@ public static class Helper
         }
     }
 
+    /// <summary>
+    /// Executes the UpdateDatabase operation.
+    /// </summary>
     public static async Task UpdateDatabase(string? migration, string? context, string? project, string? connection, string? connectionName, string? environment)
     {
         try
@@ -401,6 +437,9 @@ public static class Helper
         }
     }
 
+    /// <summary>
+    /// Executes the ListMigrations operation.
+    /// </summary>
     public static async Task ListMigrations(string? context, string? project, string? connection, string? connectionName, string? environment)
     {
         try
@@ -440,6 +479,9 @@ public static class Helper
         }
     }
 
+    /// <summary>
+    /// Executes the RemoveMigration operation.
+    /// </summary>
     public static async Task RemoveMigration(string? context, string? project, bool force)
     {
         try
@@ -470,6 +512,9 @@ public static class Helper
         }
     }
 
+    /// <summary>
+    /// Executes the ScriptMigration operation.
+    /// </summary>
     public static async Task ScriptMigration(string? from, string? to, string? context, string? project, string? output, bool idempotent, string? connection, string? connectionName, string? environment)
     {
         try
@@ -526,6 +571,9 @@ public static class Helper
         }
     }
 
+    /// <summary>
+    /// Executes the ExecuteDotNetCommand operation.
+    /// </summary>
     public static async Task<int> ExecuteDotNetCommand(string[] args, string? workingDirectory)
     {
         var startInfo = new ProcessStartInfo

@@ -38,6 +38,9 @@ public class PingPong
         Description = "This API endpoint can be used for testing basic connectivity and retrieving application meta data."
     };
 
+    /// <summary>
+    /// Gets the SystemInfoEndpoint.
+    /// </summary>
     public static EndpointDetails SystemInfoEndpoint => new()
     {
         Endpoint = "/system/info",

@@ -72,6 +72,9 @@ public static class IdentitySetup
         return services;
     }
 
+    /// <summary>
+    /// Executes the UseIdentity operation.
+    /// </summary>
     public static void UseIdentity(this WebApplication app)
     {
         ArgumentNullException.ThrowIfNull(app);

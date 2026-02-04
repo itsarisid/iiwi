@@ -616,7 +616,13 @@ public static class IdentityExtensions
     {
         private IEndpointConventionBuilder InnerAsConventionBuilder => inner;
 
+        /// <summary>
+        /// Executes the Add operation.
+        /// </summary>
         public void Add(Action<EndpointBuilder> convention) => InnerAsConventionBuilder.Add(convention);
+        /// <summary>
+        /// Executes the Finally operation.
+        /// </summary>
         public void Finally(Action<EndpointBuilder> finallyConvention) => InnerAsConventionBuilder.Finally(finallyConvention);
     }
 
@@ -633,6 +639,9 @@ public static class IdentityExtensions
     [AttributeUsage(AttributeTargets.Parameter)]
     private sealed class FromQueryAttribute : Attribute, IFromQueryMetadata
     {
+        /// <summary>
+        /// Gets the Name.
+        /// </summary>
         public string Name => null;
     }
 }

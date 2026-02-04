@@ -15,6 +15,9 @@ public class UpdatePermissionHandler(
     ) : IHandler<UpdatePermissionRequest, Response>
 {
 
+    /// <summary>
+    /// Executes the HandleAsync operation.
+    /// </summary>
     public async Task<Result<Response>> HandleAsync(UpdatePermissionRequest request)
     {
         var role = await _roleManager.FindByIdAsync(request.Id);

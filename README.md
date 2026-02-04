@@ -194,6 +194,27 @@ Groups and endpoints are organized by modules (Accounts, Authentication, Authori
 - iiwi.SearchEngine — search engine components
 - iiwi.Scheduler — background jobs (Quartz)
 
+## Project structure
+
+```
+iiwi/
+├── iiwi.Application/        # application layer (handlers, requests, validators)
+├── iiwi.CLI/                # CLI tools for migrations and diagnostics
+├── iiwi.Common/             # shared utilities and helpers
+├── iiwi.Core/               # core abstractions and primitives
+├── iiwi.Database/           # EF Core context, migrations, repositories
+├── iiwi.Domain/             # domain entities and value objects
+├── iiwi.Infrastructure/     # infrastructure services (email, templates, etc.)
+├── iiwi.Library/            # shared library components
+├── iiwi.Model/              # DTOs and contracts
+├── iiwi.NetLine/            # web/API project (Program.cs, endpoints, config)
+├── iiwi.Scheduler/          # background jobs (Quartz)
+├── iiwi.SearchEngine/       # search engine components
+├── iiwi.SearchEngine.Tests/ # search engine unit tests
+├── iiwi.slnx                # solution file
+└── README.md
+```
+
 ---
 
 ## Common tasks and examples

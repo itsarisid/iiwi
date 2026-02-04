@@ -14,6 +14,9 @@ public class RemoveClaimHandler(
     ) : IHandler<RemoveClaimRequest, Response>
 {
 
+    /// <summary>
+    /// Executes the HandleAsync operation.
+    /// </summary>
     public async Task<Result<Response>> HandleAsync(RemoveClaimRequest request)
     {
         var roles = await _roleManager.Roles

@@ -15,6 +15,9 @@ public class AddRoleClaimRequestHandler(
     ) : IHandler<AddRoleClaimRequest, Response>
 {
 
+    /// <summary>
+    /// Executes the HandleAsync operation.
+    /// </summary>
     public async Task<Result<Response>> HandleAsync(AddRoleClaimRequest request)
     {
         var roles = await _roleManager.Roles

@@ -5,6 +5,9 @@ namespace iiwi.Database;
 
 public static class iiwiContextSeed
 {
+    /// <summary>
+    /// Executes the Seed operation.
+    /// </summary>
     public static void Seed(this ModelBuilder builder) => builder.SeedData();
     private static void SeedData(this ModelBuilder builder)
     {

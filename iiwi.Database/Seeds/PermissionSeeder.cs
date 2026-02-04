@@ -8,6 +8,9 @@ namespace iiwi.Data.Seeds;
 public static class PermissionSeeder
 {
     private static readonly DateTime SeedDate = new(2025, 5, 9, 0, 0, 0, DateTimeKind.Utc);
+    /// <summary>
+    /// Gets the SeedData.
+    /// </summary>
     public static IEnumerable<Permission> SeedData =>
         [.. Permissions.GetAll()
             .Select((permission, index) => new Permission
@@ -19,11 +22,17 @@ public static class PermissionSeeder
                 IsActive = true
             })];
 
+    /// <summary>
+    /// Executes the SeedPermissions operation.
+    /// </summary>
     public static void SeedPermissions(this ModelBuilder modelBuilder)
     {
         _ = modelBuilder.Entity<Permission>().HasData(SeedData);
     }
 
+    /// <summary>
+    /// Executes the SeedPermissions operation.
+    /// </summary>
     public static EntityTypeBuilder<Permission> SeedPermissions(this EntityTypeBuilder<Permission> builder)
     {
         builder.HasData(SeedData);

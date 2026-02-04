@@ -4,6 +4,9 @@ namespace iiwi.Application.Authentication;
 
 public record ForgotPasswordRequest
 {
+    /// <summary>
+    /// Gets or sets the Email.
+    /// </summary>
     [Required]
     [EmailAddress]
     public string Email { get; set; }

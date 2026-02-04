@@ -6,6 +6,9 @@ namespace iiwi.Database.Logs;
 
 public sealed class SerilogConfiguration : IEntityTypeConfiguration<Serilog>
 {
+    /// <summary>
+    /// Executes the Configure operation.
+    /// </summary>
     public void Configure(EntityTypeBuilder<Serilog> builder)
     {
         builder.ToTable(nameof(Serilog), "Log");

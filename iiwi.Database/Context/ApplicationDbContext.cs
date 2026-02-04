@@ -16,9 +16,15 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
     ApplicationRoleClaim,
     ApplicationUserToken>(options)
 {
+    /// <summary>
+    /// Gets or sets the Permission.
+    /// </summary>
     public DbSet<Permission> Permission { get; set; }
 
     // NOTE: These logs should move to different DbContext 
+    /// <summary>
+    /// Gets or sets the AuditLog.
+    /// </summary>
     public DbSet<AuditLog> AuditLog { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

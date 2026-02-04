@@ -11,4 +11,5 @@
   <Project Path="iiwi.NetLine/iiwi.NetLine.csproj" />
   <Project Path="iiwi.Scheduler/iiwi.Scheduler.csproj" />
   <Project Path="iiwi.SearchEngine/iiwi.SearchEngine.csproj" />
+  <Project Path="iiwi.SearchEngine.Tests/iiwi.SearchEngine.Tests.csproj" />
 </Solution>
