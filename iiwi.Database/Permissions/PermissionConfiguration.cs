@@ -8,6 +8,9 @@ namespace iiwi.Database;
 
 public sealed class PermissionConfiguration : IEntityTypeConfiguration<Permission>
 {
+    /// <summary>
+    /// Executes the Configure operation.
+    /// </summary>
     public void Configure(EntityTypeBuilder<Permission> builder)
     {
         builder.ToTable(nameof(Permission), General.Schema.Name);

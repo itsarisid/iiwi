@@ -156,10 +156,19 @@ public static class Helper
     // Usage in request classes
     public class AddRoleClaimRequest
     {
+        /// <summary>
+        /// Gets or sets the RoleId.
+        /// </summary>
         [FromUrl]
         public int RoleId { get; init; }  // This comes from URL
 
+        /// <summary>
+        /// Gets or sets the ClaimType.
+        /// </summary>
         public string ClaimType { get; init; } = string.Empty;  // This comes from body
+        /// <summary>
+        /// Gets or sets the ClaimValue.
+        /// </summary>
         public string ClaimValue { get; init; } = string.Empty; // This comes from body
     }
 }

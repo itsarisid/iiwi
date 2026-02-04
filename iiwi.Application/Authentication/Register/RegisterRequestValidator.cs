@@ -6,6 +6,9 @@ namespace iiwi.Application.Authentication;
 
 public class RegisterRequestValidator : AbstractValidator<RegisterRequest>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RegisterRequestValidator"/> class.
+    /// </summary>
     public RegisterRequestValidator()
     {
         RuleFor(request => request.Email).Email();

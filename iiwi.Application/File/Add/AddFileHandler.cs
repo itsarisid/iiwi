@@ -11,6 +11,9 @@ namespace iiwi.Application.File;
 
 public sealed record AddFileHandler : IHandler<AddFileRequest, IEnumerable<BinaryFile>>
 {
+    /// <summary>
+    /// Executes the HandleAsync operation.
+    /// </summary>
     public async Task<Result<IEnumerable<BinaryFile>>> HandleAsync(AddFileRequest request)
     {
         var files = await request.Files.SaveAsync(General.Directories.Files);

@@ -7,6 +7,9 @@ namespace iiwi.Database.Context;
 
 public class iiwiDbContextFactory : IDesignTimeDbContextFactory<iiwiDbContext>
 {
+    /// <summary>
+    /// Executes the CreateDbContext operation.
+    /// </summary>
     public iiwiDbContext CreateDbContext(string[] args)
     {
         // Get environment

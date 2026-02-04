@@ -15,6 +15,9 @@ public class PermissionHandler(
     ) : IHandler<PermissionRequest, PermissionResponse>
 {
 
+    /// <summary>
+    /// Executes the HandleAsync operation.
+    /// </summary>
     public async Task<Result<PermissionResponse>> HandleAsync(PermissionRequest request)
     {
         var role = await _roleManager.FindByIdAsync(request.Id);

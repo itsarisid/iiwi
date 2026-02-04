@@ -8,11 +8,17 @@ namespace iiwi.NetLine.Swagger;
 
 public class NamedSwaggerGenOptions(IApiVersionDescriptionProvider provider) : IConfigureNamedOptions<SwaggerGenOptions>
 {
+    /// <summary>
+    /// Executes the Configure operation.
+    /// </summary>
     public void Configure(string? name, SwaggerGenOptions options)
     {
         Configure(options);
     }
 
+    /// <summary>
+    /// Executes the Configure operation.
+    /// </summary>
     public void Configure(SwaggerGenOptions options)
     {
         // add swagger document for every API version discovered

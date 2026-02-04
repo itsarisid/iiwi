@@ -5,6 +5,9 @@ namespace iiwi.Application.Account;
 
 public class UpdateProfileValidator:AbstractValidator<UpdateProfileRequest>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UpdateProfileValidator"/> class.
+    /// </summary>
     public UpdateProfileValidator()
     {
         RuleFor(request => request.FirstName).Name();

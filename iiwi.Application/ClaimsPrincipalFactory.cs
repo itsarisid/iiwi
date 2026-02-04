@@ -10,6 +10,9 @@ public class ClaimsPrincipalFactory(
     RoleManager<ApplicationRole> roleManager,
     IOptions<IdentityOptions> optionsAccessor) : UserClaimsPrincipalFactory<ApplicationUser, ApplicationRole>(userManager, roleManager, optionsAccessor)
 {
+    /// <summary>
+    /// Executes the CreateAsync operation.
+    /// </summary>
     public override async Task<ClaimsPrincipal> CreateAsync(ApplicationUser user)
     {
         ArgumentNullException.ThrowIfNull(user);

@@ -5,6 +5,9 @@ namespace iiwi.NetLine.Swagger;
 
 public static class SwaggerUIExtensions
 {
+    /// <summary>
+    /// Executes the ConfigureApiEndpoints operation.
+    /// </summary>
     public static SwaggerUIOptions ConfigureApiEndpoints(this SwaggerUIOptions options, WebApplication app)
     {
         var descriptions = app.DescribeApiVersions();

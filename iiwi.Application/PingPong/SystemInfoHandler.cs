@@ -15,6 +15,9 @@ public class SystemInfoHandler(
     IWebHostEnvironment hostEnvironment,
     ILogger<UpdateProfileHandler> _logger) : IHandler<EmptyRequest, SystemInfoResponse>
 {
+    /// <summary>
+    /// Executes the HandleAsync operation.
+    /// </summary>
     public async Task<Result<SystemInfoResponse>> HandleAsync(EmptyRequest request)
     {
         _logger.LogWarning("Ping pong service called.");

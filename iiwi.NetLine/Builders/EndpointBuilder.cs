@@ -64,10 +64,22 @@ public class EndpointConfigurator<TRequest, TResponse>(
     where TRequest : class, new()
     where TResponse : class, new()
 {
+    /// <summary>
+    /// Gets the Builder.
+    /// </summary>
     public RouteHandlerBuilder Builder { get; } = builder;
+    /// <summary>
+    /// Gets the Configuration.
+    /// </summary>
     public Configure<TRequest, TResponse> Configuration { get; } = configuration;
+    /// <summary>
+    /// Gets the ApiVersionSet.
+    /// </summary>
     public ApiVersionSet ApiVersionSet { get; } = apiVersionSet;
 
+    /// <summary>
+    /// Executes the ApplyMetadata operation.
+    /// </summary>
     public EndpointConfigurator<TRequest, TResponse> ApplyMetadata()
     {
         Builder.WithMetadata(Configuration.EndpointMetadata)
@@ -75,6 +87,9 @@ public class EndpointConfigurator<TRequest, TResponse>(
         return this;
     }
 
+    /// <summary>
+    /// Executes the ApplyAuthentication operation.
+    /// </summary>
     public EndpointConfigurator<TRequest, TResponse> ApplyAuthentication()
     {
         if (Configuration.AuthorizationPolicies.Length > 0)
@@ -88,6 +103,9 @@ public class EndpointConfigurator<TRequest, TResponse>(
         return this;
     }
 
+    /// <summary>
+    /// Executes the ApplyCaching operation.
+    /// </summary>
     public EndpointConfigurator<TRequest, TResponse> ApplyCaching()
     {
         if (Configuration.EnableCaching && Configuration.CachePolicy != CachePolicy.NoCache)
@@ -97,6 +115,9 @@ public class EndpointConfigurator<TRequest, TResponse>(
         return this;
     }
 
+    /// <summary>
+    /// Executes the ApplyLogging operation.
+    /// </summary>
     public EndpointConfigurator<TRequest, TResponse> ApplyLogging()
     {
         if (Configuration.EnableHttpLogging)
@@ -106,6 +127,9 @@ public class EndpointConfigurator<TRequest, TResponse>(
         return this;
     }
 
+    /// <summary>
+    /// Executes the ApplyFilters operation.
+    /// </summary>
     public EndpointConfigurator<TRequest, TResponse> ApplyFilters()
     {
         if (Configuration.EndpointFilters?.Any() == true)
@@ -115,6 +139,9 @@ public class EndpointConfigurator<TRequest, TResponse>(
         return this;
     }
 
+    /// <summary>
+    /// Executes the ApplyVersioning operation.
+    /// </summary>
     public EndpointConfigurator<TRequest, TResponse> ApplyVersioning()
     {
         Builder.WithApiVersionSet(ApiVersionSet);

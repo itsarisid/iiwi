@@ -11,6 +11,9 @@ public static class Permissions
     public static readonly AuthenticationPermissions Authentication = PermissionModule.Permissions<AuthenticationPermissions>("Authentication");
     public static readonly AuthorizationPermissions Authorization = PermissionModule.Permissions<AuthorizationPermissions>("Authorization");
 
+    /// <summary>
+    /// Executes the GetAll operation.
+    /// </summary>
     public static IEnumerable<string> GetAll() =>
        AllPermissionModules.SelectMany(module => module);
 

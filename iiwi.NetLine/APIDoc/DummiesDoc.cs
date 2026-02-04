@@ -8,6 +8,9 @@ namespace iiwi.NetLine.APIDoc;
 public class DummiesDoc
 {
   
+    /// <summary>
+    /// Gets the Group.
+    /// </summary>
     public static EndpointDetails Group => new()
     {
         Name = "Dummies",
@@ -17,6 +20,9 @@ public class DummiesDoc
     };
 
     
+    /// <summary>
+    /// Gets the TestEndpoint.
+    /// </summary>
     public static EndpointDetails TestEndpoint => new()
     {
         Endpoint = "/test",
@@ -25,6 +31,9 @@ public class DummiesDoc
         Description = "This API endpoint can be used for testing basic connectivity and retrieving application meta data."
     };
 
+    /// <summary>
+    /// Gets the AuthTestEndpoint.
+    /// </summary>
     public static EndpointDetails AuthTestEndpoint => new()
     {
         Endpoint = "/test-ping-pong",

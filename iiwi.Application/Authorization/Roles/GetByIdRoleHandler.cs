@@ -15,6 +15,9 @@ public class GetByIdRoleHandler(
     ) : IHandler<GetByIdRoleRequest, GetByIdRoleResponse>
 {
 
+    /// <summary>
+    /// Executes the HandleAsync operation.
+    /// </summary>
     public async Task<Result<GetByIdRoleResponse>> HandleAsync(GetByIdRoleRequest request)
     {
         var role = await _roleManager.FindByIdAsync(request.Id);

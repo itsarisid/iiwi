@@ -12,6 +12,9 @@ namespace iiwi.NetLine.Modules;
 
 public class PingPongModules : IEndpoints
 {
+    /// <summary>
+    /// Executes the AddRoutes operation.
+    /// </summary>
     public void AddRoutes(IEndpointRouteBuilder endpoints)
     {
         ArgumentNullException.ThrowIfNull(endpoints);

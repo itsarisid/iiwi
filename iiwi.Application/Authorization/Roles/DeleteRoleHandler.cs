@@ -14,6 +14,9 @@ public class DeleteRoleRequestHandler(
     ) : IHandler<DeleteRoleRequest, Response>
 {
 
+    /// <summary>
+    /// Executes the HandleAsync operation.
+    /// </summary>
     public async Task<Result<Response>> HandleAsync(DeleteRoleRequest request)
     {
         var roles = await _roleManager.Roles
